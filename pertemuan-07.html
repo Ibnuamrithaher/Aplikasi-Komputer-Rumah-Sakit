@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 07 — Excel Lanjutan: Grafik &amp; Statistik | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
+  --primary:#0b7285;--primary-ink:#fff;--primary-soft:#d3f0f4;
+  --accent:#e8590c;--ok:#2b8a3e;--ok-soft:#dff3e3;--warn:#e67700;--bad:#c92a2a;--bad-soft:#fbe1e1;
+  --c1:#0b7285;--c2:#e8590c;--c3:#7048e8;--c4:#2b8a3e;--c5:#c2255c;--c6:#f08c00;--c7:#1971c2;--c8:#5c940d;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);--r:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0e1b20;--surface:#15272e;--ink:#e6f1f3;--muted:#9bb2ba;--line:#27414a;
+  --primary:#3bc0d6;--primary-ink:#06222a;--primary-soft:#14414b;
+  --accent:#ff922b;--ok:#69db7c;--ok-soft:#173a22;--warn:#ffc078;--bad:#ff8787;--bad-soft:#4a1d1d;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
+.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+nav.agenda a.done .tick{visibility:visible}main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}.hero p{margin:6px 0;opacity:.95}.hero ul{margin:8px 0 0;padding-left:20px}
+@media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-timer{display:inline-flex;gap:6px;align-items:center}
+.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.seg-timer.over .btn{background:var(--bad);color:#fff}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}
+.kriteria{font-size:.92rem;color:var(--muted)}
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}
+.quiz label.benar{background:var(--ok-soft)}.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}
+.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+/* Minisheet */
+.ms-wrap{overflow:auto;border:1px solid var(--line);border-radius:8px;max-height:480px}
+table.ms{border-collapse:collapse;font-size:.92rem;min-width:100%}
+table.ms th{background:var(--primary-soft);position:sticky;top:0;z-index:1;border:1px solid var(--line);padding:2px 8px;font-weight:600;white-space:nowrap}
+table.ms th.rh{position:sticky;left:0;top:auto;z-index:1}
+table.ms td{border:1px solid var(--line);padding:0;min-width:90px}
+table.ms input{width:100%;border:0;background:transparent;padding:4px 8px;font-size:.92rem}
+table.ms input:focus{background:var(--primary-soft);outline:2px solid var(--primary);outline-offset:-2px}
+table.ms input.num{text-align:right}table.ms input.err{color:var(--bad)}
+.ms-bar{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.ms-bar .addr{min-width:54px;font-weight:700;background:var(--primary-soft);padding:2px 10px;border-radius:6px;text-align:center}
+.ms-bar .fx{flex:1;min-width:160px;font-family:ui-monospace,Consolas,monospace;border:1px solid var(--line);border-radius:6px;padding:4px 10px;background:var(--surface)}
+.tantangan{list-style:none;padding:0}
+.tantangan li{padding:6px 10px;margin:4px 0;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.tantangan li.ok{background:var(--ok-soft);border-color:var(--ok)}
+/* Chart */
+.chart-wrap svg{width:100%;height:auto;max-width:640px;display:block;margin:0 auto}
+.chart-wrap svg text{fill:var(--ink);font-size:12px}
+.chart-ctl{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.chart-tbl{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px;max-width:400px}
+.chart-tbl th,.chart-tbl td{border:1px solid var(--line);padding:4px 8px}
+.chart-tbl th{background:var(--primary-soft)}
+.chart-tbl input{width:100%;border:0;background:transparent;padding:2px 6px;font-size:.9rem}
+/* Quiz grafik */
+.quiz-grafik-soal{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.quiz-grafik-soal p{margin:0 0 8px;font-weight:700}
+.grafik-opsi{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0}
+.grafik-btn{border:2px solid var(--line);border-radius:8px;background:var(--surface);padding:6px 12px;cursor:pointer;font-size:.9rem}
+.grafik-btn:hover{border-color:var(--primary)}
+.grafik-btn.pilih{border-color:var(--primary);background:var(--primary-soft)}
+.grafik-btn.benar{border-color:var(--ok);background:var(--ok-soft)}
+.grafik-btn.salah{border-color:var(--bad);background:var(--bad-soft)}
+.grafik-fb{font-size:.9rem;color:var(--muted);margin-top:4px}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}
+  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.chart-ctl,.skip{display:none!important}
+  .wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
+  .hero{background:#fff;color:#000}}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+<header class="top">
+  <h1><span id="hdr-judul">Excel Lanjutan: Grafik &amp; Statistik</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 07</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
+  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 07 · CPMK-2</span>
+      <h2 id="hero-judul">Microsoft Excel Lanjutan: Grafik &amp; Statistik</h2>
+      <p id="hero-cpmk">CPMK-2: Mampu menyusun laporan dengan fungsi visual dan statistik pada MS Excel.</p>
+      <ul id="hero-tujuan"></ul>
+    </div>
+
+    <!-- PEMBUKA -->
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">Bu Sri Wahyuni, Kepala Administrasi RS Sehat Citra (fiktif), meminta stafnya membuat laporan kunjungan pasien bulanan lengkap dengan grafik untuk rapat direksi besok pagi. Staf tersebut, Mas Hendra, bingung: ada data 12 bulan kunjungan rawat jalan, rawat inap, dan IGD — grafik apa yang paling tepat? Apakah Line, Bar, atau Pie? Bagaimana cara menghitung mana bulan tertinggi dan terendah secara otomatis?</p>
+      <p>Hari ini kita pelajari fungsi MAX, MIN, dan AVERAGE untuk analisis statistik dasar, serta cara memilih dan membuat jenis grafik yang tepat dari data RS menggunakan MS Excel.</p>
+    </section>
+
+    <!-- PRE-TEST -->
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
+      <p>Jawab dulu tanpa takut salah — untuk melihat titik awal pengetahuanmu.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test","soal":[
+        {"q":"Fungsi MAX(A1:A10) di Excel mengembalikan:","opsi":["Jumlah semua nilai","Nilai terbesar","Nilai terkecil","Rata-rata nilai"],"benar":1,"jelas":"MAX() mencari dan mengembalikan nilai terbesar dalam rentang sel yang ditentukan."},
+        {"q":"Jenis grafik Line (garis) paling cocok untuk menampilkan:","opsi":["Perbandingan antar kategori","Proporsi bagian dari keseluruhan","Tren data dari waktu ke waktu","Hubungan dua variabel kontinu"],"benar":2,"jelas":"Grafik Line terbaik untuk menunjukkan perubahan/tren data sepanjang waktu, misalnya kunjungan pasien per bulan."},
+        {"q":"Grafik Pie (lingkaran) paling cocok untuk menampilkan:","opsi":["Tren kunjungan 12 bulan","Proporsi jenis pasien (BPJS vs Umum)","Perbandingan kunjungan 10 poli","Data kunjungan harian"],"benar":1,"jelas":"Pie chart ideal untuk menunjukkan proporsi/persentase bagian dari total keseluruhan (100%)."},
+        {"q":"Untuk membuat grafik di Excel, langkah pertama adalah:","opsi":["Insert → Chart","Data → Chart","Home → Grafik","File → New Chart"],"benar":0,"jelas":"Pilih data terlebih dahulu, lalu klik Insert → Chart (atau ikon grafik) untuk membuka galeri tipe grafik."},
+        {"q":"Fungsi AVERAGE(B2:B13) di Excel menghitung:","opsi":["Jumlah semua sel","Nilai tengah (median)","Rata-rata aritmetika","Standar deviasi"],"benar":2,"jelas":"AVERAGE() menghitung rata-rata aritmetika: jumlah semua nilai dibagi banyaknya nilai."}
+      ]}
+      </script>
+    </section>
+
+    <!-- INTI 1 -->
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: MAX dan MIN" data-min="10">
+      <p>Mini-spreadsheet data kunjungan pasien 12 bulan RS Sehat Citra (fiktif). Ketik formula di sel yang ditentukan.</p>
+      <div id="ms-inti1"></div>
+      <div class="note" style="font-size:.9rem">
+        <strong>Tantangan:</strong>
+        <ol style="margin:4px 0">
+          <li>Ketik <code>=MAX(B2:B13)</code> di sel B14 untuk mencari bulan kunjungan tertinggi</li>
+          <li>Ketik <code>=MIN(B2:B13)</code> di sel B15 untuk mencari bulan kunjungan terendah</li>
+          <li>Ketik <code>=AVERAGE(B2:B13)</code> di sel B16 untuk menghitung rata-rata kunjungan</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- INTI 2 -->
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Quiz Pilih Jenis Grafik" data-min="10">
+      <p>Untuk setiap skenario data RS berikut, pilih jenis grafik yang paling tepat. Klik jawaban kamu.</p>
+      <div id="quiz-grafik-container"></div>
+      <div id="quiz-grafik-skor" aria-live="polite" style="font-weight:700;margin:12px 0"></div>
+    </section>
+
+    <!-- INTI 3 -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Pembuat Grafik Interaktif" data-min="10">
+      <p>Edit data di tabel bawah dan pilih jenis grafik. Grafik SVG diperbarui secara langsung.</p>
+      <div class="chart-ctl">
+        <label>Jenis Grafik:
+          <select id="chart3-tipe" aria-label="Jenis grafik">
+            <option value="bar">Bar (Batang)</option>
+            <option value="line">Line (Garis)</option>
+            <option value="pie">Pie (Lingkaran)</option>
+          </select>
+        </label>
+      </div>
+      <div class="grid2">
+        <div>
+          <table class="chart-tbl" id="chart3-tbl">
+            <thead><tr><th>Poli</th><th>Kunjungan</th></tr></thead>
+            <tbody id="chart3-tbody"></tbody>
+          </table>
+        </div>
+        <div class="chart-wrap" id="chart3-area"></div>
+      </div>
+    </section>
+
+    <!-- INTI 4 -->
+    <section class="seg" id="seg-inti4" data-judul="Inti 4: AVERAGE Lanjutan &amp; BOR" data-min="10">
+      <p>Data BOR (Bed Occupancy Rate) RS Sehat Citra selama 6 bulan terakhir (fiktif). Hitung rata-rata BOR dan bandingkan dengan standar nasional (60%–85%).</p>
+      <div id="ms-inti4"></div>
+      <div class="note" style="font-size:.9rem">
+        <strong>Standar nasional BOR:</strong> 60–85%. Di bawah 60% = tempat tidur kurang dimanfaatkan. Di atas 85% = RS terlalu padat, risiko penularan meningkat.
+      </div>
+      <h4>Interpretasi BOR</h4>
+      <p>Tuliskan 1–2 kalimat analisis BOR RS ini berdasarkan data di atas:</p>
+      <textarea class="reflect" id="interpretasi-ta" aria-label="Interpretasi BOR" style="min-height:70px"></textarea>
+    </section>
+
+    <!-- PRAKTIK -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Studi Kasus Kunjungan 12 Bulan" data-min="25">
+      <p>Data kunjungan lengkap RS Sehat Citra (fiktif) — 12 bulan, tiga jenis kunjungan. Selesaikan semua tantangan secara berurutan.</p>
+      <div id="ms-praktik"></div>
+      <h4>Grafik Total Kunjungan (dari kolom E)</h4>
+      <div class="chart-ctl">
+        <label>Jenis Grafik:
+          <select id="chart-praktik-tipe" aria-label="Jenis grafik praktik">
+            <option value="bar">Bar</option>
+            <option value="line" selected>Line</option>
+          </select>
+        </label>
+        <button class="btn sec" id="btn-update-grafik" type="button">Perbarui Grafik</button>
+      </div>
+      <div class="chart-wrap" id="chart-praktik-area"></div>
+      <h4>Interpretasi Studi Kasus</h4>
+      <textarea class="reflect" id="interpretasi-praktik" aria-label="Interpretasi studi kasus" style="min-height:80px" placeholder="Tuliskan 2 kalimat: 1) Bulan mana kunjungan tertinggi dan terendah? 2) Apa yang mungkin menjadi penyebabnya?"></textarea>
+      <div class="tugas-lab">
+        <h4>Tugas Lab</h4>
+        <p>Buat laporan kunjungan bulanan di MS Excel nyata:</p>
+        <ol>
+          <li>Unduh dataset CSV di bawah dan buka di Excel.</li>
+          <li>Hitung Total per bulan menggunakan formula <code>=SUM(B2:D2)</code>.</li>
+          <li>Cari bulan kunjungan tertinggi dengan <code>=MAX(E2:E13)</code>.</li>
+          <li>Hitung rata-rata dengan <code>=AVERAGE(E2:E13)</code>.</li>
+          <li>Buat grafik Line dari kolom Total (pilih data E1:E13, lalu Insert → Line Chart).</li>
+          <li>Beri judul grafik: "Tren Kunjungan Pasien RS Sehat Citra 2026".</li>
+        </ol>
+        <p><button class="btn sec" id="btn-csv-praktik" type="button">Unduh Dataset (.csv)</button></p>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Formula SUM/MAX/AVERAGE digunakan dengan benar. 2) Grafik Line dibuat dari kolom Total. 3) Interpretasi 2 kalimat tersedia.</p>
+      </div>
+    </section>
+
+    <!-- POST-TEST -->
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test","soal":[
+        {"q":"Hasil dari =MAX(72,68,75,81,79,83) adalah:","opsi":["72","68","83","459"],"benar":2,"jelas":"MAX() mengembalikan nilai terbesar. Dari daftar: 83 adalah yang terbesar."},
+        {"q":"Grafik yang paling tepat untuk membandingkan kunjungan di 12 poli berbeda adalah:","opsi":["Pie chart","Bar chart","Line chart","Scatter plot"],"benar":1,"jelas":"Bar chart terbaik untuk membandingkan nilai-nilai dari kategori yang berbeda (poli, bulan, dll)."},
+        {"q":"BOR 72% artinya:","opsi":["72% tempat tidur RS terisi rata-rata","72% pasien sudah pulang hari itu","72% dokter sedang bertugas","72% obat sudah terjual"],"benar":0,"jelas":"BOR (Bed Occupancy Rate) = persentase tempat tidur yang terisi dibanding total tempat tidur tersedia."},
+        {"q":"Untuk memilih sel tidak berurutan di Excel (misalnya A1, C3, E5), gunakan:","opsi":["Shift+klik","Ctrl+klik","Alt+klik","Tab+klik"],"benar":1,"jelas":"Ctrl+klik memungkinkan pemilihan sel atau rentang sel yang tidak bersebelahan secara bersamaan."},
+        {"q":"Sumbu X pada grafik kunjungan pasien bulanan RS biasanya berisi:","opsi":["Jumlah pasien","Nama dokter","Nama bulan","Nama poli"],"benar":2,"jelas":"Sumbu X = kategori waktu (Jan, Feb, Mar, ...). Sumbu Y = nilai/jumlah kunjungan."}
+      ]}
+      </script>
+      <h4>Perbandingan Pre-test vs Post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <!-- PENUTUP -->
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
+      <h4>Ringkasan Pertemuan 07</h4>
+      <ol>
+        <li>MAX() dan MIN() mencari nilai terbesar dan terkecil dalam rentang data secara otomatis.</li>
+        <li>AVERAGE() menghitung rata-rata aritmetika: berguna untuk indikator seperti BOR dan rata-rata kunjungan.</li>
+        <li>Bar chart → membandingkan kategori. Line chart → menunjukkan tren waktu. Pie chart → proporsi bagian.</li>
+        <li>BOR ideal RS: 60–85%; di luar rentang ini perlu evaluasi kapasitas atau pola kunjungan.</li>
+        <li>Pilih jenis grafik berdasarkan pertanyaan yang ingin dijawab, bukan berdasarkan estetika saja.</li>
+      </ol>
+      <h4>Refleksi</h4>
+      <p>Tuliskan satu hal yang paling berguna hari ini dan satu hal yang masih membingungkan:</p>
+      <textarea class="reflect" id="refleksi-ta" aria-label="Refleksi pertemuan 07"></textarea>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 08 — UTS. Pastikan kamu sudah menguasai: format dokumen Word, Mail Merge, formula Excel dasar, dan pemilihan jenis grafik.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+"use strict";
+const KONFIG={kode:"krs-p07",nomor:"07",judul:"Microsoft Excel Lanjutan: Grafik & Statistik",
+  cpmk:"CPMK-2: Mampu menyusun laporan dengan fungsi visual dan statistik pada MS Excel.",
+  tujuan:["Menggunakan fungsi MAX dan MIN pada data RS","Memilih jenis grafik yang tepat","Membuat grafik dari data kunjungan RS"],
+  totalMenit:90};
+
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+function h(tag,props,...kids){
+  const e=document.createElement(tag);
+  for(const k in(props||{})){const v=props[k];if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,"");else if(v!==false&&v!=null)e.setAttribute(k,v);}
+  for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(String(c)));}
+  return e;
+}
+const store={
+  get(k,d){try{const v=localStorage.getItem(KONFIG.kode+"-"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem(KONFIG.kode+"-"+k,JSON.stringify(v));}catch(e){}}
+};
+function getData(id){return JSON.parse(document.getElementById(id).textContent);}
+let uid=0;const nextId=p=>p+"-"+(++uid);
+function mmss(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+
+/* QUIZ */
+const W={};
+W.quiz=el=>{
+  const d=getData(el.dataset.src);
+  const key="quiz-"+(el.dataset.role||el.dataset.src);
+  const saved=store.get(key,{jawab:{}});const jawab=saved.jawab||{};
+  const skorEl=h("p",{class:"skor","aria-live":"polite"});const items=[];
+  function hitung(){let b=0;for(const i in jawab)if(jawab[i]===d.soal[i].benar)b++;const n=Object.keys(jawab).length;
+    skorEl.textContent="Skor: "+b+" / "+d.soal.length+(n<d.soal.length?"  (terjawab "+n+")":"");
+    store.set(key,{jawab,skor:b,total:d.soal.length,selesai:n===d.soal.length});
+    document.dispatchEvent(new CustomEvent("krs:skor"));}
+  function tampil(i,pilih){const it=items[i],s=d.soal[i];
+    it.labels.forEach((l,j)=>{l.classList.toggle("benar",j===s.benar);l.classList.toggle("salah",j===pilih&&j!==s.benar);});
+    it.fb.textContent=(pilih===s.benar?"Benar. ":"Belum tepat. ")+(s.jelas||"");}
+  d.soal.forEach((s,i)=>{
+    const name=nextId("q"),fb=h("p",{class:"fb","aria-live":"polite"});
+    const labels=s.opsi.map((o,j)=>{const inp=h("input",{type:"radio",name,value:j,onchange:()=>{jawab[i]=j;tampil(i,j);hitung();}});if(jawab[i]===j)inp.checked=true;return h("label",{},inp," ",o);});
+    items.push({labels,fb});el.append(h("fieldset",{},h("legend",{},(i+1)+". "+s.q),labels,fb));
+    if(jawab[i]!==undefined)tampil(i,jawab[i]);});
+  el.append(skorEl,h("button",{class:"btn sec",type:"button",onclick:()=>{
+    for(const k in jawab)delete jawab[k];$$("input",el).forEach(x=>x.checked=false);
+    items.forEach(it=>{it.labels.forEach(l=>l.classList.remove("benar","salah"));it.fb.textContent="";});hitung();}},"Ulangi"));
+  hitung();};
+
+W.banding=el=>{
+  function baris(role,nama,cls){const track=h("i"),val=h("span",{},"–");
+    el.append(h("div",{class:"row "+cls},h("span",{},nama),h("div",{class:"track"},track),val));
+    return()=>{const s=store.get("quiz-"+role,null);if(!s||!s.selesai){track.style.width="0";val.textContent="–";return;}
+      const p=Math.round(s.skor/s.total*100);track.style.width=p+"%";val.textContent=p+"%";};}
+  el.classList.add("banding");const a=baris("pre","Pre-test","pre"),b=baris("post","Post-test","post");
+  const up=()=>{a();b();};document.addEventListener("krs:skor",up);up();};
+
+/* ===== FORMULA PARSER (tanpa eval/Function) ===== */
+function kolHuruf(n){return String.fromCharCode(65+n);}
+function parseRef(s){const m=/^([A-Z])(\d+)$/.exec(s.toUpperCase());return m?{c:m[1].charCodeAt(0)-65,r:parseInt(m[2],10)-1}:null;}
+function tokenisasi(s){
+  const t=[];let i=0;
+  while(i<s.length){
+    const c=s[i];if(/\s/.test(c)){i++;continue;}
+    let m=/^(\d+(\.\d+)?|\.\d+)/.exec(s.slice(i));
+    if(m){t.push({t:"n",v:parseFloat(m[0])});i+=m[0].length;continue;}
+    m=/^[A-Za-z]+\d*/.exec(s.slice(i));
+    if(m){const nm=m[0],nx=s[i+nm.length];
+      if(nx==="(")t.push({t:"f",v:nm.toUpperCase()});
+      else if(/^[A-Za-z]+\d+$/.test(nm))t.push({t:"r",v:nm.toUpperCase()});
+      else throw new Error("#NAME?");
+      i+=nm.length;continue;}
+    if("+-*/(),:;".includes(c)){t.push({t:c===";"?",":c});i++;continue;}
+    throw new Error("#ERROR");
+  }
+  return t;
+}
+function evalRumus(src,getCell){
+  const tk=tokenisasi(src);let p=0;
+  const peek=()=>tk[p]&&tk[p].t,ambil=()=>tk[p++];
+  const jml=x=>{if(Array.isArray(x))throw new Error("#VALUE!");if(x===null)return 0;if(typeof x==="string")throw new Error("#VALUE!");return x;};
+  function expr(){let v=term();while(peek()==="+"||peek()==="-"){const o=ambil().t;const r=term();v=o==="+"?jml(v)+jml(r):jml(v)-jml(r);}return v;}
+  function term(){let v=unary();while(peek()==="*"||peek()==="/"){const o=ambil().t;const r=unary();if(o==="*")v=jml(v)*jml(r);else{const d=jml(r);if(d===0)throw new Error("#DIV/0!");v=jml(v)/d;}}return v;}
+  function unary(){if(peek()==="-"){ambil();return -jml(unary());}if(peek()==="+"){ambil();return jml(unary());}return primary();}
+  function ref(tok){const a=parseRef(tok.v);if(!a)throw new Error("#REF!");return a;}
+  function primary(){
+    const k=ambil();if(!k)throw new Error("#ERROR");
+    if(k.t==="n")return k.v;
+    if(k.t==="("){const v=expr();if(ambil()==null||tk[p-1].t!==")")throw new Error("#ERROR");return v;}
+    if(k.t==="r"){const a=ref(k);
+      if(peek()===":"){ambil();const k2=ambil();if(!k2||k2.t!=="r")throw new Error("#ERROR");
+        const b=ref(k2),out=[];
+        for(let r=Math.min(a.r,b.r);r<=Math.max(a.r,b.r);r++)for(let c=Math.min(a.c,b.c);c<=Math.max(a.c,b.c);c++)out.push(getCell(c,r));
+        return out;}
+      return getCell(a.c,a.r);}
+    if(k.t==="f"){if(ambil()==null||tk[p-1].t!=="(")throw new Error("#ERROR");
+      const args=[];if(peek()!==")"){{args.push(expr());while(peek()===","){ambil();args.push(expr());}}}
+      if(ambil()==null||tk[p-1].t!==")")throw new Error("#ERROR");
+      const angka=[];args.forEach(a=>{if(Array.isArray(a))a.forEach(x=>{if(typeof x==="number")angka.push(x);});else if(typeof a==="number")angka.push(a);else if(a!==null)throw new Error("#VALUE!");});
+      switch(k.v){
+        case"SUM":return angka.reduce((s,x)=>s+x,0);
+        case"AVERAGE":if(!angka.length)throw new Error("#DIV/0!");return angka.reduce((s,x)=>s+x,0)/angka.length;
+        case"COUNT":return angka.length;
+        case"MAX":return angka.length?Math.max(...angka):0;
+        case"MIN":return angka.length?Math.min(...angka):0;
+        default:throw new Error("#NAME?");}}
+    throw new Error("#ERROR");}
+  const hasil=expr();if(p<tk.length)throw new Error("#ERROR");
+  if(Array.isArray(hasil))throw new Error("#VALUE!");return hasil;
+}
+
+/* ===== SVG CHART ENGINE ===== */
+const NS="http://www.w3.org/2000/svg";
+function sv(tag,attrs,txt){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(txt!=null)e.textContent=txt;return e;}
+function niceMax(mx){if(mx<=0)return 1;const e=Math.pow(10,Math.floor(Math.log10(mx))),f=mx/e;return(f<=1?1:f<=2?2:f<=5?5:10)*e;}
+const CWARNA=["#0b7285","#e8590c","#7048e8","#2b8a3e","#c2255c","#f08c00","#1971c2","#5c940d"];
+
+function drawBar(label,nilai,judul){
+  const W=600,H=320,svg=sv("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":judul||"Grafik batang"});
+  svg.append(sv("text",{x:W/2,y:20,"text-anchor":"middle",style:"font-size:14px;font-weight:700"},judul||""));
+  const v=nilai.map(x=>Math.max(0,Number(x)||0));
+  const L=55,Rr=10,T=36,B=36,pw=W-L-Rr,ph=H-T-B;
+  const mx=niceMax(Math.max(...v,1));
+  for(let g=0;g<=4;g++){const y=T+ph-ph*g/4;svg.append(sv("line",{x1:L,x2:W-Rr,y1:y,y2:y,stroke:"var(--line)"}));svg.append(sv("text",{x:L-6,y:y+4,"text-anchor":"end"},String(Math.round(mx*g/4))));}
+  const n=v.length,step=pw/Math.max(n,1);
+  v.forEach((x,i)=>{const bw=step*0.6,bx=L+step*i+(step-bw)/2,bh=ph*x/mx;
+    svg.append(sv("rect",{x:bx,y:T+ph-bh,width:bw,height:bh,fill:CWARNA[i%8],rx:3}));
+    if(x>0)svg.append(sv("text",{x:bx+bw/2,y:T+ph-bh-4,"text-anchor":"middle",style:"font-size:11px"},String(x)));});
+  v.forEach((x,i)=>svg.append(sv("text",{x:L+step*(i+0.5),y:H-14,"text-anchor":"middle",style:"font-size:11px"},label[i])));
+  svg.append(sv("line",{x1:L,x2:L,y1:T,y2:T+ph,stroke:"var(--ink)"}));
+  svg.append(sv("line",{x1:L,x2:W-Rr,y1:T+ph,y2:T+ph,stroke:"var(--ink)"}));
+  return svg;
+}
+function drawLine(label,nilai,judul){
+  const W=600,H=320,svg=sv("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":judul||"Grafik garis"});
+  svg.append(sv("text",{x:W/2,y:20,"text-anchor":"middle",style:"font-size:14px;font-weight:700"},judul||""));
+  const v=nilai.map(x=>Math.max(0,Number(x)||0));
+  const L=55,Rr=10,T=36,B=36,pw=W-L-Rr,ph=H-T-B;
+  const mx=niceMax(Math.max(...v,1));
+  for(let g=0;g<=4;g++){const y=T+ph-ph*g/4;svg.append(sv("line",{x1:L,x2:W-Rr,y1:y,y2:y,stroke:"var(--line)"}));svg.append(sv("text",{x:L-6,y:y+4,"text-anchor":"end"},String(Math.round(mx*g/4))));}
+  const n=v.length,step=pw/Math.max(n,1);
+  const pts=v.map((x,i)=>[L+step*(i+0.5),T+ph-ph*x/mx]);
+  svg.append(sv("polyline",{points:pts.map(p=>p.join(",")).join(" "),fill:"none",stroke:"var(--c1)","stroke-width":3}));
+  pts.forEach((p,i)=>{svg.append(sv("circle",{cx:p[0],cy:p[1],r:5,fill:"var(--c1)"}));if(v[i]>0)svg.append(sv("text",{x:p[0],y:p[1]-9,"text-anchor":"middle",style:"font-size:11px"},String(v[i])));});
+  v.forEach((x,i)=>svg.append(sv("text",{x:L+step*(i+0.5),y:H-14,"text-anchor":"middle",style:"font-size:11px"},label[i])));
+  svg.append(sv("line",{x1:L,x2:L,y1:T,y2:T+ph,stroke:"var(--ink)"}));
+  svg.append(sv("line",{x1:L,x2:W-Rr,y1:T+ph,y2:T+ph,stroke:"var(--ink)"}));
+  return svg;
+}
+function drawPie(label,nilai,judul){
+  const W=500,H=310,svg=sv("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":judul||"Grafik lingkaran"});
+  svg.append(sv("text",{x:W/2,y:20,"text-anchor":"middle",style:"font-size:14px;font-weight:700"},judul||""));
+  const v=nilai.map(x=>Math.max(0,Number(x)||0)),tot=v.reduce((a,b)=>a+b,0);
+  if(tot<=0){svg.append(sv("text",{x:W/2,y:H/2,"text-anchor":"middle"},"Belum ada data"));return svg;}
+  const cx=160,cy=170,r=110;let a0=-Math.PI/2;
+  v.forEach((x,i)=>{if(x<=0)return;const fr=x/tot;
+    if(fr>0.9999){svg.append(sv("circle",{cx,cy,r,fill:CWARNA[i%8]}));}
+    else{const a1=a0+fr*2*Math.PI,big=fr>0.5?1:0;
+      svg.append(sv("path",{d:"M"+cx+","+cy+" L"+(cx+r*Math.cos(a0))+","+(cy+r*Math.sin(a0))+" A"+r+","+r+" 0 "+big+" 1 "+(cx+r*Math.cos(a1))+","+(cy+r*Math.sin(a1))+" Z",fill:CWARNA[i%8],stroke:"var(--surface)","stroke-width":2}));
+      a0=a1;}});
+  v.forEach((x,i)=>{const y=55+i*24;svg.append(sv("rect",{x:310,y:y-12,width:14,height:14,fill:CWARNA[i%8]}));svg.append(sv("text",{x:330,y},label[i]+" — "+(Math.round(x/tot*1000)/10)+"%"));});
+  return svg;
+}
+function gambarGrafik(tipe,label,nilai,judul){
+  if(tipe==="pie")return drawPie(label,nilai,judul);
+  if(tipe==="line")return drawLine(label,nilai,judul);
+  return drawBar(label,nilai,judul);
+}
+
+/* ===== MINISHEET ENGINE ===== */
+function buatMinisheet(container,baris,kolom,selData,tantangan,storeKey){
+  const R=baris,C=kolom;
+  const raw=Object.assign({},selData,store.get(storeKey,{}));
+  let cache=new Map(),aktif=new Set();
+  const nilaiAsli=(c,r)=>{
+    if(c<0||c>=C||r<0||r>=R)throw new Error("#REF!");
+    const id=kolHuruf(c)+(r+1);
+    if(cache.has(id)){const v=cache.get(id);if(v instanceof Error)throw v;return v;}
+    if(aktif.has(id))throw new Error("#CIRC!");
+    aktif.add(id);let v;const s=String(raw[id]===undefined?"":raw[id]).trim();
+    try{if(s==="")v=null;else if(s[0]==="=")v=evalRumus(s.slice(1),nilaiAsli);else if(/^-?\d+(\.\d+)?$/.test(s))v=parseFloat(s);else v=s;}
+    catch(e){v=e;}aktif.delete(id);cache.set(id,v);if(v instanceof Error)throw v;return v;};
+  const hitung=id=>{cache=new Map();aktif=new Set();const a=parseRef(id);try{return nilaiAsli(a.c,a.r);}catch(e){return e;}};
+  const fmt=v=>v instanceof Error?v.message:v===null?"":typeof v==="number"?String(Math.round(v*1e6)/1e6):v;
+  const addr=h("span",{class:"addr"},"–"),fx=h("span",{class:"fx"},"");
+  const tbl=h("table",{class:"ms"}),inputs={};
+  const head=h("tr",{},h("th",{class:"rh"},""));
+  for(let c=0;c<C;c++)head.append(h("th",{scope:"col"},kolHuruf(c)));
+  tbl.append(h("thead",{},head));
+  const tb=h("tbody");
+  for(let r=0;r<R;r++){
+    const tr=h("tr",{},h("th",{class:"rh",scope:"row"},r+1));
+    for(let c=0;c<C;c++){
+      const id=kolHuruf(c)+(r+1);
+      const inp=h("input",{type:"text","aria-label":"Sel "+id,autocomplete:"off",spellcheck:"false"});
+      inp.value=fmt(hitung(id));inputs[id]=inp;
+      inp.addEventListener("focus",()=>{addr.textContent=id;fx.textContent=raw[id]||"";inp.value=raw[id]===undefined?"":raw[id];});
+      inp.addEventListener("input",()=>{fx.textContent=inp.value;});
+      inp.addEventListener("blur",()=>{raw[id]=inp.value;simpan();segarkan();});
+      inp.addEventListener("keydown",e=>{
+        if(e.key==="Enter"||e.key==="ArrowDown"){e.preventDefault();const n=inputs[kolHuruf(c)+(r+2)];if(n)n.focus();else inp.blur();}
+        else if(e.key==="ArrowUp"){e.preventDefault();const n=inputs[kolHuruf(c)+r];if(n)n.focus();}
+      });
+      tr.append(h("td",{},inp));
+    }
+    tb.append(tr);
+  }
+  tbl.append(tb);
+  function simpan(){const u={};for(const k in raw)if(raw[k]!==(selData||{})[k]&&raw[k]!=="")u[k]=raw[k];store.set(storeKey,u);}
+  function segarkan(){
+    for(const id in inputs){if(document.activeElement===inputs[id])continue;const v=hitung(id);inputs[id].value=fmt(v);inputs[id].className=(v instanceof Error?"err":typeof v==="number"?"num":"");}
+    if(tantangan)cekTantangan(false);
+  }
+  let li_els=[];
+  const daftar=h("ul",{class:"tantangan"}),hasilEl=h("p",{class:"skor","aria-live":"polite"});
+  if(tantangan&&tantangan.length){
+    li_els=(tantangan||[]).map(t=>{const e=h("li",{},"☐ "+t.teks);daftar.append(e);return e;});
+  }
+  function cekTantangan(tampil){let ok=0;
+    (tantangan||[]).forEach((t,i)=>{const v=hitung(t.sel),rumus=String(raw[t.sel]||"").trim().startsWith("=");
+      const benar=typeof v==="number"&&Math.abs(v-t.nilai)<0.5&&(!t.wajibRumus||rumus);
+      li_els[i].classList.toggle("ok",benar);li_els[i].textContent=(benar?"✔ ":"☐ ")+t.teks;if(benar)ok++;});
+    if(tampil&&tantangan)hasilEl.textContent="Tantangan selesai: "+ok+" / "+tantangan.length;
+  }
+  container.append(h("div",{class:"ms-bar"},addr,fx),h("div",{class:"ms-wrap"},tbl));
+  if(tantangan&&tantangan.length)container.append(h("h4",{},"Tantangan"),daftar,h("button",{class:"btn",type:"button",onclick:()=>cekTantangan(true)},"Periksa jawaban"),hasilEl);
+  container.append(h("p",{},h("button",{class:"btn sec",type:"button",onclick:()=>{for(const k in raw)delete raw[k];Object.assign(raw,selData||{});store.set(storeKey,{});segarkan();}},"Reset lembar")));
+  cekTantangan(false);
+  return {inputs,hitung,raw};
+}
+
+/* ===== INTI 1: MAX MIN ===== */
+const BULAN=["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+const DATA_KUNJUNGAN=[312,298,345,367,289,401,356,412,378,445,398,421];
+function initInti1(){
+  const sel={A1:"Bulan",B1:"Kunjungan",C1:"Keterangan"};
+  BULAN.forEach((b,i)=>{sel["A"+(i+2)]=b;sel["B"+(i+2)]=String(DATA_KUNJUNGAN[i]);});
+  sel["A14"]="MAX";sel["A15"]="MIN";sel["A16"]="RATA-RATA";
+  sel["C14"]="← ketik =MAX(B2:B13)";sel["C15"]="← ketik =MIN(B2:B13)";sel["C16"]="← ketik =AVERAGE(B2:B13)";
+  const tantangan=[
+    {teks:"Ketik =MAX(B2:B13) di sel B14",sel:"B14",nilai:445,wajibRumus:true},
+    {teks:"Ketik =MIN(B2:B13) di sel B15",sel:"B15",nilai:289,wajibRumus:true},
+    {teks:"Ketik =AVERAGE(B2:B13) di sel B16",sel:"B16",nilai:DATA_KUNJUNGAN.reduce((a,b)=>a+b,0)/12,wajibRumus:true}
+  ];
+  buatMinisheet(document.getElementById("ms-inti1"),17,3,sel,tantangan,"ms-inti1");
+}
+
+/* ===== INTI 2: QUIZ GRAFIK ===== */
+function initQuizGrafik(){
+  const soal=[
+    {q:"Membandingkan jumlah kunjungan dari 5 poli berbeda bulan ini",benar:"Bar",opsi:["Bar","Line","Pie"],jelas:"Bar chart terbaik untuk membandingkan nilai antar kategori yang berbeda (poli, departemen, dll)."},
+    {q:"Menampilkan tren kunjungan pasien selama 12 bulan berturut-turut",benar:"Line",opsi:["Line","Bar","Pie"],jelas:"Line chart ideal untuk menunjukkan perubahan dari waktu ke waktu (tren)."},
+    {q:"Menampilkan proporsi pasien BPJS (65%) vs pasien umum (35%)",benar:"Pie",opsi:["Pie","Bar","Line"],jelas:"Pie chart digunakan untuk menampilkan bagian-bagian dari total 100%."},
+    {q:"Memperlihatkan perubahan BOR (Bed Occupancy Rate) tiap bulan",benar:"Line",opsi:["Line","Bar","Pie"],jelas:"Data berurutan per waktu paling cocok dengan Line chart untuk melihat tren naik-turun."},
+    {q:"Membandingkan jumlah Rawat Inap vs Rawat Jalan per triwulan",benar:"Bar",opsi:["Bar","Line","Pie"],jelas:"Bar chart grouped/stacked cocok untuk membandingkan beberapa kategori per periode."}
+  ];
+  const container=document.getElementById("quiz-grafik-container");
+  const skorEl=document.getElementById("quiz-grafik-skor");
+  let jawab=new Array(soal.length).fill(null);
+  soal.forEach((s,i)=>{
+    const div=h("div",{class:"quiz-grafik-soal"});
+    div.append(h("p",{},(i+1)+". "+s.q));
+    const opsiDiv=h("div",{class:"grafik-opsi"});
+    const fb=h("div",{class:"grafik-fb","aria-live":"polite"});
+    const btns=s.opsi.map(o=>{
+      const btn=h("button",{type:"button",class:"grafik-btn",onclick:()=>{
+        if(jawab[i]!==null)return;
+        jawab[i]=o;
+        btns.forEach(b=>{
+          const bTxt=b.textContent;
+          b.className="grafik-btn "+(bTxt===s.benar?"benar":bTxt===o&&o!==s.benar?"salah":"");
+          b.disabled=true;
+        });
+        fb.textContent=(o===s.benar?"Benar! ":"Kurang tepat. ")+s.jelas;
+        updateSkor();
+      }},o+" chart");
+      return btn;
+    });
+    btns.forEach(b=>opsiDiv.append(b));
+    div.append(opsiDiv,fb);container.append(div);
+  });
+  function updateSkor(){const done=jawab.filter(j=>j!==null).length,benar=jawab.filter((j,i)=>j===soal[i].benar).length;
+    if(done>0)skorEl.textContent="Benar: "+benar+" / "+done+" soal dijawab"+(done===soal.length?" — Selesai!":"");}
+}
+
+/* ===== INTI 3: GRAFIK INTERAKTIF ===== */
+const POLI_DATA=[["Poli Umum",145],["Poli Gigi",82],["Poli Anak",67],["Poli THT",53],["Poli Jantung",41],["Poli Kandungan",78]];
+function initInti3(){
+  const tbody=document.getElementById("chart3-tbody");
+  const nilaiArr=POLI_DATA.map(p=>p[1]);
+  const labelArr=POLI_DATA.map(p=>p[0]);
+  POLI_DATA.forEach((p,i)=>{
+    const inpV=h("input",{type:"number",min:"0",value:p[1],"aria-label":"Nilai "+p[0],oninput:()=>{nilaiArr[i]=Number(inpV.value)||0;draw();}});
+    tbody.append(h("tr",{},h("td",{},labelArr[i]),h("td",{},inpV)));
+  });
+  const area=document.getElementById("chart3-area");
+  const tipeEl=document.getElementById("chart3-tipe");
+  tipeEl.addEventListener("change",draw);
+  function draw(){area.textContent="";area.append(gambarGrafik(tipeEl.value,labelArr,nilaiArr,"Kunjungan per Poli - RS Sehat Citra"));}
+  draw();
+}
+
+/* ===== INTI 4: BOR ===== */
+function initInti4(){
+  const sel={A1:"Bulan",B1:"BOR (%)",A2:"Januari",B2:"72",A3:"Februari",B3:"68",A4:"Maret",B4:"75",A5:"April",B5:"81",A6:"Mei",B6:"79",A7:"Juni",B7:"83",A8:"Rata-rata BOR"};
+  const tantangan=[{teks:"Ketik =AVERAGE(B2:B7) di sel B8 untuk menghitung rata-rata BOR",sel:"B8",nilai:(72+68+75+81+79+83)/6,wajibRumus:true}];
+  buatMinisheet(document.getElementById("ms-inti4"),9,2,sel,tantangan,"ms-inti4");
+  // Interpretasi
+  const ta=document.getElementById("interpretasi-ta");
+  ta.value=store.get("interpretasi","");
+  ta.addEventListener("input",()=>store.set("interpretasi",ta.value));
+}
+
+/* ===== PRAKTIK: STUDI KASUS ===== */
+const BDATA={
+  rj:[312,298,345,367,289,401,356,412,378,445,398,421],
+  ri:[87,79,92,101,74,115,98,122,109,131,118,127],
+  igd:[43,38,47,52,35,61,54,67,59,73,65,70]
+};
+function initPraktik(){
+  const sel={A1:"Bulan",B1:"Rawat Jalan",C1:"Rawat Inap",D1:"IGD",E1:"Total"};
+  BULAN.forEach((b,i)=>{
+    sel["A"+(i+2)]=b;
+    sel["B"+(i+2)]=String(BDATA.rj[i]);
+    sel["C"+(i+2)]=String(BDATA.ri[i]);
+    sel["D"+(i+2)]=String(BDATA.igd[i]);
+  });
+  sel["A14"]="MAX";sel["A15"]="AVG";
+  const totBenar=BULAN.map((_,i)=>BDATA.rj[i]+BDATA.ri[i]+BDATA.igd[i]);
+  const maxTot=Math.max(...totBenar),avgTot=totBenar.reduce((a,b)=>a+b,0)/12;
+  const tantangan=[
+    {teks:"Ketik =SUM(B2:D2) di E2 (total bulan Jan)",sel:"E2",nilai:totBenar[0],wajibRumus:true},
+    {teks:"Ketik =MAX(E2:E13) di E14 (max total)",sel:"E14",nilai:maxTot,wajibRumus:true},
+    {teks:"Ketik =AVERAGE(E2:E13) di E15 (rata-rata total)",sel:"E15",nilai:avgTot,wajibRumus:true}
+  ];
+  const ms=buatMinisheet(document.getElementById("ms-praktik"),16,5,sel,tantangan,"ms-praktik");
+  // Grafik praktik
+  const chartArea=document.getElementById("chart-praktik-area");
+  const tipeEl=document.getElementById("chart-praktik-tipe");
+  function drawPraktik(){
+    chartArea.textContent="";
+    const vals=BULAN.map((_,i)=>{const id="E"+(i+2);const v=ms.hitung(id);return typeof v==="number"?v:totBenar[i];});
+    chartArea.append(gambarGrafik(tipeEl.value,BULAN,vals,"Total Kunjungan RS Sehat Citra 2026"));
+  }
+  document.getElementById("btn-update-grafik").addEventListener("click",drawPraktik);
+  tipeEl.addEventListener("change",drawPraktik);
+  drawPraktik();
+  // Interpretasi
+  const ta=document.getElementById("interpretasi-praktik");
+  ta.value=store.get("interpretasi-praktik","");
+  ta.addEventListener("input",()=>store.set("interpretasi-praktik",ta.value));
+  // CSV download
+  document.getElementById("btn-csv-praktik").addEventListener("click",()=>{
+    const header=["Bulan","Rawat Jalan","Rawat Inap","IGD","Total"];
+    const rows=[header,...BULAN.map((_,i)=>[BULAN[i],BDATA.rj[i],BDATA.ri[i],BDATA.igd[i],totBenar[i]])];
+    const esc=v=>{v=String(v);return/[";,\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+    const isi="﻿"+rows.map(r=>r.map(esc).join(";")).join("\r\n");
+    const url=URL.createObjectURL(new Blob([isi],{type:"text/csv;charset=utf-8"}));
+    const a=document.createElement("a");a.href=url;a.download="kunjungan-bulanan-rs.csv";
+    document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+}
+
+/* REFLEKSI */
+function initRefleksi(){
+  const ta=document.getElementById("refleksi-ta");if(!ta)return;
+  ta.value=store.get("refleksi","");
+  ta.addEventListener("input",()=>store.set("refleksi",ta.value));
+}
+
+/* TIMER & AGENDA */
+function initSegmen(){
+  const segs=$$("section.seg"),agenda=document.getElementById("agenda");
+  const done=store.get("selesai",{});let mulai=0;const links=[];
+  segs.forEach((s,i)=>{
+    const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
+    const head=h("div",{class:"seg-head"},h("h3",{},judul),h("span",{class:"badge"},min+" menit"));
+    let sisa=min*60,tid=null;const tb=h("button",{class:"btn sec",type:"button"},"⏱ "+mmss(sisa));
+    const tw=h("span",{class:"seg-timer"},tb);
+    tb.addEventListener("click",()=>{if(tid){clearInterval(tid);tid=null;tb.textContent="▶ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));return;}
+      tid=setInterval(()=>{sisa--;tw.classList.toggle("over",sisa<0);tb.textContent="⏸ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));},1000);});
+    head.append(tw);s.prepend(head);
+    const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
+    function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";done[s.id]=v;store.set("selesai",done);progres();}
+    sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));foot.append(sb);s.append(foot);
+    const a=h("a",{href:"#"+s.id},h("span",{class:"mnt"},mulai+"–"+(mulai+min)+"'"),h("span",{},judul),h("span",{class:"tick","aria-label":"selesai"},"✓"));
+    agenda.append(a);links.push({a,s});mulai+=min;tandai(!!done[s.id]);});
+  function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;document.getElementById("hdr-bar").style.width=(n/segs.length*100)+"%";}
+  if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
+}
+function initJam(){
+  let t=0,id=null;const c=document.getElementById("clock"),b=document.getElementById("clock-btn");
+  b.addEventListener("click",()=>{if(id){clearInterval(id);id=null;b.textContent="Lanjut";}else{id=setInterval(()=>{t++;c.textContent=mmss(t);},1000);b.textContent="Jeda";}});
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  document.title="Pertemuan "+KONFIG.nomor+" — "+KONFIG.judul+" | Komputer Rumah Sakit";
+  document.getElementById("hero-cpmk").textContent=KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t=>document.getElementById("hero-tujuan").append(h("li",{},t)));
+  $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal: "+e.message));}});
+  initInti1();initQuizGrafik();initInti3();initInti4();initPraktik();initRefleksi();
+  initSegmen();initJam();
+  window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

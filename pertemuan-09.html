@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 09 — Microsoft PowerPoint Dasar | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
+  --primary:#0b7285;--primary-ink:#fff;--primary-soft:#d3f0f4;
+  --accent:#e8590c;--ok:#2b8a3e;--ok-soft:#dff3e3;--warn:#e67700;--bad:#c92a2a;--bad-soft:#fbe1e1;
+  --c1:#0b7285;--c2:#e8590c;--c3:#7048e8;--c4:#2b8a3e;--c5:#c2255c;--c6:#f08c00;--c7:#1971c2;--c8:#5c940d;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);--r:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0e1b20;--surface:#15272e;--ink:#e6f1f3;--muted:#9bb2ba;--line:#27414a;
+  --primary:#3bc0d6;--primary-ink:#06222a;--primary-soft:#14414b;
+  --accent:#ff922b;--ok:#69db7c;--ok-soft:#173a22;--warn:#ffc078;--bad:#ff8787;--bad-soft:#4a1d1d;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
+.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+nav.agenda a.done .tick{visibility:visible}main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}.hero p{margin:6px 0;opacity:.95}.hero ul{margin:8px 0 0;padding-left:20px}
+@media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-timer{display:inline-flex;gap:6px;align-items:center}
+.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.seg-timer.over .btn{background:var(--bad);color:#fff}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}
+.kriteria{font-size:.92rem;color:var(--muted)}
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}
+.quiz label.benar{background:var(--ok-soft)}.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}
+.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+/* Slide preview */
+.slide-16-9{aspect-ratio:16/9;border:2px solid #bbb;border-radius:8px;overflow:hidden;position:relative;box-shadow:var(--shadow);max-width:560px}
+.slide-buruk{background:#dd0000;color:#000;padding:16px;font-size:8.5px;line-height:1.3}
+.slide-buruk .judul{font-size:12px;font-family:Impact,sans-serif}
+.slide-buruk .isi{font-family:Arial,sans-serif}
+.slide-baik{background:#fff;color:#12303a;padding:20px 24px;display:flex;flex-direction:column;justify-content:center}
+.slide-baik .judul{font-size:22px;font-weight:700;color:#0b7285;margin-bottom:10px;border-bottom:3px solid #0b7285;padding-bottom:6px}
+.slide-baik .poin{font-size:14px;line-height:1.7;list-style:disc;padding-left:18px}
+.slide-panel-label{font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:4px;text-transform:uppercase}
+/* Contrast checker */
+.contrast-wrap{max-width:480px}
+.color-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.color-row label{display:flex;flex-direction:column;gap:4px;font-size:.9rem;font-weight:600}
+.color-row input[type=color]{width:100%;height:44px;border:1px solid var(--line);border-radius:6px;cursor:pointer;padding:2px}
+.contrast-result{font-size:1.2rem;font-weight:700;margin:8px 0}
+.contrast-badge{display:inline-block;padding:3px 12px;border-radius:99px;font-size:.85rem;font-weight:700}
+.contrast-badge.pass{background:var(--ok-soft);color:var(--ok)}.contrast-badge.fail{background:var(--bad-soft);color:var(--bad)}
+.contrast-preview{padding:14px 18px;border-radius:8px;font-size:1rem;margin:10px 0;border:1px solid var(--line)}
+.preset-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+/* Aturan teks */
+.slide-teks-demo{aspect-ratio:16/9;border:2px solid #bbb;border-radius:8px;overflow:hidden;max-width:480px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:20px;background:var(--slidekulit,#ffffff);color:var(--slideteks,#111);position:relative}
+.slide-teks-demo .judul-demo{font-weight:700;line-height:1.2;color:var(--slideteks,#111)}
+.aturan-warn{background:var(--bad-soft);border-left:4px solid var(--bad);padding:8px 12px;border-radius:0 8px 8px 0;font-size:.9rem;margin:6px 0;display:none}
+.aturan-warn.vis{display:block}
+/* Quiz animasi */
+.anim-soal{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;background:var(--bg)}
+.anim-soal p{margin:0 0 8px;font-weight:700}
+.anim-btns{display:flex;gap:8px}
+.anim-btn{border:2px solid var(--line);border-radius:8px;padding:8px 16px;background:var(--surface);cursor:pointer;font-size:.9rem;transition:border-color .15s}
+.anim-btn:hover{border-color:var(--primary)}
+.anim-btn.membantu{border-color:var(--ok);background:var(--ok-soft)}
+.anim-btn.mengganggu{border-color:var(--bad);background:var(--bad-soft)}
+.anim-fb{font-size:.9rem;color:var(--muted);margin-top:4px}
+/* Slide editor */
+.layout-kartu{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:12px}
+.lk{border:2px solid var(--line);border-radius:8px;padding:8px 10px;text-align:center;cursor:pointer;font-size:.85rem;background:var(--bg)}
+.lk:hover{border-color:var(--primary)}.lk.aktif{border-color:var(--primary);background:var(--primary-soft);font-weight:700}
+.editor-form{display:grid;gap:8px}
+.editor-form label{display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:start;font-size:.9rem}
+.editor-form input,.editor-form textarea{border:1px solid var(--line);border-radius:6px;padding:6px 10px;background:var(--surface);width:100%}
+.penilai{display:grid;gap:6px;margin-top:10px;font-size:.9rem}
+.penilai-baris{display:grid;grid-template-columns:1fr 80px;align-items:center;gap:8px}
+.penilai-badge{font-weight:700;text-align:right}
+.penilai-badge.ok{color:var(--ok)}.penilai-badge.no{color:var(--bad)}
+.slide-editor-preview{aspect-ratio:16/9;border:2px solid #bbb;border-radius:8px;overflow:hidden;max-width:540px;padding:18px 24px;display:flex;flex-direction:column;justify-content:center;margin:12px 0;box-shadow:var(--shadow)}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}
+  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}
+  .wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
+  .hero{background:#fff;color:#000}}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+<header class="top">
+  <h1><span id="hdr-judul">Microsoft PowerPoint Dasar</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 09</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
+  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 09 · CPMK-4</span>
+      <h2 id="hero-judul">Microsoft PowerPoint Dasar</h2>
+      <p id="hero-cpmk">CPMK-4: Mampu mendesain slide presentasi laporan kinerja eksekutif RS yang profesional.</p>
+      <ul id="hero-tujuan"></ul>
+    </div>
+
+    <!-- PEMBUKA -->
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">Aldi Firmansyah, staf RS Sehat Citra (fiktif), diminta mempresentasikan laporan kunjungan bulanan kepada Direktur dan jajaran manajemen RS. Ia membuka laptopnya dan menampilkan slide: background merah cerah menyilaukan, teks hitam ukuran 8pt memenuhi setiap slide (ada yang sampai 20 poin per slide!), font berubah-ubah di setiap halaman. Direktur mengernyitkan dahi dari kursinya 3 meter jauhnya: "Aldi, saya tidak bisa membaca apapun dari sini." Presentasi pun dihentikan.</p>
+      <p>Tiga masalah utama pada slide Aldi: (1) font terlalu kecil untuk ruang besar, (2) kontras warna yang buruk, (3) terlalu banyak teks per slide. Hari ini kita pelajari prinsip desain slide formal RS yang efektif dan dapat dibaca dari jarak 3 meter.</p>
+    </section>
+
+    <!-- PRE-TEST -->
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
+      <p>Jawab dulu — tidak ada yang salah. Ini untuk melihat titik awalmu.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test","soal":[
+        {"q":"Font minimum yang aman dibaca dari jarak 3 meter pada proyektor adalah:","opsi":["8 pt","12 pt","18 pt","24 pt"],"benar":3,"jelas":"Aturan umum presentasi: minimal 24 pt untuk isi, 36 pt atau lebih untuk judul. Di bawah 18 pt tidak terbaca dari kursi belakang."},
+        {"q":"Prinsip '1 slide 1 pesan' berarti:","opsi":["Hanya boleh ada 1 kata per slide","Setiap slide berfokus pada satu ide utama","Slide harus kosong kecuali satu kalimat","Tidak boleh ada gambar, hanya teks"],"benar":1,"jelas":"1 slide = 1 ide utama. Penonton tidak bisa memproses banyak ide sekaligus sambil mendengarkan pembicara."},
+        {"q":"Rasio kontras WCAG AA minimum untuk teks normal adalah:","opsi":["2:1","3:1","4,5:1","7:1"],"benar":2,"jelas":"WCAG AA mensyaratkan rasio kontras minimal 4,5:1 untuk teks normal (di bawah 18 pt) agar dapat dibaca penderita gangguan penglihatan."},
+        {"q":"Animasi 'fly-in setiap huruf satu per satu' pada slide presentasi termasuk:","opsi":["Efektif untuk audience","Mengganggu dan tidak profesional","Wajib digunakan","Standar presentasi medis"],"benar":1,"jelas":"Animasi berlebihan mengalihkan perhatian dari konten. Hanya gunakan animasi yang membantu pemahaman (fade in per poin)."},
+        {"q":"Rasio aspek slide presentasi modern yang direkomendasikan adalah:","opsi":["4:3","16:9","1:1","3:2"],"benar":1,"jelas":"16:9 (widescreen) adalah standar proyektor dan monitor modern. 4:3 sudah usang dan tidak memaksimalkan layar."}
+      ]}
+      </script>
+    </section>
+
+    <!-- INTI 1 -->
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Slide Buruk vs Baik" data-min="10">
+      <p>Bandingkan dua versi slide presentasi laporan kunjungan RS. Klik "Bandingkan" untuk toggle.</p>
+      <div class="grid2">
+        <div id="panel-buruk">
+          <div class="slide-panel-label">Versi: Buruk</div>
+          <div class="slide-16-9 slide-buruk">
+            <div class="judul">LAPORAN KUNJUNGAN PASIEN BULANAN RS SEHAT CITRA - NOVEMBER 2026</div>
+            <div class="isi">
+              • Total kunjungan: 1.254 pasien<br>
+              • Poli Umum: 312 pasien (tertinggi)<br>
+              • Poli Gigi: 189 pasien<br>
+              • Poli Anak: 145 pasien<br>
+              • Poli THT: 98 pasien<br>
+              • Poli Jantung: 87 pasien<br>
+              • Poli Kandungan: 112 pasien<br>
+              • Poli Mata: 76 pasien<br>
+              • Poli Bedah: 65 pasien<br>
+              • IGD: 170 pasien<br>
+              • BPJS: 65% dari total<br>
+              • Umum: 35% dari total<br>
+              • BOR bulan ini: 78%<br>
+              • Target BOR: 80%<br>
+              • Catatan: perlu penambahan tenaga medis poli umum karena antrian rata-rata 45 menit
+            </div>
+          </div>
+        </div>
+        <div id="panel-baik">
+          <div class="slide-panel-label">Versi: Baik</div>
+          <div class="slide-16-9 slide-baik">
+            <div class="judul">Kunjungan Pasien — November 2026</div>
+            <ul class="poin">
+              <li>Total: <strong>1.254 pasien</strong></li>
+              <li>Poli Umum tertinggi: <strong>312 kunjungan</strong></li>
+              <li>BOR: <strong>78%</strong> (target 80%)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:12px"><button class="btn sec" id="btn-bandingkan" type="button">Bandingkan (Toggle Buruk/Baik)</button></p>
+      <div id="checklist-beda" style="margin-top:12px;display:none">
+        <h4>6 Perbedaan Utama</h4>
+        <ol style="font-size:.95rem">
+          <li>Font minimum: Buruk 8–10 pt &rarr; Baik 14–22 pt (terbaca dari 3 m)</li>
+          <li>Jumlah poin: Buruk 15 poin &rarr; Baik 3 poin (1 slide 1 fokus)</li>
+          <li>Warna latar: Buruk merah menyilaukan &rarr; Baik putih bersih</li>
+          <li>Konsistensi font: Buruk campuran Impact+Arial &rarr; Baik satu font sistem</li>
+          <li>Whitespace: Buruk penuh sesak &rarr; Baik ada ruang napas</li>
+          <li>Judul: Buruk panjang + kapital semua &rarr; Baik singkat dan informatif</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- INTI 2 -->
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Pemeriksa Kontras WCAG" data-min="10">
+      <p>Pilih warna teks dan warna latar. Rasio kontras dihitung otomatis menggunakan formula luminansi WCAG.</p>
+      <div class="contrast-wrap">
+        <div class="preset-btns">
+          <button class="btn sec" type="button" onclick="setPreset('#000000','#ffffff')">Hitam-Putih</button>
+          <button class="btn sec" type="button" onclick="setPreset('#ffffff','#0b7285')">Putih-Biru RS</button>
+          <button class="btn sec" type="button" onclick="setPreset('#ffff00','#ffffff')">Kuning-Putih (gagal)</button>
+          <button class="btn sec" type="button" onclick="setPreset('#ffffff','#444444')">Putih-Abu</button>
+        </div>
+        <div class="color-row">
+          <label>Warna Teks<input type="color" id="warna-teks" value="#000000" oninput="hitungKontras()"></label>
+          <label>Warna Latar<input type="color" id="warna-latar" value="#ffffff" oninput="hitungKontras()"></label>
+        </div>
+        <div class="contrast-result">Rasio kontras: <span id="rasio-val">21:1</span></div>
+        <span class="contrast-badge pass" id="badge-wcag">✓ AA Lulus (≥4,5:1)</span>
+        <div class="contrast-preview" id="contrast-preview" style="background:#ffffff;color:#000000">
+          Contoh Teks RS Sehat Citra — apakah ini terbaca dengan jelas?
+        </div>
+      </div>
+    </section>
+
+    <!-- INTI 3 -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Aturan Teks Slide" data-min="10">
+      <p>Atur jumlah kata dan ukuran font. Peringatan merah muncul jika melampaui batas standar.</p>
+      <div class="grid2">
+        <div>
+          <div style="margin-bottom:12px">
+            <label style="display:grid;grid-template-columns:160px 1fr 80px;gap:8px;align-items:center;font-size:.9rem">
+              Jumlah kata/slide
+              <input type="range" id="sl-kata" min="5" max="200" value="80" oninput="updateSlideTeks()">
+              <output id="out-kata">80</output>
+            </label>
+            <label style="display:grid;grid-template-columns:160px 1fr 80px;gap:8px;align-items:center;font-size:.9rem;margin-top:8px">
+              Ukuran font (pt)
+              <input type="range" id="sl-font" min="8" max="36" value="18" oninput="updateSlideTeks()">
+              <output id="out-font">18 pt</output>
+            </label>
+          </div>
+          <div class="aturan-warn" id="warn-kata">Terlalu banyak kata! Batas aman: maks 150 kata per slide. Perpecah menjadi beberapa slide.</div>
+          <div class="aturan-warn" id="warn-font">Font terlalu kecil! Minimum 18 pt agar terbaca dari 3 meter.</div>
+        </div>
+        <div>
+          <div class="slide-teks-demo" id="slide-teks-demo">
+            <div class="judul-demo" id="demo-judul" style="font-size:22px">Kunjungan Pasien November 2026</div>
+            <div id="demo-isi" style="font-size:18px;margin-top:8px;line-height:1.5">
+              Total 1.254 pasien • Poli Umum tertinggi • BOR 78%
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4>Tiga Aturan Emas Teks Slide</h4>
+      <details><summary>1. Satu Slide, Satu Pesan</summary>
+        <div><p>Setiap slide harus menyampaikan <strong>satu ide utama</strong>. Penonton tidak bisa membaca teks panjang dan mendengarkan pembicara sekaligus. Jika ada 3 topik berbeda, buat 3 slide terpisah.</p><p><em>Contoh baik:</em> "Kunjungan Poli Umum Naik 12% November" — bukan "Ringkasan Kunjungan Semua Poli November-Desember 2026".</p></div>
+      </details>
+      <details><summary>2. Maksimal 6 Poin per Slide</summary>
+        <div><p>Jika slide membutuhkan lebih dari 6 bullet point, pisahkan menjadi beberapa slide atau gunakan tabel ringkas. Terlalu banyak poin = tidak ada yang penting.</p><p>Aturan tambahan: setiap poin maksimal <strong>6–8 kata</strong>. Gunakan kata kunci, bukan kalimat lengkap.</p></div>
+      </details>
+      <details><summary>3. Font Minimum 24 pt (Judul 36 pt)</summary>
+        <div><p>Untuk presentasi di ruang rapat atau aula: judul minimal <strong>36 pt</strong>, isi minimal <strong>24 pt</strong>. Jika tidak yakin, coba berdiri 3 meter dari layar dan baca sendiri sebelum presentasi.</p><p>Font sans-serif (Arial, Calibri) lebih mudah dibaca pada proyektor daripada serif (Times New Roman).</p></div>
+      </details>
+    </section>
+
+    <!-- INTI 4 -->
+    <section class="seg" id="seg-inti4" data-judul="Inti 4: Quiz Animasi" data-min="10">
+      <p>Untuk setiap jenis animasi berikut, klik "Membantu" atau "Mengganggu". Lihat skor di akhir.</p>
+      <div id="quiz-anim-container"></div>
+      <div id="quiz-anim-skor" aria-live="polite" style="font-weight:700;margin:10px 0;display:none"></div>
+      <button class="btn" id="btn-cek-anim" type="button" style="display:none">Lihat Skor &amp; Penjelasan</button>
+    </section>
+
+    <!-- PRAKTIK -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Editor Slide Mini" data-min="25">
+      <p>Pilih layout, isi konten, pilih warna, dan lihat penilaian otomatis. Tujuan: capai 3/3 kriteria terpenuhi.</p>
+      <h4>1. Pilih Layout Slide</h4>
+      <div class="layout-kartu" id="layout-kartu"></div>
+      <div class="grid2" style="align-items:start">
+        <div>
+          <h4>2. Isi Konten</h4>
+          <div class="editor-form" id="editor-form"></div>
+          <h4>3. Pilih Warna Latar</h4>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+            <button class="btn sec" type="button" onclick="setSlideWarna('#ffffff','#12303a')">Putih Profesional</button>
+            <button class="btn sec" type="button" onclick="setSlideWarna('#0b7285','#ffffff')">Biru Teal RS</button>
+            <button class="btn sec" type="button" onclick="setSlideWarna('#f5f5f0','#12303a')">Abu Netral</button>
+          </div>
+          <h4>Penilaian Otomatis</h4>
+          <div class="penilai" id="penilai"></div>
+          <div style="margin-top:8px;font-weight:700;font-size:1.05rem" id="skor-editor" aria-live="polite"></div>
+        </div>
+        <div>
+          <h4>4. Pratinjau Slide</h4>
+          <div class="slide-editor-preview" id="slide-editor-preview"></div>
+        </div>
+      </div>
+      <div class="tugas-lab">
+        <h4>Tugas Lab</h4>
+        <p>Buat 5 slide profil RS Sehat Citra di PowerPoint nyata dengan ketentuan:</p>
+        <ol>
+          <li>Slide 1: Judul presentasi + nama penyusun (layout Judul + Subjudul)</li>
+          <li>Slide 2: Profil singkat RS (layout Judul + 4 Poin maks 6 kata/poin)</li>
+          <li>Slide 3: Data kunjungan bulanan dalam tabel (layout Judul + Konten)</li>
+          <li>Slide 4: Grafik BOR 6 bulan (Insert Chart dari data Excel)</li>
+          <li>Slide 5: Simpulan dan tindak lanjut (maks 3 poin)</li>
+        </ol>
+        <p><strong>Ketentuan desain:</strong> font judul ≥36 pt, isi ≥24 pt, max 6 poin/slide, warna teks kontras ≥4,5:1, tidak ada animasi berlebihan.</p>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Konsistensi desain (warna/font). 2) Keterbacaan (font cukup besar). 3) Kepadatan konten (max 6 poin/slide).</p>
+      </div>
+    </section>
+
+    <!-- POST-TEST -->
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test","soal":[
+        {"q":"Untuk presentasi di ruang besar, ukuran font judul sebaiknya minimal:","opsi":["18 pt","24 pt","36 pt","48 pt"],"benar":2,"jelas":"Judul slide minimal 36 pt agar terbaca dari jarak 3–5 meter. Isi minimal 24 pt. Terapkan aturan '3 meter test' sebelum presentasi."},
+        {"q":"Warna merah cerah (#FF0000) pada latar putih memiliki rasio kontras sekitar:","opsi":["Sangat tinggi, di atas 7:1","Sekitar 4:1, tidak memenuhi WCAG AA","Tepat 4,5:1","Di atas 7:1 (AA Enhanced)"],"benar":1,"jelas":"Merah (#FF0000) vs putih (#FFFFFF) memiliki rasio kontras sekitar 4:1, tidak memenuhi WCAG AA (4,5:1). Gunakan teks hitam di atas latar merah."},
+        {"q":"Layout 'Judul + 2 Kolom' paling cocok untuk:","opsi":["Perbandingan dua hal berdampingan","Satu narasi panjang yang mengalir","Daftar 10 poin sekaligus","Foto latar penuh layar"],"benar":0,"jelas":"2-kolom ideal untuk before/after, pro/cons, data dua departemen, atau dua konsep yang dibandingkan."},
+        {"q":"Animasi 'muncul per poin saat diklik' termasuk animasi yang:","opsi":["Mengganggu konsentrasi audience","Dekoratif semata","Fungsional — membantu fokus pada poin yang dibahas","Tidak perlu karena memperlambat"],"benar":2,"jelas":"Animasi Appear/Fade per poin (on-click) membantu pembicara mengontrol alur — audience fokus pada poin yang sedang dibahas, bukan membaca semua sekaligus."},
+        {"q":"File PowerPoint yang disimpan untuk presentasi standar menggunakan ekstensi:","opsi":[".docx",".xlsx",".pptx",".ppsx"],"benar":2,"jelas":".pptx adalah format standar PowerPoint (bisa diedit). .ppsx adalah format slideshow yang langsung berjalan tanpa bisa diedit dengan mudah."}
+      ]}
+      </script>
+      <h4>Perbandingan Pre-test vs Post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <!-- PENUTUP -->
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
+      <h4>Ringkasan Pertemuan 09</h4>
+      <ol>
+        <li>Font minimum untuk presentasi di ruang besar: 36 pt (judul) dan 24 pt (isi).</li>
+        <li>Rasio kontras WCAG AA minimal 4,5:1 — uji setiap kombinasi warna sebelum presentasi.</li>
+        <li>Satu slide = satu pesan. Maksimal 6 poin per slide dengan 6–8 kata per poin.</li>
+        <li>Gunakan animasi fungsional (muncul per poin); hindari animasi dekoratif berlebihan.</li>
+        <li>Format file standar PowerPoint: .pptx. Rasio aspek modern: 16:9.</li>
+      </ol>
+      <h4>Refleksi</h4>
+      <p>Tuliskan satu hal yang paling berguna hari ini dan satu hal yang masih membingungkan:</p>
+      <textarea class="reflect" id="refleksi-ta" aria-label="Refleksi pertemuan 09"></textarea>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 10 — PowerPoint Lanjutan: animasi fungsional, transisi slide, dan desain template RS yang konsisten.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+"use strict";
+const KONFIG={kode:"krs-p09",nomor:"09",judul:"Microsoft PowerPoint Dasar",
+  cpmk:"CPMK-4: Mampu mendesain slide presentasi laporan kinerja eksekutif RS yang profesional.",
+  tujuan:["Memahami prinsip desain slide formal RS","Memeriksa kontras warna yang tepat","Membuat layout slide yang efektif"],
+  totalMenit:90};
+
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+function h(tag,props,...kids){
+  const e=document.createElement(tag);
+  for(const k in(props||{})){const v=props[k];if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,"");else if(v!==false&&v!=null)e.setAttribute(k,v);}
+  for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(String(c)));}
+  return e;
+}
+const store={
+  get(k,d){try{const v=localStorage.getItem(KONFIG.kode+"-"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem(KONFIG.kode+"-"+k,JSON.stringify(v));}catch(e){}}
+};
+function getData(id){return JSON.parse(document.getElementById(id).textContent);}
+let uid=0;const nextId=p=>p+"-"+(++uid);
+function mmss(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+
+/* QUIZ */
+const W={};
+W.quiz=el=>{
+  const d=getData(el.dataset.src);
+  const key="quiz-"+(el.dataset.role||el.dataset.src);
+  const saved=store.get(key,{jawab:{}});const jawab=saved.jawab||{};
+  const skorEl=h("p",{class:"skor","aria-live":"polite"});const items=[];
+  function hitung(){let b=0;for(const i in jawab)if(jawab[i]===d.soal[i].benar)b++;const n=Object.keys(jawab).length;
+    skorEl.textContent="Skor: "+b+" / "+d.soal.length+(n<d.soal.length?"  (terjawab "+n+")":"");
+    store.set(key,{jawab,skor:b,total:d.soal.length,selesai:n===d.soal.length});
+    document.dispatchEvent(new CustomEvent("krs:skor"));}
+  function tampil(i,pilih){const it=items[i],s=d.soal[i];
+    it.labels.forEach((l,j)=>{l.classList.toggle("benar",j===s.benar);l.classList.toggle("salah",j===pilih&&j!==s.benar);});
+    it.fb.textContent=(pilih===s.benar?"Benar. ":"Belum tepat. ")+(s.jelas||"");}
+  d.soal.forEach((s,i)=>{
+    const name=nextId("q"),fb=h("p",{class:"fb","aria-live":"polite"});
+    const labels=s.opsi.map((o,j)=>{const inp=h("input",{type:"radio",name,value:j,onchange:()=>{jawab[i]=j;tampil(i,j);hitung();}});if(jawab[i]===j)inp.checked=true;return h("label",{},inp," ",o);});
+    items.push({labels,fb});el.append(h("fieldset",{},h("legend",{},(i+1)+". "+s.q),labels,fb));
+    if(jawab[i]!==undefined)tampil(i,jawab[i]);});
+  el.append(skorEl,h("button",{class:"btn sec",type:"button",onclick:()=>{
+    for(const k in jawab)delete jawab[k];$$("input",el).forEach(x=>x.checked=false);
+    items.forEach(it=>{it.labels.forEach(l=>l.classList.remove("benar","salah"));it.fb.textContent="";});hitung();}},"Ulangi"));
+  hitung();};
+
+W.banding=el=>{
+  function baris(role,nama,cls){const track=h("i"),val=h("span",{},"–");
+    el.append(h("div",{class:"row "+cls},h("span",{},nama),h("div",{class:"track"},track),val));
+    return()=>{const s=store.get("quiz-"+role,null);if(!s||!s.selesai){track.style.width="0";val.textContent="–";return;}
+      const p=Math.round(s.skor/s.total*100);track.style.width=p+"%";val.textContent=p+"%";};}
+  el.classList.add("banding");const a=baris("pre","Pre-test","pre"),b=baris("post","Post-test","post");
+  const up=()=>{a();b();};document.addEventListener("krs:skor",up);up();};
+
+/* INTI 1: SLIDE BURUK VS BAIK */
+let bandingTampil=false;
+document.addEventListener("DOMContentLoaded",()=>{
+  const btn=document.getElementById("btn-bandingkan");
+  if(btn)btn.addEventListener("click",()=>{
+    bandingTampil=!bandingTampil;
+    const ck=document.getElementById("checklist-beda");
+    if(ck)ck.style.display=bandingTampil?"block":"none";
+    btn.textContent=bandingTampil?"Sembunyikan Perbandingan":"Bandingkan (Toggle Buruk/Baik)";
+  });
+});
+
+/* INTI 2: KONTRAS WCAG */
+function hexToRgb(hex){hex=hex.replace(/^#/,"");if(hex.length===3)hex=hex.split("").map(c=>c+c).join("");const n=parseInt(hex,16);return{r:(n>>16)&255,g:(n>>8)&255,b:n&255};}
+function linearize(c){c/=255;return c<=0.03928?c/12.92:Math.pow((c+0.055)/1.055,2.4);}
+function luminance(hex){const {r,g,b}=hexToRgb(hex);return 0.2126*linearize(r)+0.7152*linearize(g)+0.0722*linearize(b);}
+function kontrasRasio(h1,h2){const L1=Math.max(luminance(h1),luminance(h2)),L2=Math.min(luminance(h1),luminance(h2));return(L1+0.05)/(L2+0.05);}
+
+function hitungKontras(){
+  const teks=document.getElementById("warna-teks").value;
+  const latar=document.getElementById("warna-latar").value;
+  const r=kontrasRasio(teks,latar);
+  document.getElementById("rasio-val").textContent=r.toFixed(1)+":1";
+  const pass=r>=4.5;
+  const badge=document.getElementById("badge-wcag");
+  badge.textContent=pass?"✓ AA Lulus (≥4,5:1)":"✗ Gagal AA (<4,5:1)";
+  badge.className="contrast-badge "+(pass?"pass":"fail");
+  const prev=document.getElementById("contrast-preview");
+  prev.style.background=latar;prev.style.color=teks;
+}
+function setPreset(teks,latar){
+  document.getElementById("warna-teks").value=teks;
+  document.getElementById("warna-latar").value=latar;
+  hitungKontras();
+}
+
+/* INTI 3: ATURAN TEKS */
+function updateSlideTeks(){
+  const kata=parseInt(document.getElementById("sl-kata").value)||80;
+  const font=parseInt(document.getElementById("sl-font").value)||18;
+  document.getElementById("out-kata").textContent=kata;
+  document.getElementById("out-font").textContent=font+" pt";
+  const demoJudul=document.getElementById("demo-judul");
+  const demoIsi=document.getElementById("demo-isi");
+  if(demoJudul)demoJudul.style.fontSize=Math.max(font+4,12)+"px";
+  if(demoIsi)demoIsi.style.fontSize=font+"px";
+  document.getElementById("warn-kata").className="aturan-warn"+(kata>150?" vis":"");
+  document.getElementById("warn-font").className="aturan-warn"+(font<18?" vis":"");
+}
+
+/* INTI 4: QUIZ ANIMASI */
+function initQuizAnim(){
+  const soal=[
+    {q:"Fly-in setiap huruf satu per satu untuk teks judul slide",benar:"Mengganggu",jelas:"Animasi per huruf sangat lambat dan mengganggu — audience menunggu terlalu lama sebelum bisa membaca isi."},
+    {q:"Fade-in halus saat berpindah ke section baru presentasi",benar:"Membantu",jelas:"Transisi ringan seperti Fade membantu audience menyadari perpindahan topik tanpa mengalihkan perhatian."},
+    {q:"Objek 'bounce' terus-menerus saat slide sedang diam",benar:"Mengganggu",jelas:"Gerakan konstan saat slide diam mengalihkan perhatian dari penjelasan pembicara."},
+    {q:"Bullet point muncul satu per satu saat pembicara mengklik",benar:"Membantu",jelas:"Animasi Appear/Fade per poin fungsional: audience fokus pada poin yang sedang dibahas, bukan membaca semuanya sekaligus."},
+    {q:"Transisi berbeda-beda (Random) di setiap pergantian slide",benar:"Mengganggu",jelas:"Konsistensi transisi penting. Variasi transisi random terlihat tidak profesional dan memecah konsentrasi."}
+  ];
+  const container=document.getElementById("quiz-anim-container");
+  let jawab=new Array(soal.length).fill(null);
+  soal.forEach((s,i)=>{
+    const div=h("div",{class:"anim-soal"});
+    div.append(h("p",{},(i+1)+". "+s.q));
+    const fb=h("div",{class:"anim-fb","aria-live":"polite"});
+    const btnM=h("button",{type:"button",class:"anim-btn",onclick:()=>pilih(i,"Membantu",btnM,btnG,fb,s)},"Membantu");
+    const btnG=h("button",{type:"button",class:"anim-btn",onclick:()=>pilih(i,"Mengganggu",btnM,btnG,fb,s)},"Mengganggu");
+    div.append(h("div",{class:"anim-btns"},btnM,btnG),fb);
+    container.append(div);
+  });
+  function pilih(i,jawaban,bM,bG,fb,s){
+    if(jawab[i]!==null)return;
+    jawab[i]=jawaban;
+    bM.className="anim-btn"+(jawab[i]==="Membantu"?"Membantu"===s.benar?" membantu":" mengganggu":"");
+    bG.className="anim-btn"+(jawab[i]==="Mengganggu"?"Mengganggu"===s.benar?" mengganggu":" membantu":"");
+    bM.disabled=true;bG.disabled=true;
+    fb.textContent=(jawaban===s.benar?"Benar! ":"Kurang tepat. ")+s.jelas;
+    if(jawab.filter(j=>j!==null).length===soal.length){
+      document.getElementById("btn-cek-anim").style.display="";
+    }
+  }
+  document.getElementById("btn-cek-anim").addEventListener("click",()=>{
+    const b=jawab.filter((j,i)=>j===soal[i].benar).length;
+    const sk=document.getElementById("quiz-anim-skor");
+    sk.style.display="";sk.textContent="Skor: "+b+" / "+soal.length+" — "+(b===soal.length?"Sempurna!":b>=3?"Bagus!":"Pelajari lagi.");
+  });
+}
+
+/* PRAKTIK: EDITOR SLIDE */
+const LAYOUTS=[
+  {nama:"Judul + Subjudul",kode:"a",desc:"Slide pembuka",fields:[{id:"judul",label:"Judul (max 8 kata)",type:"input"},{id:"sub",label:"Subjudul (max 10 kata)",type:"input"}]},
+  {nama:"Judul + 4 Poin",kode:"b",desc:"Konten utama",fields:[{id:"judul",label:"Judul",type:"input"},{id:"p1",label:"Poin 1 (≤8 kata)",type:"input"},{id:"p2",label:"Poin 2 (≤8 kata)",type:"input"},{id:"p3",label:"Poin 3 (≤8 kata)",type:"input"},{id:"p4",label:"Poin 4 (≤8 kata)",type:"input"}]},
+  {nama:"Judul + 2 Kolom",kode:"c",desc:"Perbandingan",fields:[{id:"judul",label:"Judul",type:"input"},{id:"k1judul",label:"Kolom Kiri (judul)",type:"input"},{id:"k1isi",label:"Kolom Kiri (isi)",type:"input"},{id:"k2judul",label:"Kolom Kanan (judul)",type:"input"},{id:"k2isi",label:"Kolom Kanan (isi)",type:"input"}]},
+  {nama:"Judul + Angka Besar",kode:"d",desc:"Statistik kunci",fields:[{id:"judul",label:"Judul",type:"input"},{id:"angka",label:"Angka Besar",type:"input"},{id:"keterangan",label:"Keterangan singkat",type:"input"}]}
+];
+let layoutAktif=0;
+let slideWarna={bg:"#ffffff",teks:"#12303a"};
+let nilaiField={};
+
+function setSlideWarna(bg,teks){
+  slideWarna={bg,teks};
+  renderSlideEditor();
+  nilaiPenilaian();
+}
+
+function renderSlideEditor(){
+  const preview=document.getElementById("slide-editor-preview");
+  const L=LAYOUTS[layoutAktif];
+  const v=nilaiField;
+  preview.style.background=slideWarna.bg;
+  preview.style.color=slideWarna.teks;
+  preview.textContent="";
+  if(L.kode==="a"){
+    const judulEl=h("div",{style:"font-size:22px;font-weight:700;margin-bottom:8px"},v.judul||"Judul Slide");
+    const subEl=h("div",{style:"font-size:16px;opacity:.8"},v.sub||"Subjudul / nama penyusun");
+    preview.append(judulEl,subEl);
+  }else if(L.kode==="b"){
+    preview.append(h("div",{style:"font-size:20px;font-weight:700;margin-bottom:8px;border-bottom:2px solid;padding-bottom:4px"},v.judul||"Judul Slide"));
+    const ul=h("ul",{style:"margin:0;padding-left:20px;font-size:15px;line-height:1.8"});
+    ["p1","p2","p3","p4"].forEach(k=>{if(v[k])ul.append(h("li",{},v[k]));});
+    if(!ul.children.length)ul.append(h("li",{},"Poin pertama..."));
+    preview.append(ul);
+  }else if(L.kode==="c"){
+    preview.append(h("div",{style:"font-size:20px;font-weight:700;margin-bottom:8px"},v.judul||"Judul"));
+    const grid=h("div",{style:"display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1"});
+    const k1=h("div",{style:"border:1px solid;border-radius:6px;padding:8px;font-size:13px"});k1.append(h("div",{style:"font-weight:700;margin-bottom:4px"},v.k1judul||"Kiri"),h("div",{},v.k1isi||"Isi kolom kiri"));
+    const k2=h("div",{style:"border:1px solid;border-radius:6px;padding:8px;font-size:13px"});k2.append(h("div",{style:"font-weight:700;margin-bottom:4px"},v.k2judul||"Kanan"),h("div",{},v.k2isi||"Isi kolom kanan"));
+    grid.append(k1,k2);preview.append(grid);
+  }else if(L.kode==="d"){
+    preview.append(h("div",{style:"font-size:18px;font-weight:700;margin-bottom:4px"},v.judul||"Statistik Kunci"));
+    preview.append(h("div",{style:"font-size:48px;font-weight:900;color:var(--c1);line-height:1"},v.angka||"1.254"));
+    preview.append(h("div",{style:"font-size:14px;opacity:.8"},v.keterangan||"Total kunjungan bulan ini"));
+  }
+}
+
+function hitungPoin(str){return str?str.trim().split(/\s+/).filter(Boolean).length:0;}
+
+function nilaiPenilaian(){
+  const penilai=document.getElementById("penilai");const skor=document.getElementById("skor-editor");
+  penilai.textContent="";
+  const L=LAYOUTS[layoutAktif];let ok=0,total=3;
+  // Kriteria 1: jumlah poin
+  let poinOk=true;
+  if(L.kode==="b"){const poin=["p1","p2","p3","p4"].filter(k=>nilaiField[k]).length;poinOk=poin<=6;}
+  penilai.append(h("div",{class:"penilai-baris"},h("span",{},"Jumlah poin ≤6"),h("span",{class:"penilai-badge "+(poinOk?"ok":"no")},poinOk?"✓ Terpenuhi":"✗ Terlalu banyak")));
+  if(poinOk)ok++;
+  // Kriteria 2: panjang poin
+  let panjangOk=true;
+  if(L.kode==="b"){["p1","p2","p3","p4"].forEach(k=>{if(nilaiField[k]&&hitungPoin(nilaiField[k])>8)panjangOk=false;});}
+  penilai.append(h("div",{class:"penilai-baris"},h("span",{},"Panjang per poin ≤8 kata"),h("span",{class:"penilai-badge "+(panjangOk?"ok":"no")},panjangOk?"✓ Terpenuhi":"✗ Ada poin terlalu panjang")));
+  if(panjangOk)ok++;
+  // Kriteria 3: kontras
+  const r=kontrasRasio(slideWarna.teks,slideWarna.bg);const kontrasOk=r>=4.5;
+  penilai.append(h("div",{class:"penilai-baris"},h("span",{},"Kontras warna ≥4,5:1"),h("span",{class:"penilai-badge "+(kontrasOk?"ok":"no")},kontrasOk?"✓ "+r.toFixed(1)+":1":"✗ "+r.toFixed(1)+":1 — terlalu rendah")));
+  if(kontrasOk)ok++;
+  skor.textContent="Total skor: "+ok+" / "+total+" kriteria terpenuhi";
+}
+
+function initEditorSlide(){
+  // Layout kartu
+  const kartuWrap=document.getElementById("layout-kartu");
+  LAYOUTS.forEach((L,i)=>{
+    const btn=h("button",{type:"button",class:"lk"+(i===0?" aktif":""),onclick:()=>{
+      layoutAktif=i;nilaiField={};
+      $$(".lk",kartuWrap).forEach((b,j)=>b.classList.toggle("aktif",j===i));
+      renderForm();renderSlideEditor();nilaiPenilaian();
+    }},h("div",{style:"font-weight:700"},L.nama),h("div",{style:"font-size:.8rem;opacity:.7"},L.desc));
+    kartuWrap.append(btn);
+  });
+  function renderForm(){
+    const form=document.getElementById("editor-form");form.textContent="";
+    LAYOUTS[layoutAktif].fields.forEach(f=>{
+      const inp=h("input",{type:"text","aria-label":f.label,placeholder:f.label,oninput:()=>{nilaiField[f.id]=inp.value;renderSlideEditor();nilaiPenilaian();}});
+      inp.value=nilaiField[f.id]||"";
+      form.append(h("label",{},h("span",{},f.label),inp));
+    });
+  }
+  renderForm();renderSlideEditor();nilaiPenilaian();
+}
+
+/* REFLEKSI */
+function initRefleksi(){
+  const ta=document.getElementById("refleksi-ta");if(!ta)return;
+  ta.value=store.get("refleksi","");
+  ta.addEventListener("input",()=>store.set("refleksi",ta.value));
+}
+
+/* TIMER & AGENDA */
+function initSegmen(){
+  const segs=$$("section.seg"),agenda=document.getElementById("agenda");
+  const done=store.get("selesai",{});let mulai=0;const links=[];
+  segs.forEach((s,i)=>{
+    const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
+    const head=h("div",{class:"seg-head"},h("h3",{},judul),h("span",{class:"badge"},min+" menit"));
+    let sisa=min*60,tid=null;const tb=h("button",{class:"btn sec",type:"button"},"⏱ "+mmss(sisa));
+    const tw=h("span",{class:"seg-timer"},tb);
+    tb.addEventListener("click",()=>{if(tid){clearInterval(tid);tid=null;tb.textContent="▶ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));return;}
+      tid=setInterval(()=>{sisa--;tw.classList.toggle("over",sisa<0);tb.textContent="⏸ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));},1000);});
+    head.append(tw);s.prepend(head);
+    const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
+    function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";done[s.id]=v;store.set("selesai",done);progres();}
+    sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));foot.append(sb);s.append(foot);
+    const a=h("a",{href:"#"+s.id},h("span",{class:"mnt"},mulai+"–"+(mulai+min)+"'"),h("span",{},judul),h("span",{class:"tick","aria-label":"selesai"},"✓"));
+    agenda.append(a);links.push({a,s});mulai+=min;tandai(!!done[s.id]);});
+  function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;document.getElementById("hdr-bar").style.width=(n/segs.length*100)+"%";}
+  if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
+}
+function initJam(){
+  let t=0,id=null;const c=document.getElementById("clock"),b=document.getElementById("clock-btn");
+  b.addEventListener("click",()=>{if(id){clearInterval(id);id=null;b.textContent="Lanjut";}else{id=setInterval(()=>{t++;c.textContent=mmss(t);},1000);b.textContent="Jeda";}});
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  document.title="Pertemuan "+KONFIG.nomor+" — "+KONFIG.judul+" | Komputer Rumah Sakit";
+  document.getElementById("hero-cpmk").textContent=KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t=>document.getElementById("hero-tujuan").append(h("li",{},t)));
+  $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal: "+e.message));}});
+  hitungKontras();updateSlideTeks();initQuizAnim();initEditorSlide();initRefleksi();
+  initSegmen();initJam();
+  window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

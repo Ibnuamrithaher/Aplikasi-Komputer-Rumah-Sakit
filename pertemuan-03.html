@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 03 — Perangkat Lunak & Pemetaan Aplikasi | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9;--surface:#ffffff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
+  --primary:#0b7285;--primary-ink:#ffffff;--primary-soft:#d3f0f4;
+  --accent:#e8590c;--ok:#2b8a3e;--ok-soft:#dff3e3;--warn:#e67700;--bad:#c92a2a;--bad-soft:#fbe1e1;
+  --c1:#0b7285;--c2:#e8590c;--c3:#7048e8;--c4:#2b8a3e;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);--r:12px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0e1b20;--surface:#15272e;--ink:#e6f1f3;--muted:#9bb2ba;--line:#27414a;
+    --primary:#3bc0d6;--primary-ink:#06222a;--primary-soft:#14414b;
+    --accent:#ff922b;--ok:#69db7c;--ok-soft:#173a22;--warn:#ffc078;--bad:#ff8787;--bad-soft:#4a1d1d;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
+.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}
+nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+nav.agenda a.done .tick{visibility:visible}
+main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}
+.hero p{margin:6px 0;opacity:.95}
+.hero ul{margin:8px 0 0;padding-left:20px}
+@media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}
+p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.err{color:var(--bad);font-weight:700}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}
+.kriteria{font-size:.92rem;color:var(--muted)}
+/* Quiz */
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}
+.quiz label.benar{background:var(--ok-soft)}
+.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}
+.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+/* Tabs */
+.tablist{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--line)}
+.tablist button{border:0;background:none;padding:8px 16px;border-radius:8px 8px 0 0;font-weight:600;color:var(--muted)}
+.tablist button[aria-selected="true"]{background:var(--primary-soft);color:var(--ink);box-shadow:inset 0 -3px 0 var(--primary)}
+.tabpanel{padding:14px 4px}
+.tabpanel[hidden]{display:none}
+/* Sortlist */
+.sl{list-style:none;padding:0;margin:8px 0}
+.sl li{display:flex;gap:10px;align-items:center;border:2px solid var(--line);border-radius:8px;padding:6px 10px;margin:6px 0;background:var(--bg)}
+.sl li.benar{border-color:var(--ok);background:var(--ok-soft)}
+.sl li.salah{border-color:var(--bad);background:var(--bad-soft)}
+.sl .txt{flex:1}
+.sl button{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:2px 10px}
+/* Checklist */
+.checklist{list-style:none;padding:0;margin:8px 0}
+.checklist li{margin:4px 0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:6px}
+.checklist input{width:20px;height:20px;margin-top:4px;flex:none}
+.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+/* Banding */
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}
+.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+/* Kategorisasi */
+.kat-bank{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;min-height:60px;margin-bottom:12px}
+.kat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
+@media(max-width:700px){.kat-grid{grid-template-columns:1fr}}
+.kat-col{border:2px solid var(--primary);border-radius:10px;padding:10px;min-height:160px;cursor:pointer}
+.kat-col:hover{background:var(--primary-soft)}
+.kat-col-head{font-weight:700;text-align:center;padding:6px;background:var(--primary-soft);border-radius:6px;margin-bottom:8px;font-size:.95rem}
+.kat-items{display:flex;flex-wrap:wrap;gap:6px;min-height:80px;align-content:flex-start}
+.kat-item{border:2px solid var(--primary);background:var(--surface);border-radius:8px;padding:4px 10px;font-size:.9rem;cursor:pointer}
+.kat-item:hover{background:var(--primary-soft)}
+.kat-item.pilih{background:var(--primary);color:var(--primary-ink)}
+.kat-item.ok{border-color:var(--ok);background:var(--ok-soft)}
+.kat-item.bad{border-color:var(--bad);background:var(--bad-soft)}
+/* ZIP Sim */
+.zip-result{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:12px}
+.zip-stat{text-align:center}
+.zip-stat .lbl{font-size:.8rem;color:var(--muted)}
+.zip-stat .val{font-size:1.4rem;font-weight:700;color:var(--primary)}
+.zip-controls{display:grid;gap:10px;margin-bottom:12px}
+.zip-controls label{display:grid;grid-template-columns:170px 1fr 100px;gap:10px;align-items:center}
+/* Matrix App */
+.matrix-tbl{width:100%}
+.matrix-tbl td:first-child{font-weight:500}
+.matrix-tbl td.sel-ok{background:var(--ok-soft)}
+.matrix-tbl td.sel-bad{background:var(--bad-soft)}
+.matrix-tbl td.sel-hl{background:var(--primary-soft)}
+/* App Game */
+.app-game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:12px 0}
+.app-card{background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.app-card .doc-name{font-weight:700;font-size:.95rem}
+.app-card .doc-ctx{font-size:.83rem;color:var(--muted);flex:1}
+.app-card .app-btns{display:flex;gap:6px}
+.app-card .app-btns button{flex:1;padding:6px 4px;border:2px solid var(--line);background:var(--surface);border-radius:6px;font-size:.85rem;font-weight:600}
+.app-card.card-ok{border-color:var(--ok);background:var(--ok-soft)}
+.app-card.card-bad{border-color:var(--bad);background:var(--bad-soft)}
+.app-card .app-fb{font-size:.82rem;padding:4px 0}
+/* Gambar */
+figure.gambar{margin:14px 0;background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+figure.gambar img{display:block;width:100%;max-height:420px;object-fit:contain;background:#fff;cursor:zoom-in}
+figure.gambar figcaption{padding:8px 14px;font-size:.9rem}
+figure.gambar .kredit{display:block;color:var(--muted);font-size:.78rem;margin-top:2px}
+figure.gambar.gagal img{display:none}
+figure.gambar.gagal::before{content:"Gambar tidak dapat dimuat (perlu koneksi internet).";display:block;padding:24px 14px;text-align:center;color:var(--muted)}
+figure.gambar.zoom{position:fixed;inset:0;z-index:60;margin:0;border:0;border-radius:0;background:rgba(0,0,0,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+figure.gambar.zoom img{width:auto;max-width:96vw;max-height:80vh;cursor:zoom-out}
+figure.gambar.zoom figcaption,figure.gambar.zoom .kredit,figure.gambar.zoom a{color:#fff}
+.galeri{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:14px 0}
+.galeri figure.gambar{margin:0}
+/* Catatan pembicara */
+.catatan{display:none;border:2px dashed var(--accent);background:var(--bg);border-radius:10px;padding:8px 18px;margin:0 0 16px;font-size:.95rem}
+body.mode-dosen .catatan{display:block}
+.catatan h4{margin:6px 0;color:var(--accent)}
+.catatan ul{margin:6px 0;padding-left:20px}
+.catatan li{margin:4px 0}
+/* Lapisan, backup, input */
+.lapisan{display:grid;grid-template-columns:minmax(220px,320px) 1fr;gap:16px;align-items:start}
+@media(max-width:800px){.lapisan{grid-template-columns:1fr}}
+.lapisan-tumpuk{display:grid;gap:6px}
+.lapisan-tumpuk button{padding:12px;border:2px solid var(--primary);background:var(--surface);border-radius:8px;font-weight:700}
+.lapisan-tumpuk button[aria-pressed="true"]{background:var(--primary);color:var(--primary-ink)}
+.lapisan-info{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 16px;min-height:150px}
+.bk{display:grid;gap:12px}
+.bk label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.bk input{width:20px;height:20px;margin-top:4px;flex:none}
+.bk-skenario{display:flex;gap:8px;flex-wrap:wrap}
+.bk-skenario button[aria-pressed="true"]{background:var(--primary);color:var(--primary-ink)}
+.bk-hasil{border-radius:10px;padding:10px 14px;background:var(--bg);border:1px solid var(--line)}
+.bk-hasil.ok{background:var(--ok-soft);border-color:var(--ok)}
+.bk-hasil.bad{background:var(--bad-soft);border-color:var(--bad)}
+input.teks,select.pilih{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface)}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
+  body{font-size:12pt}
+  .top,nav.agenda,.seg-foot,.btn,.skip,.catatan{display:none!important}
+  figure.gambar img{max-height:240px}
+  .wrap{display:block;padding:0}
+  .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
+  .hero{background:#fff;color:#000}
+  .tabpanel[hidden]{display:block!important}
+}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+<header class="top">
+  <h1><span id="hdr-judul">Perangkat Lunak & Pemetaan Aplikasi</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 03</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <button class="btn sec" type="button" id="btn-catatan" aria-pressed="false">Catatan pembicara</button> <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 03 · CPMK-1</span>
+      <h2 id="hero-judul">Perangkat Lunak (Software) &amp; Pemetaan Aplikasi</h2>
+      <p id="hero-cpmk"></p>
+      <ul id="hero-tujuan"></ul>
+    </div>
+
+    <!-- 1. PEMBUKA -->
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Sapa dan hubungkan:</b> "Minggu lalu kita membahas hardware, benda yang bisa disentuh. Hari ini yang tidak terlihat tetapi menentukan segalanya: software."</li>
+          <li><b>Tanyakan:</b> "Siapa pernah komputer atau ponselnya jadi lemot setelah memasang aplikasi sembarangan? Ceritakan singkat." Dengarkan dua atau tiga cerita; ini membuat materi terasa dekat.</li>
+          <li><b>Bacakan cerita Rini pelan-pelan</b>, lalu berhenti: "Apa saja masalah Rini?" Tuliskan tiga jawaban di papan: memilih aplikasi, mengirim file besar, belum tahu alat bantu. Kita akan kembali ke ketiganya.</li>
+          <li><b>Peta hari ini:</b> sistem operasi, aplikasi, utilitas dan keamanan, kompresi ZIP, PDF, memilih aplikasi, studi kasus, lalu praktik.</li>
+          <li><b>Aturan main:</b> semua data pasien dalam contoh adalah fiktif. Dalam pekerjaan nyata, data pasien tidak boleh dibagikan sembarangan.</li>
+          <li><b>Tombol "Catatan pembicara"</b> di bagian atas halaman menampilkan atau menyembunyikan kotak ini; mahasiswa tidak melihatnya bila disembunyikan.</li>
+        </ul>
+      </aside>
+      <p class="cerita">Rini baru diterima sebagai staf administrasi di RS Bhakti Medika. Di meja kerjanya ada komputer baru dengan puluhan ikon aplikasi. Ketika atasannya meminta rekap data kunjungan pasien bulan lalu, Rini bingung — apakah harus buka Word atau Excel? Saat mengirim file via email, file-nya 8 MB dan sering gagal terkirim. Temannya menyarankan WinRAR, tapi Rini tidak tahu cara pakainya. Hari ini kita bantu Rini memahami peta aplikasi di komputer RS.</p>
+      <p>Setelah pertemuan ini, kalian mampu memilih aplikasi yang tepat untuk setiap tugas administrasi, mengompresi file, dan bekerja dengan PDF secara efisien.</p>
+    </section>
+
+    <!-- 2. PRE-TEST -->
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="5">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Ucapkan:</b> ini bukan ujian dan tidak dinilai. Tujuannya mengetahui titik awal kita, dan nanti kita bandingkan dengan post-test.</li>
+          <li><b>Minta kerja mandiri:</b> jangan berdiskusi dan jangan membacakan jawaban. Jawaban benar akan langsung tampil setelah memilih; minta mahasiswa tidak mengganti jawaban, agar skor awalnya jujur.</li>
+          <li><b>Setelah selesai:</b> tanyakan "Soal nomor berapa yang terasa paling sulit?" dan catat. Soal itu perlu penekanan ekstra pada materi berikutnya.</li>
+          <li><b>Jangan membahas jawaban sekarang.</b> Cukup katakan "kita akan temukan jawabannya bersama."</li>
+        </ul>
+      </aside>
+      <p>Jawab berdasarkan pengetahuan awal kalian — tidak ada nilai negatif.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test","soal":[
+        {"q":"Manakah yang merupakan contoh Sistem Operasi?","opsi":["Microsoft Word","Windows 11","Mozilla Firefox","WinRAR"],"benar":1,"jelas":"Windows 11 adalah sistem operasi. Word = aplikasi, Firefox = browser, WinRAR = utilitas kompresi."},
+        {"q":"Apa fungsi utama utilitas kompresi seperti WinRAR atau 7-Zip?","opsi":["Membuat dokumen teks","Mengompresi dan mengarsipkan file agar lebih kecil","Mengelola keuangan RS","Mendesain grafis presentasi"],"benar":1,"jelas":"WinRAR/7-Zip adalah utilitas kompresi: mengecilkan ukuran file dan mengemas banyak file menjadi satu arsip."},
+        {"q":"Format file PDF paling cocok digunakan untuk ...","opsi":["Dokumen yang masih perlu direvisi banyak orang","Dokumen final yang siap dibagikan dan dicetak","Spreadsheet data angka dengan rumus","Presentasi interaktif di depan publik"],"benar":1,"jelas":"PDF ideal untuk dokumen final karena tata letaknya konsisten di semua perangkat dan tidak mudah diedit sembarangan."},
+        {"q":"Jadwal jaga dokter IGD (30 hari × 12 dokter) paling tepat dibuat dengan ...","opsi":["Microsoft Word","Microsoft PowerPoint","Microsoft Excel","Adobe Acrobat"],"benar":2,"jelas":"Excel dirancang untuk data tabular, bisa diwarnai per sel, dan mendukung rumus — ideal untuk jadwal."},
+        {"q":"OS adalah singkatan dari ...","opsi":["Office Software","Online System","Operating System","Open Source"],"benar":2,"jelas":"OS = Operating System (Sistem Operasi), perangkat lunak fondasi yang mengelola seluruh perangkat keras komputer."}
+      ]}
+      </script>
+    </section>
+
+    <!-- 3. INTI 1: Software & Sistem Operasi -->
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Software dan Sistem Operasi" data-min="15">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Ucapkan:</b> hardware adalah yang bisa disentuh, software adalah instruksi yang membuat hardware bekerja. Pakai analogi gedung RS (lihat kotak cerita), lalu minta mahasiswa menyebut analogi mereka sendiri.</li>
+          <li><b>Tunjukkan:</b> klik tiap lapisan pada diagram dari atas ke bawah. Minta mahasiswa menebak contoh di RS sebelum Anda membuka jawabannya.</li>
+          <li><b>Tekankan:</b> jika lapisan bawah bermasalah, semua lapisan di atasnya ikut terganggu. Aplikasi yang macet biasanya tidak menjatuhkan sistem operasi.</li>
+          <li><b>Tanyakan:</b> "PC loket mati saat pasien antre. Lapisan mana yang mungkin bermasalah dan bagaimana membedakannya?" Jawaban: tidak ada lampu atau suara berarti hardware; layar biru atau gagal masuk berarti OS; hanya SIMRS yang macet berarti aplikasi.</li>
+          <li><b>Jelaskan:</b> enam fungsi OS lewat panel buka-tutup. Minta satu contoh RS untuk setiap fungsi. Tekankan akun pribadi: setiap orang memakai akunnya sendiri agar ada jejak siapa melakukan apa.</li>
+          <li><b>Bahas jenis OS</b> lewat tab. Sebut bahwa dukungan Windows 10 berakhir 14 Oktober 2025, lalu tanyakan: apa dampaknya bagi RS yang masih memakainya (pembaruan keamanan, kecocokan dengan SIMRS, anggaran)?</li>
+          <li><b>Demo singkat:</b> buka Task Manager (Ctrl+Shift+Esc) dan Settings, bagian About, untuk menunjukkan versi Windows dan RAM di komputer Anda.</li>
+          <li><b>Latihan kategori:</b> beri tiga menit. Setelah "Periksa", bahas item yang paling sering salah dan minta alasan, bukan hanya jawaban.</li>
+          <li><b>Waspadai salah kaprah:</b> browser dianggap sama dengan internet, atau Word dianggap sama dengan komputer. Luruskan dengan lapisan di diagram.</li>
+        </ul>
+      </aside>
+
+      <h4>Hardware dan software: dua sisi yang tidak bisa dipisah</h4>
+      <p>Minggu lalu kita membahas <strong>hardware</strong>, yaitu bagian komputer yang bisa disentuh. Hari ini kita membahas <strong>software</strong> (perangkat lunak): kumpulan instruksi yang membuat hardware bekerja. Komputer tanpa software hanya seonggok logam dan plastik. Software tanpa hardware tidak punya tempat untuk berjalan.</p>
+      <p class="cerita">Bayangkan sebuah rumah sakit. Gedung, ruang rawat, dan alat medis adalah hardware. Tata kelola, yaitu siapa memakai ruang operasi pada jam berapa, obat disimpan di mana, dan siapa yang boleh masuk ICU, berperan sebagai sistem operasi. Unit layanan seperti pendaftaran, farmasi, dan laboratorium berperan sebagai aplikasi. Satpam, petugas kebersihan, dan teknisi pemeliharaan berperan sebagai utilitas.</p>
+
+      <h4>Lapisan komputer (klik tiap lapisan)</h4>
+      <div data-widget="lapisan" data-src="data-lapisan"></div>
+      <script type="application/json" id="data-lapisan">
+      [
+        {"nama":"Pengguna","ket":"Orang yang memakai komputer: petugas pendaftaran, perawat, dokter, staf administrasi.","rs":"Petugas loket mengetik data pasien baru.","rusak":"Salah menu atau tidak sengaja menghapus file penting. Kesalahan pengguna adalah salah satu penyebab gangguan data yang sering terjadi."},
+        {"nama":"Aplikasi","ket":"Program untuk tugas tertentu: mengetik, menghitung, mendaftarkan pasien.","rs":"SIMRS untuk pendaftaran, Word untuk surat rujukan, Excel untuk rekap, browser untuk membuka aplikasi klaim.","rusak":"Aplikasi macet atau menutup sendiri. Pekerjaan yang belum disimpan bisa hilang, tetapi komputer dan aplikasi lain biasanya tetap normal."},
+        {"nama":"Utilitas","ket":"Program pendukung yang menjaga komputer tetap aman, bersih, dan terawat: antivirus, kompresi, pencadangan.","rs":"Antivirus menjaga PC loket dari virus lewat flash disk, 7-Zip mengecilkan kiriman arsip, pencadangan menyalin rekap ke tempat lain.","rusak":"Tanpa antivirus, satu flash disk yang terinfeksi dapat menyebar ke seluruh jaringan RS."},
+        {"nama":"Sistem Operasi","ket":"Perangkat lunak dasar yang mengatur hardware dan menjadi tempat berjalan semua aplikasi.","rs":"Windows di PC pendaftaran, Linux di server, Android di tablet perawat.","rusak":"Komputer tidak mau menyala atau muncul layar biru, sehingga semua aplikasi di atasnya ikut mati."},
+        {"nama":"Perangkat Keras","ket":"Bagian fisik: prosesor, RAM, penyimpanan, monitor, printer, scanner.","rs":"PC loket, printer gelang pasien, scanner barcode, server.","rusak":"Hard disk rusak. Data bisa hilang permanen bila tidak ada cadangan."}
+      ]
+      </script>
+
+      <h4>Enam tugas sistem operasi</h4>
+      <details><summary>1. Mengatur proses (multitasking)</summary><div>OS membagi waktu prosesor agar banyak program tampak berjalan bersamaan. <em>Di RS:</em> SIMRS, browser untuk klaim, dan Excel terbuka sekaligus di satu PC loket.</div></details>
+      <details><summary>2. Mengatur memori (RAM)</summary><div>OS membagi RAM ke setiap program. Jika RAM penuh, komputer melambat karena terpaksa memakai ruang di penyimpanan. <em>Di RS:</em> terlalu banyak tab dan aplikasi terbuka membuat PC lama terasa lemot.</div></details>
+      <details><summary>3. Mengelola file dan folder</summary><div>OS menyimpan nama, lokasi, ukuran, dan tanggal setiap file dalam sistem berkas (di Windows umumnya NTFS). <em>Di RS:</em> penamaan folder yang rapi, misalnya <code>2026-10_Rekap_Kunjungan</code>, mempercepat pencarian dokumen.</div></details>
+      <details><summary>4. Mengelola perangkat (driver)</summary><div>Setiap perangkat perlu driver, yaitu program penerjemah antara OS dan perangkat. <em>Di RS:</em> printer gelang pasien atau scanner barcode tidak akan berfungsi bila driver-nya belum terpasang.</div></details>
+      <details><summary>5. Menyediakan antarmuka pengguna</summary><div>GUI memakai ikon, jendela, dan klik. CLI memakai perintah teks. <em>Di RS:</em> staf administrasi memakai GUI, sedangkan administrator server sering memakai CLI.</div></details>
+      <details><summary>6. Menjaga keamanan dan akun</summary><div>OS mengatur akun, kata sandi, dan hak akses. <em>Di RS:</em> setiap petugas memakai akunnya sendiri agar tercatat siapa mengubah apa. Berbagi kata sandi menghilangkan jejak itu.</div></details>
+
+      <h4>Jenis sistem operasi yang akan kalian temui</h4>
+      <div class="tabs">
+        <div class="tablist" role="tablist">
+          <button type="button" role="tab">Windows</button>
+          <button type="button" role="tab">macOS</button>
+          <button type="button" role="tab">Linux</button>
+          <button type="button" role="tab">Android / iOS</button>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <p>Paling umum di komputer perkantoran, dan banyak SIMRS dibuat untuk Windows. Versi terbaru saat ini adalah Windows 11. Lisensinya berbayar dan biasanya sudah termasuk di komputer baru.</p>
+          <p class="note"><strong>Perlu diingat:</strong> dukungan Windows 10 berakhir pada 14 Oktober 2025. Komputer yang masih memakainya tidak lagi menerima pembaruan keamanan gratis, kecuali lewat program pembaruan berbayar (ESU).</p>
+          <figure class="gambar">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Windows_10_Team_screenshot.png?width=960" alt="Tampilan desktop Windows 10 dengan jendela dan taskbar" loading="lazy">
+            <figcaption>Desktop Windows 10: ikon, jendela, dan taskbar adalah antarmuka grafis (GUI). Klik untuk memperbesar.<span class="kredit">Gambar: Microsoft · domain publik · <a href="https://commons.wikimedia.org/wiki/File:Windows_10_Team_screenshot.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <p>Dibuat Apple dan hanya berjalan di komputer Apple (Mac). Populer untuk desain dan produksi media, tetapi jarang dipakai untuk administrasi RS. Contoh versi: macOS Ventura.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <p>Gratis dan sumber terbuka (open source), tersedia dalam banyak distribusi seperti Ubuntu dan Debian. Umum di server, termasuk server basis data SIMRS, karena hemat sumber daya. Kurang umum di komputer staf karena sebagian aplikasi hanya tersedia untuk Windows.</p>
+          <figure class="gambar">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ubuntu_25.04_Plucky_Puffin_Desktop_English.png?width=960" alt="Tampilan desktop Ubuntu Linux 25.04" loading="lazy">
+            <figcaption>Desktop Ubuntu Linux 25.04. Fungsinya sama dengan Windows, tampilannya berbeda.<span class="kredit">Gambar: Canonical Ltd. · lisensi GPL · <a href="https://commons.wikimedia.org/wiki/File:Ubuntu_25.04_Plucky_Puffin_Desktop_English.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <p>Sistem operasi ponsel dan tablet. <em>Di RS:</em> tablet visite perawat, ponsel untuk dokumentasi, dan aplikasi untuk pasien seperti Mobile JKN.</p>
+        </div>
+      </div>
+
+      <h4>Latihan: Kategorikan 14 Software ke Tempatnya</h4>
+      <p class="note">Klik item di <strong>Bank Software</strong> (item menjadi biru = terpilih), lalu klik kotak kategori yang sesuai. Klik item dalam kotak untuk mengembalikan ke bank.</p>
+      <div data-widget="kategorisasi" data-src="kat-1"></div>
+      <script type="application/json" id="kat-1">
+      {"kategori":[
+        {"nama":"Sistem Operasi","items":["Windows 11","macOS Ventura","Ubuntu Linux","Android"]},
+        {"nama":"Aplikasi","items":["MS Word","MS Excel","LibreOffice Calc","Google Chrome","VLC Media Player"]},
+        {"nama":"Utilitas","items":["WinRAR","7-Zip","Windows Security","Disk Cleanup","File History"]}
+      ],
+      "semua":["Windows 11","macOS Ventura","Ubuntu Linux","Android","MS Word","MS Excel","LibreOffice Calc","Google Chrome","VLC Media Player","WinRAR","7-Zip","Windows Security","Disk Cleanup","File History"]}
+      </script>
+    </section>
+
+    <!-- 4. INTI 2: Aplikasi, lisensi, ekstensi -->
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Aplikasi, Lisensi, dan Jenis File" data-min="10">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Ucapkan:</b> aplikasi dibagi dua kelompok: aplikasi umum (dipakai di mana saja) dan aplikasi khusus RS (SIMRS, rekam medis elektronik, laboratorium, radiologi). Mahasiswa administrasi RS akan lebih sering bersentuhan dengan kelompok kedua.</li>
+          <li><b>Tunjukkan:</b> galeri gambar. Klik satu gambar untuk memperbesar, lalu tanyakan: "Aplikasi ini cocok untuk dokumen apa di RS?"</li>
+          <li><b>Tanyakan:</b> "Siapa pernah melihat layar komputer di loket pendaftaran RS atau puskesmas? Aplikasi apa yang tampil?" Kaitkan jawabannya dengan tabel aplikasi khusus RS.</li>
+          <li><b>Sampaikan dengan hati-hati:</b> nama aplikasi dan fitur dapat berubah. Tabel hanya gambaran. Minta mahasiswa memeriksa sistem yang dipakai RS tempat mereka magang atau bekerja.</li>
+          <li><b>Konteks regulasi (singkat):</b> Permenkes Nomor 24 Tahun 2022 tentang Rekam Medis mewajibkan fasilitas pelayanan kesehatan menyelenggarakan rekam medis elektronik. Platform integrasi data kesehatan nasional bernama SATUSEHAT. Anjurkan mahasiswa membaca sendiri aturan aslinya.</li>
+          <li><b>Lisensi:</b> tekankan bahwa gratis tidak selalu berarti boleh dipakai bebas, dan bajakan bukan hanya soal hukum tetapi juga risiko malware. Tanyakan: "Siapa yang bertanggung jawab jika komputer RS terkena virus dari Office bajakan?"</li>
+          <li><b>Ekstensi file:</b> tunjukkan cara menampilkan ekstensi di File Explorer (tab View, centang File name extensions). Bahas contoh <code>Faktur.pdf.exe</code> sebagai taktik penipuan.</li>
+          <li><b>Kerjakan kuis ekstensi</b> bersama-sama; minta mahasiswa menjelaskan jawabannya sebelum Anda membuka umpan balik.</li>
+        </ul>
+      </aside>
+
+      <h4>Aplikasi umum: alat sehari-hari</h4>
+      <p>Aplikasi adalah perangkat lunak yang dipakai langsung untuk menyelesaikan pekerjaan. Beberapa kelompok yang paling sering kalian pakai:</p>
+      <table class="data">
+        <thead><tr><th>Kelompok</th><th>Contoh</th><th>Dipakai untuk</th></tr></thead>
+        <tbody>
+          <tr><td>Perkantoran</td><td>Microsoft Word, Excel, PowerPoint; LibreOffice</td><td>Surat, rekap, presentasi</td></tr>
+          <tr><td>Peramban (browser)</td><td>Google Chrome, Microsoft Edge, Firefox</td><td>Membuka situs dan aplikasi berbasis web</td></tr>
+          <tr><td>Pembaca PDF</td><td>Microsoft Edge, Adobe Acrobat Reader</td><td>Membaca dokumen final</td></tr>
+          <tr><td>Media</td><td>VLC Media Player</td><td>Memutar video penyuluhan atau rekaman pelatihan</td></tr>
+          <tr><td>Komunikasi</td><td>Email, WhatsApp Web</td><td>Surat elektronik dan koordinasi</td></tr>
+        </tbody>
+      </table>
+
+      <div class="galeri">
+        <figure class="gambar">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Screenshot_Excel_RK01.jpg?width=900" alt="Lembar kerja Microsoft Excel berisi tabel dan rumus" loading="lazy">
+          <figcaption>Excel: data berbentuk tabel dan rumus.<span class="kredit">Gambar: Roderich Kahn · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Screenshot_Excel_RK01.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+        <figure class="gambar">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/LibreOffice_7.2.4.1_Writer_screenshot.png?width=900" alt="Pengolah kata LibreOffice Writer menampilkan dokumen" loading="lazy">
+          <figcaption>LibreOffice Writer: pengolah kata gratis, mirip Word.<span class="kredit">Gambar: The Document Foundation · lisensi MPL 2 · <a href="https://commons.wikimedia.org/wiki/File:LibreOffice_7.2.4.1_Writer_screenshot.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+        <figure class="gambar">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/PowerPoint_Slide_Show_-_%28Presentation1%29_24_03_2022_19_09_31.png?width=900" alt="Slide PowerPoint dalam mode tayang layar penuh" loading="lazy">
+          <figcaption>PowerPoint: presentasi yang ditayangkan ke layar besar.<span class="kredit">Gambar: Aaron O'D Flanagan · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:PowerPoint_Slide_Show_-_(Presentation1)_24_03_2022_19_09_31.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+        <figure class="gambar">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Google_Chrome_75_screenshot.png?width=900" alt="Peramban Google Chrome membuka sebuah halaman web" loading="lazy">
+          <figcaption>Browser: pintu masuk ke aplikasi berbasis web.<span class="kredit">Gambar: WikiPimpi · domain publik · <a href="https://commons.wikimedia.org/wiki/File:Google_Chrome_75_screenshot.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+        <figure class="gambar">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/VLC_media_player_3.0.16_screenshot.png?width=900" alt="Pemutar video VLC media player" loading="lazy">
+          <figcaption>VLC: pemutar media gratis dan sumber terbuka.<span class="kredit">Gambar: VideoLAN · CC BY 4.0 · <a href="https://commons.wikimedia.org/wiki/File:VLC_media_player_3.0.16_screenshot.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+      </div>
+
+      <h4>Aplikasi khusus rumah sakit</h4>
+      <p>Di RS, pekerjaan inti berjalan di aplikasi khusus. Nama produknya berbeda-beda di tiap RS, tetapi perannya hampir sama:</p>
+      <table class="data">
+        <thead><tr><th>Unit</th><th>Jenis aplikasi</th><th>Fungsi</th></tr></thead>
+        <tbody>
+          <tr><td>Pendaftaran / Admisi</td><td>SIMRS (Sistem Informasi Manajemen RS)</td><td>Mendaftarkan pasien, nomor rekam medis, antrean</td></tr>
+          <tr><td>Poli dan rawat inap</td><td>Rekam Medis Elektronik (RME)</td><td>Mencatat anamnesis, diagnosis, tindakan, resep</td></tr>
+          <tr><td>Laboratorium</td><td>LIS (Laboratory Information System)</td><td>Permintaan dan hasil pemeriksaan lab</td></tr>
+          <tr><td>Radiologi</td><td>RIS / PACS</td><td>Penjadwalan dan penyimpanan citra rontgen, CT, MRI</td></tr>
+          <tr><td>Farmasi</td><td>Modul farmasi SIMRS</td><td>Resep, stok obat, pengeluaran obat</td></tr>
+          <tr><td>Kasir / Keuangan</td><td>Modul billing SIMRS</td><td>Tagihan dan pembayaran</td></tr>
+          <tr><td>Klaim jaminan</td><td>Aplikasi klaim BPJS Kesehatan</td><td>Pengajuan dan verifikasi klaim</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Tabel ini gambaran umum. Fitur dan nama aplikasi berbeda di tiap RS. Selalu ikuti panduan sistem yang dipakai di tempat kerja kalian.</p>
+
+      <div class="galeri">
+        <figure class="gambar">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hospital_computer_in_Colorado%2C_December_2011.jpg?width=700" alt="Komputer di ruang rumah sakit" loading="lazy">
+          <figcaption>Komputer di lingkungan rumah sakit: dipakai untuk mencatat dan membuka data pasien.<span class="kredit">Foto: Jmonifi · CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File:Hospital_computer_in_Colorado,_December_2011.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+        <figure class="gambar">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Princess_Alexandra_Hospital_nurse_with_mobile_computer_work_station.jpg?width=700" alt="Perawat memakai stasiun kerja komputer bergerak di rumah sakit" loading="lazy">
+          <figcaption>Perawat memakai stasiun kerja komputer bergerak di samping pasien.<span class="kredit">Foto: Kgbo · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Princess_Alexandra_Hospital_nurse_with_mobile_computer_work_station.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+        <figure class="gambar">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wrist_Identification_Band.jpg?width=700" alt="Gelang identitas pasien di pergelangan tangan" loading="lazy">
+          <figcaption>Gelang identitas pasien: sering berisi barcode yang dibaca scanner dan dikaitkan ke data di aplikasi.<span class="kredit">Foto: Whoisjohngalt · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Wrist_Identification_Band.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+      </div>
+
+      <h4>Desktop, web, atau mobile?</h4>
+      <table class="data">
+        <thead><tr><th>Jenis</th><th>Cara pakai</th><th>Kelebihan</th><th>Perlu diperhatikan</th></tr></thead>
+        <tbody>
+          <tr><td>Desktop</td><td>Diinstal di komputer</td><td>Bisa dipakai tanpa internet; cepat</td><td>Harus diinstal dan diperbarui di tiap komputer</td></tr>
+          <tr><td>Web</td><td>Dibuka lewat browser</td><td>Tanpa instalasi; pembaruan otomatis</td><td>Perlu internet atau jaringan intranet RS</td></tr>
+          <tr><td>Mobile</td><td>Aplikasi di ponsel atau tablet</td><td>Praktis dibawa keliling</td><td>Layar kecil; keamanan perangkat pribadi</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Lisensi: gratis, berbayar, atau bajakan?</h4>
+      <table class="data">
+        <thead><tr><th>Jenis</th><th>Artinya</th><th>Contoh</th><th>Catatan untuk RS</th></tr></thead>
+        <tbody>
+          <tr><td>Berbayar</td><td>Dibeli atau berlangganan; kode tertutup</td><td>Windows, Microsoft 365</td><td>Perlu anggaran lisensi; ada dukungan resmi</td></tr>
+          <tr><td>Freeware</td><td>Gratis dipakai, kode tertutup</td><td>Adobe Acrobat Reader</td><td>Baca syarat pemakaiannya</td></tr>
+          <tr><td>Open source</td><td>Kode terbuka; boleh dipakai sesuai lisensinya</td><td>LibreOffice, 7-Zip, VLC, Ubuntu</td><td>Hemat biaya; butuh orang yang mampu merawat</td></tr>
+          <tr><td>Shareware / trial</td><td>Gratis dicoba, lalu perlu membeli</td><td>WinRAR</td><td>Setelah masa percobaan, pemakaian lanjutan perlu lisensi</td></tr>
+          <tr><td>Langganan cloud</td><td>Bayar berkala, berjalan lewat internet</td><td>Microsoft 365, Google Workspace</td><td>Data tersimpan di cloud; periksa kebijakan data</td></tr>
+          <tr><td class="err">Bajakan / crack</td><td>Dipakai tanpa izin</td><td>-</td><td>Melanggar UU Hak Cipta (UU No. 28 Tahun 2014) dan sering disisipi malware</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Membaca jenis file dari ekstensinya</h4>
+      <p>Ekstensi adalah akhiran nama file setelah titik. Ia memberi tahu OS aplikasi mana yang membuka file itu.</p>
+      <table class="data">
+        <thead><tr><th>Ekstensi</th><th>Jenis</th><th>Dibuka dengan</th></tr></thead>
+        <tbody>
+          <tr><td>.docx</td><td>Dokumen teks</td><td>Word, LibreOffice Writer</td></tr>
+          <tr><td>.xlsx</td><td>Lembar kerja</td><td>Excel, LibreOffice Calc</td></tr>
+          <tr><td>.pptx</td><td>Presentasi</td><td>PowerPoint, LibreOffice Impress</td></tr>
+          <tr><td>.pdf</td><td>Dokumen final</td><td>Browser, Acrobat Reader</td></tr>
+          <tr><td>.csv</td><td>Data teks dipisah koma</td><td>Excel atau Notepad</td></tr>
+          <tr><td>.zip</td><td>Arsip terkompresi</td><td>File Explorer, 7-Zip, WinRAR</td></tr>
+          <tr><td>.jpg</td><td>Foto</td><td>Photos, browser</td></tr>
+          <tr><td class="err">.exe</td><td>Program yang bisa dijalankan</td><td>Dijalankan langsung. Hati-hati dengan file yang tidak dikenal</td></tr>
+        </tbody>
+      </table>
+      <div data-widget="quiz" data-src="quiz-ekstensi" class="quiz"></div>
+      <script type="application/json" id="quiz-ekstensi">
+      {"judul":"Kuis Ekstensi","soal":[
+        {"q":"File Rekap_Kunjungan.xlsx paling tepat dibuka dengan ...","opsi":["Microsoft Excel","Microsoft PowerPoint","VLC Media Player","WinRAR"],"benar":0,"jelas":".xlsx adalah format lembar kerja, jadi dibuka dengan Excel atau LibreOffice Calc."},
+        {"q":"Email berisi lampiran Faktur_BPJS.pdf.exe. Apa kemungkinan terbesarnya?","opsi":["Dokumen PDF biasa","Program berbahaya yang menyamar sebagai PDF","Arsip ZIP","Foto pasien"],"benar":1,"jelas":"Ekstensi yang sebenarnya adalah yang paling akhir, yaitu .exe. Penipu menambahkan .pdf agar tampak aman. Tampilkan ekstensi di File Explorer dan jangan membukanya."},
+        {"q":"Mengganti nama surat.docx menjadi surat.pdf lewat Rename ...","opsi":["Mengubahnya menjadi PDF yang benar","Tidak mengubah isi file, sehingga file bisa rusak atau tidak terbuka","Mengompres file","Menambah keamanan"],"benar":1,"jelas":"Rename hanya mengganti nama. Untuk membuat PDF gunakan Save As atau Export ke PDF."},
+        {"q":"Data kunjungan dalam file .csv bisa dibuka dengan ...","opsi":["Excel atau Notepad","Hanya antivirus","Hanya PowerPoint","Tidak bisa dibuka"],"benar":0,"jelas":".csv adalah teks biasa dengan pemisah koma. Excel menampilkannya sebagai tabel, Notepad menampilkan teks mentah."},
+        {"q":"Ekstensi yang menandakan arsip terkompresi adalah ...","opsi":[".zip",".docx",".jpg",".csv"],"benar":0,"jelas":".zip adalah arsip terkompresi yang dapat memuat banyak file sekaligus."}
+      ]}
+      </script>
+    </section>
+
+    <!-- 5. INTI 3: Utilitas & Keamanan -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Utilitas dan Keamanan Komputer" data-min="10">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Ucapkan:</b> utilitas adalah perawat komputer. Tidak dipakai untuk pekerjaan utama, tetapi tanpanya komputer cepat lambat, kotor, dan rawan. Hubungkan dengan peran petugas kebersihan dan teknisi di RS.</li>
+          <li><b>Tunjukkan:</b> buka Windows Security di komputer Anda, lalu Task Manager untuk memperlihatkan program yang memakai CPU dan RAM terbanyak.</li>
+          <li><b>Ceritakan konteks nyata:</b> serangan ransomware terhadap rumah sakit dan layanan publik terjadi di banyak negara. Pada Juni 2024, Pusat Data Nasional Sementara (PDNS) Indonesia dilaporkan terkena ransomware yang mengganggu banyak layanan publik. Gunakan sebagai pemantik, bukan untuk menakut-nakuti.</li>
+          <li><b>Jelaskan tiga ancaman:</b> virus atau malware, ransomware, dan phishing. Tekankan bahwa pintu masuk paling sering adalah manusia: lampiran email, tautan, dan flash disk.</li>
+          <li><b>Kaitkan dengan hukum:</b> data kesehatan termasuk data pribadi yang bersifat spesifik dalam UU Pelindungan Data Pribadi (UU No. 27 Tahun 2022). Kebocoran data pasien membawa tanggung jawab bagi lembaga dan petugas.</li>
+          <li><b>Praktik cadangan:</b> minta mahasiswa mencentang salinan di simulator, lalu pilih setiap kejadian. Tanyakan mengapa flash disk di laci yang sama tidak menyelamatkan data saat pencurian atau kebakaran.</li>
+          <li><b>Luruskan mitos:</b> "defrag" hanya berguna untuk hard disk mekanik (HDD). Pada SSD, defrag manual tidak diperlukan; Windows memakai perintah TRIM untuk SSD.</li>
+          <li><b>Tutup dengan daftar kebiasaan aman.</b> Minta tiap mahasiswa memilih satu kebiasaan yang akan mereka mulai minggu ini.</li>
+        </ul>
+      </aside>
+
+      <h4>Utilitas: perawat komputer</h4>
+      <p>Utilitas adalah perangkat lunak pendukung yang menjaga komputer tetap aman, bersih, dan terawat. Ia bukan alat kerja utama, tetapi sangat menentukan apakah komputer bisa terus dipakai.</p>
+      <table class="data">
+        <thead><tr><th>Fungsi</th><th>Contoh</th><th>Kapan dipakai</th></tr></thead>
+        <tbody>
+          <tr><td>Keamanan</td><td>Windows Security (antivirus bawaan)</td><td>Selalu aktif; pindai file dari flash disk dan unduhan</td></tr>
+          <tr><td>Kompresi</td><td>7-Zip, WinRAR, folder terkompresi bawaan Windows</td><td>Mengirim banyak file, membuat arsip</td></tr>
+          <tr><td>Pembersihan</td><td>Disk Cleanup, Storage Sense</td><td>Ruang penyimpanan hampir penuh</td></tr>
+          <tr><td>Optimasi disk</td><td>Optimize Drives</td><td>Perawatan berkala; defrag hanya untuk hard disk mekanik</td></tr>
+          <tr><td>Pencadangan</td><td>File History, Windows Backup, OneDrive</td><td>Menyalin file penting secara berkala</td></tr>
+          <tr><td>Pemantauan</td><td>Task Manager (Ctrl+Shift+Esc)</td><td>Komputer lambat atau program tidak merespons</td></tr>
+        </tbody>
+      </table>
+      <div class="galeri">
+        <figure class="gambar">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Microsoft_Defender_Smartscreen.png?width=900" alt="Jendela peringatan Microsoft Defender SmartScreen" loading="lazy">
+          <figcaption>Peringatan Microsoft Defender SmartScreen saat menjalankan program yang tidak dikenal. Jangan asal menekan "Run anyway".<span class="kredit">Gambar: Microsoft · domain publik · <a href="https://commons.wikimedia.org/wiki/File:Microsoft_Defender_Smartscreen.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+        <figure class="gambar">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/20231112_14_28_05-Datentr%C3%A4gerbereinigung.png?width=900" alt="Jendela Disk Cleanup Windows berbahasa Jerman" loading="lazy">
+          <figcaption>Disk Cleanup (tampilan berbahasa Jerman; di Windows berbahasa Indonesia atau Inggris namanya "Disk Cleanup"): memilih jenis file sementara yang aman dihapus.<span class="kredit">Gambar: Microsoft Corporation · domain publik · <a href="https://commons.wikimedia.org/wiki/File:20231112_14_28_05-Datentr%C3%A4gerbereinigung.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+      </div>
+
+      <h4>Tiga ancaman yang paling sering</h4>
+      <div class="grid2">
+        <div class="card"><strong>Virus / malware</strong><p style="margin:6px 0">Program berbahaya yang merusak, mencuri data, atau memata-matai. Sering masuk lewat flash disk, unduhan, dan software bajakan.</p></div>
+        <div class="card"><strong>Ransomware</strong><p style="margin:6px 0">Mengenkripsi file lalu meminta tebusan. Pelindung utamanya adalah cadangan yang tidak ikut terenkripsi.</p></div>
+        <div class="card"><strong>Phishing</strong><p style="margin:6px 0">Pesan palsu yang meniru pihak tepercaya (misalnya "BPJS") agar korban membuka lampiran atau memasukkan kata sandi.</p></div>
+      </div>
+      <p class="note">Data kesehatan termasuk data pribadi yang bersifat spesifik dalam UU Pelindungan Data Pribadi (UU No. 27 Tahun 2022). Menjaganya adalah tanggung jawab semua petugas, bukan hanya bagian IT.</p>
+
+      <h4>Kebiasaan aman setiap minggu</h4>
+      <ul class="checklist" data-widget="checklist" data-key="cek-aman">
+        <li>Pastikan Windows Security aktif dan definisinya mutakhir</li>
+        <li>Jalankan pembaruan Windows di luar jam pelayanan</li>
+        <li>Pindai flash disk sebelum membuka isinya</li>
+        <li>Jangan membuka lampiran atau tautan dari pengirim yang tidak dikenal</li>
+        <li>Kunci layar (Windows+L) setiap meninggalkan komputer</li>
+        <li>Salin file penting ke tempat lain sesuai aturan 3-2-1</li>
+      </ul>
+
+      <h4>Simulator pencadangan 3-2-1</h4>
+      <p class="note">Aturan 3-2-1: <strong>3</strong> salinan data, di <strong>2</strong> jenis media berbeda, dengan <strong>1</strong> salinan di luar lokasi. Centang salinan yang kamu buat, lalu pilih sebuah kejadian.</p>
+      <div data-widget="backup"></div>
+
+      <details>
+        <summary>Mengapa defrag tidak untuk SSD?</summary>
+        <div>Hard disk mekanik menyimpan data di piringan berputar, sehingga potongan file yang tersebar memperlambat pembacaan. Defrag merapikannya. SSD tidak punya bagian bergerak, sehingga letak data tidak memengaruhi kecepatan, dan defrag justru menambah keausan. Windows menangani SSD dengan cara lain (TRIM) secara otomatis.</div>
+      </details>
+    </section>
+
+    <!-- 6. INTI 4: Kompresi ZIP -->
+    <section class="seg" id="seg-inti4" data-judul="Inti 4: Kompresi File (ZIP)" data-min="8">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Ucapkan:</b> kompresi ada dua jenis. Lossless (ZIP) menghasilkan file yang sama persis setelah diekstrak. Lossy (misalnya JPEG) membuang sebagian detail untuk mengecilkan ukuran. Dokumen RS harus lossless.</li>
+          <li><b>Demo interaktif:</b> ketik teks berulang di kotak "cara kerja kompresi", lalu ketik teks acak. Mahasiswa melihat sendiri bahwa pola berulang mudah dikecilkan dan teks acak tidak. Katakan bahwa ZIP sebenarnya memakai metode yang lebih canggih (Deflate), ini hanya gambaran ide.</li>
+          <li><b>Luruskan:</b> ZIP tidak ajaib. File yang sudah terkompresi (JPEG, docx, xlsx, pptx, PDF hasil scan) hampir tidak mengecil. Karena itu manfaat ZIP untuk kumpulan scan adalah menggabungkan menjadi satu paket, bukan mengecilkan.</li>
+          <li><b>Kembali ke cerita Rini:</b> file 8 MB gagal terkirim. Lampiran email dikodekan sehingga membesar sekitar sepertiga, jadi 8 MB menjadi sekitar 10,7 MB dan melewati batas 10 MB. Geser slider ke 8.000 KB untuk menunjukkannya.</li>
+          <li><b>Tunjukkan di komputer:</b> klik kanan, Send to, Compressed (zipped) folder; lalu ekstrak dengan Extract All. Lanjutkan dengan 7-Zip untuk membuat arsip berkata sandi.</li>
+          <li><b>Keamanan:</b> folder terkompresi bawaan Windows tidak bisa diberi kata sandi. Gunakan 7-Zip dengan enkripsi AES-256 bila mengirim data sensitif, dan kirim kata sandi lewat jalur lain, misalnya telepon, bukan email yang sama.</li>
+          <li><b>Tanyakan:</b> "Kapan kalian tidak perlu ZIP?" Arahkan ke tabel panduan di bawah.</li>
+        </ul>
+      </aside>
+
+      <h4>Mengapa Staf RS Perlu Kompresi File?</h4>
+      <p>Email RS umumnya membatasi lampiran sekitar 10 MB, sedangkan scan rekam medis satu pasien bisa 5 sampai 15 MB. Kompresi membantu dalam tiga hal: menggabungkan banyak file menjadi satu paket, menghemat ruang pada file yang memang bisa dikecilkan, dan menambah kata sandi bila diperlukan.</p>
+
+      <h4>Dua jenis kompresi</h4>
+      <div class="grid2">
+        <div class="card"><strong>Lossless (tanpa kehilangan)</strong><p style="margin:6px 0">Setelah diekstrak, isi file sama persis dengan aslinya. Contoh: ZIP, 7z, RAR. Wajib untuk dokumen dan data RS.</p></div>
+        <div class="card"><strong>Lossy (ada yang dibuang)</strong><p style="margin:6px 0">Ukuran kecil karena sebagian detail dibuang dan tidak bisa dikembalikan. Contoh: JPEG, MP3. Hati-hati pada citra medis yang butuh detail.</p></div>
+      </div>
+
+      <h4>Cara kerja paling sederhana</h4>
+      <p class="note">Ketik teks di bawah. Kompresi mencari pola berulang dan menggantinya dengan ringkasan. Ini hanya gambaran ide; ZIP memakai metode yang lebih canggih.</p>
+      <div data-widget="rle"></div>
+
+      <h4>Simulator Kompresi ZIP</h4>
+      <p class="note">Atur ukuran file dan pilih jenisnya. Angka rasio hanyalah perkiraan; hasil nyata bergantung pada isi file.</p>
+      <div data-widget="zipsim"></div>
+
+      <figure class="gambar">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/7-Zip_screenshot_vista.png?width=960" alt="Jendela 7-Zip File Manager menampilkan daftar file" loading="lazy">
+        <figcaption>7-Zip File Manager: gratis, sumber terbuka, dapat membuat ZIP dan 7z, serta memberi kata sandi.<span class="kredit">Gambar: pengunggah SF007 (perangkat lunak 7-Zip, Igor Pavlov) · lisensi GPL · <a href="https://commons.wikimedia.org/wiki/File:7-Zip_screenshot_vista.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+      </figure>
+
+      <h4>Cara membuat dan membuka ZIP</h4>
+      <ul class="checklist" data-widget="checklist" data-key="cek-zip">
+        <li>Kumpulkan file yang akan dikirim dalam satu folder dengan nama jelas</li>
+        <li>Pilih semua file, klik kanan, lalu pilih <strong>Send to &rarr; Compressed (zipped) folder</strong></li>
+        <li>Beri nama arsip, misalnya <strong>Rekap-Oktober-2026.zip</strong></li>
+        <li>Periksa ukuran arsip di File Explorer sebelum melampirkan ke email</li>
+        <li>Untuk membuka: klik kanan arsip, pilih <strong>Extract All</strong>, lalu tentukan folder tujuan</li>
+        <li>Untuk kata sandi: gunakan 7-Zip (klik kanan, <strong>7-Zip &rarr; Add to archive</strong>, isi kolom Encryption, pilih AES-256)</li>
+      </ul>
+
+      <h4>Panduan Kapan Pakai ZIP</h4>
+      <table class="data">
+        <thead><tr><th>Situasi</th><th>Pakai ZIP?</th><th>Alasan</th></tr></thead>
+        <tbody>
+          <tr><td>Kirim 1 foto lewat WhatsApp</td><td>Tidak perlu</td><td>JPEG sudah terkompresi</td></tr>
+          <tr><td>Kirim 50 scan dokumen ke asuransi</td><td>Ya, untuk menggabungkan</td><td>Ukuran hampir tidak berkurang karena scan sudah terkompresi. Kecilkan resolusi scan lebih dulu.</td></tr>
+          <tr><td>Backup rekap bulanan (CSV, Word, Excel) ke USB</td><td>Disarankan</td><td>CSV dan teks mengecil banyak; docx dan xlsx mengecil sedikit</td></tr>
+          <tr><td>Kirim laporan Word 300 KB lewat email</td><td>Tidak perlu</td><td>Sudah kecil, dan docx sendiri sudah terkompresi</td></tr>
+          <tr><td>Arsip tahunan dokumen administrasi</td><td>Sangat disarankan</td><td>Satu paket yang rapi dan mudah disalin</td></tr>
+          <tr><td>Kirim dokumen yang memuat data pasien</td><td>Ya, dengan kata sandi</td><td>Pakai 7-Zip (AES-256) dan kirim kata sandi lewat jalur terpisah</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 7. INTI 5: PDF -->
+    <section class="seg" id="seg-inti5" data-judul="Inti 5: Mengelola PDF" data-min="8">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Ucapkan:</b> PDF dibuat agar dokumen tampil sama di perangkat mana pun. Itu sebabnya cocok untuk dokumen final, bukan dokumen yang masih direvisi.</li>
+          <li><b>Tanyakan:</b> "Surat rujukan yang masih menunggu tanda tangan dokter, kirim dalam format apa?" Diskusikan: Word saat masih revisi, PDF setelah final.</li>
+          <li><b>Bahas jenis PDF:</b> PDF biasa, PDF/A untuk arsip jangka panjang, dan PDF bertanda tangan digital. Sebutkan bahwa tanda tangan digital berbeda dengan gambar tanda tangan yang ditempel.</li>
+          <li><b>Tekankan privasi:</b> situs gabung PDF online mengharuskan file diunggah ke server pihak lain. Jangan dipakai untuk dokumen yang memuat data pasien atau data kepegawaian. Pakai aplikasi offline.</li>
+          <li><b>Peringatan redaksi:</b> menutup teks dengan kotak hitam biasa tidak menghapus teks di bawahnya. Gunakan fitur Redact yang benar-benar menghapus. Ini kesalahan yang sering terjadi saat menyamarkan data.</li>
+          <li><b>Tunjukkan:</b> Word &rarr; Save As &rarr; PDF; lalu buka PDF-nya di browser dan coba menekan Ctrl+F untuk mencari teks. Jelaskan bahwa PDF hasil scan tidak bisa dicari tanpa OCR.</li>
+          <li><b>Latihan:</b> urutan langkah gabung PDF dikerjakan berpasangan. Minta satu pasangan menjelaskan alasan urutannya.</li>
+        </ul>
+      </aside>
+
+      <div class="tabs">
+        <div class="tablist" role="tablist">
+          <button type="button" role="tab">Apa Itu PDF?</button>
+          <button type="button" role="tab">Aman &amp; Rahasia</button>
+          <button type="button" role="tab">Cara Gabung PDF</button>
+          <button type="button" role="tab">Konversi ke PDF</button>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <h4>PDF — Portable Document Format</h4>
+          <p>PDF adalah format dokumen yang tampilannya <strong>tidak berubah</strong> di perangkat apa pun: komputer, tablet, ponsel, atau printer.</p>
+          <div class="grid2">
+            <div class="card">
+              <strong>Kelebihan PDF</strong>
+              <ul><li>Tampilan konsisten di semua perangkat dan OS</li><li>Tidak mudah diedit sembarangan</li><li>Ukuran relatif kecil dibanding file gambar</li><li>Mendukung tanda tangan digital</li><li>Semua orang bisa membukanya tanpa memiliki Word</li></ul>
+            </div>
+            <div class="card">
+              <strong>Kapan memakai PDF di RS</strong>
+              <ul><li>Surat rujukan yang dicetak atau dikirim email</li><li>Laporan bulanan atau tahunan</li><li>Formulir pendaftaran</li><li>Dokumen yang perlu tanda tangan digital</li><li>Arsip yang tidak boleh berubah</li></ul>
+            </div>
+          </div>
+          <h4>Beberapa jenis PDF</h4>
+          <table class="data">
+            <thead><tr><th>Jenis</th><th>Ciri</th><th>Contoh pemakaian</th></tr></thead>
+            <tbody>
+              <tr><td>PDF biasa</td><td>Teks dan gambar yang tampil tetap</td><td>Surat, laporan</td></tr>
+              <tr><td>PDF hasil scan</td><td>Berupa gambar halaman; teks tidak bisa dicari tanpa OCR</td><td>Scan formulir lama</td></tr>
+              <tr><td>PDF/A</td><td>Standar untuk arsip jangka panjang</td><td>Arsip dokumen administrasi</td></tr>
+              <tr><td>PDF bertanda tangan digital</td><td>Tanda tangan elektronik yang dapat diverifikasi dan menandai bila dokumen berubah</td><td>Surat keputusan, kontrak</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <h4>Menjaga dokumen tetap rahasia</h4>
+          <ul>
+            <li><strong>Jangan unggah dokumen yang memuat data pasien</strong> ke situs gabung, pisah, atau kompres PDF online. Berkas tersimpan di server pihak lain dan Anda tidak mengendalikannya.</li>
+            <li><strong>Redaksi yang benar:</strong> kotak hitam yang digambar di atas teks tidak menghapus teks di bawahnya. Pakai fitur <em>Redact</em> pada aplikasi PDF yang mendukungnya, lalu simpan sebagai file baru.</li>
+            <li><strong>Kata sandi PDF:</strong> bisa diberikan lewat aplikasi PDF. Kirim kata sandi lewat jalur terpisah.</li>
+            <li><strong>Periksa sebelum kirim:</strong> buka PDF final, gulir semua halaman, dan pastikan tidak ada halaman salah pasien.</li>
+          </ul>
+          <p class="note">Situs online boleh dipakai hanya untuk dokumen umum yang tidak mengandung data pribadi.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <h4>Latihan: Urutkan Langkah Menggabungkan 2 PDF (aplikasi offline)</h4>
+          <p>Skenario: Anda perlu menggabungkan <em>Surat Rujukan.pdf</em> dan <em>Hasil Lab Pasien A (fiktif).pdf</em> sebelum dikirim ke dokter spesialis. Gunakan aplikasi yang berjalan di komputer, misalnya PDFsam Basic atau PDF24 Creator, bukan situs online.</p>
+          <div data-widget="sortlist" data-src="sl-gabungpdf"></div>
+          <script type="application/json" id="sl-gabungpdf">
+          {"langkah":["Buka aplikasi PDF di komputer, misalnya PDFsam Basic atau PDF24 Creator","Pilih menu atau modul 'Merge' (Gabung)","Tambahkan file pertama: Surat Rujukan.pdf","Tambahkan file kedua: Hasil Lab Pasien A (fiktif).pdf","Atur urutan file jika perlu","Tentukan nama dan folder hasil, lalu klik tombol untuk menggabungkan"]}
+          </script>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <h4>Konversi Word &rarr; PDF (langkah demi langkah)</h4>
+          <p>Cara termudah: gunakan fitur bawaan MS Word, yaitu <em>Save As &rarr; PDF</em>. Tidak perlu software tambahan.</p>
+          <ul class="checklist" data-widget="checklist" data-key="cek-pdf-konversi">
+            <li>Buka dokumen Word yang sudah selesai diedit dan siap dikirim</li>
+            <li>Klik menu <strong>File</strong> di pojok kiri atas</li>
+            <li>Pilih <strong>Save As</strong> (atau Simpan Sebagai)</li>
+            <li>Klik kotak dropdown <strong>"Save as type"</strong>, pilih <strong>PDF (*.pdf)</strong></li>
+            <li>Beri nama file yang jelas, misalnya: Surat-Rujukan-PasienA-20261105.pdf</li>
+            <li>Klik <strong>Save</strong> / Simpan; file PDF tersimpan di folder yang sama</li>
+          </ul>
+          <p class="note">Alternatif lebih cepat: <strong>File &rarr; Export &rarr; Create PDF/XPS</strong> langsung menghasilkan PDF tanpa dialog Save As.</p>
+          <p class="note"><strong>Mengecilkan PDF hasil scan:</strong> turunkan resolusi scan ke sekitar 150 sampai 200 dpi dan pakai mode hitam-putih untuk halaman yang hanya berisi teks.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. INTI 6: Matriks Word / Excel / PPT -->
+    <section class="seg" id="seg-inti6" data-judul="Inti 6: Word, Excel, atau PPT?" data-min="5">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Ucapkan:</b> pertanyaan penuntunnya sederhana. Naratif dan perlu format rapi: Word. Berisi angka, daftar berulang, atau perhitungan: Excel. Akan ditayangkan di layar besar: PowerPoint.</li>
+          <li><b>Mintalah mahasiswa memilih lebih dulu</b>, baru tekan "Periksa". Bahas baris yang paling banyak salah.</li>
+          <li><b>Beri kasus abu-abu:</b> "Surat tagihan berisi tabel biaya". Jawaban: suratnya di Word, hitungan biayanya di Excel, lalu tabelnya ditempel ke Word. Ini jembatan ke pertemuan integrasi Office.</li>
+          <li><b>Ingatkan:</b> pilihan yang tepat menghemat waktu revisi dan membuat dokumen tampak profesional.</li>
+        </ul>
+      </aside>
+      <h4>Matriks Pemilihan Aplikasi Kantor RS</h4>
+      <p>Untuk setiap jenis dokumen RS berikut, pilih aplikasi yang paling tepat. Klik pilihan, lalu tekan <strong>Periksa</strong>.</p>
+      <div data-widget="matriksapp"></div>
+      <details style="margin-top:16px">
+        <summary>Tips Cepat Memilih Aplikasi</summary>
+        <div>
+          <ul>
+            <li><strong>Word</strong> &rarr; pertanyaan: "apakah ini teks naratif yang perlu diformat rapi?" &rarr; surat, laporan narasi, notulen, SK, berita acara.</li>
+            <li><strong>Excel</strong> &rarr; pertanyaan: "apakah ada data berulang, angka, atau perhitungan?" &rarr; tagihan, jadwal, rekap, inventaris, laporan keuangan.</li>
+            <li><strong>PowerPoint</strong> &rarr; pertanyaan: "apakah ini akan ditampilkan di layar besar?" &rarr; presentasi rapat, penyuluhan, profil RS.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- 9. STUDI KASUS -->
+    <section class="seg" id="seg-kasus" data-judul="Studi Kasus: Audit Komputer Loket Pendaftaran" data-min="7">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Ucapkan:</b> ini rangkuman. Mahasiswa berperan sebagai staf yang baru ditugaskan memeriksa satu komputer loket. Setiap temuan menuntut keputusan yang tepat.</li>
+          <li><b>Jalankan sebagai diskusi:</b> bacakan satu temuan, beri waktu 30 detik berdiskusi dengan teman sebelah, baru minta jawaban. Setelah itu buka penjelasan.</li>
+          <li><b>Tekankan alasan:</b> jawaban benar bukan sekadar "hapus". Misalnya, pembaruan Windows dijadwalkan di luar jam pelayanan, bukan dimatikan.</li>
+          <li><b>Kaitkan dengan peran:</b> tidak semua keputusan di tangan staf administrasi. Tahu kapan harus melapor ke bagian IT juga merupakan keterampilan.</li>
+        </ul>
+      </aside>
+      <p class="cerita">Rini mendapat tugas pertama: memeriksa komputer di loket pendaftaran RS Sehat Citra. Ia menemukan beberapa hal yang janggal. Pada tiap temuan, pilih tindakan yang paling tepat.</p>
+      <div data-widget="quiz" data-src="quiz-kasus" class="quiz"></div>
+      <script type="application/json" id="quiz-kasus">
+      {"judul":"Audit Komputer Loket","soal":[
+        {"q":"Windows di komputer loket tidak pernah diperbarui selama dua tahun. Tindakan paling tepat?","opsi":["Membiarkannya karena komputer masih berjalan","Mematikan pembaruan agar tidak mengganggu antrean","Menjadwalkan pembaruan di luar jam pelayanan dan melapor ke IT","Memasang antivirus tambahan lalu selesai"],"benar":2,"jelas":"Pembaruan menutup celah keamanan. Jadwalkan di luar jam sibuk agar pelayanan tidak terganggu, dan koordinasikan dengan IT."},
+        {"q":"Staf memasang Microsoft Office hasil crack yang diunduh dari internet. Tindakan paling tepat?","opsi":["Dibiarkan selama berfungsi","Dihapus; pakai lisensi resmi atau alternatif gratis seperti LibreOffice, lalu laporkan","Disembunyikan agar tidak ketahuan","Dipindahkan ke komputer lain"],"benar":1,"jelas":"Software bajakan melanggar hak cipta dan sering membawa malware. Gunakan lisensi resmi atau alternatif sah seperti LibreOffice."},
+        {"q":"Data pasien disimpan di flash disk pribadi milik petugas. Tindakan paling tepat?","opsi":["Dibiarkan karena praktis","Dipindahkan ke penyimpanan resmi RS dan dilarang menyimpan data pasien di perangkat pribadi","Diberi nama file yang disamarkan","Dikirim ke email pribadi sebagai cadangan"],"benar":1,"jelas":"Perangkat pribadi mudah hilang atau terinfeksi. Data pasien harus disimpan di penyimpanan resmi dengan pengendalian akses."},
+        {"q":"Satu-satunya salinan rekap bulanan hanya ada di Desktop komputer loket. Tindakan paling tepat?","opsi":["Tidak perlu apa-apa karena komputernya baru","Menerapkan aturan 3-2-1: tambahkan salinan di media lain dan satu di luar lokasi","Menyalinnya ke folder lain di komputer yang sama","Menghapus file lama agar ringan"],"benar":1,"jelas":"Salinan di komputer yang sama ikut hilang bila hard disk rusak, komputer dicuri, atau terkena ransomware. Butuh salinan di media dan lokasi berbeda."},
+        {"q":"Masuk email berlampiran 'Tagihan_BPJS.zip' dari pengirim tak dikenal yang meminta dibuka segera. Tindakan paling tepat?","opsi":["Dibuka segera agar tidak terlambat","Diteruskan ke seluruh rekan kerja untuk dicek","Tidak dibuka, dilaporkan ke IT sebagai dugaan phishing","Dibuka di komputer lain"],"benar":2,"jelas":"Desakan untuk segera membuka lampiran dari pengirim tak dikenal adalah ciri phishing. Jangan dibuka dan laporkan ke IT."},
+        {"q":"Antivirus di komputer loket tidak aktif dan definisinya kedaluwarsa. Tindakan paling tepat?","opsi":["Menunggu sampai ada virus","Mengaktifkan Windows Security dan memperbarui definisinya, lalu menjalankan pemindaian","Menghapus antivirus karena membuat lambat","Mencabut kabel jaringan saja"],"benar":1,"jelas":"Antivirus harus aktif dan mutakhir. Setelah diaktifkan, jalankan pemindaian penuh pada komputer."}
+      ]}
+      </script>
+    </section>
+
+    <!-- 7. PRAKTIK -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Game Pilih Aplikasi RS" data-min="10">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Ucapkan:</b> game ini mengulang keputusan "Word, Excel, atau PPT" sebanyak 15 kali agar menjadi refleks. Setelah itu, Tugas Lab dikerjakan di komputer.</li>
+          <li><b>Jalankan sebagai kompetisi ringan:</b> beri waktu lima menit dan lihat siapa yang skornya tertinggi, lalu bahas kartu yang paling sering salah.</li>
+          <li><b>Pada Tugas Lab:</b> bacakan tiga tugas dan kriterianya (40%, 30%, 30%). Ingatkan bahwa tabel 10 aplikasi harus dikategorikan, bukan hanya dicatat.</li>
+          <li><b>Sambil berkeliling:</b> periksa apakah mahasiswa membuat PDF dengan Save As, menamai folder Backup_[NIM], dan memilih tiga file yang berbeda. Tantangan opsional: buat arsip 7-Zip dengan kata sandi.</li>
+        </ul>
+      </aside>
+      <p>Kamu adalah staf administrasi baru di <strong>RS Sehat Citra</strong>. Untuk setiap kartu tugas berikut, pilih aplikasi yang paling tepat: <em>Word</em>, <em>Excel</em>, atau <em>PPT</em>.</p>
+      <div data-widget="appgame"></div>
+      <div class="tugas-lab">
+        <h4>Tugas Lab</h4>
+        <ol>
+          <li>Di komputer lab, buka File Explorer → amati aplikasi di folder Program Files. Catat <strong>minimal 10 aplikasi</strong> dan kategorikan ke tabel: OS / Aplikasi / Utilitas.</li>
+          <li>Ambil salah satu file Word dari folder Dokumen. Simpan ulang sebagai <strong>PDF</strong> menggunakan File → Save As → PDF. Tunjukkan ke instruktur.</li>
+          <li>Buat folder baru bernama <strong>Backup_[NIM]</strong> di Desktop. Masukkan 3 file dokumen berbeda, lalu kompresikan menjadi satu file <strong>ZIP</strong> menggunakan klik-kanan → Send to → Compressed folder.</li>
+        </ol>
+        <p class="kriteria"><strong>Kriteria penilaian (dari RPS):</strong> 1) Tabel 10 aplikasi benar dikategorikan (40%) 2) File PDF berhasil dibuat (30%) 3) File ZIP dengan 3 file di dalamnya (30%)</p>
+      </div>
+    </section>
+
+    <!-- 8. POST-TEST -->
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="5">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Ucapkan:</b> post-test memakai soal yang berbeda dari pre-test, dengan cakupan lebih luas (8 soal). Kerjakan mandiri.</li>
+          <li><b>Setelah selesai:</b> tunjukkan grafik perbandingan, lalu tanyakan "Bagian apa yang paling membantu?" Soal tambahan tentang cadangan 3-2-1, ZIP untuk JPEG, dan privasi PDF mengukur materi baru pada pertemuan ini.</li>
+          <li><b>Bahas soal yang masih sering salah</b> secara singkat dan jujur; ini masukan untuk memperbaiki cara Anda mengajar minggu depan.</li>
+        </ul>
+      </aside>
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test","soal":[
+        {"q":"Ubuntu Linux termasuk jenis perangkat lunak apa?","opsi":["Aplikasi produktivitas","Sistem Operasi","Utilitas kompresi","Browser internet"],"benar":1,"jelas":"Ubuntu Linux adalah sistem operasi open-source, setara dengan Windows atau macOS."},
+        {"q":"Staf RS perlu membuat rekap data kunjungan 3 bulan terakhir (180 baris data) dengan rumus otomatis. Aplikasi paling tepat adalah...","opsi":["MS Word","MS PowerPoint","MS Excel","Adobe Acrobat"],"benar":2,"jelas":"Excel dirancang untuk data tabular berjumlah besar dan mendukung rumus kalkulasi otomatis."},
+        {"q":"File dokumen terkompresi dari 10 MB menjadi 3,5 MB. Berapa persen penghematan ruang yang berhasil dicapai?","opsi":["35%","65%","285%","10%"],"benar":1,"jelas":"Penghematan = (10 - 3.5) / 10 × 100% = 65%. Ukuran berkurang 65%."},
+        {"q":"Kapan dokumen Word sebaiknya TIDAK langsung dikonversi ke PDF?","opsi":["Saat akan dicetak dan dibagikan ke pasien","Saat masih perlu direvisi bersama beberapa kolega","Saat akan dikirim via email resmi","Saat perlu tanda tangan digital direktur"],"benar":1,"jelas":"PDF sulit diedit. Jika dokumen masih dalam tahap revisi bersama, format Word lebih fleksibel."},
+        {"q":"Mana yang BUKAN termasuk software utilitas?","opsi":["WinRAR","Disk Cleanup","LibreOffice Calc","7-Zip"],"benar":2,"jelas":"LibreOffice Calc adalah aplikasi spreadsheet (setara Excel) — bukan utilitas. WinRAR, Disk Cleanup, dan 7-Zip adalah utilitas."},
+        {"q":"Menurut aturan 3-2-1, apa yang paling tepat untuk melindungi rekap bulanan RS?","opsi":["Satu salinan di Desktop komputer yang sama","Tiga salinan, dua jenis media, satu salinan di luar lokasi","Dua salinan di dua folder komputer yang sama","Menyimpannya hanya di flash disk pribadi"],"benar":1,"jelas":"3 salinan, 2 jenis media, dan 1 salinan di luar lokasi melindungi dari kerusakan disk, pencurian, kebakaran, dan ransomware."},
+        {"q":"Mengapa ZIP hampir tidak mengecilkan kumpulan foto JPEG hasil scan?","opsi":["ZIP rusak jika dipakai untuk foto","JPEG sudah terkompresi, jadi hampir tidak ada pola yang tersisa untuk dikecilkan","Foto tidak boleh dikompres","ZIP hanya bekerja untuk file PDF"],"benar":1,"jelas":"JPEG sudah terkompresi. ZIP tetap berguna untuk menggabungkan banyak file menjadi satu paket."},
+        {"q":"Dokumen berisi hasil lab pasien akan digabung menjadi satu PDF. Cara yang paling tepat?","opsi":["Mengunggahnya ke situs gabung PDF online yang gratis","Memakai aplikasi PDF yang berjalan di komputer (offline)","Mengirimkannya ke ponsel pribadi lebih dulu","Memotretnya dengan ponsel dan menggabungkan fotonya"],"benar":1,"jelas":"Situs online menyimpan file di server pihak lain. Untuk data pasien, gunakan aplikasi offline dan penyimpanan resmi RS."}
+      ]}
+      </script>
+      <h4>Perbandingan Pre-test vs Post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <!-- 9. PENUTUP -->
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="2">
+      <aside class="catatan" aria-label="Catatan pembicara">
+        <h4>Catatan pembicara</h4>
+        <ul>
+          <li><b>Kembali ke Rini:</b> tanyakan "Tiga masalah Rini di awal tadi, sudah terjawab semua?" Tunjukkan catatan di papan dan centang satu per satu.</li>
+          <li><b>Rangkum dengan kata mahasiswa:</b> minta tiga orang menyebut satu hal yang mereka ingat, lalu lengkapi dengan ringkasan di layar.</li>
+          <li><b>Refleksi:</b> beri satu menit hening untuk menulis. Katakan bahwa tulisan ini hanya untuk diri sendiri dan tersimpan di browser.</li>
+          <li><b>Tindak lanjut:</b> pastikan MS Word terpasang di komputer mereka sebelum pertemuan 04. Ingatkan tugas lab yang dinilai.</li>
+        </ul>
+      </aside>
+      <h4>Ringkasan Pertemuan 03</h4>
+      <ol>
+        <li><strong>Tiga jenis software:</strong> OS (fondasi sistem), Aplikasi (tugas spesifik), Utilitas (perawatan, keamanan, dan manajemen sistem).</li>
+        <li><strong>Lisensi dan ekstensi:</strong> pilih software berlisensi sah; baca ekstensi file sebelum membukanya, dan waspadai file berekstensi .exe yang menyamar.</li>
+        <li><strong>Keamanan dan cadangan:</strong> aktifkan antivirus, perbarui sistem, dan terapkan aturan 3-2-1 untuk data penting.</li>
+        <li><strong>Kompresi ZIP</strong> paling berguna untuk menggabungkan file dan mengecilkan teks, CSV, atau dokumen lama. JPEG dan scan nyaris tidak mengecil. Pakai 7-Zip dengan kata sandi untuk data sensitif.</li>
+        <li><strong>PDF</strong> adalah format dokumen final. Gabungkan dan ubah PDF memakai aplikasi offline, dan jangan unggah dokumen pasien ke situs online.</li>
+        <li><strong>Word</strong> untuk teks naratif; <strong>Excel</strong> untuk data tabular dan angka; <strong>PowerPoint</strong> untuk presentasi visual.</li>
+        <li>Memilih aplikasi yang tepat sejak awal menghemat waktu revisi dan menghasilkan dokumen yang lebih profesional.</li>
+      </ol>
+      <h4>Refleksi</h4>
+      <div data-widget="reflect" data-key="refleksi" data-prompt="Tuliskan: dokumen apa yang biasa kamu kerjakan, dan apakah kamu sudah menggunakan aplikasi yang paling tepat? Apa yang akan kamu ubah?"></div>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 04 — Microsoft Word untuk Administrasi RS: standar format surat resmi, margin, kop surat. Pastikan MS Word terinstal di komputer kalian.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+"use strict";
+const KONFIG = {
+  kode: "krs-p03",
+  nomor: "03",
+  judul: "Perangkat Lunak (Software) & Pemetaan Aplikasi",
+  cpmk: "CPMK-1: Mampu membedakan jenis software komputer, mengoperasikan software utilitas, serta memetakan penggunaan aplikasi kantor sesuai kebutuhan administrasi RS.",
+  tujuan: [
+    "Membedakan OS, software aplikasi, dan utilitas, serta memahami lisensi dan jenis file",
+    "Menerapkan kebiasaan aman: antivirus, pembaruan, dan cadangan 3-2-1",
+    "Mengompresi file dan mengelola PDF tanpa membocorkan data pasien",
+    "Memetakan dokumen administrasi RS ke aplikasi yang tepat"
+  ],
+  totalMenit: 90
+};
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, props, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in (props || {})) {
+    const v = props[k];
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (v === true) e.setAttribute(k, "");
+    else if (v !== false && v != null) e.setAttribute(k, v);
+  }
+  for (const c of kids.flat()) {
+    if (c == null || c === false) continue;
+    e.append(c.nodeType ? c : document.createTextNode(String(c)));
+  }
+  return e;
+}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(KONFIG.kode + "-" + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(KONFIG.kode + "-" + k, JSON.stringify(v)); } catch { /* storage diblokir */ } }
+};
+function getData(id) { return JSON.parse(document.getElementById(id).textContent); }
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+let uid = 0;
+const nextId = p => p + "-" + (++uid);
+
+const W = {};
+
+/* ----- QUIZ ----- */
+W.quiz = el => {
+  const d = getData(el.dataset.src);
+  const key = "quiz-" + (el.dataset.role || el.dataset.src);
+  const saved = store.get(key, { jawab: {} });
+  const jawab = saved.jawab || {};
+  const skorEl = h("p", { class: "skor", "aria-live": "polite" });
+  const items = [];
+  function hitung() {
+    let b = 0; for (const i in jawab) if (Number(jawab[i]) === d.soal[i].benar) b++;
+    const n = Object.keys(jawab).length;
+    skorEl.textContent = "Skor: " + b + " / " + d.soal.length + (n < d.soal.length ? "  (terjawab " + n + ")" : "");
+    store.set(key, { jawab, skor: b, total: d.soal.length, selesai: n === d.soal.length });
+    document.dispatchEvent(new CustomEvent("krs:skor"));
+  }
+  function tampil(i, pilih) {
+    const it = items[i], s = d.soal[i];
+    it.labels.forEach((l, j) => { l.classList.toggle("benar", j === s.benar); l.classList.toggle("salah", j === pilih && j !== s.benar); });
+    it.fb.textContent = (pilih === s.benar ? "Benar. " : "Belum tepat. ") + (s.jelas || "");
+  }
+  d.soal.forEach((s, i) => {
+    const name = nextId("q");
+    const fb = h("p", { class: "fb", "aria-live": "polite" });
+    const labels = s.opsi.map((o, j) => {
+      const inp = h("input", { type: "radio", name, value: j, onchange: () => { jawab[i] = j; tampil(i, j); hitung(); } });
+      if (Number(jawab[i]) === j) inp.checked = true;
+      return h("label", {}, inp, " ", o);
+    });
+    items.push({ labels, fb });
+    el.append(h("fieldset", {}, h("legend", {}, (i + 1) + ". " + s.q), labels, fb));
+    if (jawab[i] !== undefined) tampil(i, Number(jawab[i]));
+  });
+  el.append(skorEl, h("button", { class: "btn sec", type: "button", onclick: () => {
+    for (const k in jawab) delete jawab[k];
+    $$("input", el).forEach(x => x.checked = false);
+    items.forEach(it => { it.labels.forEach(l => l.classList.remove("benar", "salah")); it.fb.textContent = ""; });
+    hitung();
+  } }, "Ulangi"));
+  hitung();
+};
+
+/* ----- BANDING ----- */
+W.banding = el => {
+  function baris(role, nama, cls) {
+    const track = h("i"), val = h("span", {}, "–");
+    el.append(h("div", { class: "row " + cls }, h("span", {}, nama), h("div", { class: "track" }, track), val));
+    return () => {
+      const s = store.get("quiz-" + role, null);
+      if (!s || !s.selesai) { track.style.width = "0"; val.textContent = "–"; return; }
+      const p = Math.round(s.skor / s.total * 100);
+      track.style.width = p + "%"; val.textContent = p + "%";
+    };
+  }
+  el.classList.add("banding");
+  const a = baris("pre", "Pre-test", "pre"), b = baris("post", "Post-test", "post");
+  const up = () => { a(); b(); };
+  document.addEventListener("krs:skor", up); up();
+};
+
+/* ----- SORTLIST ----- */
+W.sortlist = el => {
+  const d = getData(el.dataset.src);
+  let order = d.langkah.map((_, i) => i);
+  do { order = shuffle(order); } while (order.length > 1 && order.every((v, i) => v === i));
+  let dicek = false;
+  const ol = h("ol", { class: "sl" }), hasil = h("p", { class: "skor", "aria-live": "polite" });
+  function gerak(i, dlt) { const j = i + dlt; if (j < 0 || j >= order.length) return; [order[i], order[j]] = [order[j], order[i]]; dicek = false; r(); }
+  function r() {
+    ol.textContent = "";
+    order.forEach((v, i) => {
+      ol.append(h("li", { class: dicek ? (v === i ? "benar" : "salah") : "" },
+        h("span", {}, (i + 1) + "."),
+        h("span", { class: "txt" }, d.langkah[v]),
+        h("button", { type: "button", "aria-label": "Naikkan", onclick: () => gerak(i, -1) }, "▲"),
+        h("button", { type: "button", "aria-label": "Turunkan", onclick: () => gerak(i, 1) }, "▼")));
+    });
+  }
+  el.append(ol, h("button", { class: "btn", type: "button", onclick: () => {
+    dicek = true; r();
+    const b = order.filter((v, i) => v === i).length;
+    hasil.textContent = b === order.length ? "Urutan sudah benar!" : "Posisi benar: " + b + " dari " + order.length;
+  } }, "Periksa urutan"), hasil);
+  r();
+};
+
+/* ----- CHECKLIST ----- */
+W.checklist = el => {
+  const key = "cek-" + (el.dataset.key || nextId("c"));
+  const saved = store.get(key, []);
+  const lis = $$(":scope > li", el);
+  const bar = h("i"), txt = h("span", { class: "kriteria" });
+  function up() {
+    const n = lis.filter(l => $("input", l).checked).length;
+    bar.style.width = (n / lis.length * 100) + "%";
+    txt.textContent = n + " / " + lis.length + " selesai";
+    store.set(key, lis.map(l => $("input", l).checked));
+  }
+  lis.forEach((li, i) => {
+    const t = li.textContent.trim();
+    const cb = h("input", { type: "checkbox", onchange: up });
+    cb.checked = !!saved[i];
+    li.textContent = "";
+    li.append(h("label", {}, cb, h("span", {}, t)));
+  });
+  el.after(h("div", { class: "prog", "aria-hidden": "true" }, bar), txt);
+  up();
+};
+
+/* ----- REFLECT ----- */
+W.reflect = el => {
+  const key = "ref-" + (el.dataset.key || "x");
+  const ta = h("textarea", { class: "reflect", "aria-label": el.dataset.prompt || "Refleksi" });
+  ta.value = store.get(key, "");
+  ta.addEventListener("input", () => store.set(key, ta.value));
+  el.append(h("p", {}, el.dataset.prompt || "Tuliskan refleksi singkat:"), ta);
+};
+
+/* ----- KATEGORISASI (custom: sorter ke 3 bucket) ----- */
+W.kategorisasi = el => {
+  const d = getData(el.dataset.src);
+  const jawaban = {};
+  d.kategori.forEach(k => k.items.forEach(item => { jawaban[item] = k.nama; }));
+  const placements = {};
+  let selected = null, dicek = false;
+
+  const bankEl = h("div", { class: "kat-bank", "aria-label": "Bank software" });
+  const katGrid = h("div", { class: "kat-grid" });
+  const katItemEls = {};
+
+  d.kategori.forEach(k => {
+    const itemsDiv = h("div", { class: "kat-items" });
+    katItemEls[k.nama] = itemsDiv;
+    const taruh = () => { if (selected === null) return; placements[selected] = k.nama; selected = null; dicek = false; render(); };
+    const col = h("div", { class: "kat-col", role: "button", tabindex: "0", "aria-label": "Kategori " + k.nama,
+      onclick: taruh,
+      onkeydown: e => { if (e.target === col && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); taruh(); } }
+    }, h("div", { class: "kat-col-head" }, k.nama), itemsDiv);
+    katGrid.append(col);
+  });
+
+  function render() {
+    bankEl.textContent = "";
+    d.semua.forEach(item => {
+      if (placements[item]) return;
+      const btn = h("button", { type: "button", class: "kat-item" + (selected === item ? " pilih" : ""),
+        onclick: e => { e.stopPropagation(); selected = (selected === item) ? null : item; render(); }
+      }, item);
+      bankEl.append(btn);
+    });
+    d.kategori.forEach(k => {
+      const div = katItemEls[k.nama];
+      div.textContent = "";
+      d.semua.forEach(item => {
+        if (placements[item] !== k.nama) return;
+        let cls = "kat-item";
+        if (dicek) cls += (jawaban[item] === k.nama ? " ok" : " bad");
+        div.append(h("button", { type: "button", class: cls,
+          onclick: e => { e.stopPropagation(); delete placements[item]; selected = null; dicek = false; render(); }
+        }, item));
+      });
+    });
+  }
+
+  const hasil = h("p", { class: "skor", "aria-live": "polite" });
+  el.append(bankEl, katGrid,
+    h("p", {},
+      h("button", { class: "btn", type: "button", onclick: () => {
+        dicek = true;
+        let benar = 0;
+        d.semua.forEach(item => { if (placements[item] === jawaban[item]) benar++; });
+        hasil.textContent = "Benar: " + benar + " dari " + d.semua.length + (benar === d.semua.length ? " — Sempurna!" : " — Klik item merah untuk mengembalikan ke bank dan coba lagi.");
+        render();
+      } }, "Periksa"),
+      " ",
+      h("button", { class: "btn sec", type: "button", onclick: () => {
+        Object.keys(placements).forEach(k => delete placements[k]);
+        selected = null; dicek = false; hasil.textContent = ""; render();
+      } }, "Ulangi")
+    ), hasil);
+  render();
+};
+
+/* ----- ZIP SIMULATOR ----- */
+W.zipsim = el => {
+  // shortcut: rasio perkiraan per jenis file, bukan hasil kompresi sungguhan
+  const jenis = [
+    { nama: "Teks polos / CSV / log", r: 0.25 },
+    { nama: "Dokumen lama (.doc / .xls)", r: 0.5 },
+    { nama: "Dokumen baru (.docx / .xlsx / .pptx)", r: 0.95 },
+    { nama: "Foto JPEG", r: 0.98 },
+    { nama: "PDF hasil scan", r: 0.97 },
+    { nama: "Gambar tanpa kompresi (mis. BMP)", r: 0.4 }
+  ];
+  const BATAS_KB = 10 * 1024;
+  let ukuranKB = 8000, idx = 0;
+  const fmt = kb => kb >= 1024 ? (kb / 1024).toFixed(1) + " MB" : Math.round(kb) + " KB";
+
+  const outOri = h("span", { class: "val" }), outZip = h("span", { class: "val" });
+  const outHem = h("span", { class: "val" }), outRas = h("span", { class: "val" });
+  const info = h("p", { class: "note", "aria-live": "polite" });
+
+  function update() {
+    const r = jenis[idx].r, zip = ukuranKB * r, hemat = Math.round((1 - r) * 100);
+    outOri.textContent = fmt(ukuranKB);
+    outZip.textContent = fmt(zip);
+    outHem.textContent = fmt(ukuranKB - zip);
+    outRas.textContent = hemat + "%";
+    const email = zip * 4 / 3; // lampiran email dikodekan (base64), membesar sekitar sepertiga
+    info.textContent = (hemat < 10 ? "ZIP hampir tidak mengecilkan jenis file ini; gunakan ZIP hanya untuk menggabungkan file. " : "")
+      + "Perkiraan ukuran di email: " + fmt(email) + " (lampiran membesar sekitar sepertiga). "
+      + (email <= BATAS_KB ? "Muat dalam batas 10 MB." : "Melebihi batas 10 MB, gunakan tautan cloud atau bagi file.");
+  }
+
+  const sliderOut = h("output", {}, fmt(ukuranKB));
+  const slider = h("input", { type: "range", min: "100", max: "20000", value: String(ukuranKB), step: "100",
+    "aria-label": "Ukuran file asli",
+    oninput: () => { ukuranKB = Number(slider.value); sliderOut.textContent = fmt(ukuranKB); update(); }
+  });
+  const pilih = h("select", { class: "pilih", "aria-label": "Jenis file", onchange: () => { idx = Number(pilih.value); update(); } },
+    jenis.map((j, i) => h("option", { value: i }, j.nama)));
+
+  el.append(
+    h("div", { class: "zip-controls" },
+      h("label", {}, "Ukuran file asli:", slider, sliderOut),
+      h("label", {}, "Jenis file:", pilih, h("span"))
+    ),
+    h("div", { class: "zip-result" },
+      h("div", { class: "zip-stat" }, h("div", { class: "lbl" }, "File asli"), outOri),
+      h("div", { class: "zip-stat" }, h("div", { class: "lbl" }, "Setelah ZIP"), outZip),
+      h("div", { class: "zip-stat" }, h("div", { class: "lbl" }, "Penghematan"), outHem),
+      h("div", { class: "zip-stat" }, h("div", { class: "lbl" }, "Rasio hemat"), outRas)
+    ),
+    info
+  );
+  update();
+};
+
+/* ----- RUN-LENGTH (gambaran ide kompresi) ----- */
+W.rle = el => {
+  const inp = h("input", { type: "text", class: "teks", value: "AAAAAAAABBBBCCCCCCCCCC", maxlength: "80", "aria-label": "Teks contoh" });
+  const out = h("p", { "aria-live": "polite" });
+  function up() {
+    const s = inp.value;
+    if (!s) { out.textContent = "Ketik sesuatu."; return; }
+    const kode = s.replace(/(.)\1*/g, (m, c) => (m.length > 1 ? m.length : "") + c);
+    const hemat = Math.round((1 - kode.length / s.length) * 100);
+    out.textContent = "Kode: " + kode + "  (" + s.length + " karakter menjadi " + kode.length + "). "
+      + (hemat > 0 ? "Hemat " + hemat + "%." : "Tidak hemat: tanpa pola berulang, teks tidak bisa dikecilkan dengan cara ini.");
+  }
+  inp.addEventListener("input", up);
+  el.append(inp, out);
+  up();
+};
+
+/* ----- LAPISAN KOMPUTER ----- */
+W.lapisan = el => {
+  const d = getData(el.dataset.src);
+  const info = h("div", { class: "lapisan-info", "aria-live": "polite" }, h("p", {}, "Klik salah satu lapisan di sebelah kiri."));
+  const btns = d.map((l, i) => h("button", { type: "button", "aria-pressed": "false", onclick: () => {
+    btns.forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
+    info.textContent = "";
+    info.append(
+      h("h4", { style: "margin-top:0" }, l.nama),
+      h("p", {}, l.ket),
+      h("p", {}, h("strong", {}, "Di RS: "), l.rs),
+      h("p", {}, h("strong", {}, "Jika bermasalah: "), l.rusak));
+  } }, l.nama));
+  el.append(h("div", { class: "lapisan" }, h("div", { class: "lapisan-tumpuk" }, btns), info));
+};
+
+/* ----- SIMULATOR CADANGAN 3-2-1 ----- */
+W.backup = el => {
+  const salinan = [
+    { id: "usb", nama: "Flash disk di laci meja yang sama dengan komputer (dicabut setelah menyalin)", media: "flash", jauh: false,
+      selamat: { ransomware: true, rusak: true, curi: false, api: false } },
+    { id: "hdd", nama: "Hard disk eksternal disimpan di gedung atau ruang lain", media: "hdd", jauh: true,
+      selamat: { ransomware: true, rusak: true, curi: true, api: true } },
+    { id: "cloud", nama: "Penyimpanan cloud resmi RS dengan riwayat versi", media: "cloud", jauh: true,
+      selamat: { ransomware: true, rusak: true, curi: true, api: true } }
+  ];
+  const kejadian = [
+    { id: "ransomware", nama: "Ransomware mengenkripsi komputer", cat: "Salinan yang sedang terhubung ikut terenkripsi. Salinan yang dicabut aman, dan cloud bisa dipulihkan dari riwayat versi." },
+    { id: "rusak", nama: "Hard disk komputer rusak", cat: "Hanya salinan di dalam komputer itu yang hilang." },
+    { id: "curi", nama: "Komputer dan isi laci dicuri", cat: "Apa pun yang berada di tempat yang sama ikut hilang." },
+    { id: "api", nama: "Ruangan kebakaran atau banjir", cat: "Hanya salinan di luar lokasi yang bertahan." }
+  ];
+  const cek = new Set();
+  let pil = null;
+  const aturan = h("p", { class: "note", "aria-live": "polite" });
+  const hasil = h("div", { class: "bk-hasil", "aria-live": "polite" });
+
+  function render() {
+    const dipilih = salinan.filter(s => cek.has(s.id));
+    const jumlah = 1 + dipilih.length;
+    const jenis = new Set(["disk"].concat(dipilih.map(s => s.media))).size;
+    const luar = dipilih.some(s => s.jauh);
+    aturan.textContent = "Aturan 3-2-1: " + (jumlah >= 3 ? "✓" : "✗") + " 3 salinan (kamu punya " + jumlah + ")   "
+      + (jenis >= 2 ? "✓" : "✗") + " 2 jenis media (" + jenis + ")   " + (luar ? "✓" : "✗") + " 1 salinan di luar lokasi";
+    hasil.className = "bk-hasil";
+    if (!pil) { hasil.textContent = "Pilih sebuah kejadian di atas."; return; }
+    const hidup = dipilih.filter(s => s.selamat[pil.id]);
+    if (hidup.length) {
+      hasil.classList.add("ok");
+      hasil.textContent = "Data selamat. Masih ada di: " + hidup.map(s => s.nama).join("; ") + ". " + pil.cat;
+    } else {
+      hasil.classList.add("bad");
+      hasil.textContent = (dipilih.length ? "Data HILANG. Tidak ada salinan yang bertahan. " : "Data HILANG. Kamu belum membuat salinan apa pun. ") + pil.cat;
+    }
+  }
+
+  const daftar = salinan.map(s => h("label", {},
+    h("input", { type: "checkbox", onchange: e => { e.target.checked ? cek.add(s.id) : cek.delete(s.id); render(); } }),
+    h("span", {}, s.nama)));
+  const btns = kejadian.map(k => h("button", { type: "button", class: "btn sec", "aria-pressed": "false", onclick: () => {
+    pil = k; btns.forEach(b => b.setAttribute("aria-pressed", String(b === btn(k)))); render();
+  } }, k.nama));
+  const btn = k => btns[kejadian.indexOf(k)];
+
+  el.append(h("div", { class: "bk" },
+    h("p", {}, h("strong", {}, "Salinan yang kamu buat (komputer kerja selalu ada sebagai salinan pertama):")),
+    h("div", {}, daftar),
+    aturan,
+    h("p", {}, h("strong", {}, "Lalu pilih kejadian:")),
+    h("div", { class: "bk-skenario" }, btns),
+    hasil));
+  render();
+};
+
+/* ----- MATRIKS APLIKASI ----- */
+W.matriksapp = el => {
+  const dokumen = [
+    { nama: "Surat dinas resmi",          benar: "Word",  hint: "Teks naratif dengan format resmi → Word." },
+    { nama: "Data billing pasien",         benar: "Excel", hint: "Data tabular + perhitungan biaya → Excel." },
+    { nama: "Rekap kunjungan bulanan",     benar: "Excel", hint: "Tabel + grafik tren → Excel." },
+    { nama: "Presentasi rapat direksi",    benar: "PPT",   hint: "Slide visual untuk ditampilkan → PowerPoint." },
+    { nama: "Ringkasan rekam medis",       benar: "Word",  hint: "Teks paragraf dokumen medis → Word." },
+    { nama: "Laporan keuangan RS",         benar: "Excel", hint: "Data angka + rumus kalkulasi → Excel." },
+    { nama: "Undangan rapat komite",       benar: "Word",  hint: "Surat undangan resmi → Word." },
+    { nama: "Jadwal jaga perawat",         benar: "Excel", hint: "Grid jadwal berwarna + format → Excel." },
+    { nama: "Berita acara serah terima",   benar: "Word",  hint: "Dokumen resmi naratif → Word." }
+  ];
+  const opsi = ["Word", "Excel", "PPT"];
+  const pilihan = new Array(dokumen.length).fill(null);
+  let dicek = false;
+
+  const tbl = h("table", { class: "data matrix-tbl" });
+  tbl.append(h("thead", {}, h("tr", {},
+    h("th", {}, "Jenis Dokumen RS"),
+    ...opsi.map(o => h("th", { style: "text-align:center;min-width:70px" }, o))
+  )));
+  const tbody = h("tbody");
+  const rowMeta = dokumen.map((dok, i) => {
+    const cells = opsi.map(opt => {
+      const name = nextId("mr");
+      const inp = h("input", { type: "radio", name, value: opt,
+        onchange: () => { pilihan[i] = opt; if (dicek) { dicek = false; } applyStyles(); }
+      });
+      const td = h("td", { style: "text-align:center" }, h("label", {}, inp, " ", opt));
+      return { td, inp, opt };
+    });
+    tbody.append(h("tr", {}, h("td", {}, dok.nama), ...cells.map(c => c.td)));
+    return { cells, dok };
+  });
+  tbl.append(tbody);
+
+  function applyStyles() {
+    rowMeta.forEach((row, i) => {
+      row.cells.forEach(cell => {
+        cell.td.classList.remove("sel-ok", "sel-bad", "sel-hl");
+        if (dicek) {
+          if (cell.opt === row.dok.benar) cell.td.classList.add("sel-ok");
+          else if (cell.inp.checked) cell.td.classList.add("sel-bad");
+        } else if (cell.inp.checked) {
+          cell.td.classList.add("sel-hl");
+        }
+      });
+    });
+  }
+
+  const hasil = h("p", { class: "skor", "aria-live": "polite" });
+  const hintDiv = h("div", { style: "margin-top:8px;font-size:.9rem" });
+
+  el.append(tbl,
+    h("p", {},
+      h("button", { class: "btn", type: "button", onclick: () => {
+        dicek = true; applyStyles();
+        let b = 0;
+        rowMeta.forEach((r, i) => { if (pilihan[i] === r.dok.benar) b++; });
+        hasil.textContent = "Benar: " + b + " dari " + dokumen.length;
+        hintDiv.textContent = "";
+        rowMeta.filter((r, i) => pilihan[i] && pilihan[i] !== r.dok.benar)
+          .forEach(r => hintDiv.append(h("p", { style: "color:var(--bad)" }, "✗ " + r.dok.nama + " — " + r.dok.hint)));
+      } }, "Periksa"),
+      " ",
+      h("button", { class: "btn sec", type: "button", onclick: () => {
+        pilihan.fill(null); dicek = false;
+        rowMeta.forEach(r => r.cells.forEach(c => { c.inp.checked = false; c.td.classList.remove("sel-ok","sel-bad","sel-hl"); }));
+        hasil.textContent = ""; hintDiv.textContent = "";
+      } }, "Ulangi")
+    ), hasil, hintDiv);
+};
+
+/* ----- GAME PILIH APLIKASI RS ----- */
+W.appgame = el => {
+  const kartu = [
+    { dok: "Surat Rujukan Pasien",         ctx: "Perlu tanda tangan dokter, format resmi", benar: "Word",  tip: "Surat = teks naratif resmi → Word." },
+    { dok: "Rekap Kunjungan Bulanan",       ctx: "150 baris data pasien + perlu grafik tren", benar: "Excel", tip: "Data tabular + grafik → Excel." },
+    { dok: "Undangan Rapat Direksi",        ctx: "Surat formal kepada 12 pejabat RS",       benar: "Word",  tip: "Surat undangan resmi → Word." },
+    { dok: "Laporan Keuangan Triwulan",     ctx: "Neraca, rugi-laba, arus kas RS",          benar: "Excel", tip: "Data keuangan + rumus → Excel." },
+    { dok: "Presentasi Profil RS",          ctx: "Slide untuk calon investor",              benar: "PPT",   tip: "Presentasi slide → PowerPoint." },
+    { dok: "Jadwal Jaga Dokter IGD",        ctx: "Grid 30 hari × 12 dokter, perlu warna",  benar: "Excel", tip: "Grid jadwal berwarna → Excel." },
+    { dok: "Berita Acara Serah Terima",     ctx: "Penyerahan alat medis baru",              benar: "Word",  tip: "Dokumen naratif resmi → Word." },
+    { dok: "Rekapitulasi Tagihan Pasien",   ctx: "Total biaya per item tindakan medis",     benar: "Excel", tip: "Data tagihan + kalkulasi → Excel." },
+    { dok: "Proposal Program Vaksinasi",    ctx: "Dokumen 15 halaman untuk Dinkes",         benar: "Word",  tip: "Dokumen proposal naratif → Word." },
+    { dok: "Slide Materi Penyuluhan",       ctx: "Edukasi cuci tangan untuk pasien",        benar: "PPT",   tip: "Materi penyuluhan visual → PowerPoint." },
+    { dok: "Surat Keputusan Direktur",      ctx: "SK pengangkatan Kepala Unit ICU",         benar: "Word",  tip: "Dokumen SK resmi → Word." },
+    { dok: "Data Stok Obat Farmasi",        ctx: "Inventaris 200+ jenis obat + harga",      benar: "Excel", tip: "Inventaris + kalkulasi stok → Excel." },
+    { dok: "Presentasi Rencana Strategis",  ctx: "Rencana 5 tahun RS kepada komisaris",     benar: "PPT",   tip: "Presentasi rencana strategis → PowerPoint." },
+    { dok: "Notulen Rapat Komite",          ctx: "Catatan hasil rapat + tindak lanjut",     benar: "Word",  tip: "Notulen = teks naratif → Word." },
+    { dok: "Grafik Tren Kunjungan IGD",     ctx: "Perbandingan kunjungan 12 bulan terakhir", benar: "Excel", tip: "Data tren + visualisasi → Excel." }
+  ];
+
+  const pilihan = new Array(kartu.length).fill(null);
+  const grid = h("div", { class: "app-game-grid" });
+  const skorEl = h("p", { class: "skor", "aria-live": "polite" });
+
+  function buatKartu(k, i) {
+    const pil = pilihan[i];
+    const terjawab = pil !== null;
+    const benar = terjawab && pil === k.benar;
+    const kls = "app-card" + (terjawab ? (benar ? " card-ok" : " card-bad") : "");
+    const btns = ["Word", "Excel", "PPT"].map(opt => {
+      const b = h("button", { type: "button", disabled: terjawab,
+        onclick: () => { pilihan[i] = opt; rebuild(); hitungSkor(); }
+      }, opt);
+      if (terjawab) {
+        if (opt === k.benar) b.className = "btn"; b.style.background = opt === k.benar ? "var(--ok)" : "";
+        if (opt === pil && !benar) { b.className = "btn accent"; }
+      } else { b.className = "btn sec"; }
+      return b;
+    });
+    const fb = terjawab ? h("p", { class: "app-fb", style: benar ? "color:var(--ok)" : "color:var(--bad)" },
+      (benar ? "✓ " : "✗ ") + k.tip) : null;
+    return h("div", { class: kls },
+      h("div", { class: "doc-name" }, k.dok),
+      h("div", { class: "doc-ctx" }, k.ctx),
+      h("div", { class: "app-btns" }, ...btns),
+      ...(fb ? [fb] : [])
+    );
+  }
+
+  function rebuild() { grid.textContent = ""; kartu.forEach((k, i) => grid.append(buatKartu(k, i))); }
+  function hitungSkor() {
+    const n = pilihan.filter(p => p !== null).length;
+    const b = pilihan.filter((p, i) => p === kartu[i].benar).length;
+    if (n === 0) { skorEl.textContent = ""; return; }
+    skorEl.textContent = "Benar: " + b + " / " + n + " terjawab" + (n === kartu.length ? " — Skor akhir: " + Math.round(b / kartu.length * 100) + "%" : "");
+  }
+
+  rebuild();
+  el.append(grid, skorEl,
+    h("button", { class: "btn sec", type: "button", style: "margin-top:8px", onclick: () => { pilihan.fill(null); rebuild(); hitungSkor(); } }, "Mulai Ulang Game")
+  );
+};
+
+/* ----- TABS (markup-based) ----- */
+function initTabs() {
+  $$(".tabs").forEach(box => {
+    const tabs = $$(".tablist button", box);
+    const panels = $$(":scope > .tabpanel", box);
+    function pilih(i) {
+      tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      panels.forEach((p, k) => { p.hidden = k !== i; });
+    }
+    tabs.forEach((t, i) => t.addEventListener("click", () => pilih(i)));
+    pilih(0);
+  });
+}
+
+/* ----- SEGMEN & TIMER ----- */
+function initSegmen() {
+  const segs = $$("section.seg");
+  const agenda = $("#agenda");
+  const total = segs.reduce((s, x) => s + Number(x.dataset.min || 0), 0);
+  if (total !== KONFIG.totalMenit) console.warn("Total menit segmen = " + total);
+  const done = store.get("selesai", {});
+  let mulai = 0;
+  const links = [];
+  segs.forEach((s, i) => {
+    const min = Number(s.dataset.min || 0);
+    const judul = s.dataset.judul || ("Segmen " + (i + 1));
+    s.prepend(h("div", { class: "seg-head" }, h("h3", {}, judul)));
+    const foot = h("div", { class: "seg-foot" });
+    const sb = h("button", { class: "btn sec", type: "button" });
+    function tandai(v) {
+      s.classList.toggle("done", v); a.classList.toggle("done", v);
+      sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
+      done[s.id] = v; store.set("selesai", done); progres();
+    }
+    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
+    foot.append(sb); s.append(foot);
+    const a = h("a", { href: "#" + s.id },
+      h("span", { class: "mnt" }, mulai + "–" + (mulai + min) + "'"),
+      h("span", {}, judul),
+      h("span", { class: "tick", "aria-label": "selesai" }, "✓")
+    );
+    agenda.append(a); links.push({ a, s }); mulai += min;
+    tandai(!!done[s.id]);
+  });
+  function progres() {
+    const n = segs.filter(x => x.classList.contains("done")).length;
+    $("#hdr-bar").style.width = (n / segs.length * 100) + "%";
+  }
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target)));
+    }), { rootMargin: "-20% 0px -70% 0px" });
+    segs.forEach(s => io.observe(s));
+  }
+}
+
+function initGambar() {
+  $$("figure.gambar").forEach(f => {
+    const img = $("img", f), toggle = () => f.classList.toggle("zoom");
+    img.tabIndex = 0; img.setAttribute("role", "button"); img.setAttribute("aria-label", "Perbesar gambar: " + img.alt);
+    img.addEventListener("click", toggle);
+    img.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+    img.addEventListener("error", () => f.classList.add("gagal"));
+    if (img.complete && img.naturalWidth === 0) f.classList.add("gagal");
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") $$("figure.gambar.zoom").forEach(f => f.classList.remove("zoom")); });
+}
+
+function initCatatan() {
+  const b = $("#btn-catatan");
+  const set = (v, simpan) => {
+    document.body.classList.toggle("mode-dosen", v);
+    b.setAttribute("aria-pressed", String(v));
+    b.textContent = v ? "Sembunyikan catatan" : "Catatan pembicara";
+    if (simpan) store.set("dosen", v);
+  };
+  b.addEventListener("click", () => set(!document.body.classList.contains("mode-dosen"), true));
+  set(store.get("dosen", false), false);
+}
+
+function isiHero() {
+  document.title = "Pertemuan " + KONFIG.nomor + " — " + KONFIG.judul + " | Komputer Rumah Sakit";
+  $("#hdr-judul").textContent = KONFIG.judul;
+  $("#hdr-sub").textContent = "Komputer Rumah Sakit · Pertemuan " + KONFIG.nomor;
+  $("#hero-kode").textContent = "Pertemuan " + KONFIG.nomor + " · " + KONFIG.cpmk.split(":")[0];
+  $("#hero-judul").textContent = KONFIG.judul;
+  $("#hero-cpmk").textContent = KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t => $("#hero-tujuan").append(h("li", {}, t)));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  isiHero();
+  $$("[data-widget]").forEach(el => {
+    const fn = W[el.dataset.widget];
+    if (!fn) return;
+    try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal dimuat: " + e.message)); }
+  });
+  initTabs(); initSegmen(); initGambar(); initCatatan();
+  window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

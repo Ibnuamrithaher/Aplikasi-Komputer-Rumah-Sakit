@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 05 — Word Lanjutan &amp; Mail Merge | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
+  --primary:#0b7285;--primary-ink:#fff;--primary-soft:#d3f0f4;
+  --accent:#e8590c;--ok:#2b8a3e;--ok-soft:#dff3e3;--warn:#e67700;--bad:#c92a2a;--bad-soft:#fbe1e1;
+  --c1:#0b7285;--c2:#e8590c;--c3:#7048e8;--c4:#2b8a3e;--c5:#c2255c;--c6:#f08c00;--c7:#1971c2;--c8:#5c940d;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);--r:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0e1b20;--surface:#15272e;--ink:#e6f1f3;--muted:#9bb2ba;--line:#27414a;
+  --primary:#3bc0d6;--primary-ink:#06222a;--primary-soft:#14414b;
+  --accent:#ff922b;--ok:#69db7c;--ok-soft:#173a22;--warn:#ffc078;--bad:#ff8787;--bad-soft:#4a1d1d;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
+.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+nav.agenda a.done .tick{visibility:visible}main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}.hero p{margin:6px 0;opacity:.95}.hero ul{margin:8px 0 0;padding-left:20px}
+@media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-timer{display:inline-flex;gap:6px;align-items:center}
+.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.seg-timer.over .btn{background:var(--bad);color:#fff}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}
+.kriteria{font-size:.92rem;color:var(--muted)}
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}
+.quiz label.benar{background:var(--ok-soft)}.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+.sl{list-style:none;padding:0;margin:8px 0}
+.sl li{display:flex;gap:10px;align-items:center;border:2px solid var(--line);border-radius:8px;padding:6px 10px;margin:6px 0;background:var(--bg)}
+.sl li.benar{border-color:var(--ok);background:var(--ok-soft)}.sl li.salah{border-color:var(--bad);background:var(--bad-soft)}
+.sl .txt{flex:1}.sl button{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:2px 10px}
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}
+.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+/* Table simulator */
+.tbl-sim{overflow:auto;border:1px solid var(--line);border-radius:8px;margin:12px 0}
+.tbl-sim table{border-collapse:collapse;min-width:100%}
+.tbl-sim td,.tbl-sim th{border:1px solid var(--line);padding:0}
+.tbl-sim th{background:var(--primary-soft)}
+.tbl-sim td input,.tbl-sim th input{width:100%;border:0;background:transparent;padding:6px 8px;font-size:.95rem}
+.tbl-sim th input{font-weight:700}
+.tbl-sim td input:focus,.tbl-sim th input:focus{background:var(--primary-soft);outline:2px solid var(--primary);outline-offset:-2px}
+.tbl-ctl{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.tbl-ctl label{display:flex;align-items:center;gap:6px;font-size:.95rem}
+.tbl-ctl select{border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--surface)}
+/* Mail merge diagram */
+.mm-diagram{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:start;margin:16px 0}
+@media(max-width:700px){.mm-diagram{grid-template-columns:1fr}}
+.mm-box{border:2px solid var(--primary);border-radius:10px;padding:12px 14px;background:var(--bg);font-size:.95rem}
+.mm-box h5{margin:0 0 6px;color:var(--primary);font-size:1rem}
+.mm-arrow{display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--primary);padding-top:20px}
+.mm-result-wrap{grid-column:1/-1;margin-top:8px}
+.mm-result-grid{display:flex;flex-wrap:wrap;gap:8px;min-height:60px}
+.mm-result-doc{border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--surface);font-size:.85rem;
+  opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s;min-width:140px}
+.mm-result-doc.show{opacity:1;transform:none}
+.mm-result-doc:nth-child(odd){background:var(--primary-soft)}
+.placeholder{background:var(--accent);color:#fff;border-radius:4px;padding:1px 6px;font-size:.85rem;font-weight:700}
+/* Simulator Mail Merge */
+.mm-sim{margin:12px 0}
+.mm-master{background:#fff;color:#111;border:2px solid #bbb;padding:20px 24px;font-family:"Times New Roman",serif;font-size:13px;line-height:1.6;border-radius:8px;margin-bottom:12px}
+.mm-nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:8px 0}
+.mm-nav .info{font-weight:700;color:var(--primary)}
+.mm-all-wrap{max-height:500px;overflow:auto;display:none}
+.mm-all-wrap.vis{display:block}
+.mm-surat-item{padding:16px 20px;margin:6px 0;border-radius:8px;font-family:"Times New Roman",serif;font-size:12px;line-height:1.5;background:#fff;color:#111;border:1px solid #bbb}
+.mm-surat-item:nth-child(even){background:#f0f9ff}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}
+  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}
+  .wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
+  .hero{background:#fff;color:#000}}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+<header class="top">
+  <h1><span id="hdr-judul">Word Lanjutan &amp; Mail Merge</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 05</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
+  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 05 · CPMK-1</span>
+      <h2 id="hero-judul">Word Lanjutan &amp; Mail Merge</h2>
+      <p id="hero-cpmk">CPMK-1: Mampu mengoptimalkan fitur lanjutan MS Word untuk manajemen dokumen massal RS.</p>
+      <ul id="hero-tujuan"></ul>
+    </div>
+
+    <!-- PEMBUKA -->
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">Doni Prakoso, staf administrasi RS Sehat Citra (fiktif), mendapat tugas besar: mengirimkan 200 surat undangan kontrol ke pasien yang terdaftar. Ia mulai mengetik satu per satu — nama pasien, poli tujuan, tanggal kontrol, nama dokter — di setiap surat. Setelah satu jam ia baru selesai 8 surat. Kepala Administrasi menegur: "Kamu tidak akan kelar minggu ini kalau begitu. Pakai Mail Merge!"</p>
+      <p>Mail Merge adalah fitur MS Word yang menggabungkan <strong>template surat</strong> dengan <strong>data dari file Excel/CSV</strong> untuk menghasilkan ratusan dokumen personal secara otomatis. Hari ini kita pelajari cara kerjanya dari awal.</p>
+    </section>
+
+    <!-- PRE-TEST -->
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
+      <p>Jawab dulu tanpa takut salah — ini hanya untuk melihat titik awal pengetahuanmu.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test","soal":[
+        {"q":"Mail Merge menggabungkan antara:","opsi":["Dua file PDF","Master dokumen dan sumber data","Dua jenis font berbeda","Gambar dan teks"],"benar":1,"jelas":"Mail Merge = Master dokumen (template) + Data source (Excel/CSV). Hasilnya: dokumen personal sebanyak jumlah baris data."},
+        {"q":"Format file datasource Mail Merge yang paling umum digunakan adalah:","opsi":["File musik MP3","Gambar PNG","File Excel XLSX atau CSV","File PDF"],"benar":2,"jelas":"Excel (.xlsx) dan CSV (.csv) adalah format data tabel yang didukung penuh oleh fitur Mail Merge di MS Word."},
+        {"q":"Placeholder (bidang gabung) di master dokumen Mail Merge ditandai dengan:","opsi":["<< >>","{{ }}","« » (guillemet)","[ ]"],"benar":2,"jelas":"MS Word menggunakan tanda «NamaField» (guillemet/chevron) untuk menandai field yang akan diganti data. Contoh: «Nama»."},
+        {"q":"Jumlah dokumen hasil Mail Merge sama dengan jumlah:","opsi":["Kata dalam template","Baris data di datasource","Kolom data di datasource","Halaman template"],"benar":1,"jelas":"Setiap baris di datasource menghasilkan satu dokumen. 10 baris = 10 surat personal."},
+        {"q":"Tab di MS Word yang digunakan untuk Mail Merge adalah:","opsi":["Home","Insert","Mailings","Review"],"benar":2,"jelas":"Semua perintah Mail Merge ada di tab Mailings: Start Mail Merge, Select Recipients, Insert Merge Field, Preview Results, Finish & Merge."}
+      ]}
+      </script>
+    </section>
+
+    <!-- INTI 1 -->
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Tabel di Word" data-min="13">
+      <p>Simulator pembuat tabel Word. Atur jumlah baris dan kolom, lalu isi nama kolom header.</p>
+      <div class="tbl-ctl">
+        <label>Baris: <select id="tbl-rows" aria-label="Jumlah baris">
+          <option value="2">2</option><option value="3" selected>3</option><option value="4">4</option>
+          <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
+        </select></label>
+        <label>Kolom: <select id="tbl-cols" aria-label="Jumlah kolom">
+          <option value="2">2</option><option value="3">3</option><option value="4" selected>4</option>
+          <option value="5">5</option><option value="6">6</option>
+        </select></label>
+        <button class="btn sec" id="btn-build-tbl" type="button">Buat Tabel</button>
+      </div>
+      <div class="tbl-sim" id="tbl-preview"></div>
+      <p class="note" style="font-size:.9rem">Klik sel header (baris pertama) untuk mengganti nama kolom. Sel data lainnya juga bisa diedit sebagai latihan.</p>
+      <details><summary>Tips tabel di MS Word</summary>
+        <div>
+          <p><strong>Merge Cell:</strong> Pilih sel yang ingin digabung → klik kanan → Merge Cells. Berguna untuk header yang mencakup beberapa kolom.</p>
+          <p><strong>Lebar Kolom:</strong> Klik kanan pada kolom → Table Properties → Column → atur lebar. Atau seret batas kolom secara manual.</p>
+          <p><strong>Warna Header:</strong> Pilih baris header → Design (Table Design) → Shading → pilih warna. Gunakan warna yang kontras.</p>
+          <p><strong>Sort Data:</strong> Klik di dalam tabel → Layout → Sort → pilih kolom dan urutan (A→Z atau Z→A).</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- INTI 2 -->
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Diagram Mail Merge" data-min="13">
+      <p>Animasi di bawah menunjukkan bagaimana Mail Merge bekerja. Klik tombol "Proses →" untuk melihat alurnya.</p>
+      <div class="mm-diagram">
+        <div class="mm-box">
+          <h5>Master Dokumen</h5>
+          <div style="font-family:'Times New Roman',serif;font-size:.9rem;line-height:1.6;background:#fff;color:#111;padding:8px;border-radius:6px;border:1px solid #bbb">
+            <div style="text-align:center;font-weight:700;font-size:.85rem;margin-bottom:4px">SURAT UNDANGAN KONTROL</div>
+            Kepada Yth. <span class="placeholder">«Nama»</span><br>
+            Poli: <span class="placeholder">«Poli»</span><br>
+            Tanggal: <span class="placeholder">«Tanggal»</span><br>
+            Dokter: <span class="placeholder">«Dokter»</span>
+          </div>
+        </div>
+        <div class="mm-arrow" id="mm-arrow-icon" aria-hidden="true">+</div>
+        <div class="mm-box">
+          <h5>Data Source (Excel/CSV)</h5>
+          <table class="data" style="font-size:.82rem">
+            <thead><tr><th>Nama</th><th>Poli</th><th>Tanggal</th><th>Dokter</th></tr></thead>
+            <tbody>
+              <tr><td>Siti Aminah</td><td>Poli Umum</td><td>2026-11-03</td><td>dr. Hendra</td></tr>
+              <tr><td>Budi Santoso</td><td>Poli Gigi</td><td>2026-11-04</td><td>drg. Lina</td></tr>
+              <tr><td>Rina Wulandari</td><td>Poli Anak</td><td>2026-11-05</td><td>dr. Ahmad</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mm-result-wrap">
+          <div style="text-align:center;margin-bottom:8px">
+            <button class="btn accent" id="btn-proses-mm" type="button">Proses → Hasilkan Dokumen</button>
+            <button class="btn sec" id="btn-reset-mm" type="button" style="margin-left:8px">Reset</button>
+          </div>
+          <div class="mm-result-grid" id="mm-result-grid" aria-live="polite"></div>
+        </div>
+      </div>
+      <h4>5 Konsep Kunci Mail Merge</h4>
+      <ol>
+        <li><strong>Master Dokumen:</strong> File Word berisi template surat dengan placeholder «field».</li>
+        <li><strong>Data Source:</strong> File Excel/CSV berisi daftar penerima (setiap baris = 1 penerima).</li>
+        <li><strong>Field Name:</strong> Nama kolom di Excel harus cocok persis dengan placeholder di Word.</li>
+        <li><strong>Preview Results:</strong> Cek hasil sebelum mencetak — pastikan semua field terisi dengan benar.</li>
+        <li><strong>Finish &amp; Merge:</strong> Hasilkan semua dokumen sekaligus — cetak langsung atau simpan ke file baru.</li>
+      </ol>
+    </section>
+
+    <!-- INTI 3 -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Urutkan Langkah Mail Merge" data-min="14">
+      <p>Susun 6 langkah Mail Merge ke urutan yang benar menggunakan tombol ▲ ▼. Klik "Cek Urutan" setelah selesai.</p>
+      <div id="sortlist-mm"></div>
+      <div id="sort-hasil" aria-live="polite" style="font-weight:700;margin:8px 0"></div>
+    </section>
+
+    <!-- PRAKTIK -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Simulator Mail Merge" data-min="25">
+      <p>Berikut adalah datasource 10 pasien kontrol RS Sehat Citra (fiktif). Gunakan tombol ◀ ▶ untuk melihat preview surat tiap pasien.</p>
+
+      <h4>Datasource: Daftar Pasien Kontrol</h4>
+      <div style="overflow:auto;margin-bottom:16px">
+        <table class="data" id="ds-table">
+          <thead><tr><th>No</th><th>Nama</th><th>Poli</th><th>Tanggal</th><th>Dokter</th></tr></thead>
+          <tbody id="ds-tbody"></tbody>
+        </table>
+      </div>
+
+      <h4>Preview Surat</h4>
+      <div class="mm-nav">
+        <button class="btn sec" id="btn-prev" type="button" aria-label="Pasien sebelumnya">◀</button>
+        <span class="info" id="mm-info" aria-live="polite">Pasien 1 dari 10</span>
+        <button class="btn sec" id="btn-next" type="button" aria-label="Pasien berikutnya">▶</button>
+        <button class="btn" id="btn-tampil-semua" type="button">Tampilkan Semua 10</button>
+      </div>
+
+      <div class="mm-master" id="mm-preview-single" aria-live="polite"></div>
+
+      <div class="mm-all-wrap" id="mm-all-wrap">
+        <p style="font-weight:700;margin:8px 0">Semua 10 Surat:</p>
+        <div id="mm-all-list"></div>
+      </div>
+
+      <div class="tugas-lab">
+        <h4>Tugas Lab</h4>
+        <p>Lakukan Mail Merge nyata di MS Word menggunakan file CSV yang diunduh:</p>
+        <ol>
+          <li>Unduh file CSV datasource di bawah.</li>
+          <li>Buat master dokumen surat undangan kontrol di Word dengan placeholder «Nama», «Poli», «Tanggal», «Dokter».</li>
+          <li>Hubungkan ke file CSV: Mailings → Select Recipients → Use Existing List.</li>
+          <li>Sisipkan field: letakkan kursor di posisi yang tepat → Insert Merge Field.</li>
+          <li>Preview Results → periksa setiap halaman.</li>
+          <li>Finish &amp; Merge → Print Documents (atau Edit Individual Documents).</li>
+        </ol>
+        <p><button class="btn sec" id="btn-csv" type="button">Unduh Datasource (.csv)</button></p>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Master dokumen menggunakan placeholder yang benar. 2) Hasil merge menghasilkan 10 dokumen berbeda. 3) Semua field terisi sesuai data.</p>
+      </div>
+    </section>
+
+    <!-- POST-TEST -->
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test","soal":[
+        {"q":"Field «NamaPasien» di master dokumen Mail Merge datanya berasal dari:","opsi":["Ketikan manual per surat","Kolom 'NamaPasien' di file datasource","Font atau style khusus Word","Macro yang dijalankan manual"],"benar":1,"jelas":"Nama field di placeholder «...» harus persis sama dengan nama kolom (header) di file Excel/CSV yang menjadi datasource."},
+        {"q":"Jika file datasource berisi 50 baris data, hasil Mail Merge akan menghasilkan:","opsi":["50 dokumen personal","1 dokumen saja","5 dokumen","Tergantung jumlah halaman template"],"benar":0,"jelas":"Setiap baris data = 1 dokumen. 50 baris = 50 surat personal yang berbeda-beda."},
+        {"q":"Fitur 'Preview Results' pada Mail Merge berguna untuk:","opsi":["Langsung mencetak semua dokumen","Melihat tampilan surat sebelum difinalisasi","Menghapus data dari datasource","Menutup file datasource"],"benar":1,"jelas":"Preview Results menampilkan surat dengan data yang sudah diisi, sehingga bisa dipastikan tidak ada kesalahan sebelum mencetak massal."},
+        {"q":"Agar link antara file Word dan datasource tidak putus, kedua file sebaiknya disimpan:","opsi":["Di drive yang berbeda","Di folder yang sama","Di cloud storage saja","Di dua komputer terpisah"],"benar":1,"jelas":"Word menyimpan path relatif ke datasource. Jika keduanya di folder yang sama, link tidak akan putus meski folder dipindahkan."},
+        {"q":"Tabel di Word bisa diurutkan (sort) berdasarkan:","opsi":["Warna font sel","Kolom tertentu secara alfabetis atau numerik","Ukuran lebar sel","Posisi gambar di tabel"],"benar":1,"jelas":"Layout → Sort → pilih kolom dan urutan. Bisa sort A→Z (teks) atau kecil→besar (angka)."}
+      ]}
+      </script>
+      <h4>Perbandingan Pre-test vs Post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <!-- PENUTUP -->
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
+      <h4>Ringkasan Pertemuan 05</h4>
+      <ol>
+        <li>Tabel di Word dibuat dari Insert → Table; header baris pertama harus diberi format bold dan warna berbeda.</li>
+        <li>Mail Merge menggabungkan master dokumen (template) dengan datasource (Excel/CSV) secara otomatis.</li>
+        <li>Placeholder di master dokumen ditulis dengan format «NamaKolom» — harus cocok persis dengan header datasource.</li>
+        <li>Jumlah dokumen hasil merge = jumlah baris data; 10 baris = 10 surat berbeda.</li>
+        <li>Simpan file Word dan Excel di folder yang sama agar link datasource tidak terputus.</li>
+      </ol>
+      <h4>Refleksi</h4>
+      <p>Tuliskan satu hal yang paling berguna hari ini dan satu hal yang masih membingungkan:</p>
+      <textarea class="reflect" id="refleksi-ta" aria-label="Refleksi pertemuan 05"></textarea>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 06 — Microsoft Excel Dasar: mengenal spreadsheet, formula dasar, dan pengelolaan data pasien dalam format tabel.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+"use strict";
+const KONFIG={kode:"krs-p05",nomor:"05",judul:"Word Lanjutan & Mail Merge",
+  cpmk:"CPMK-1: Mampu mengoptimalkan fitur lanjutan MS Word untuk manajemen dokumen massal RS.",
+  tujuan:["Membuat tabel data di MS Word","Memahami konsep dan langkah Mail Merge","Mensimulasikan Mail Merge untuk dokumen massal RS"],
+  totalMenit:90};
+
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+function h(tag,props,...kids){
+  const e=document.createElement(tag);
+  for(const k in(props||{})){const v=props[k];if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,"");else if(v!==false&&v!=null)e.setAttribute(k,v);}
+  for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(String(c)));}
+  return e;
+}
+const store={
+  get(k,d){try{const v=localStorage.getItem(KONFIG.kode+"-"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem(KONFIG.kode+"-"+k,JSON.stringify(v));}catch(e){}}
+};
+function getData(id){return JSON.parse(document.getElementById(id).textContent);}
+let uid=0;const nextId=p=>p+"-"+(++uid);
+function mmss(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+function esc(s){const e=document.createElement("div");e.textContent=String(s);return e.innerHTML;}
+
+/* QUIZ */
+const W={};
+W.quiz=el=>{
+  const d=getData(el.dataset.src);
+  const key="quiz-"+(el.dataset.role||el.dataset.src);
+  const saved=store.get(key,{jawab:{}});const jawab=saved.jawab||{};
+  const skorEl=h("p",{class:"skor","aria-live":"polite"});const items=[];
+  function hitung(){let b=0;for(const i in jawab)if(jawab[i]===d.soal[i].benar)b++;const n=Object.keys(jawab).length;
+    skorEl.textContent="Skor: "+b+" / "+d.soal.length+(n<d.soal.length?"  (terjawab "+n+")":"");
+    store.set(key,{jawab,skor:b,total:d.soal.length,selesai:n===d.soal.length});
+    document.dispatchEvent(new CustomEvent("krs:skor"));}
+  function tampil(i,pilih){const it=items[i],s=d.soal[i];
+    it.labels.forEach((l,j)=>{l.classList.toggle("benar",j===s.benar);l.classList.toggle("salah",j===pilih&&j!==s.benar);});
+    it.fb.textContent=(pilih===s.benar?"Benar. ":"Belum tepat. ")+(s.jelas||"");}
+  d.soal.forEach((s,i)=>{
+    const name=nextId("q"),fb=h("p",{class:"fb","aria-live":"polite"});
+    const labels=s.opsi.map((o,j)=>{const inp=h("input",{type:"radio",name,value:j,onchange:()=>{jawab[i]=j;tampil(i,j);hitung();}});if(jawab[i]===j)inp.checked=true;return h("label",{},inp," ",o);});
+    items.push({labels,fb});el.append(h("fieldset",{},h("legend",{},(i+1)+". "+s.q),labels,fb));
+    if(jawab[i]!==undefined)tampil(i,jawab[i]);});
+  el.append(skorEl,h("button",{class:"btn sec",type:"button",onclick:()=>{
+    for(const k in jawab)delete jawab[k];$$("input",el).forEach(x=>x.checked=false);
+    items.forEach(it=>{it.labels.forEach(l=>l.classList.remove("benar","salah"));it.fb.textContent="";});hitung();}},"Ulangi"));
+  hitung();};
+
+W.banding=el=>{
+  function baris(role,nama,cls){const track=h("i"),val=h("span",{},"–");
+    el.append(h("div",{class:"row "+cls},h("span",{},nama),h("div",{class:"track"},track),val));
+    return()=>{const s=store.get("quiz-"+role,null);if(!s||!s.selesai){track.style.width="0";val.textContent="–";return;}
+      const p=Math.round(s.skor/s.total*100);track.style.width=p+"%";val.textContent=p+"%";};}
+  el.classList.add("banding");const a=baris("pre","Pre-test","pre"),b=baris("post","Post-test","post");
+  const up=()=>{a();b();};document.addEventListener("krs:skor",up);up();};
+
+/* TABEL SIMULATOR */
+function initTabelSim(){
+  function build(){
+    const rows=parseInt(document.getElementById("tbl-rows").value)||3;
+    const cols=parseInt(document.getElementById("tbl-cols").value)||4;
+    const wrap=document.getElementById("tbl-preview");
+    wrap.textContent="";
+    const tbl=document.createElement("table");
+    // Header row
+    const thead=document.createElement("thead");
+    const hrow=document.createElement("tr");
+    for(let c=0;c<cols;c++){
+      const th=document.createElement("th");
+      const inp=document.createElement("input");
+      inp.type="text";inp.value="Kolom "+(c+1);inp.setAttribute("aria-label","Header kolom "+(c+1));
+      th.append(inp);hrow.append(th);
+    }
+    thead.append(hrow);tbl.append(thead);
+    const tbody=document.createElement("tbody");
+    for(let r=0;r<rows;r++){
+      const tr=document.createElement("tr");
+      for(let c=0;c<cols;c++){
+        const td=document.createElement("td");
+        const inp=document.createElement("input");
+        inp.type="text";inp.value="";inp.setAttribute("aria-label","Baris "+(r+1)+" Kolom "+(c+1));
+        td.append(inp);tr.append(td);
+      }
+      tbody.append(tr);
+    }
+    tbl.append(tbody);wrap.append(tbl);
+  }
+  document.getElementById("btn-build-tbl").addEventListener("click",build);
+  build();
+}
+
+/* MAIL MERGE DIAGRAM */
+function initMMDiagram(){
+  const data=[
+    {nama:"Siti Aminah",poli:"Poli Umum",tgl:"3 November 2026",dok:"dr. Hendra Kusuma"},
+    {nama:"Budi Santoso",poli:"Poli Gigi",tgl:"4 November 2026",dok:"drg. Lina Pratiwi"},
+    {nama:"Rina Wulandari",poli:"Poli Anak",tgl:"5 November 2026",dok:"dr. Ahmad Fauzi"}
+  ];
+  document.getElementById("btn-proses-mm").addEventListener("click",()=>{
+    const grid=document.getElementById("mm-result-grid");
+    grid.textContent="";
+    const icon=document.getElementById("mm-arrow-icon");icon.textContent="=";
+    data.forEach((d,i)=>{
+      const box=h("div",{class:"mm-result-doc"},
+        h("div",{style:"font-weight:700;margin-bottom:4px"},"Surat #"+(i+1)),
+        h("div",{},"Kepada: "+d.nama),
+        h("div",{},"Poli: "+d.poli),
+        h("div",{},"Tgl: "+d.tgl),
+        h("div",{},"Dokter: "+d.dok)
+      );
+      grid.append(box);
+      setTimeout(()=>box.classList.add("show"),(i+1)*300);
+    });
+  });
+  document.getElementById("btn-reset-mm").addEventListener("click",()=>{
+    document.getElementById("mm-result-grid").textContent="";
+    document.getElementById("mm-arrow-icon").textContent="+";
+  });
+}
+
+/* SORTLIST MAIL MERGE */
+function initSortlist(){
+  const langkah=[
+    "Buka tab Mailings di MS Word",
+    "Klik Start Mail Merge → Letters",
+    "Klik Select Recipients → Use Existing List (pilih file Excel/CSV)",
+    "Klik Insert Merge Field di posisi yang tepat dalam surat",
+    "Klik Preview Results untuk melihat pratinjau",
+    "Klik Finish & Merge → Print Documents atau Edit Individual Documents"
+  ];
+  const benarIdx=[0,1,2,3,4,5];
+  // Shuffle
+  let order=[0,1,2,3,4,5];
+  for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+  while(order.every((v,i)=>v===i)){for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}}
+  let dicek=false;
+  const ol=h("ol",{class:"sl"}),hasilEl=document.getElementById("sort-hasil");
+  function gerak(i,dlt){const j=i+dlt;if(j<0||j>=order.length)return;[order[i],order[j]]=[order[j],order[i]];dicek=false;render();}
+  function render(){
+    ol.textContent="";
+    order.forEach((v,i)=>{
+      const li=h("li",{class:dicek?(v===i?"benar":"salah"):""},
+        h("span",{},(i+1)+"."),h("span",{class:"txt"},langkah[v]),
+        h("button",{type:"button","aria-label":"Naikkan",onclick:()=>gerak(i,-1)},"▲"),
+        h("button",{type:"button","aria-label":"Turunkan",onclick:()=>gerak(i,1)},"▼"));
+      ol.append(li);
+    });
+  }
+  const cek=h("button",{class:"btn",type:"button",onclick:()=>{
+    dicek=true;render();const b=order.filter((v,i)=>v===i).length;
+    hasilEl.textContent=b===order.length?"Urutan sudah benar!":"Posisi benar: "+b+" dari "+order.length;
+  }},"Cek Urutan");
+  const reset=h("button",{class:"btn sec",type:"button",onclick:()=>{dicek=false;for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}hasilEl.textContent="";render();}},"Acak Ulang");
+  const cont=document.getElementById("sortlist-mm");
+  cont.append(ol,h("p",{},cek," ",reset));
+  render();
+}
+
+/* MAIL MERGE SIMULATOR */
+const PASIEN=[
+  ["Siti Aminah","Poli Umum","3 November 2026","dr. Hendra Kusuma"],
+  ["Budi Santoso","Poli Gigi","4 November 2026","drg. Lina Pratiwi"],
+  ["Rina Wulandari","Poli Anak","5 November 2026","dr. Ahmad Fauzi"],
+  ["Doni Prakoso","Poli THT","6 November 2026","dr. Sari Dewi"],
+  ["Maya Kusuma","Poli Kandungan","7 November 2026","dr. Rina Hakim"],
+  ["Eko Santoso","Poli Umum","10 November 2026","dr. Hendra Kusuma"],
+  ["Fitri Rahayu","Poli Gigi","11 November 2026","drg. Lina Pratiwi"],
+  ["Galih Prayogi","Poli Anak","12 November 2026","dr. Ahmad Fauzi"],
+  ["Hani Susanti","Poli Jantung","13 November 2026","dr. Bima Wijaya"],
+  ["Indra Kurniawan","Poli Mata","14 November 2026","dr. Citra Lestari"]
+];
+
+function buatSurat(p,nomor){
+  return [
+    "RS SEHAT CITRA — Surat Undangan Kontrol",
+    "No: "+(nomor)+"/RS-SC/XI/2026",
+    "",
+    "Kepada Yth.",
+    "Sdr/i. "+p[0],
+    "di tempat",
+    "",
+    "Dengan hormat,",
+    "Bersama surat ini kami mengundang Sdr/i. "+p[0]+" untuk hadir pada jadwal kontrol rutin:",
+    "  Poli      : "+p[1],
+    "  Tanggal   : "+p[2],
+    "  Dokter    : "+p[3],
+    "",
+    "Mohon hadir tepat waktu dan membawa kartu pasien. Apabila berhalangan, harap menghubungi RS.",
+    "",
+    "Hormat kami,",
+    "RS Sehat Citra",
+    "",
+    "Kepala Administrasi",
+    "(dr. Sri Wahyuni, M.Kes)"
+  ].join("\n");
+}
+
+function initMMSim(){
+  // Datasource table
+  const tbody=document.getElementById("ds-tbody");
+  PASIEN.forEach((p,i)=>{
+    tbody.append(h("tr",{},h("td",{},String(i+1)),h("td",{},p[0]),h("td",{},p[1]),h("td",{},p[2]),h("td",{},p[3])));
+  });
+  // Preview single
+  let cur=0;
+  const preview=document.getElementById("mm-preview-single");
+  const info=document.getElementById("mm-info");
+  function showSingle(){
+    const p=PASIEN[cur];
+    preview.textContent="";
+    const pre=document.createElement("pre");
+    pre.style.cssText="margin:0;white-space:pre-wrap;font-family:'Times New Roman',serif;font-size:13px;line-height:1.6;";
+    pre.textContent=buatSurat(p,cur+1);
+    preview.append(pre);
+    info.textContent="Pasien "+(cur+1)+" dari 10: "+p[0];
+  }
+  document.getElementById("btn-prev").addEventListener("click",()=>{cur=(cur-1+PASIEN.length)%PASIEN.length;showSingle();});
+  document.getElementById("btn-next").addEventListener("click",()=>{cur=(cur+1)%PASIEN.length;showSingle();});
+  document.getElementById("btn-tampil-semua").addEventListener("click",()=>{
+    const wrap=document.getElementById("mm-all-wrap");
+    wrap.classList.toggle("vis");
+    if(wrap.classList.contains("vis")){
+      const list=document.getElementById("mm-all-list");list.textContent="";
+      PASIEN.forEach((p,i)=>{
+        const div=h("div",{class:"mm-surat-item"});
+        const pre=document.createElement("pre");
+        pre.style.cssText="margin:0;white-space:pre-wrap;font-family:'Times New Roman',serif;font-size:12px;line-height:1.5;";
+        pre.textContent=buatSurat(p,i+1);
+        div.append(pre);list.append(div);
+      });
+    }
+  });
+  showSingle();
+  // CSV download
+  document.getElementById("btn-csv").addEventListener("click",()=>{
+    const header=["Nama","Poli","Tanggal","Dokter"];
+    const rows=[header,...PASIEN];
+    const esc=v=>{v=String(v);return/[";,\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+    const isi="﻿"+rows.map(r=>r.map(esc).join(";")).join("\r\n");
+    const url=URL.createObjectURL(new Blob([isi],{type:"text/csv;charset=utf-8"}));
+    const a=document.createElement("a");a.href=url;a.download="datasource-pasien-kontrol.csv";
+    document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+}
+
+/* REFLEKSI */
+function initRefleksi(){
+  const ta=document.getElementById("refleksi-ta");if(!ta)return;
+  ta.value=store.get("refleksi","");
+  ta.addEventListener("input",()=>store.set("refleksi",ta.value));
+}
+
+/* TIMER & AGENDA */
+function initSegmen(){
+  const segs=$$("section.seg"),agenda=document.getElementById("agenda");
+  const done=store.get("selesai",{});let mulai=0;const links=[];
+  segs.forEach((s,i)=>{
+    const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
+    const head=h("div",{class:"seg-head"},h("h3",{},judul),h("span",{class:"badge"},min+" menit"));
+    let sisa=min*60,tid=null;const tb=h("button",{class:"btn sec",type:"button"},"⏱ "+mmss(sisa));
+    const tw=h("span",{class:"seg-timer"},tb);
+    tb.addEventListener("click",()=>{if(tid){clearInterval(tid);tid=null;tb.textContent="▶ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));return;}
+      tid=setInterval(()=>{sisa--;tw.classList.toggle("over",sisa<0);tb.textContent="⏸ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));},1000);});
+    head.append(tw);s.prepend(head);
+    const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
+    function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";done[s.id]=v;store.set("selesai",done);progres();}
+    sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));foot.append(sb);s.append(foot);
+    const a=h("a",{href:"#"+s.id},h("span",{class:"mnt"},mulai+"–"+(mulai+min)+"'"),h("span",{},judul),h("span",{class:"tick","aria-label":"selesai"},"✓"));
+    agenda.append(a);links.push({a,s});mulai+=min;tandai(!!done[s.id]);});
+  function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;document.getElementById("hdr-bar").style.width=(n/segs.length*100)+"%";}
+  if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
+}
+function initJam(){
+  let t=0,id=null;const c=document.getElementById("clock"),b=document.getElementById("clock-btn");
+  b.addEventListener("click",()=>{if(id){clearInterval(id);id=null;b.textContent="Lanjut";}else{id=setInterval(()=>{t++;c.textContent=mmss(t);},1000);b.textContent="Jeda";}});
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  document.title="Pertemuan "+KONFIG.nomor+" — "+KONFIG.judul+" | Komputer Rumah Sakit";
+  document.getElementById("hero-cpmk").textContent=KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t=>document.getElementById("hero-tujuan").append(h("li",{},t)));
+  $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal: "+e.message));}});
+  initTabelSim();initMMDiagram();initSortlist();initMMSim();initRefleksi();
+  initSegmen();initJam();
+  window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

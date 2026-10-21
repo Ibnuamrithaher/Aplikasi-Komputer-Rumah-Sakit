@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bahan Ajar Komputer Rumah Sakit | Portal Pertemuan</title>
+<style>
+:root{
+  --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
+  --primary:#0b7285;--primary-ink:#fff;--primary-soft:#d3f0f4;
+  --accent:#e8590c;--ok:#2b8a3e;--ok-soft:#dff3e3;--warn:#e67700;--bad:#c92a2a;--bad-soft:#fbe1e1;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);
+  --r:12px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0e1b20;--surface:#15272e;--ink:#e6f1f3;--muted:#9bb2ba;--line:#27414a;
+    --primary:#3bc0d6;--primary-ink:#06222a;--primary-soft:#14414b;
+    --accent:#ff922b;--ok:#69db7c;--ok-soft:#173a22;--warn:#ffc078;--bad:#ff8787;--bad-soft:#4a1d1d;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+button{cursor:pointer;font:inherit;color:inherit}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 18px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.danger{background:var(--bad);color:#fff}
+
+/* Header */
+.site-header{background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow);padding:0}
+.header-inner{max-width:1280px;margin:0 auto;padding:20px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.logo-svg{flex:none;width:52px;height:52px}
+.header-text{flex:1 1 280px}
+.header-text h1{margin:0;font-size:1.5rem;line-height:1.2;color:var(--primary)}
+.header-text .tagline{color:var(--muted);font-size:.9rem;margin-top:2px}
+.header-text .dosen{font-size:.88rem;color:var(--muted);margin-top:1px}
+.header-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* Summary bar */
+.summary-bar{background:var(--primary-soft);border-bottom:1px solid var(--line);padding:12px 0}
+.summary-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.summary-inner span{font-weight:600;font-size:.95rem;white-space:nowrap}
+.prog-big{flex:1;min-width:180px;height:14px;background:var(--line);border-radius:99px;overflow:hidden}
+.prog-big i{display:block;height:100%;background:var(--primary);transition:width .4s;border-radius:99px}
+.summary-inner .pct{font-variant-numeric:tabular-nums;color:var(--primary);font-weight:700;min-width:42px}
+
+/* Grid pertemuan */
+.main-content{max-width:1280px;margin:0 auto;padding:28px 24px}
+.section-title{font-size:1.15rem;font-weight:700;margin:0 0 16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:2px;background:var(--line);border-radius:1px}
+.grid-pertemuan{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:18px;margin-bottom:40px}
+
+/* Kartu pertemuan */
+.kartu{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:10px;transition:transform .15s,box-shadow .15s;position:relative}
+.kartu:not(.kartu-ujian):hover{transform:translateY(-3px);box-shadow:0 4px 20px rgba(18,48,58,.14)}
+.kartu-ujian{background:linear-gradient(135deg,#fff5e6,#ffe8cc);border-color:var(--warn)}
+@media(prefers-color-scheme:dark){.kartu-ujian{background:linear-gradient(135deg,#2a1f0a,#3a2a0e);border-color:var(--warn)}}
+.kartu-header{display:flex;align-items:flex-start;gap:12px}
+.nomor-badge{width:36px;height:36px;border-radius:50%;background:var(--primary);color:var(--primary-ink);
+  font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex:none}
+.kartu-ujian .nomor-badge{background:var(--warn);color:#fff}
+.kartu-judul{font-weight:700;font-size:.95rem;line-height:1.3;flex:1}
+.badge-dur{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 10px;font-size:.78rem;font-weight:700;align-self:flex-start}
+.badge-ujian{background:var(--bad-soft);color:var(--bad);border-radius:99px;padding:2px 10px;font-size:.78rem;font-weight:700}
+.badge-selesai{background:var(--ok-soft);color:var(--ok);border-radius:99px;padding:2px 10px;font-size:.78rem;font-weight:700}
+.kartu-prog{height:8px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.kartu-prog i{display:block;height:100%;background:var(--ok);transition:width .4s}
+.kartu-ujian .kartu-prog{background:transparent}
+.kartu-footer{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.kartu-status{font-size:.82rem;color:var(--muted)}
+.kartu-link{display:inline-flex;align-items:center;gap:4px;background:var(--primary);color:var(--primary-ink);
+  border-radius:8px;padding:6px 14px;font-size:.88rem;font-weight:600;text-decoration:none}
+.kartu-link:hover{filter:brightness(1.1);color:var(--primary-ink)}
+.kartu-ujian-teks{color:var(--muted);font-size:.88rem;font-style:italic}
+
+/* Tentang */
+.tentang{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px 28px;
+  box-shadow:var(--shadow);margin-bottom:40px}
+.tentang h2{margin:0 0 16px;font-size:1.15rem;color:var(--primary)}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 24px}
+.info-row{display:flex;flex-direction:column;gap:2px}
+.info-row dt{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.info-row dd{margin:0;font-weight:600}
+.penilaian{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
+.pen-item{background:var(--primary-soft);border-radius:8px;padding:8px 14px;text-align:center}
+.pen-item .val{font-size:1.4rem;font-weight:700;color:var(--primary);display:block}
+.pen-item .lbl{font-size:.78rem;color:var(--muted)}
+
+/* Footer */
+footer{background:var(--surface);border-top:1px solid var(--line);padding:16px 24px;text-align:center;
+  font-size:.85rem;color:var(--muted)}
+
+@media(max-width:600px){
+  .header-inner{padding:14px 16px;gap:14px}
+  .main-content{padding:18px 14px}
+  .grid-pertemuan{grid-template-columns:1fr}
+}
+@media print{
+  .header-actions,.summary-bar .btn{display:none!important}
+  .kartu{box-shadow:none;border:1px solid #999}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <svg class="logo-svg" viewBox="0 0 52 52" aria-label="Logo Rumah Sakit" role="img">
+      <circle cx="26" cy="26" r="25" fill="var(--primary)" stroke="none"/>
+      <rect x="22" y="10" width="8" height="32" rx="3" fill="white"/>
+      <rect x="10" y="22" width="32" height="8" rx="3" fill="white"/>
+    </svg>
+    <div class="header-text">
+      <h1>Bahan Ajar Komputer Rumah Sakit</h1>
+      <div class="tagline">Materi Interaktif Berbasis HTML · Offline-Ready · 14 Pertemuan</div>
+      <div class="dosen">Pengampu: Ibnu Amri Thaher</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn sec" type="button" onclick="window.print()">Cetak / PDF</button>
+      <button class="btn danger" type="button" id="btn-reset">Reset Progres</button>
+    </div>
+  </div>
+</header>
+
+<div class="summary-bar">
+  <div class="summary-inner">
+    <span id="sum-teks">0 dari 14 pertemuan selesai</span>
+    <div class="prog-big" title="Progres keseluruhan"><i id="sum-bar" style="width:0%"></i></div>
+    <span class="pct" id="sum-pct">0%</span>
+  </div>
+</div>
+
+<div class="main-content">
+  <p class="section-title">Daftar Pertemuan</p>
+  <div class="grid-pertemuan" id="grid"></div>
+
+  <p class="section-title">Tentang Mata Kuliah</p>
+  <div class="tentang">
+    <h2>Informasi Mata Kuliah</h2>
+    <dl class="info-grid">
+      <div class="info-row"><dt>Nama Mata Kuliah</dt><dd>Komputer Rumah Sakit</dd></div>
+      <div class="info-row"><dt>Kode Mata Kuliah</dt><dd>(Atur Oleh Dosen)</dd></div>
+      <div class="info-row"><dt>SKS</dt><dd>2 SKS</dd></div>
+      <div class="info-row"><dt>Semester</dt><dd>Genap 2025/2026</dd></div>
+      <div class="info-row"><dt>Program Studi</dt><dd>(Atur Oleh Dosen)</dd></div>
+      <div class="info-row"><dt>Dosen Pengampu</dt><dd>Ibnu Amri Thaher</dd></div>
+    </dl>
+    <div style="margin-top:20px">
+      <strong style="font-size:.9rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Komponen Penilaian</strong>
+      <div class="penilaian">
+        <div class="pen-item"><span class="val">30%</span><span class="lbl">Tugas</span></div>
+        <div class="pen-item"><span class="val">25%</span><span class="lbl">UTS</span></div>
+        <div class="pen-item"><span class="val">25%</span><span class="lbl">UAS</span></div>
+        <div class="pen-item"><span class="val">10%</span><span class="lbl">Kehadiran</span></div>
+        <div class="pen-item"><span class="val">10%</span><span class="lbl">Sikap</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Ibnu Amri Thaher · Komputer Rumah Sakit · Dibuat dengan HTML, CSS, JS murni</footer>
+
+<script>
+"use strict";
+const PERTEMUAN = [
+  {n:1,  judul:"Pengenalan & Kontrak Kuliah",           file:"pertemuan-01.html", menit:90},
+  {n:2,  judul:"Perangkat Keras Medis & Perkantoran",   file:"pertemuan-02.html", menit:90},
+  {n:3,  judul:"Perangkat Lunak & Pemetaan Aplikasi",   file:"pertemuan-03.html", menit:90},
+  {n:4,  judul:"MS Word Administrasi RS",               file:"pertemuan-04.html", menit:90},
+  {n:5,  judul:"Word Lanjutan & Mail Merge",            file:"pertemuan-05.html", menit:90},
+  {n:6,  judul:"Excel Dasar",                           file:"pertemuan-06.html", menit:90},
+  {n:7,  judul:"Excel Lanjutan: Grafik & Statistik",    file:"pertemuan-07.html", menit:90},
+  {n:8,  judul:"UTS (Ujian Tengah Semester)",           file:null,                menit:null, ujian:true},
+  {n:9,  judul:"PowerPoint Dasar",                      file:"pertemuan-09.html", menit:90},
+  {n:10, judul:"PowerPoint Lanjutan: Data Storytelling",file:"pertemuan-10.html", menit:90},
+  {n:11, judul:"Integrasi Office Bag. 1: OLE",          file:"pertemuan-11.html", menit:90},
+  {n:12, judul:"Integrasi Office Bag. 2: Excel → PPT",  file:"pertemuan-12.html", menit:90},
+  {n:13, judul:"Email Resmi RS",                        file:"pertemuan-13.html", menit:90},
+  {n:14, judul:"Cloud Storage & Kolaborasi",            file:"pertemuan-14.html", menit:90},
+  {n:15, judul:"Mini Project Terpadu",                  file:"pertemuan-15.html", menit:90},
+  {n:16, judul:"UAS (Ujian Akhir Semester)",            file:null,                menit:null, ujian:true},
+];
+
+function lsGet(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v);}catch(e){return d;}}
+function lsDel(prefix){try{const ks=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(prefix))ks.push(k);}ks.forEach(k=>localStorage.removeItem(k));}catch(e){}}
+
+function selesaiKey(n){return "krs-p"+String(n).padStart(2,"0")+"-selesai";}
+function cekSelesai(n){
+  // Check the "selesai" object stored inside each pertemuan's localStorage key
+  try{
+    const k="krs-p"+String(n).padStart(2,"0")+"-selesai";
+    const v=localStorage.getItem(k);
+    if(v!==null)return JSON.parse(v);
+    // also check the segment done state
+    const d=localStorage.getItem("krs-p"+String(n).padStart(2,"0")+"-selesai");
+    return !!d;
+  }catch(e){return false;}
+}
+
+function buatGrid(){
+  const grid=document.getElementById("grid");
+  grid.textContent="";
+  let selesaiCount=0;
+  const non_ujian=PERTEMUAN.filter(p=>!p.ujian);
+
+  PERTEMUAN.forEach(p=>{
+    const kartu=document.createElement("div");
+    if(p.ujian){
+      kartu.className="kartu kartu-ujian";
+      kartu.innerHTML='<div class="kartu-header">'
+        +'<div class="nomor-badge">'+p.n+'</div>'
+        +'<div style="flex:1"><div class="kartu-judul">'+esc(p.judul)+'</div>'
+        +'<span class="badge-ujian">Ujian</span></div></div>'
+        +'<div class="kartu-ujian-teks">Ujian — Tidak Ada Bahan Ajar Digital</div>'
+        +'<div class="kartu-prog"></div>';
+    } else {
+      const selesai=cekSelesai(p.n);
+      if(selesai)selesaiCount++;
+      kartu.className="kartu";
+      const prog=selesai?100:0;
+      const statusTeks=selesai?'<span class="badge-selesai">Selesai ✓</span>':'<span class="kartu-status">Belum dimulai</span>';
+      kartu.innerHTML='<div class="kartu-header">'
+        +'<div class="nomor-badge">'+String(p.n).padStart(2,"0")+'</div>'
+        +'<div style="flex:1"><div class="kartu-judul">'+esc(p.judul)+'</div>'
+        +'<span class="badge-dur">90 menit</span></div></div>'
+        +'<div class="kartu-prog"><i style="width:'+prog+'%"></i></div>'
+        +'<div class="kartu-footer">'+statusTeks
+        +'<a class="kartu-link" href="'+esc(p.file)+'">Buka →</a>'
+        +'</div>';
+    }
+    grid.appendChild(kartu);
+  });
+
+  // Hitung dari non_ujian saja (14 pertemuan)
+  selesaiCount=non_ujian.filter(p=>cekSelesai(p.n)).length;
+  const tot=non_ujian.length;
+  const pct=tot>0?Math.round(selesaiCount/tot*100):0;
+  document.getElementById("sum-teks").textContent=selesaiCount+" dari "+tot+" pertemuan selesai";
+  document.getElementById("sum-bar").style.width=pct+"%";
+  document.getElementById("sum-pct").textContent=pct+"%";
+}
+
+function esc(s){if(!s)return "";return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+document.getElementById("btn-reset").addEventListener("click",()=>{
+  if(confirm("Reset semua progres? Semua data belajar (pre-test, post-test, refleksi, checklist) akan dihapus. Tindakan ini tidak dapat dibatalkan.")){
+    lsDel("krs-p");
+    buatGrid();
+  }
+});
+
+document.addEventListener("DOMContentLoaded",buatGrid);
+</script>
+</body>
+</html>

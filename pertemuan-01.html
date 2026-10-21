@@ -1,0 +1,2015 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 00 — Judul Pertemuan | Komputer Rumah Sakit</title>
+<!--
+  PETUNJUK UNTUK PENGISI (baca sebelum mengedit)
+  1. Salin file ini menjadi pertemuan-NN.html. Jangan edit _template.html.
+  2. Ubah KONFIG di bagian <script> paling bawah (kode, nomor, judul, CPMK, tujuan).
+  3. Setiap segmen = <section class="seg" data-judul="..." data-min="...">. Jumlah data-min semua segmen HARUS 90.
+     Blok inti boleh 3 atau 4 (misal 13+13+14); sesuaikan data-min.
+  4. Widget memakai atribut data-widget. Data soal/kartu/dll. ditaruh di <script type="application/json" id="...">.
+     JSON harus valid (tanda kutip ganda, tanpa koma di akhir).
+  5. Hapus contoh/komponen yang tidak dipakai. Jangan menambah library eksternal.
+  6. Semua data pasien/pegawai harus FIKTIF.
+-->
+<style>
+:root{
+  --bg:#f6faf9; --surface:#ffffff; --ink:#12303a; --muted:#5b7480; --line:#d5e3e6;
+  --primary:#0b7285; --primary-ink:#ffffff; --primary-soft:#d3f0f4;
+  --accent:#e8590c; --ok:#2b8a3e; --ok-soft:#dff3e3; --warn:#e67700; --bad:#c92a2a; --bad-soft:#fbe1e1;
+  --c1:#0b7285; --c2:#e8590c; --c3:#7048e8; --c4:#2b8a3e; --c5:#c2255c; --c6:#f08c00; --c7:#1971c2; --c8:#5c940d;
+  --shadow:0 1px 2px rgba(11,70,84,.10),0 14px 32px -12px rgba(11,70,84,.22);--glow:rgba(11,114,133,.55);
+  --hero-a:#14808f; --hero-b:#07414d; --hero-c:#0b6272;
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1b20; --surface:#15272e; --ink:#e6f1f3; --muted:#9bb2ba; --line:#27414a;
+    --primary:#3bc0d6; --primary-ink:#06222a; --primary-soft:#14414b;
+    --accent:#ff922b; --ok:#69db7c; --ok-soft:#173a22; --warn:#ffc078; --bad:#ff8787; --bad-soft:#4a1d1d;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 32px -12px rgba(0,0,0,.5);--glow:rgba(59,192,214,.35);
+    --hero-a:#127081; --hero-b:#04262e; --hero-c:#0c4b57;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* Header */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
+.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+
+/* Layout */
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}
+nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+nav.agenda a.done .tick{visibility:visible}
+main{min-width:0}
+
+/* Hero */
+.hero{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(120% 150% at 0% 0%,var(--hero-a) 0%,transparent 62%),radial-gradient(90% 130% at 100% 100%,var(--hero-b) 0%,transparent 70%),var(--hero-c);background-blend-mode:soft-light,normal,normal,normal;color:#fff;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}
+.hero p{margin:6px 0;opacity:.95}
+.hero ul{margin:8px 0 0;padding-left:20px}
+
+/* Segment cards */
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}
+p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.warn{background:var(--bad-soft);border-radius:8px;padding:10px 14px;margin:12px 0}
+.err{color:var(--bad);font-weight:700}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}
+.kriteria{font-size:.92rem;color:var(--muted)}
+
+/* Quiz */
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}
+.quiz label.benar{background:var(--ok-soft)}
+.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}
+.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+/* Flashcard */
+.fc-wrap{display:flex;flex-direction:column;gap:10px;align-items:center}
+.fc{width:100%;max-width:520px;min-height:170px;perspective:900px;border:0;background:none;padding:0}
+.fc-in{position:relative;width:100%;min-height:170px;transition:transform .5s;transform-style:preserve-3d}
+.fc.flip .fc-in{transform:rotateY(180deg)}
+.fc-f,.fc-b{position:absolute;inset:0;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:18px;border-radius:var(--r);border:2px solid var(--primary);background:var(--surface);font-size:1.15rem}
+.fc-b{transform:rotateY(180deg);background:var(--primary-soft)}
+.fc-nav{display:flex;gap:12px;align-items:center}
+/* Dragmatch */
+.dm{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:700px){.dm{grid-template-columns:1fr}}
+.dm-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch;margin:6px 0}
+.dm-slot{min-height:44px;border:2px dashed var(--line);border-radius:8px;padding:6px 10px;background:var(--bg);text-align:left}
+.dm-slot.isi{border-style:solid;border-color:var(--primary)}
+.dm-slot.benar{border-color:var(--ok);background:var(--ok-soft)}
+.dm-slot.salah{border-color:var(--bad);background:var(--bad-soft)}
+.dm-bank{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.dm-item{border:2px solid var(--primary);background:var(--surface);border-radius:8px;padding:6px 12px}
+.dm-item.pilih{background:var(--primary);color:var(--primary-ink)}
+/* Sortlist */
+.sl{list-style:none;padding:0;margin:8px 0}
+.sl li{display:flex;gap:10px;align-items:center;border:2px solid var(--line);border-radius:8px;padding:6px 10px;margin:6px 0;background:var(--bg)}
+.sl li.benar{border-color:var(--ok);background:var(--ok-soft)}
+.sl li.salah{border-color:var(--bad);background:var(--bad-soft)}
+.sl .txt{flex:1}
+.sl button{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:2px 10px}
+/* Tabs */
+.tablist{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--line)}
+.tablist button{border:0;background:none;padding:8px 16px;border-radius:8px 8px 0 0;font-weight:600;color:var(--muted)}
+.tablist button[aria-selected="true"]{background:var(--primary-soft);color:var(--ink);box-shadow:inset 0 -3px 0 var(--primary)}
+.tabpanel{padding:14px 4px}
+.tabpanel[hidden]{display:none}
+/* Hotspot */
+.hs-stage{position:relative;max-width:640px;margin:0 auto;border:1px solid var(--line);border-radius:10px;background:var(--bg);overflow:hidden}
+.hs-stage svg{display:block;width:100%;height:auto}
+.hs-dot{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;
+  border:3px solid #fff;background:var(--accent);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.hs-dot[aria-pressed="true"]{background:var(--primary)}
+.hs-info{max-width:640px;margin:10px auto 0;min-height:70px;background:var(--primary-soft);border-radius:10px;padding:10px 14px}
+/* Checklist */
+.checklist{list-style:none;padding:0;margin:8px 0}
+.checklist li{margin:4px 0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:6px}
+.checklist input{width:20px;height:20px;margin-top:4px;flex:none}
+.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+/* Slider sim */
+.ss{display:grid;gap:10px}
+.ss label{display:grid;grid-template-columns:150px 1fr 80px;gap:10px;align-items:center}
+.ss output{font-variant-numeric:tabular-nums;font-weight:700}
+.page{--m:24px;--fs:14px;--lh:1.5;background:#fff;color:#111;border:1px solid #bbb;box-shadow:var(--shadow);
+  aspect-ratio:210/297;max-width:380px;margin:12px auto;padding:var(--m);font-size:var(--fs);line-height:var(--lh);overflow:hidden}
+/* Minisheet */
+.ms-wrap{overflow:auto;border:1px solid var(--line);border-radius:8px;max-height:480px}
+table.ms{border-collapse:collapse;font-size:.95rem;min-width:100%}
+table.ms th{background:var(--primary-soft);position:sticky;top:0;z-index:1;border:1px solid var(--line);padding:2px 8px;font-weight:600}
+table.ms th.rh{position:sticky;left:0;top:auto;z-index:1}
+table.ms td{border:1px solid var(--line);padding:0;min-width:96px}
+table.ms input{width:100%;border:0;background:transparent;padding:4px 8px;font-size:.95rem}
+table.ms input:focus{background:var(--primary-soft);outline:2px solid var(--primary);outline-offset:-2px}
+table.ms input.num{text-align:right}
+table.ms input.err{color:var(--bad)}
+.ms-bar{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.ms-bar .addr{min-width:54px;font-weight:700;background:var(--primary-soft);padding:2px 10px;border-radius:6px;text-align:center}
+.ms-bar .fx{flex:1;min-width:160px;font-family:ui-monospace,Consolas,monospace;border:1px solid var(--line);border-radius:6px;padding:4px 10px;background:var(--surface)}
+.tantangan{list-style:none;padding:0}
+.tantangan li{padding:6px 10px;margin:4px 0;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.tantangan li.ok{background:var(--ok-soft);border-color:var(--ok)}
+/* Chart */
+.chart svg{width:100%;height:auto;max-width:640px;display:block;margin:0 auto}
+.chart svg text{fill:var(--ink);font-size:12px}
+.chart-ctl{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.chart-tbl input{width:100%;border:1px solid var(--line);border-radius:4px;padding:2px 6px;background:var(--surface)}
+/* Reflect, banding */
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}
+.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+
+/* Polish */
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4{text-wrap:balance;letter-spacing:-.015em}
+.seg>p:not([style]),.cerita{text-wrap:pretty;max-width:72ch}
+.cerita{font-size:1.08rem;line-height:1.75;border-radius:0 12px 12px 0;padding:14px 20px}
+.top{background:var(--surface);background:color-mix(in srgb,var(--surface) 90%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+.top h1{font-weight:700;letter-spacing:-.01em}
+.top .bar{height:8px}
+.btn{border-radius:10px;padding:9px 18px;transition:transform .15s,filter .15s,box-shadow .15s,background-color .15s}
+.btn:hover{filter:none;transform:translateY(-1px);box-shadow:0 8px 16px -8px var(--glow)}
+.btn:active{transform:translateY(1px) scale(.98);box-shadow:none}
+.btn.sec:hover{background:var(--primary);color:var(--primary-ink)}
+.btn:disabled:hover{transform:none;box-shadow:none}
+nav.agenda{border:0;border-radius:16px;padding:14px 10px}
+nav.agenda h2{letter-spacing:.1em;font-size:.78rem}
+nav.agenda a{border-left:3px solid transparent;border-radius:4px 10px 10px 4px;transition:background-color .15s}
+nav.agenda a[aria-current="true"]{border-left-color:var(--accent)}
+.hero{position:relative;padding:40px 40px 34px;border-radius:22px 22px 22px 6px;overflow:hidden}
+.hero .kode{border-radius:4px;background:rgba(255,255,255,.14);border-left:3px solid #ffb27a;padding:3px 12px;letter-spacing:.05em;text-transform:uppercase;font-size:.78rem}
+.hero h2{margin:14px 0 10px;font-size:clamp(2rem,3.6vw,2.7rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;max-width:20ch}
+.hero p{max-width:62ch;line-height:1.65}
+.hero ul{display:grid;gap:4px;padding-left:20px;max-width:62ch}
+.seg{border:0;border-radius:18px;padding:26px 32px;transition:box-shadow .25s}
+.seg-head{padding-bottom:12px;margin-bottom:18px;border-bottom:1px solid var(--line)}
+.seg-head h3{font-size:1.5rem;font-weight:750;letter-spacing:-.02em}
+.seg.done{border-left:0;box-shadow:inset 6px 0 0 var(--ok),var(--shadow)}
+.badge{border-radius:4px;letter-spacing:.03em;font-variant-numeric:tabular-nums}
+.seg-foot{border-top:1px solid var(--line)}
+.card{border:0;background:var(--primary-soft);background:color-mix(in srgb,var(--primary-soft) 55%,var(--surface));border-radius:14px 14px 14px 4px}
+.note{border-left:4px solid var(--primary);border-radius:4px 12px 12px 4px}
+.warn{border-left:4px solid var(--bad);border-radius:4px 12px 12px 4px}
+details{border-radius:12px;transition:background-color .2s}
+details[open]{background:var(--surface);box-shadow:0 0 0 1px var(--line)}
+summary{display:flex;gap:10px;align-items:center;list-style:none;padding:12px 16px;transition:background-color .15s;border-radius:12px}
+summary::-webkit-details-marker{display:none}
+summary:hover{background:var(--primary-soft)}
+summary::after{content:"+";margin-left:auto;font-weight:700;font-size:1.3rem;line-height:1;color:var(--primary)}
+details[open]>summary::after{content:"–"}
+table.data{font-variant-numeric:tabular-nums}
+table.data th,table.data td{border:0;border-bottom:1px solid var(--line);padding:8px 12px}
+table.data th{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:transparent;border-bottom:2px solid var(--primary)}
+table.data tbody tr:nth-child(even){background:var(--primary-soft)}
+.quiz fieldset{border:0;border-radius:14px;padding:14px 18px}
+.quiz label{transition:background-color .15s}
+.quiz legend{float:left;width:100%;padding:0 0 6px;margin:0}
+.quiz legend+*{clear:both}
+.dm-item,.dm-slot,.sl li,.checklist label,.fc-in{transition:transform .15s,background-color .15s,border-color .15s}
+.dm-item:hover{transform:translateY(-2px)}
+.dm-item:active{transform:scale(.97)}
+.checklist label:hover{background:var(--primary-soft)}
+.hs-dot{transition:transform .15s,background-color .15s}
+.hs-dot:hover{transform:translate(-50%,-50%) scale(1.12)}
+.hs-dot:active{transform:translate(-50%,-50%) scale(.95)}
+.hs-dot::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--accent);opacity:0;animation:ping 2.4s ease-out infinite;pointer-events:none}
+.hs-dot[aria-pressed="true"]::after{display:none}
+@keyframes ping{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.9);opacity:0}}
+.hs-info{border-radius:4px 12px 12px 12px;border-left:4px solid var(--primary)}
+.tablist button{transition:background-color .15s,color .15s}
+.tablist button:hover{color:var(--ink)}
+textarea.reflect,input[type=text],input[type=number],textarea,select{transition:border-color .15s,box-shadow .15s}
+input[type=text]:focus,input[type=number]:focus,textarea:focus,select:focus{border-color:var(--primary)!important;box-shadow:0 0 0 3px var(--primary-soft)}
+.tugas-lab{border-radius:16px 16px 16px 4px;background:var(--surface)}
+output,.skor{font-variant-numeric:tabular-nums}
+@media (max-width:900px){.hero{padding:26px 22px}.seg{padding:20px 18px}}
+@media (prefers-reduced-motion: reduce){.hs-dot::after{animation:none}}
+
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr;padding:12px}
+  nav.agenda{position:static;max-height:none}
+  nav.agenda .list{display:flex;flex-wrap:wrap}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* ===== Pengayaan Pertemuan 01 ===== */
+.konsep,.tahu{border-radius:4px 16px 16px 4px;padding:4px 22px 14px;margin:18px 0}
+.konsep{background:var(--surface);border:2px solid var(--primary-soft);border-left:6px solid var(--primary)}
+.konsep h4{margin:14px 0 6px;color:var(--primary);font-size:1.2rem}
+.konsep p,.konsep li,.tahu p{max-width:76ch}
+.konsep ul,.konsep ol{padding-left:22px;margin:6px 0}
+.konsep li{margin:4px 0}
+.tahu{background:var(--bg);border:2px dashed var(--accent)}
+.tahu h4{margin:14px 0 6px;color:var(--accent);font-size:1.2rem}
+.aktiv>h4,.cekbox>h4{margin:26px 0 6px;font-size:1.2rem}
+.cekbox{border-top:1px dashed var(--line);margin-top:24px}
+.fig{margin:12px 0;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow-x:auto;padding:8px}
+.fig svg{display:block;width:100%;height:auto;min-width:640px;max-width:860px;margin:0 auto}
+.fig svg text{fill:var(--ink);font-family:inherit}
+.fig svg text.on{fill:#fff}
+.fig svg text.mut{fill:var(--muted)}
+.fig svg text.acc{fill:var(--accent)}
+.sv-btn{cursor:pointer}
+.sv-btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.sv-btn .hov{transition:stroke-width .15s}
+.sv-btn:hover .hov{stroke-width:5}
+.sv-btn.sel .hov{stroke:var(--accent);stroke-width:5}
+.mover{transition:transform .9s ease-in-out}
+.dokumen{transition:opacity .5s}
+.info{background:var(--primary-soft);border-left:4px solid var(--primary);border-radius:4px 12px 12px 12px;padding:12px 18px;margin:10px 0;min-height:110px}
+.info h5{margin:0 0 4px;font-size:1.1rem}
+.info p{margin:6px 0}
+.info ul{margin:4px 0;padding-left:22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.chip{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--primary);background:var(--surface);color:var(--ink);border-radius:99px;padding:3px 14px;font-weight:600;font-size:1rem;line-height:1.4}
+button.chip{cursor:pointer;transition:background-color .15s,color .15s}
+button.chip:hover{background:var(--primary-soft)}
+button.chip[aria-pressed="true"]{background:var(--primary);color:var(--primary-ink)}
+.chip.benar{background:var(--ok);color:#fff;border-color:var(--ok)}
+button.chip:disabled:not(.benar){opacity:.45;cursor:not-allowed}
+.chip .dot{width:14px;height:14px;border-radius:50%;display:inline-block}
+.gm{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 20px;margin:10px 0}
+.gm .kasus{font-size:1.1rem;font-weight:600;margin:6px 0 12px;max-width:70ch}
+.gm .opsi{display:flex;gap:10px;flex-wrap:wrap}
+.gm .fbk{margin-top:12px;padding:10px 14px;border-radius:8px;border-left:4px solid var(--line);background:var(--surface)}
+.gm .fbk.benar{background:var(--ok-soft);border-color:var(--ok)}
+.gm .fbk.salah{background:var(--bad-soft);border-color:var(--bad)}
+.gm .btn.benar{background:var(--ok);color:#fff}
+.gm .btn.salah{background:var(--bad);color:#fff}
+.rd-row{display:grid;grid-template-columns:170px 1fr 190px;gap:10px;align-items:center;margin:8px 0}
+.rd-row input,.solver input[type=range]{width:100%;accent-color:var(--primary);min-height:28px}
+.rd-row output{font-weight:700}
+.solver{background:var(--primary-soft);border-radius:12px;padding:14px 18px;margin:10px 0}
+.solver .prog{height:16px;background:var(--surface)}
+.solver .prog i.bad{background:var(--bad)}
+@media(max-width:700px){.rd-row{grid-template-columns:1fr}}
+@media (prefers-reduced-motion: reduce){.mover,.dokumen,.sv-btn .hov{transition:none!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
+  .fig{overflow:visible}.fig svg{min-width:0}
+  body{font-size:12pt}
+  .top,nav.agenda,.seg-foot,.btn,.chart-ctl,.fc-nav,.skip{display:none!important}
+  .wrap{display:block;padding:0}
+  .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
+  .hero{background:#fff;color:#000}
+  .tabpanel[hidden]{display:block!important}
+}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+
+<header class="top">
+  <h1><span id="hdr-judul">Judul Pertemuan</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 00</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda">
+    <h2>Agenda</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 00 · CPMK-0</span>
+      <h2 id="hero-judul">Judul Pertemuan</h2>
+      <p id="hero-cpmk"></p>
+      <ul id="hero-tujuan"></ul>
+    </div>
+
+    <!-- ============ CONTOH ISI. Ganti dengan materi pertemuan. ============ -->
+
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">Hari pertama bekerja di RS Sehat Citra (fiktif). Ibnu baru saja ditugaskan sebagai staff administrasi. Petugas senior menunjukkan meja kerja yang penuh berkas: surat rujukan yang belum diformat, laporan kunjungan pasien yang harus di-input ke spreadsheet, presentasi rapat kerja yang perlu diperbaiki. "Kalau tidak bisa komputer, susah," bisik rekan sebelahnya sambil tersenyum. Tapi ada kabar baiknya: ada pelatihan rutin selama satu semester khusus untuk hal ini.</p>
+      <p><strong>Tujuan pertemuan ini:</strong> Saling mengenal, menyepakati aturan main, dan memahami cara kerja perangkat serta aplikasi yang akan dipelajari bersama selama 14 minggu ke depan.</p>
+
+      <div class="konsep">
+        <h4>Konsep inti: komputer sebagai alat kerja administrasi</h4>
+        <p>Hampir semua pekerjaan administrasi di rumah sakit bermuara pada tiga hal: <strong>dokumen</strong> (surat, formulir, laporan), <strong>angka</strong> (jumlah kunjungan, stok obat, tagihan), dan <strong>komunikasi</strong> (rapat, email, berbagi berkas). Aplikasi perkantoran dibuat untuk membantu ketiganya.</p>
+        <ul>
+          <li><strong>Word</strong> menangani dokumen resmi: surat dinas, surat rujukan, formulir.</li>
+          <li><strong>Excel</strong> menangani angka: rekap, rumus, dan grafik.</li>
+          <li><strong>PowerPoint</strong> menyajikan hasil kerja dalam rapat dan laporan.</li>
+          <li><strong>Email</strong> mengirim surat resmi dan lampiran dengan cepat.</li>
+          <li><strong>Cloud</strong> menyimpan dan membagikan berkas agar tim bekerja pada versi yang sama.</li>
+        </ul>
+        <p>Tujuan kita bukan menghafal letak tombol. Kita belajar memilih alat yang tepat untuk pekerjaan yang tepat, lalu mengerjakannya dengan rapi dan teliti. Ketelitian penting karena satu kesalahan kecil di administrasi bisa menjalar ke unit lain.</p>
+      </div>
+
+      <div class="aktiv">
+        <h4>Jelajahi gedung RS Sehat Citra</h4>
+        <p>Klik sebuah ruang pada gambar. Kamu akan melihat pekerjaan staf administrasi di ruang itu dan aplikasi yang membantunya. Lingkaran berwarna penuh menandai aplikasi yang sering dipakai di ruang tersebut.</p>
+        <div class="fig" id="fig-gedung"></div>
+        <div class="chips" aria-label="Keterangan lingkaran aplikasi">
+          <span class="chip"><span class="dot" style="background:var(--c7)"></span>W = Word</span>
+          <span class="chip"><span class="dot" style="background:var(--c4)"></span>X = Excel</span>
+          <span class="chip"><span class="dot" style="background:var(--c2)"></span>P = PowerPoint</span>
+          <span class="chip"><span class="dot" style="background:var(--c5)"></span>@ = Email</span>
+          <span class="chip"><span class="dot" style="background:var(--c3)"></span>C = Cloud</span>
+        </div>
+        <div class="info" id="gedung-info" aria-live="polite"></div>
+
+        <h4>Poll cepat: kemampuan yang sudah kamu punya</h4>
+        <p>Tandai semua yang sudah kamu kuasai. Tidak ada nilai di sini. Pilihanmu tersimpan di peramban ini.</p>
+        <div class="chips" id="p01-poll" role="group" aria-label="Kemampuan yang sudah dimiliki"></div>
+        <p class="skor" id="p01-poll-hasil" aria-live="polite"></p>
+      </div>
+
+      <div class="tahu">
+        <h4>Tahukah kamu? Satu data, banyak tangan</h4>
+        <p>Satu kunjungan pasien rawat jalan bisa menyentuh lima unit atau lebih: pendaftaran, poli, laboratorium, farmasi, dan kasir. Nama yang salah ketik di loket pendaftaran akan ikut terbawa ke resep, hasil lab, dan kwitansi. Karena itu staf administrasi yang teliti sama pentingnya dengan staf yang cepat.</p>
+      </div>
+    </section>
+
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
+      <p>Jawab dulu tanpa takut salah. Ini hanya untuk melihat titik awal kalian.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test","soal":[
+        {"q":"Berapa bobot nilai tugas dalam mata kuliah ini menurut syllabus?","opsi":["30%","40%","50%","60%"],"benar":0,"jelas":"Bobot penilaian: Tugas 30%, UTS 25%, UAS 25%, Kehadiran 10%, Sikap 10%."},
+        {"q":"Aplikasi MS Word digunakan untuk...","opsi":["Mengolah data angka dan grafik","Membuat dokumen teks dan surat resmi","Membuat presentasi slide","Menyimpan file di cloud"],"benar":1,"jelas":"MS Word adalah aplikasi pengolah teks (word processor) untuk dokumen, surat, laporan tertulis."},
+        {"q":"Perangkat apa yang bertindak sebagai 'otak' komputer?","opsi":["RAM","Hard disk","CPU","Monitor"],"benar":2,"jelas":"CPU (Central Processing Unit) adalah perangkat yang memproses semua instruksi dan data."},
+        {"q":"Di era digital, kemampuan menggunakan komputer sangat penting bagi staf administrasi RS terutama untuk...","opsi":["Bermain game","Membuat dokumen, laporan, dan presentasi resmi","Menonton video","Hanya sebagai keahlian tambahan"],"benar":1,"jelas":"Staf admin RS membutuhkan komputer untuk surat-menyurat, data pasien, laporan keuangan, dan presentasi."},
+        {"q":"Kontrak pembelajaran adalah...","opsi":["Dokumen yang mengikat secara hukum","Kesepakatan bersama tentang aturan dan tanggung jawab selama kuliah","Hanya sekadar formalitas tanpa makna","Aturan yang dibuat dosen tanpa perlu dipatuhi mahasiswa"],"benar":1,"jelas":"Kontrak pembelajaran adalah komitmen bersama antara dosen dan mahasiswa untuk menjaga kualitas pembelajaran."}
+      ]}
+      </script>
+    </section>
+
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Peta 16 Minggu" data-min="10">
+      <p>Klik salah satu minggu untuk melihat topik pembelajaran. Dua minggu khusus ditandai: minggu 8 (UTS) dan minggu 16 (UAS).</p>
+
+      <div class="konsep">
+        <h4>Konsep inti: membaca peta semester</h4>
+        <p>Semester ini terdiri atas 16 pertemuan: 14 minggu materi dan 2 minggu ujian (UTS di minggu 8, UAS di minggu 16). Setiap minggu punya pola yang sama: penjelasan konsep, contoh kasus RS, praktik, lalu tugas.</p>
+        <p>Materi disusun dari bawah ke atas, seperti membangun gedung: pondasi dulu, atap belakangan. Ada enam blok kompetensi:</p>
+        <ul>
+          <li><strong>Perangkat (minggu 1-3):</strong> mengenal komputer, perangkat keras, dan perangkat lunak.</li>
+          <li><strong>Word (minggu 4-5):</strong> surat dinas yang rapi, sampai surat massal dengan Mail Merge.</li>
+          <li><strong>Excel (minggu 6-7):</strong> tabel, rumus, grafik, dan statistik sederhana.</li>
+          <li><strong>PowerPoint (minggu 9-10):</strong> menyajikan data sebagai cerita yang mudah dipahami.</li>
+          <li><strong>Integrasi (minggu 11-12 dan 15):</strong> menyatukan Word, Excel, dan PowerPoint dalam satu laporan.</li>
+          <li><strong>Komunikasi (minggu 13-14):</strong> email resmi, penyimpanan cloud, dan kerja bersama.</li>
+        </ul>
+        <p>Perhatikan urutan Word sebelum Excel, dan Excel sebelum PowerPoint. Surat massal (Mail Merge) membutuhkan data berbentuk tabel, sedangkan presentasi yang baik membutuhkan angka yang sudah diolah. Setiap blok menyiapkan bahan untuk blok berikutnya.</p>
+        <p>Cara memakai peta: tiap minggu, lihat <strong>produk akhirnya</strong>. Itu bukti kemampuan yang kamu bawa pulang, dan sering menjadi bahan tugas.</p>
+      </div>
+
+      <div class="aktiv">
+        <h4>Peta perjalanan 16 minggu</h4>
+        <p>Ikuti jalurnya dari minggu 1 sampai minggu 16. Klik penanda untuk membaca detail minggu itu. Tombol warna di bawah gambar menyorot satu blok kompetensi.</p>
+        <div class="fig" id="fig-peta"></div>
+        <div class="chips" id="peta-legenda" role="group" aria-label="Sorot blok kompetensi"></div>
+        <div class="info" id="peta-info" aria-live="polite">Klik penanda minggu pada peta atau tombol minggu di bawah untuk melihat topik, produk akhir, dan kaitannya dengan pekerjaan di RS.</div>
+        <h4>Daftar minggu (alternatif lewat tombol)</h4>
+        <div class="grid2" id="timeline"></div>
+      </div>
+      <script type="application/json" id="timeline-data">
+      {"minggu":[
+        {"n":1,"topik":"Pengenalan & Kontrak Kuliah","is_uts":false,"is_uas":false,"blok":"perangkat","produk":"Kontrak belajar digital dan peta kemampuan awal.","rs":"Memahami pekerjaan staf administrasi dan alat yang mendukungnya."},
+        {"n":2,"topik":"Perangkat Keras (Hardware)","is_uts":false,"is_uas":false,"blok":"perangkat","produk":"Daftar komponen komputer di loket pendaftaran beserta fungsinya.","rs":"Memilih, merawat, dan melaporkan kerusakan komputer, printer, dan scanner di unit."},
+        {"n":3,"topik":"Perangkat Lunak (Software)","is_uts":false,"is_uas":false,"blok":"perangkat","produk":"Daftar aplikasi yang terpasang di komputer sebuah unit.","rs":"Membedakan sistem operasi, aplikasi perkantoran, dan sistem informasi RS."},
+        {"n":4,"topik":"MS Word Administrasi RS","is_uts":false,"is_uas":false,"blok":"word","produk":"Surat dinas dan formulir yang rapi.","rs":"Membuat surat keterangan, surat rujukan, dan formulir dari templat baku."},
+        {"n":5,"topik":"Word Lanjutan & Mail Merge","is_uts":false,"is_uas":false,"blok":"word","produk":"Surat panggilan kontrol untuk banyak pasien sekaligus.","rs":"Mengirim surat ke banyak pasien atau rekanan tanpa mengetik ulang satu per satu."},
+        {"n":6,"topik":"Excel Dasar","is_uts":false,"is_uas":false,"blok":"excel","produk":"Tabel kunjungan pasien dengan rumus dasar.","rs":"Merekap kunjungan harian dan menghitung total secara otomatis."},
+        {"n":7,"topik":"Excel Lanjutan (Grafik & Statistik)","is_uts":false,"is_uas":false,"blok":"excel","produk":"Grafik dan ringkasan statistik kunjungan per poli.","rs":"Menyiapkan bahan laporan bulanan untuk manajemen."},
+        {"n":8,"topik":"UJIAN TENGAH SEMESTER (UTS)","is_uts":true,"is_uas":false,"blok":"ujian","produk":"Ujian tengah semester atas materi minggu 1 sampai 7.","rs":"Mengukur kesiapan sebelum masuk ke presentasi dan integrasi."},
+        {"n":9,"topik":"PowerPoint Dasar","is_uts":false,"is_uas":false,"blok":"ppt","produk":"Slide laporan sederhana yang terbaca jelas.","rs":"Menyiapkan bahan paparan untuk rapat unit."},
+        {"n":10,"topik":"PowerPoint Lanjutan (Data Storytelling)","is_uts":false,"is_uas":false,"blok":"ppt","produk":"Presentasi data kunjungan yang punya alur cerita.","rs":"Melaporkan kinerja pelayanan kepada pimpinan."},
+        {"n":11,"topik":"Integrasi Office Bagian 1 (OLE)","is_uts":false,"is_uas":false,"blok":"integrasi","produk":"Grafik Excel yang tertaut di dokumen Word atau slide.","rs":"Memperbarui laporan tanpa menyalin angka berulang kali."},
+        {"n":12,"topik":"Integrasi Office Bagian 2","is_uts":false,"is_uas":false,"blok":"integrasi","produk":"Laporan terpadu Word, Excel, dan PowerPoint.","rs":"Menyusun laporan bulanan lengkap dari beberapa unit."},
+        {"n":13,"topik":"Email Resmi RS","is_uts":false,"is_uas":false,"blok":"komunikasi","produk":"Email resmi dengan subjek, salam, dan lampiran yang benar.","rs":"Berkirim surat dengan dinas kesehatan, rekanan, dan antar unit."},
+        {"n":14,"topik":"Cloud Storage & Kolaborasi","is_uts":false,"is_uas":false,"blok":"komunikasi","produk":"Folder bersama dengan pengaturan hak akses.","rs":"Berbagi berkas antar unit tanpa flashdisk dan tanpa versi ganda."},
+        {"n":15,"topik":"Mini Project Terpadu","is_uts":false,"is_uas":false,"blok":"integrasi","produk":"Paket laporan RS Sehat Citra yang lengkap.","rs":"Mengerjakan satu pekerjaan nyata dari awal sampai kirim."},
+        {"n":16,"topik":"UJIAN AKHIR SEMESTER (UAS)","is_uts":false,"is_uas":true,"blok":"ujian","produk":"Ujian akhir semester atas materi satu semester.","rs":"Menutup semester dan menilai ketercapaian seluruh kompetensi."}
+      ]}
+      </script>
+
+      <div class="aktiv">
+        <h4>Pasangkan minggu atau produk dengan aplikasinya</h4>
+        <p>Klik sebuah pilihan di sebelah kanan, lalu klik kotak pasangannya di sebelah kiri (atau seret). Tekan Periksa untuk melihat hasilnya.</p>
+        <div data-widget="dragmatch" data-src="dm-i1"></div>
+        <script type="application/json" id="dm-i1">
+        {"pairs":[
+          {"kiri":"Minggu 2: daftar komponen komputer di loket pendaftaran","kanan":"Perangkat keras"},
+          {"kiri":"Minggu 5: surat panggilan kontrol untuk banyak pasien","kanan":"Word + Mail Merge"},
+          {"kiri":"Minggu 7: grafik kunjungan pasien per poli","kanan":"Excel"},
+          {"kiri":"Minggu 10: paparan kinerja pelayanan untuk direksi","kanan":"PowerPoint"},
+          {"kiri":"Minggu 13: surat resmi ke dinas kesehatan beserta lampiran","kanan":"Email resmi"},
+          {"kiri":"Minggu 14: folder bersama untuk tim farmasi","kanan":"Cloud storage"}
+        ]}
+        </script>
+      </div>
+
+      <div class="cekbox">
+        <h4>Cek pemahaman</h4>
+        <div data-widget="quiz" data-src="quiz-i1" class="quiz"></div>
+        <script type="application/json" id="quiz-i1">
+        {"judul":"Cek pemahaman: peta semester","soal":[
+          {"q":"UTS dan UAS dilaksanakan pada minggu ke...","opsi":["7 dan 14","8 dan 16","9 dan 15","8 dan 15"],"benar":1,"jelas":"UTS ada di minggu 8 dan UAS di minggu 16, sesuai peta."},
+          {"q":"Urutan blok materi yang benar adalah...","opsi":["Perangkat, Word, Excel, PowerPoint, integrasi, komunikasi","Excel, Word, PowerPoint, perangkat, komunikasi, integrasi","Komunikasi, perangkat, Word, Excel, integrasi, PowerPoint","PowerPoint, Excel, Word, integrasi, perangkat, komunikasi"],"benar":0,"jelas":"Materi disusun dari dasar ke lanjut: perangkat dulu, lalu aplikasi satu per satu, kemudian integrasi dan komunikasi."},
+          {"q":"Mail Merge untuk membuat surat massal dipelajari pada blok...","opsi":["Excel","Word","PowerPoint","Cloud"],"benar":1,"jelas":"Mail Merge adalah fitur Word, dipelajari di minggu 5 setelah Word dasar di minggu 4."}
+        ]}
+        </script>
+      </div>
+
+      <div class="tahu">
+        <h4>Studi kasus: seratus dua puluh surat</h4>
+        <p>Bu Siti Aminah, kepala tata usaha RS Sehat Citra (fiktif), harus mengirim surat panggilan kontrol kepada 120 pasien. Kalau diketik satu per satu, risiko salah nama dan salah tanggal besar sekali. Dengan Mail Merge, satu templat surat digabung dengan tabel data pasien, dan hasilnya 120 surat dengan nama berbeda. Itulah alasan minggu 5 dan minggu 6 saling berkaitan: data pasien tersimpan sebagai tabel, dan di minggu 6 kita belajar mengolah tabel seperti itu.</p>
+      </div>
+    </section>
+
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Kalkulator Nilai Akhir" data-min="10">
+      <p>Masukkan nilai Anda (0–100) untuk kelima komponen, lalu lihat estimasi nilai akhir berdasarkan bobot penilaian.</p>
+
+      <div class="konsep">
+        <h4>Konsep inti: nilai akhir adalah rata-rata tertimbang</h4>
+        <p>Nilai akhir tidak dihitung dengan rata-rata biasa. Setiap komponen punya <strong>bobot</strong>, yaitu seberapa besar ia menentukan hasil akhir. Di mata kuliah ini: Tugas 30%, UTS 25%, UAS 25%, Kehadiran 10%, dan Sikap 10%. Jumlah bobot selalu 100%.</p>
+        <p>Rumusnya: <strong>Nilai akhir = (Tugas × 0,30) + (UTS × 0,25) + (UAS × 0,25) + (Kehadiran × 0,10) + (Sikap × 0,10)</strong>. Hasil kali nilai dan bobot disebut <em>kontribusi</em>. Contoh: Tugas 90, UTS 60, UAS 80, Kehadiran 100, Sikap 90 menghasilkan 27 + 15 + 20 + 10 + 9 = 81.</p>
+        <p>Mengapa bukan rata-rata biasa? Rata-rata biasa dari 90, 60, 80, 100, dan 90 adalah 84 karena menganggap kelimanya sama penting. Dengan bobot, komponen yang dikerjakan sepanjang semester (Tugas) punya pengaruh paling besar, sedangkan UTS dan UAS sama besar.</p>
+        <ul>
+          <li>Satu poin Tugas menambah 0,30 poin nilai akhir. Satu poin UTS atau UAS menambah 0,25 poin. Satu poin Kehadiran atau Sikap menambah 0,10 poin.</li>
+          <li>Kehadiran dan Sikap (attitude) totalnya 20%. Keduanya dikumpulkan sejak pertemuan pertama, jadi paling mudah dijaga kalau konsisten dari awal.</li>
+          <li>Tugas dikerjakan berkali-kali sepanjang semester, jadi ada banyak kesempatan mengumpulkan poin. Ujian hanya sekali.</li>
+          <li>Tidak ada komponen yang aman untuk diabaikan: nilai 0 di salah satunya menghilangkan seluruh jatahnya.</li>
+        </ul>
+        <p>Kehadiran masuk ke rumus (10%), dan batas absensi tetap menjadi syarat mengikuti UAS (lihat Inti 3). Cara menghitung nilai kehadiran dan sikap serta batas nilai huruf (A, B, C, dan seterusnya) mengikuti pedoman dosen: <span class="warn" style="display:inline-block;padding:0 6px;margin:0">ATUR OLEH DOSEN</span>.</p>
+      </div>
+
+      <div class="aktiv">
+        <h4>Kalkulator nilai akhir</h4>
+      <div style="background:var(--primary-soft);padding:16px;border-radius:10px;max-width:500px;margin:12px 0">
+        <div style="margin-bottom:10px">
+          <label style="display:block;margin-bottom:4px"><strong>Nilai Tugas (0–100)</strong></label>
+          <input type="number" min="0" max="100" value="85" id="val-tugas" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px">
+        </div>
+        <div style="margin-bottom:10px">
+          <label style="display:block;margin-bottom:4px"><strong>Nilai UTS (0–100)</strong></label>
+          <input type="number" min="0" max="100" value="70" id="val-uts" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px">
+        </div>
+        <div style="margin-bottom:10px">
+          <label style="display:block;margin-bottom:4px"><strong>Nilai UAS (0–100)</strong></label>
+          <input type="number" min="0" max="100" value="75" id="val-uas" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px">
+        </div>
+        <div style="margin-bottom:10px">
+          <label style="display:block;margin-bottom:4px"><strong>Nilai Kehadiran (0–100)</strong></label>
+          <input type="number" min="0" max="100" value="100" id="val-hadir" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px">
+        </div>
+        <div style="margin-bottom:10px">
+          <label style="display:block;margin-bottom:4px"><strong>Nilai Sikap / attitude (0–100)</strong></label>
+          <input type="number" min="0" max="100" value="90" id="val-sikap" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px">
+        </div>
+        <div style="background:var(--surface);padding:12px;border-radius:8px;margin-top:12px;text-align:center">
+          <p style="margin:0;font-size:.9rem;color:var(--muted)">Bobot: Tugas 30% + UTS 25% + UAS 25% + Kehadiran 10% + Sikap 10%</p>
+          <p style="margin:8px 0 0;font-size:1.8rem;font-weight:700;color:var(--primary)" id="hasil-nilai">80,75</p>
+          <p style="margin:4px 0 0;font-size:.85rem;color:var(--muted)">Nilai Akhir</p>
+        </div>
+      </div>
+      <script>
+      (function () {
+        const inp = [document.getElementById("val-tugas"), document.getElementById("val-uts"), document.getElementById("val-uas"), document.getElementById("val-hadir"), document.getElementById("val-sikap")], hasilEl = document.getElementById("hasil-nilai"), bobot = [0.30, 0.25, 0.25, 0.10, 0.10];
+        const hitungNilai = () => { const n = Math.round(inp.reduce((t, x, i) => t + Math.min(100, Math.max(0, parseFloat(x.value) || 0)) * bobot[i], 0) * 100) / 100; hasilEl.textContent = n.toLocaleString("id-ID", { maximumFractionDigits: 2 }); };
+        inp.forEach(x => x.addEventListener("input", hitungNilai));
+        hitungNilai();
+      })();
+      </script>
+
+        <h4>Diagram komposisi nilai (berubah saat kamu mengetik)</h4>
+        <p>Batang atas menunjukkan jatah poin maksimum tiap komponen. Batang bawah menunjukkan poin yang berhasil kamu kumpulkan. Ujung batang bawah adalah nilai akhirmu.</p>
+        <div class="fig" id="fig-nilai"></div>
+
+        <h4>Solver: berapa UAS minimal yang kubutuhkan?</h4>
+        <p>Solver memakai nilai Tugas, UTS, Kehadiran, dan Sikap dari kalkulator di atas. Geser target nilai akhir, lalu lihat nilai UAS minimal yang harus dicapai.</p>
+        <div class="solver">
+          <label for="p01-target">Target nilai akhir: <output id="p01-target-out" for="p01-target">80</output></label>
+          <input type="range" id="p01-target" min="0" max="100" step="1" value="80">
+          <div class="prog" aria-hidden="true"><i id="p01-target-bar"></i></div>
+          <p class="skor" id="p01-target-hasil" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <p class="note"><strong>Catatan:</strong> Kehadiran dan Sikap (masing-masing 10%) ikut dihitung dalam nilai akhir. Usahakan konsistensi di kelima komponen untuk hasil optimal.</p>
+
+      <div class="cekbox">
+        <h4>Cek pemahaman</h4>
+        <div data-widget="quiz" data-src="quiz-i2" class="quiz"></div>
+        <script type="application/json" id="quiz-i2">
+        {"judul":"Cek pemahaman: hitungan nilai","soal":[
+          {"q":"Tugas 80, UTS 60, UAS 70, Kehadiran 100, Sikap 90. Berapa nilai akhirnya?","opsi":["73,5","74,5","75,5","76,5"],"benar":2,"jelas":"(80 × 0,30) + (60 × 0,25) + (70 × 0,25) + (100 × 0,10) + (90 × 0,10) = 24 + 15 + 17,5 + 10 + 9 = 75,5."},
+          {"q":"Mengapa Tugas punya pengaruh terbesar pada nilai akhir?","opsi":["Bobotnya 30%, paling besar dari kelima komponen","Karena tugas paling sulit dikerjakan","Karena UTS dan UAS tidak dihitung","Karena tugas selalu bernilai 100"],"benar":0,"jelas":"Pengaruh sebuah komponen ditentukan oleh bobotnya. Tugas 30%, UTS 25%, UAS 25%, Kehadiran 10%, Sikap 10%."},
+          {"q":"Tugas 90, UTS 50, Kehadiran 100, Sikap 100. Target nilai akhir 80. UAS minimal yang dibutuhkan adalah...","opsi":["70","78","82","90"],"benar":2,"jelas":"Poin yang sudah ada: 27 + 12,5 + 10 + 10 = 59,5. Sisa 20,5 poin harus datang dari UAS: 20,5 : 0,25 = 82."}
+        ]}
+        </script>
+      </div>
+
+      <div class="tahu">
+        <h4>Studi kasus: tugas rajin, UTS tersandung</h4>
+        <p>Mas Hendra (fiktif) sangat rajin: nilai Tugasnya 95. Sayangnya UTS hanya 40 karena ia tidak sempat belajar. Coba masukkan Tugas 95, UTS 40, Kehadiran 100, dan Sikap 90 ke kalkulator, lalu gunakan solver untuk target 80. Kamu akan melihat bahwa satu ujian yang buruk bisa dikejar, tetapi harga yang harus dibayar di UAS menjadi tinggi. Kesimpulannya: rajin tugas itu bagus, belajar untuk ujian juga tidak boleh ditinggalkan.</p>
+      </div>
+    </section>
+
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Aturan Main & Tata Tertib" data-min="10">
+      <p>Klik untuk membuka setiap aturan. Nilai yang belum ditentukan diberi keterangan <span class="warn" style="display:inline-block;padding:0 4px;border-radius:4px">ATUR OLEH DOSEN</span>.</p>
+
+      <div class="konsep">
+        <h4>Konsep inti: aturan sebagai latihan bekerja</h4>
+        <p>Di rumah sakit, aturan bukan hiasan. Verifikasi identitas pasien, cuci tangan, dan menjaga kerahasiaan adalah prosedur tetap (SOP) yang melindungi orang. Kelas ini sengaja dibuat seperti miniatur tempat kerja: menaati aturan kelas adalah latihan menaati SOP.</p>
+        <p>Aturan main di kelas bertumpu pada tiga pilar: <strong>disiplin waktu</strong>, <strong>integritas akademik</strong>, dan <strong>kerahasiaan data</strong>. Ketiganya akan kamu temui lagi di tempat kerja, hanya namanya yang berubah.</p>
+        <p>Aturan berlaku dua arah. Dosen menjaga waktu mulai dan selesai, menilai dengan adil, dan membuka ruang bertanya. Mahasiswa hadir, jujur, dan menjaga etika data. Kontrak belajar di segmen Praktik adalah bukti kesepakatan itu.</p>
+        <p>Beda <em>bekerja sama</em> dan <em>menyalin</em>: berdiskusi dan saling menjelaskan itu dianjurkan, tetapi menyerahkan hasil kerja orang lain sebagai milikmu itu pelanggaran. Ujian sederhananya: jika kamu tidak bisa mengulang pekerjaan itu sendiri tanpa temanmu, berarti kamu menyalin.</p>
+        <p>Semua data dalam kuliah ini fiktif. Kebiasaan memakai data fiktif sekarang akan membentuk kebiasaan menjaga data nyata kelak.</p>
+      </div>
+
+      <div class="aktiv">
+        <h4>Tiga pilar aturan main</h4>
+        <p>Klik sebuah pilar untuk melihat aturan terkait dan kaitannya dengan dunia kerja RS.</p>
+        <div class="fig" id="fig-pilar"></div>
+        <div class="info" id="pilar-info" aria-live="polite">Klik salah satu pilar pada gambar.</div>
+      </div>
+
+      <h4>Aturan lengkap</h4>
+      <details><summary>📌 Kehadiran dan Keterlambatan</summary><div>
+        <p><strong>Toleransi keterlambatan:</strong> <span class="warn" style="display:inline-block;padding:0 4px">ATUR OLEH DOSEN</span> menit di awal kuliah. Lebih dari itu dianggap tidak hadir.</p>
+        <p><strong>Absensi maksimal:</strong> <span class="warn" style="display:inline-block;padding:0 4px">ATUR OLEH DOSEN</span> kali tanpa alasan. Lebih dari itu tidak boleh mengikuti UAS.</p>
+        <p><strong>Izin:</strong> Harus dikomunikasikan ke dosen minimal 1 hari sebelumnya dengan surat keterangan sah (sakit/keperluan mendesak).</p>
+      </div></details>
+      <details><summary>📌 Etika dan Tata Tertib Kelas</summary><div>
+        <p><strong>Tepat waktu:</strong> Mulai perkuliahan tepat pada waktu yang dijadwalkan. Dosen juga harus menghormati waktu akhir kelas.</p>
+        <p><strong>Penggunaan gadget:</strong> Diperbolehkan untuk pembelajaran; dilarang untuk game, media sosial, atau aktivitas tidak relevan.</p>
+        <p><strong>Suara dalam lab:</strong> Bicaralah dengan volume normal. Hindari kebisingan yang mengganggu konsentrasi teman sekelas.</p>
+        <p><strong>Kebersihan lab:</strong> Setiap selesai praktik, rapikan tempat kerja dan keluar dengan ruang yang bersih.</p>
+      </div></details>
+      <details><summary>📌 Kerjasama dan Integritas Akademik</summary><div>
+        <p><strong>Tugas kelompok:</strong> Pembagian kerja jelas, setiap anggota berkontribusi aktif. Jangan hanya mengandalkan satu orang.</p>
+        <p><strong>Plagiarisme:</strong> Tugas harus original. Jika mengambil dari sumber lain, harus dikutip dengan benar.</p>
+        <p><strong>Saling membantu:</strong> Diskusi dan saling ajaran dianjurkan, tapi jawaban tugas tetap pribadi masing-masing kecuali tugas kelompok.</p>
+      </div></details>
+      <details><summary>📌 Perlakuan Data Pasien Fiktif</summary><div>
+        <p><strong>Keamanan data:</strong> Dalam kuliah ini semua data adalah fiktif (nama palsu, nomor rekam medis palsu). Jangan gunakan data pasien nyata.</p>
+        <p><strong>Rahasia medis:</strong> Di praktik nyata kelak, data pasien adalah rahasia yang harus dijaga. Pelanggaran bisa berdampak hukum.</p>
+      </div></details>
+      <details><summary>📌 Komunikasi dengan Dosen</summary><div>
+        <p><strong>Email:</strong> Gunakan email institusional jika ada, tanya kepada dosen jam kerja kantor untuk balasan tercepat.</p>
+        <p><strong>Pertanyaan di kelas:</strong> Semua pertanyaan selamat datang, tidak ada pertanyaan yang "bodoh" dalam pembelajaran.</p>
+        <p><strong>Konsultasi:</strong> Atur jadwal khusus jika perlu penjelasan mendalam; jangan datang tanpa pemberitahuan dulu.</p>
+      </div></details>
+
+      <div class="aktiv">
+        <h4>Game: Boleh atau tidak?</h4>
+        <p>Baca kasusnya, pilih jawabanmu, lalu baca penjelasannya. Ada delapan kasus.</p>
+        <div id="p01-boleh"></div>
+
+        <h4>Kartu etika data kesehatan</h4>
+        <p>Klik kartu untuk membaliknya. Coba jawab dulu di kepala sebelum membalik.</p>
+        <div data-widget="flashcard" data-src="fc-i3"></div>
+        <script type="application/json" id="fc-i3">
+        {"kartu":[
+          {"depan":"Apa itu kerahasiaan data pasien?","belakang":"Identitas, diagnosis, dan riwayat pasien hanya boleh diketahui pihak yang berwenang merawat atau mengelola layanan."},
+          {"depan":"Data fiktif vs data nyata","belakang":"Di kelas ini kita hanya memakai data fiktif seperti Budi Santoso atau RM-0001. Jangan pernah memakai data pasien sungguhan untuk latihan."},
+          {"depan":"Prinsip perlu-tahu (need to know)","belakang":"Petugas hanya membuka data yang diperlukan untuk tugasnya. Rasa penasaran bukan alasan yang sah untuk membuka data pasien."},
+          {"depan":"Tangkapan layar dan grup chat pribadi","belakang":"Jangan mengirim tangkapan layar data pasien ke grup chat pribadi, walau niatnya bertanya. Gunakan kanal resmi RS."},
+          {"depan":"Anonimisasi untuk contoh dan laporan","belakang":"Hilangkan nama, alamat, dan nomor identitas, atau ganti dengan data fiktif sebelum data dipakai sebagai contoh."},
+          {"depan":"Jejak akses","belakang":"Sistem RS umumnya mencatat siapa membuka data apa. Akses tanpa keperluan dapat ditelusuri."}
+        ]}
+        </script>
+
+        <h4>Checklist kesiapan belajar</h4>
+        <p>Centang yang sudah kamu siapkan. Yang belum tercentang adalah daftar tugasmu sebelum pertemuan berikutnya.</p>
+        <ul class="checklist" data-widget="checklist" data-key="siap-belajar">
+          <li>Saya tahu jadwal dan ruang kuliah, dan akan datang sebelum kelas dimulai.</li>
+          <li>Saya punya akun email yang aktif dan tahu kata sandinya.</li>
+          <li>Saya menyiapkan flashdisk atau akun cloud untuk menyimpan hasil praktik.</li>
+          <li>Saya tahu cara menghubungi dosen untuk izin atau bertanya.</li>
+          <li>Saya paham bahwa semua data praktik adalah data fiktif.</li>
+          <li>Saya siap bertanya kalau ada yang belum jelas.</li>
+        </ul>
+      </div>
+
+      <div class="cekbox">
+        <h4>Cek pemahaman</h4>
+        <div data-widget="quiz" data-src="quiz-i3" class="quiz"></div>
+        <script type="application/json" id="quiz-i3">
+        {"judul":"Cek pemahaman: aturan main","soal":[
+          {"q":"Temanmu meminta file tugas Word-mu untuk dikumpulkan atas namanya. Sikap yang paling tepat?","opsi":["Kirim saja, hitung-hitung membantu","Jelaskan langkah-langkahnya dan biarkan ia mengerjakan sendiri","Kirim, tetapi ubah beberapa kata","Abaikan pesannya tanpa menjawab"],"benar":1,"jelas":"Membantu dengan menjelaskan itu dianjurkan. Jawaban tugas tetap pribadi masing-masing."},
+          {"q":"Mengapa kuliah ini memakai data pasien fiktif?","opsi":["Karena data nyata sulit diketik","Agar latihan aman dan kita terbiasa menjaga kerahasiaan data","Karena dosen tidak punya data","Karena data fiktif lebih cepat diproses"],"benar":1,"jelas":"Data fiktif melindungi pasien nyata dan membentuk kebiasaan menjaga rahasia medis."},
+          {"q":"Izin tidak hadir sebaiknya disampaikan...","opsi":["Setelah kuliah selesai","Minimal 1 hari sebelumnya dengan surat keterangan sah","Saat ujian berlangsung","Tidak perlu disampaikan"],"benar":1,"jelas":"Aturan izin: dikomunikasikan minimal 1 hari sebelumnya dengan surat keterangan yang sah."}
+        ]}
+        </script>
+      </div>
+
+      <div class="tahu">
+        <h4>Studi kasus: foto layar di grup keluarga</h4>
+        <p>Siti Aminah, petugas pendaftaran di RS Sehat Citra (fiktif), kesulitan memformat tabel. Ia memotret layar komputer berisi daftar pasien hari itu dan mengirimnya ke grup keluarga untuk bertanya. Di foto itu terlihat nama lengkap dan diagnosa beberapa pasien. Niatnya baik, tetapi data pasien sudah keluar dari kanal resmi dan tidak bisa ditarik kembali. Cara yang benar: tutupi atau hapus data pasien, atau buat tabel contoh dengan data fiktif, lalu bertanya.</p>
+      </div>
+    </section>
+
+    <section class="seg" id="seg-inti4" data-judul="Inti 4: Peran Komputer dalam Alur Pelayanan RS" data-min="10">
+      <p>Klik setiap bagian alur pelayanan pasien untuk melihat peran teknologi komputer. Dari pendaftaran hingga obat, komputer mendukung setiap tahapan.</p>
+
+      <div class="konsep">
+        <h4>Konsep inti: alur pasien dan alur data</h4>
+        <p>Ada dua perjalanan yang terjadi bersamaan. <strong>Alur pasien</strong> adalah perpindahan orang dari satu unit ke unit lain. <strong>Alur data</strong> adalah perpindahan informasi tentang pasien itu lewat jaringan komputer. Pasien berjalan kaki, datanya berjalan lewat kabel.</p>
+        <p>Banyak RS memakai SIMRS (Sistem Informasi Manajemen Rumah Sakit) yang menyatukan data semua unit. Prinsipnya: <strong>diinput sekali, dipakai banyak unit</strong>. Nama pasien diketik sekali di pendaftaran, lalu muncul otomatis di poli, laboratorium, farmasi, dan kasir.</p>
+        <ul>
+          <li><strong>Kecepatan:</strong> resep digital sampai ke farmasi sebelum pasien tiba di loket obat.</li>
+          <li><strong>Akurasi:</strong> kalkulasi biaya otomatis mengurangi salah hitung.</li>
+          <li><strong>Keamanan:</strong> rekam medis digital punya hak akses dan cadangan, tidak seperti map kertas yang bisa hilang.</li>
+        </ul>
+        <p>Lalu di mana peran aplikasi Office? SIMRS menangani transaksi harian, tetapi surat dinas, rekap bulanan, grafik, dan paparan rapat tetap disusun staf administrasi dengan Word, Excel, dan PowerPoint. Itu sebabnya mata kuliah ini ada.</p>
+        <p>Satu risiko perlu diingat: kalau data awal salah, kesalahan itu ikut tersebar. Staf administrasi juga perlu tahu prosedur cadangan saat sistem sedang bermasalah.</p>
+      </div>
+
+      <div class="aktiv">
+        <h4>Simulasi perjalanan pasien</h4>
+        <p>Pasien contoh kita adalah Budi Santoso (fiktif). Tekan Jalankan simulasi untuk melihat ia berpindah antar unit, atau maju satu langkah dengan Langkah berikutnya. Kamu juga bisa mengklik unit mana pun untuk membaca peran komputernya.</p>
+        <div class="fig" id="fig-alur"></div>
+        <p>
+          <button class="btn" type="button" id="p01-alur-jalan">Jalankan simulasi</button>
+          <button class="btn sec" type="button" id="p01-alur-maju">Langkah berikutnya</button>
+          <button class="btn sec" type="button" id="p01-alur-ulang">Ulangi</button>
+        </p>
+        <div class="info" id="alur-info" aria-live="polite">Tekan Jalankan simulasi, atau klik salah satu unit pada gambar.</div>
+      </div>
+
+      <div class="aktiv">
+        <h4>Urutkan alur pelayanan rawat jalan</h4>
+        <p>Susun langkah berikut dengan tombol naik dan turun. Urutan mengikuti alur di RS Sehat Citra. Urutan di RS lain bisa sedikit berbeda.</p>
+        <div data-widget="sortlist" data-src="sl-i4"></div>
+        <script type="application/json" id="sl-i4">
+        {"langkah":[
+          "Pasien mendaftar di loket dan menerima nomor rekam medis serta kartu antrian.",
+          "Dokter memeriksa pasien di poli, lalu mencatat keluhan dan diagnosa.",
+          "Pasien menjalani pemeriksaan penunjang di laboratorium atau radiologi bila diminta dokter.",
+          "Farmasi menerima resep digital, menyiapkan obat, dan menyerahkannya.",
+          "Pasien membayar di kasir dan menerima kwitansi."
+        ]}
+        </script>
+      </div>
+
+      <div class="aktiv">
+        <h4>Pasangkan dokumen atau data dengan unit penghasilnya</h4>
+        <p>Klik pilihan di sebelah kanan, lalu klik kotak pasangannya di sebelah kiri.</p>
+        <div data-widget="dragmatch" data-src="dm-i4"></div>
+        <script type="application/json" id="dm-i4">
+        {"pairs":[
+          {"kiri":"Nomor rekam medis dan kartu antrian","kanan":"Pendaftaran"},
+          {"kiri":"Catatan diagnosa dan resep digital","kanan":"Poli Medis"},
+          {"kiri":"Hasil pemeriksaan darah","kanan":"Lab & Radiologi"},
+          {"kiri":"Label obat dan catatan stok","kanan":"Farmasi"},
+          {"kiri":"Kwitansi dan laporan keuangan harian","kanan":"Kasir/Billing"},
+          {"kiri":"Arsip elektronik terpadu dengan cadangan","kanan":"Rekam Medis Digital"}
+        ]}
+        </script>
+      </div>
+
+      <div class="cekbox">
+        <h4>Cek pemahaman</h4>
+        <div data-widget="quiz" data-src="quiz-i4" class="quiz"></div>
+        <script type="application/json" id="quiz-i4">
+        {"judul":"Cek pemahaman: alur pelayanan","soal":[
+          {"q":"Mengapa nama pasien cukup diketik sekali di pendaftaran?","opsi":["Karena unit lain tidak memerlukan nama","Karena data dibagikan ke unit lain lewat sistem yang terpadu","Karena nama tidak penting untuk diagnosa","Karena pasien hanya datang sekali"],"benar":1,"jelas":"Prinsip SIMRS: diinput sekali, dipakai banyak unit."},
+          {"q":"Unit mana yang menerima resep digital lalu menyiapkan label obat?","opsi":["Kasir/Billing","Pendaftaran","Farmasi","Laboratorium"],"benar":2,"jelas":"Farmasi menerima resep digital dari poli, memverifikasi, mencetak label, dan mencatat stok."},
+          {"q":"Keunggulan rekam medis digital dibanding map kertas adalah...","opsi":["Tidak memerlukan hak akses","Akses cepat, terarsip, dan punya cadangan sehingga lebih aman","Tidak bisa salah ketik","Tidak butuh listrik"],"benar":1,"jelas":"Rekam medis digital bisa dibuka cepat oleh yang berwenang dan dicadangkan. Salah ketik tetap mungkin, jadi ketelitian tetap penting."}
+        ]}
+        </script>
+      </div>
+
+      <div class="tahu">
+        <h4>Studi kasus: dua nomor untuk satu pasien</h4>
+        <p>Budi Santoso (fiktif) datang kontrol, tetapi petugas tidak mencari data lamanya dan langsung membuat pasien baru. Terbentuklah dua nomor rekam medis untuk satu orang. Akibatnya, riwayat alergi obat di nomor lama tidak muncul saat dokter memeriksa. Pelajarannya: selalu cek data lama sebelum membuat data baru. Kebiasaan sederhana ini melindungi pasien.</p>
+      </div>
+
+      <p class="note"><strong>Kesimpulan:</strong> Komputer bukan hanya alat administrasi, tetapi tulang punggung pelayanan kesehatan modern yang meningkatkan kecepatan, akurasi, dan keamanan data pasien.</p>
+    </section>
+
+    <section class="seg" id="seg-praktik" data-judul="Praktik / Kontrak & Ekspektasi" data-min="25">
+      <h4>1️⃣ Kontrak Belajar Digital</h4>
+      <p>Centang semua kesepakatan berikut, isi nama Anda, lalu lihat pratinjau berita acara. Ini adalah komitmen Anda selama satu semester.</p>
+      <div style="background:var(--primary-soft);padding:12px;border-radius:10px;margin:12px 0">
+        <ul class="checklist" data-widget="checklist" data-key="kontrak-cb">
+          <li>Saya menyetujui Rencana Pembelajaran Semester (RPS) dan sistem penilaian yang telah dijelaskan.</li>
+          <li>Saya berjanji hadir tepat waktu dan menghormati tata tertib kelas selama satu semester.</li>
+          <li>Saya memahami bahwa keterlambatan, absensi, dan ketidakjujuran akademik memiliki konsekuensi.</li>
+          <li>Saya berkomitmen menyelesaikan tugas dengan integritas, tidak menyalin tugas orang lain.</li>
+          <li>Saya siap belajar, bertanya, dan membantu teman sekelas dalam suasana saling menghormati.</li>
+        </ul>
+        <div style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
+          <label style="display:block;margin-bottom:8px"><strong>Nama lengkap Anda:</strong></label>
+          <input type="text" id="nama-kontrak" placeholder="Ketik nama Anda..." style="width:100%;max-width:400px;padding:8px;border:1px solid var(--line);border-radius:6px">
+          <p style="font-size:.9rem;color:var(--muted);margin:8px 0 0">Nama akan muncul di berita acara pratinjau di bawah.</p>
+        </div>
+      </div>
+      <h4>Pratinjau Berita Acara (siap cetak)</h4>
+      <div class="page" style="--fs:13px;--lh:1.4" id="berita-acara">
+        <strong style="display:block;text-align:center;margin-bottom:12px;font-size:1.1rem">BERITA ACARA KONTRAK PEMBELAJARAN</strong>
+        <p style="margin:0 0 8px">Mata Kuliah: <strong>Komputer Rumah Sakit</strong></p>
+        <p style="margin:0 0 8px">Dosen: <strong>Ibnu Amri Thaher</strong></p>
+        <p style="margin:0 0 8px">Semester: <strong>1 (Satu)</strong></p>
+        <p style="margin:0 0 8px">Tanggal: <strong>Pertemuan 1 / 2026</strong></p>
+        <hr style="margin:10px 0">
+        <p style="margin:8px 0"><strong>Peserta:</strong></p>
+        <p style="margin:0;padding-left:20px" id="berita-nama">(Isikan nama Anda di atas)</p>
+        <p style="margin:8px 0"><strong>Kesepakatan Pembelajaran:</strong></p>
+        <ol style="margin:0;padding-left:20px;font-size:.95rem">
+          <li>Mengikuti perkuliahan dengan tertib sesuai jadwal yang ditentukan.</li>
+          <li>Menyelesaikan tugas tepat waktu dan dengan integritas akademik tinggi.</li>
+          <li>Menghormati dosen dan teman sekelas dalam setiap interaksi.</li>
+          <li>Memanfaatkan teknologi pembelajaran secara bertanggung jawab.</li>
+        </ol>
+        <p style="margin:10px 0 0;text-align:center"><em>Kontrak ini berlaku selama satu semester akademik (14 minggu perkuliahan)</em></p>
+      </div>
+      <p style="text-align:center;margin-top:12px"><button class="btn sec" type="button" onclick="window.print()">🖨️ Cetak Berita Acara</button></p>
+      <script>
+      window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("nama-kontrak").addEventListener("input", (e) => {
+        document.getElementById("berita-nama").textContent = e.target.value || "(Isikan nama Anda di atas)";
+        const s = store.get("kontrak-nama", "");
+        store.set("kontrak-nama", e.target.value);
+      });
+      const saved = store.get("kontrak-nama", "");
+      if (saved) { document.getElementById("nama-kontrak").value = saved; document.getElementById("berita-nama").textContent = saved; }
+      });
+      </script>
+
+      <h4 style="margin-top:24px">2️⃣ Peta Ekspektasi Belajar</h4>
+      <p>Tuliskan 3 harapan atau tujuan personal Anda setelah menyelesaikan mata kuliah ini. Data akan tersimpan dan bisa dicocokkan kembali di akhir semester.</p>
+      <div style="display:grid;gap:12px;max-width:600px">
+        <div>
+          <label style="display:block;margin-bottom:4px;font-weight:600">Harapan / Tujuan #1</label>
+          <textarea id="harapan-1" placeholder="Contoh: Mahir menggunakan Mail Merge di Word..." style="width:100%;min-height:60px;padding:8px;border:1px solid var(--line);border-radius:6px"></textarea>
+        </div>
+        <div>
+          <label style="display:block;margin-bottom:4px;font-weight:600">Harapan / Tujuan #2</label>
+          <textarea id="harapan-2" placeholder="Contoh: Bisa membuat laporan Excel dengan grafik..." style="width:100%;min-height:60px;padding:8px;border:1px solid var(--line);border-radius:6px"></textarea>
+        </div>
+        <div>
+          <label style="display:block;margin-bottom:4px;font-weight:600">Harapan / Tujuan #3</label>
+          <textarea id="harapan-3" placeholder="Contoh: Memahami peran teknologi dalam pelayanan RS..." style="width:100%;min-height:60px;padding:8px;border:1px solid var(--line);border-radius:6px"></textarea>
+        </div>
+      </div>
+      <p style="margin-top:12px"><button class="btn sec" type="button" id="btn-simpan-harapan">💾 Simpan Harapan</button> <span id="pesan-simpan" style="color:var(--ok);font-weight:600;margin-left:8px"></span></p>
+      <script>
+      window.addEventListener("DOMContentLoaded", () => {
+      const hField = [document.getElementById("harapan-1"), document.getElementById("harapan-2"), document.getElementById("harapan-3")];
+      const hMsg = document.getElementById("pesan-simpan");
+      hField.forEach((f, i) => { f.value = store.get("harapan-" + (i+1), ""); });
+      document.getElementById("btn-simpan-harapan").addEventListener("click", () => {
+        hField.forEach((f, i) => { store.set("harapan-" + (i+1), f.value); });
+        hMsg.textContent = "✓ Tersimpan!";
+        setTimeout(() => { hMsg.textContent = ""; }, 2000);
+      });
+      });
+      </script>
+
+      <h4 style="margin-top:24px">3️⃣ Peta Kemampuan Awal</h4>
+      <p>Nilailah kemampuanmu saat ini dengan jujur. Skala 0 sampai 5: dari belum pernah memakai sampai mahir dan bisa mengajari orang lain. Diagram radar berubah saat kamu menggeser slider, dan hasilnya tersimpan. Di akhir semester kita bandingkan lagi.</p>
+      <div id="p01-skill-rows"></div>
+      <div class="fig" id="fig-radar"></div>
+      <div class="info" id="skill-info" aria-live="polite" style="min-height:70px"></div>
+
+      <h4 style="margin-top:24px">4️⃣ Kuis Kilat: Siapa Aku?</h4>
+      <p>Setiap soal punya tiga petunjuk. Mulai dari petunjuk pertama dan tebak. Makin sedikit petunjuk yang kamu buka dan makin sedikit salah tebak, makin besar poinnya.</p>
+      <div id="p01-siapa"></div>
+    </section>
+
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test","soal":[
+        {"q":"Jika nilai Anda adalah: Tugas 85, UTS 70, UAS 80, Kehadiran 100, Sikap 90, maka nilai akhir adalah...","opsi":["80","81","82","83"],"benar":2,"jelas":"Perhitungan: (85×0,30) + (70×0,25) + (80×0,25) + (100×0,10) + (90×0,10) = 25,5 + 17,5 + 20 + 10 + 9 = 82"},
+        {"q":"Infrastruktur teknologi informasi RS mencakup...","opsi":["Hanya komputer dan printer","Perangkat keras, perangkat lunak, jaringan, dan sistem keamanan data","Hanya aplikasi Office","Hanya internet"],"benar":1,"jelas":"Infrastruktur IT RS adalah ekosistem lengkap: hardware, software, networking, dan security."},
+        {"q":"Alasan penting untuk belajar komputer di administrasi RS adalah...","opsi":["Karena trend zaman saja","Untuk meningkatkan efisiensi kerja, mengurangi kesalahan, dan mempercepat layanan pasien","Hanya untuk bermain-main","Tidak ada alasan khusus"],"benar":1,"jelas":"Teknologi meningkatkan kualitas layanan kesehatan dan efisiensi administrasi secara signifikan."},
+        {"q":"Kontrak pembelajaran telah ditandatangani bersama. Komitmen Anda sekarang adalah...","opsi":["Boleh diabaikan kapan saja","Harus dipatuhi untuk menjaga kualitas pembelajaran","Hanya berlaku saat ujian","Hanya untuk orang tertentu"],"benar":1,"jelas":"Kontrak adalah perjanjian saling menghormati dan bertanggung jawab antara dosen dan mahasiswa."},
+        {"q":"Peran komputer dalam alur pelayanan pasien di RS adalah...","opsi":["Tidak berperan penting","Digunakan hanya untuk administratif, bukan klinis","Mendukung di setiap tahap: pendaftaran, diagnosa, farmasi, billing, dan rekam medis","Hanya digunakan untuk membuat laporan akhir bulan"],"benar":2,"jelas":"Teknologi terintegrasi di seluruh sistem pelayanan kesehatan modern untuk efisiensi dan keamanan data."}
+      ]}
+      </script>
+      <h4>Pre-test vs post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
+      <h4>Ringkasan 5 poin</h4>
+      <ol>
+        <li>Mata kuliah Komputer Rumah Sakit membekali kemampuan praktis menggunakan aplikasi perkantoran untuk administrasi RS.</li>
+        <li>Penilaian: Tugas 30%, UTS 25%, UAS 25%, Kehadiran 10%, Sikap 10%.</li>
+        <li>Teknologi komputer adalah alat penting untuk meningkatkan efisiensi kerja, kualitas layanan, dan keamanan data pasien.</li>
+        <li>Kontrak pembelajaran adalah komitmen saling menghormati antara dosen dan mahasiswa untuk menciptakan lingkungan belajar yang kondusif.</li>
+        <li>Perjalanan 14 minggu ini akan membawa kalian dari pemula hingga mahir mengolah dokumen, data, dan presentasi di level profesional.</li>
+      </ol>
+      <h4>Flashcard ringkasan</h4>
+      <p>Klik kartu untuk membalik. Pakai untuk menguji ingatanmu sebelum pulang.</p>
+      <div data-widget="flashcard" data-src="fc-ringkas"></div>
+      <script type="application/json" id="fc-ringkas">
+      {"kartu":[
+        {"depan":"Bobot penilaian mata kuliah ini?","belakang":"Tugas 30%, UTS 25%, UAS 25%, Kehadiran 10%, Sikap 10%."},
+        {"depan":"UTS dan UAS ada di minggu berapa?","belakang":"UTS di minggu 8 dan UAS di minggu 16."},
+        {"depan":"Urutan blok materi semester","belakang":"Perangkat, Word, Excel, PowerPoint, integrasi, lalu komunikasi (email dan cloud)."},
+        {"depan":"Tiga pilar aturan main","belakang":"Disiplin waktu, integritas akademik, dan kerahasiaan data."},
+        {"depan":"Mengapa data di kelas ini fiktif?","belakang":"Agar latihan aman dan kita terbiasa menjaga kerahasiaan data pasien sejak sekarang."},
+        {"depan":"Alur pelayanan rawat jalan di RS Sehat Citra","belakang":"Pendaftaran, poli, lab/radiologi, farmasi, kasir; semua data terarsip di rekam medis digital."}
+      ]}
+      </script>
+      <h4>Refleksi diri</h4>
+      <div data-widget="reflect" data-key="ref-p01" data-prompt="Satu kekhawatiran atau hambatan yang kalian rasakan saat ini, dan satu hal yang membuat kalian antusias untuk belajar:"></div>
+      <p class="note"><strong>Tindak lanjut (Pertemuan 2):</strong> Persiapkan diri untuk mempelajari perangkat keras (hardware) komputer dan infrastruktur IT di RS. Tidak perlu membawa apa-apa; lab computer akan disiapkan dosen.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+"use strict";
+/* =====================================================================
+   KONFIG — ubah di sini
+   ===================================================================== */
+const KONFIG = {
+  kode: "krs-p01",
+  nomor: "01",
+  judul: "Pengenalan & Kontrak Kuliah",
+  cpmk: "CPMK-1: Mampu menyusun dan memformat surat dinas serta dokumen operasional resmi rumah sakit secara rapi dan otomatis menggunakan fitur Mail Merge pada aplikasi MS Word.",
+  tujuan: ["Memahami ruang lingkup mata kuliah dan sistem penilaian", "Menyepakati aturan main dan tata tertib perkuliahan", "Memahami peran teknologi informasi dalam administrasi RS"],
+  totalMenit: 90
+};
+
+/* =====================================================================
+   Helper umum
+   ===================================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, props, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in (props || {})) {
+    const v = props[k];
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (v === true) e.setAttribute(k, "");
+    else if (v !== false && v != null) e.setAttribute(k, v);
+  }
+  for (const c of kids.flat()) {
+    if (c == null || c === false) continue;
+    e.append(c.nodeType ? c : document.createTextNode(String(c)));
+  }
+  return e;
+}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(KONFIG.kode + "-" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(KONFIG.kode + "-" + k, JSON.stringify(v)); } catch (e) { /* storage diblokir: abaikan */ } }
+};
+function getData(id) { return JSON.parse(document.getElementById(id).textContent); }
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+let uid = 0; const nextId = p => p + "-" + (++uid);
+
+/* =====================================================================
+   Widget: quiz
+   ===================================================================== */
+const W = {};
+W.quiz = el => {
+  const d = getData(el.dataset.src);
+  const key = "quiz-" + (el.dataset.role || el.dataset.src);
+  const saved = store.get(key, { jawab: {} });
+  const jawab = saved.jawab || {};
+  const skorEl = h("p", { class: "skor", "aria-live": "polite" });
+  const items = [];
+  function hitung() {
+    let b = 0; for (const i in jawab) if (jawab[i] === d.soal[i].benar) b++;
+    const n = Object.keys(jawab).length;
+    skorEl.textContent = "Skor: " + b + " / " + d.soal.length + (n < d.soal.length ? "  (terjawab " + n + ")" : "");
+    store.set(key, { jawab, skor: b, total: d.soal.length, selesai: n === d.soal.length });
+    document.dispatchEvent(new CustomEvent("krs:skor"));
+  }
+  function tampil(i, pilih) {
+    const it = items[i], s = d.soal[i];
+    it.labels.forEach((l, j) => { l.classList.toggle("benar", j === s.benar); l.classList.toggle("salah", j === pilih && j !== s.benar); });
+    it.fb.textContent = (pilih === s.benar ? "Benar. " : "Belum tepat. ") + (s.jelas || "");
+  }
+  d.soal.forEach((s, i) => {
+    const name = nextId("q");
+    const fb = h("p", { class: "fb", "aria-live": "polite" });
+    const labels = s.opsi.map((o, j) => {
+      const inp = h("input", { type: "radio", name, value: j, onchange: () => { jawab[i] = j; tampil(i, j); hitung(); } });
+      if (jawab[i] === j) inp.checked = true;
+      return h("label", {}, inp, " ", o);
+    });
+    items.push({ labels, fb });
+    el.append(h("fieldset", {}, h("legend", {}, (i + 1) + ". " + s.q), labels, fb));
+    if (jawab[i] !== undefined) tampil(i, jawab[i]);
+  });
+  el.append(skorEl, h("button", { class: "btn sec", type: "button", onclick: () => {
+    for (const k in jawab) delete jawab[k];
+    $$("input", el).forEach(x => x.checked = false);
+    items.forEach(it => { it.labels.forEach(l => l.classList.remove("benar", "salah")); it.fb.textContent = ""; });
+    hitung();
+  } }, "Ulangi"));
+  hitung();
+};
+
+/* Widget: banding (pre vs post) */
+W.banding = el => {
+  function baris(role, nama, cls) {
+    const track = h("i"), val = h("span", {}, "–");
+    el.append(h("div", { class: "row " + cls }, h("span", {}, nama), h("div", { class: "track" }, track), val));
+    return () => {
+      const s = store.get("quiz-" + role, null);
+      if (!s || !s.selesai) { track.style.width = "0"; val.textContent = "–"; return; }
+      const p = Math.round(s.skor / s.total * 100);
+      track.style.width = p + "%"; val.textContent = p + "%";
+    };
+  }
+  el.classList.add("banding");
+  const a = baris("pre", "Pre-test", "pre"), b = baris("post", "Post-test", "post");
+  const up = () => { a(); b(); };
+  document.addEventListener("krs:skor", up); up();
+};
+
+/* Widget: flashcard */
+W.flashcard = el => {
+  const d = getData(el.dataset.src); let i = 0;
+  const f = h("div", { class: "fc-f" }), b = h("div", { class: "fc-b" });
+  const card = h("button", { type: "button", class: "fc", "aria-label": "Balik kartu", onclick: () => card.classList.toggle("flip") }, h("div", { class: "fc-in" }, f, b));
+  const cnt = h("span", {});
+  function r() { card.classList.remove("flip"); f.textContent = d.kartu[i].depan; b.textContent = d.kartu[i].belakang; cnt.textContent = (i + 1) + " / " + d.kartu.length; }
+  el.append(h("div", { class: "fc-wrap" }, card, h("div", { class: "fc-nav" },
+    h("button", { class: "btn sec", type: "button", onclick: () => { i = (i - 1 + d.kartu.length) % d.kartu.length; r(); } }, "◀ Sebelumnya"), cnt,
+    h("button", { class: "btn sec", type: "button", onclick: () => { i = (i + 1) % d.kartu.length; r(); } }, "Berikutnya ▶"))));
+  r();
+};
+
+/* Widget: dragmatch (klik-pilih, plus seret-lepas) */
+W.dragmatch = el => {
+  const d = getData(el.dataset.src);
+  const bankItems = shuffle(d.pairs.map(p => p.kanan));
+  let placed = d.pairs.map(() => null); // indeks item bank
+  let pilih = null, dicek = false;
+  const root = h("div", { class: "dm" }), kiri = h("div"), bank = h("div", { class: "dm-bank", "aria-label": "Pilihan jawaban" });
+  const hasil = h("p", { class: "skor", "aria-live": "polite" });
+  function lepas(slot) { if (pilih !== null) { placed = placed.map(x => (x === pilih ? null : x)); placed[slot] = pilih; pilih = null; dicek = false; r(); } }
+  function r() {
+    kiri.textContent = ""; bank.textContent = "";
+    d.pairs.forEach((p, i) => {
+      const t = placed[i] !== null ? bankItems[placed[i]] : "";
+      const cls = ["dm-slot"]; if (t) cls.push("isi");
+      if (dicek) cls.push(t === p.kanan ? "benar" : "salah");
+      const s = h("button", { type: "button", class: cls.join(" "), "aria-label": p.kiri + ": " + (t || "kosong"),
+        onclick: () => { if (pilih !== null) lepas(i); else if (placed[i] !== null) { placed[i] = null; dicek = false; r(); } },
+        ondragover: e => e.preventDefault(), ondrop: e => { e.preventDefault(); const k = Number(e.dataTransfer.getData("text/plain")); if (!isNaN(k)) { pilih = k; lepas(i); } } }, t || "…");
+      kiri.append(h("div", { class: "dm-row" }, h("div", { class: "card" }, p.kiri), s));
+    });
+    bankItems.forEach((t, k) => {
+      if (placed.includes(k)) return;
+      bank.append(h("button", { type: "button", draggable: "true", class: "dm-item" + (pilih === k ? " pilih" : ""),
+        onclick: () => { pilih = pilih === k ? null : k; r(); },
+        ondragstart: e => e.dataTransfer.setData("text/plain", String(k)) }, t));
+    });
+  }
+  const cek = h("button", { class: "btn", type: "button", onclick: () => {
+    dicek = true; r();
+    const b = d.pairs.filter((p, i) => placed[i] !== null && bankItems[placed[i]] === p.kanan).length;
+    hasil.textContent = "Benar " + b + " dari " + d.pairs.length;
+  } }, "Periksa");
+  const reset = h("button", { class: "btn sec", type: "button", onclick: () => { placed = d.pairs.map(() => null); pilih = null; dicek = false; hasil.textContent = ""; r(); } }, "Ulangi");
+  root.append(kiri, bank); el.append(root, h("p", {}, cek, " ", reset), hasil); r();
+};
+
+/* Widget: sortlist */
+W.sortlist = el => {
+  const d = getData(el.dataset.src);
+  let order = d.langkah.map((_, i) => i);
+  do { order = shuffle(order); } while (order.length > 1 && order.every((v, i) => v === i));
+  let dicek = false;
+  const ol = h("ol", { class: "sl" }), hasil = h("p", { class: "skor", "aria-live": "polite" });
+  function gerak(i, dlt) { const j = i + dlt; if (j < 0 || j >= order.length) return; [order[i], order[j]] = [order[j], order[i]]; dicek = false; r(); }
+  function r() {
+    ol.textContent = "";
+    order.forEach((v, i) => {
+      const li = h("li", { class: dicek ? (v === i ? "benar" : "salah") : "" },
+        h("span", {}, (i + 1) + "."), h("span", { class: "txt" }, d.langkah[v]),
+        h("button", { type: "button", "aria-label": "Naikkan", onclick: () => gerak(i, -1) }, "▲"),
+        h("button", { type: "button", "aria-label": "Turunkan", onclick: () => gerak(i, 1) }, "▼"));
+      ol.append(li);
+    });
+  }
+  el.append(ol, h("button", { class: "btn", type: "button", onclick: () => {
+    dicek = true; r(); const b = order.filter((v, i) => v === i).length;
+    hasil.textContent = b === order.length ? "Urutan sudah benar." : "Posisi benar: " + b + " dari " + order.length;
+  } }, "Periksa urutan"), hasil);
+  r();
+};
+
+/* Widget: hotspot (berbasis markup) */
+W.hotspot = el => {
+  const info = $(".hs-info", el), dots = $$(".hs-dot", el);
+  dots.forEach(b => {
+    b.setAttribute("aria-label", b.dataset.judul);
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => {
+      dots.forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      info.textContent = "";
+      info.append(h("strong", {}, b.dataset.judul), h("br"), b.dataset.teks);
+    });
+  });
+};
+
+/* Widget: checklist */
+W.checklist = el => {
+  const key = "cek-" + (el.dataset.key || nextId("c"));
+  const saved = store.get(key, []);
+  const lis = $$(":scope > li", el);
+  const bar = h("i"), txt = h("span", { class: "kriteria" });
+  function up() {
+    const n = lis.filter(l => $("input", l).checked).length;
+    bar.style.width = (n / lis.length * 100) + "%"; txt.textContent = n + " / " + lis.length + " selesai";
+    store.set(key, lis.map(l => $("input", l).checked));
+  }
+  lis.forEach((li, i) => {
+    const t = li.textContent, cb = h("input", { type: "checkbox", onchange: up });
+    cb.checked = !!saved[i];
+    li.textContent = ""; li.append(h("label", {}, cb, h("span", {}, t)));
+  });
+  el.after(h("div", { class: "prog", "aria-hidden": "true" }, bar), txt); up();
+};
+
+/* Widget: slidersim */
+W.slidersim = el => {
+  $$("input[type=range]", el).forEach(inp => {
+    const out = inp.nextElementSibling;
+    const apply = () => {
+      const v = inp.value + (inp.dataset.unit || "");
+      const t = $(inp.dataset.target); if (t) t.style.setProperty(inp.dataset.var, v);
+      if (out) out.textContent = v;
+    };
+    inp.addEventListener("input", apply); apply();
+  });
+};
+
+/* Tabs (berbasis markup) */
+function initTabs() {
+  $$(".tabs").forEach(box => {
+    const tabs = $$(".tablist button", box), panels = $$(":scope > .tabpanel", box);
+    function pilih(i) { tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; }); panels.forEach((p, k) => { p.hidden = k !== i; }); }
+    tabs.forEach((t, i) => t.addEventListener("click", () => pilih(i)));
+    pilih(0);
+  });
+}
+
+/* Widget: reflect */
+W.reflect = el => {
+  const key = "ref-" + (el.dataset.key || "x");
+  const ta = h("textarea", { class: "reflect", "aria-label": el.dataset.prompt || "Refleksi" });
+  ta.value = store.get(key, "");
+  ta.addEventListener("input", () => store.set(key, ta.value));
+  el.append(h("p", {}, el.dataset.prompt || "Tuliskan refleksi singkat:"), ta);
+};
+
+/* Widget: csv (unduh data contoh) */
+W.csv = el => {
+  el.addEventListener("click", () => {
+    const d = getData(el.dataset.src), sep = d.pemisah || ";";
+    const esc = v => { v = String(v); return /[";,\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    const isi = "﻿" + d.baris.map(r => r.map(esc).join(sep)).join("\r\n");
+    const url = URL.createObjectURL(new Blob([isi], { type: "text/csv;charset=utf-8" }));
+    const a = h("a", { href: url, download: d.nama || "data.csv" });
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+};
+
+/* =====================================================================
+   Widget: minisheet — parser rumus manual (tanpa eval/Function)
+   ===================================================================== */
+/* === PARSER-AWAL === */
+function kolHuruf(n) { return String.fromCharCode(65 + n); }
+function parseRef(s) { const m = /^([A-Z])(\d+)$/.exec(s.toUpperCase()); return m ? { c: m[1].charCodeAt(0) - 65, r: parseInt(m[2], 10) - 1 } : null; }
+function tokenisasi(s) {
+  const t = []; let i = 0;
+  while (i < s.length) {
+    const c = s[i];
+    if (/\s/.test(c)) { i++; continue; }
+    let m = /^(\d+(\.\d+)?|\.\d+)/.exec(s.slice(i));
+    if (m) { t.push({ t: "n", v: parseFloat(m[0]) }); i += m[0].length; continue; }
+    m = /^[A-Za-z]+\d*/.exec(s.slice(i));
+    if (m) {
+      const nm = m[0], nx = s[i + nm.length];
+      if (nx === "(") t.push({ t: "f", v: nm.toUpperCase() });
+      else if (/^[A-Za-z]+\d+$/.test(nm)) t.push({ t: "r", v: nm.toUpperCase() });
+      else throw new Error("#NAME?");
+      i += nm.length; continue;
+    }
+    if ("+-*/(),:;".includes(c)) { t.push({ t: c === ";" ? "," : c }); i++; continue; }
+    throw new Error("#ERROR");
+  }
+  return t;
+}
+/* getCell(c, r) -> number | string | null ; melempar Error("#REF!") jika di luar jangkauan */
+function evalRumus(src, getCell) {
+  const tk = tokenisasi(src); let p = 0;
+  const peek = () => tk[p] && tk[p].t, ambil = () => tk[p++];
+  const jml = x => { if (Array.isArray(x)) throw new Error("#VALUE!"); if (x === null) return 0; if (typeof x === "string") throw new Error("#VALUE!"); return x; };
+  function expr() { let v = term(); while (peek() === "+" || peek() === "-") { const o = ambil().t; const r = term(); v = o === "+" ? jml(v) + jml(r) : jml(v) - jml(r); } return v; }
+  function term() { let v = unary(); while (peek() === "*" || peek() === "/") { const o = ambil().t; const r = unary(); if (o === "*") v = jml(v) * jml(r); else { const d = jml(r); if (d === 0) throw new Error("#DIV/0!"); v = jml(v) / d; } } return v; }
+  function unary() { if (peek() === "-") { ambil(); return -jml(unary()); } if (peek() === "+") { ambil(); return jml(unary()); } return primary(); }
+  function ref(tok) { const a = parseRef(tok.v); if (!a) throw new Error("#REF!"); return a; }
+  function primary() {
+    const k = ambil(); if (!k) throw new Error("#ERROR");
+    if (k.t === "n") return k.v;
+    if (k.t === "(") { const v = expr(); if (ambil() == null || tk[p - 1].t !== ")") throw new Error("#ERROR"); return v; }
+    if (k.t === "r") {
+      const a = ref(k);
+      if (peek() === ":") {
+        ambil(); const k2 = ambil(); if (!k2 || k2.t !== "r") throw new Error("#ERROR");
+        const b = ref(k2), out = [];
+        for (let r = Math.min(a.r, b.r); r <= Math.max(a.r, b.r); r++) for (let c = Math.min(a.c, b.c); c <= Math.max(a.c, b.c); c++) out.push(getCell(c, r));
+        return out;
+      }
+      return getCell(a.c, a.r);
+    }
+    if (k.t === "f") {
+      if (ambil() == null || tk[p - 1].t !== "(") throw new Error("#ERROR");
+      const args = [];
+      if (peek() !== ")") { args.push(expr()); while (peek() === ",") { ambil(); args.push(expr()); } }
+      if (ambil() == null || tk[p - 1].t !== ")") throw new Error("#ERROR");
+      const angka = [];
+      args.forEach(a => { if (Array.isArray(a)) a.forEach(x => { if (typeof x === "number") angka.push(x); }); else if (typeof a === "number") angka.push(a); else if (a !== null) throw new Error("#VALUE!"); });
+      switch (k.v) {
+        case "SUM": return angka.reduce((s, x) => s + x, 0);
+        case "AVERAGE": if (!angka.length) throw new Error("#DIV/0!"); return angka.reduce((s, x) => s + x, 0) / angka.length;
+        case "COUNT": return angka.length;
+        case "MAX": return angka.length ? Math.max(...angka) : 0;
+        case "MIN": return angka.length ? Math.min(...angka) : 0;
+        default: throw new Error("#NAME?");
+      }
+    }
+    throw new Error("#ERROR");
+  }
+  const hasil = expr();
+  if (p < tk.length) throw new Error("#ERROR");
+  if (Array.isArray(hasil)) throw new Error("#VALUE!");
+  return hasil;
+}
+/* === PARSER-AKHIR === */
+
+W.minisheet = el => {
+  const d = getData(el.dataset.src);
+  const R = d.baris || 10, C = Math.min(d.kolom || 6, 26);
+  const key = "ms-" + el.dataset.src;
+  const raw = Object.assign({}, d.sel || {}, store.get(key, {}));
+  let cache = new Map(), aktif = new Set();
+  const nilaiAsli = (c, r) => {
+    if (c < 0 || c >= C || r < 0 || r >= R) throw new Error("#REF!");
+    const id = kolHuruf(c) + (r + 1);
+    if (cache.has(id)) { const v = cache.get(id); if (v instanceof Error) throw v; return v; }
+    if (aktif.has(id)) throw new Error("#CIRC!");
+    aktif.add(id);
+    let v; const s = String(raw[id] === undefined ? "" : raw[id]).trim();
+    try {
+      if (s === "") v = null;
+      else if (s[0] === "=") v = evalRumus(s.slice(1), nilaiAsli);
+      else if (/^-?\d+(\.\d+)?$/.test(s)) v = parseFloat(s);
+      else v = s;
+    } catch (e) { v = e; }
+    aktif.delete(id); cache.set(id, v);
+    if (v instanceof Error) throw v; return v;
+  };
+  const hitung = id => { cache = new Map(); aktif = new Set(); const a = parseRef(id); try { return nilaiAsli(a.c, a.r); } catch (e) { return e; } };
+  const fmt = v => v instanceof Error ? v.message : v === null ? "" : typeof v === "number" ? String(Math.round(v * 1e6) / 1e6) : v;
+
+  const addr = h("span", { class: "addr" }, "–"), fx = h("span", { class: "fx" }, "");
+  const tbl = h("table", { class: "ms" }), inputs = {};
+  const head = h("tr", {}, h("th", { class: "rh" }, ""));
+  for (let c = 0; c < C; c++) head.append(h("th", { scope: "col" }, kolHuruf(c)));
+  tbl.append(h("thead", {}, head));
+  const tb = h("tbody");
+  for (let r = 0; r < R; r++) {
+    const tr = h("tr", {}, h("th", { class: "rh", scope: "row" }, r + 1));
+    for (let c = 0; c < C; c++) {
+      const id = kolHuruf(c) + (r + 1);
+      const inp = h("input", { type: "text", "aria-label": "Sel " + id, autocomplete: "off", spellcheck: "false" });
+      inp.value = fmt(hitung(id)); inputs[id] = inp;
+      inp.addEventListener("focus", () => { addr.textContent = id; fx.textContent = raw[id] || ""; inp.value = raw[id] === undefined ? "" : raw[id]; });
+      inp.addEventListener("input", () => { fx.textContent = inp.value; });
+      inp.addEventListener("blur", () => { raw[id] = inp.value; simpan(); segarkan(); });
+      inp.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === "ArrowDown") { e.preventDefault(); const n = inputs[kolHuruf(c) + (r + 2)]; if (n) n.focus(); else inp.blur(); }
+        else if (e.key === "ArrowUp") { e.preventDefault(); const n = inputs[kolHuruf(c) + r]; if (n) n.focus(); }
+      });
+      tr.append(h("td", {}, inp));
+    }
+    tb.append(tr);
+  }
+  tbl.append(tb);
+  function simpan() { const u = {}; for (const k in raw) if (raw[k] !== (d.sel || {})[k] && raw[k] !== "") u[k] = raw[k]; store.set(key, u); }
+  function segarkan() {
+    for (const id in inputs) {
+      if (document.activeElement === inputs[id]) continue;
+      const v = hitung(id);
+      inputs[id].value = fmt(v);
+      inputs[id].className = (v instanceof Error ? "err" : typeof v === "number" ? "num" : "");
+    }
+    cekTantangan(false);
+  }
+  const daftar = h("ul", { class: "tantangan" }), hasil = h("p", { class: "skor", "aria-live": "polite" });
+  const li = (d.tantangan || []).map(t => { const e = h("li", {}, "☐ " + t.teks); daftar.append(e); return e; });
+  function cekTantangan(tampilPesan) {
+    let ok = 0;
+    (d.tantangan || []).forEach((t, i) => {
+      const v = hitung(t.sel), rumus = String(raw[t.sel] || "").trim().startsWith("=");
+      const benar = typeof v === "number" && Math.abs(v - t.nilai) < 1e-9 && (!t.wajibRumus || rumus);
+      li[i].classList.toggle("ok", benar); li[i].textContent = (benar ? "✔ " : "☐ ") + t.teks; if (benar) ok++;
+    });
+    if (tampilPesan && d.tantangan) hasil.textContent = "Tantangan selesai: " + ok + " / " + d.tantangan.length;
+  }
+  el.append(h("div", { class: "ms-bar" }, addr, fx), h("div", { class: "ms-wrap" }, tbl));
+  if (d.tantangan && d.tantangan.length) el.append(h("h4", {}, "Tantangan"), daftar, h("button", { class: "btn", type: "button", onclick: () => cekTantangan(true) }, "Periksa jawaban"), hasil);
+  el.append(h("p", {}, h("button", { class: "btn sec", type: "button", onclick: () => { for (const k in raw) delete raw[k]; Object.assign(raw, d.sel || {}); store.set(key, {}); segarkan(); } }, "Reset lembar")));
+  cekTantangan(false);
+};
+
+/* =====================================================================
+   Widget: chart (SVG manual)
+   ===================================================================== */
+const NS = "http://www.w3.org/2000/svg";
+function sv(tag, attrs, text) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; }
+function nice(max) { if (max <= 0) return 1; const e = Math.pow(10, Math.floor(Math.log10(max))), f = max / e; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * e; }
+function gambarGrafik(tipe, label, nilai, judul) {
+  const W_ = 600, H_ = 340, svg = sv("svg", { viewBox: "0 0 " + W_ + " " + H_, role: "img", "aria-label": judul || "Grafik" });
+  svg.append(sv("text", { x: W_ / 2, y: 22, "text-anchor": "middle", style: "font-size:15px;font-weight:700" }, judul || ""));
+  const v = nilai.map(x => Math.max(0, Number(x) || 0)), warna = i => "var(--c" + (i % 8 + 1) + ")";
+  if (tipe === "pie") {
+    const tot = v.reduce((a, b) => a + b, 0), cx = 190, cy = 190, r = 120;
+    if (tot <= 0) { svg.append(sv("text", { x: cx, y: cy, "text-anchor": "middle" }, "Belum ada data")); return svg; }
+    let a0 = -Math.PI / 2;
+    v.forEach((x, i) => {
+      if (x <= 0) return; const fr = x / tot;
+      if (fr > 0.9999) svg.append(sv("circle", { cx, cy, r, fill: warna(i) }));
+      else {
+        const a1 = a0 + fr * 2 * Math.PI, big = fr > 0.5 ? 1 : 0;
+        svg.append(sv("path", { d: "M" + cx + "," + cy + " L" + (cx + r * Math.cos(a0)) + "," + (cy + r * Math.sin(a0)) + " A" + r + "," + r + " 0 " + big + " 1 " + (cx + r * Math.cos(a1)) + "," + (cy + r * Math.sin(a1)) + " Z", fill: warna(i), stroke: "var(--surface)", "stroke-width": 2 }));
+        a0 = a1;
+      }
+    });
+    v.forEach((x, i) => {
+      const y = 70 + i * 24;
+      svg.append(sv("rect", { x: 360, y: y - 12, width: 14, height: 14, fill: warna(i) }));
+      svg.append(sv("text", { x: 382, y }, label[i] + " — " + (Math.round(x / tot * 1000) / 10) + "% (" + x + ")"));
+    });
+    return svg;
+  }
+  const L = 54, Rr = 20, T = 40, B = 40, pw = W_ - L - Rr, ph = H_ - T - B, mx = nice(Math.max(...v, 0));
+  for (let g = 0; g <= 4; g++) {
+    const y = T + ph - ph * g / 4;
+    svg.append(sv("line", { x1: L, x2: W_ - Rr, y1: y, y2: y, stroke: "var(--line)" }));
+    svg.append(sv("text", { x: L - 6, y: y + 4, "text-anchor": "end" }, String(Math.round(mx * g / 4 * 100) / 100)));
+  }
+  const n = v.length, step = pw / Math.max(n, 1);
+  if (tipe === "line") {
+    const pts = v.map((x, i) => [L + step * (i + 0.5), T + ph - ph * x / mx]);
+    svg.append(sv("polyline", { points: pts.map(p => p.join(",")).join(" "), fill: "none", stroke: "var(--c1)", "stroke-width": 3 }));
+    pts.forEach((p, i) => { svg.append(sv("circle", { cx: p[0], cy: p[1], r: 5, fill: "var(--c1)" })); svg.append(sv("text", { x: p[0], y: p[1] - 10, "text-anchor": "middle" }, String(v[i]))); });
+  } else {
+    v.forEach((x, i) => {
+      const bw = step * 0.6, bx = L + step * i + (step - bw) / 2, bh = ph * x / mx;
+      svg.append(sv("rect", { x: bx, y: T + ph - bh, width: bw, height: bh, fill: warna(0), rx: 3 }));
+      svg.append(sv("text", { x: bx + bw / 2, y: T + ph - bh - 5, "text-anchor": "middle" }, String(x)));
+    });
+  }
+  v.forEach((x, i) => svg.append(sv("text", { x: L + step * (i + 0.5), y: H_ - 16, "text-anchor": "middle" }, label[i])));
+  svg.append(sv("line", { x1: L, x2: L, y1: T, y2: T + ph, stroke: "var(--ink)" }));
+  svg.append(sv("line", { x1: L, x2: W_ - Rr, y1: T + ph, y2: T + ph, stroke: "var(--ink)" }));
+  return svg;
+}
+W.chart = el => {
+  const d = getData(el.dataset.src);
+  let tipe = d.tipe || "bar"; const label = d.label.slice(), nilai = d.nilai.slice();
+  const area = h("div");
+  const draw = () => { area.textContent = ""; area.append(gambarGrafik(tipe, label, nilai, d.judul)); };
+  if (d.pilihTipe) {
+    const sel = h("select", { "aria-label": "Jenis grafik", onchange: () => { tipe = sel.value; draw(); } },
+      [["bar", "Bar (batang)"], ["line", "Line (garis)"], ["pie", "Pie (lingkaran)"]].map(o => h("option", { value: o[0], selected: o[0] === tipe }, o[1])));
+    el.append(h("div", { class: "chart-ctl" }, h("label", {}, "Jenis grafik: ", sel)));
+  }
+  el.append(area);
+  if (d.editable) {
+    const tb = h("tbody");
+    label.forEach((l, i) => {
+      const inp = h("input", { type: "number", min: "0", "aria-label": "Nilai " + l, value: nilai[i], oninput: () => { nilai[i] = Number(inp.value) || 0; draw(); } });
+      tb.append(h("tr", {}, h("td", {}, l), h("td", {}, inp)));
+    });
+    el.append(h("table", { class: "data chart-tbl" }, h("thead", {}, h("tr", {}, h("th", {}, "Kategori"), h("th", {}, "Nilai"))), tb));
+  }
+  draw();
+};
+
+/* =====================================================================
+   Timer, agenda, progres segmen
+   ===================================================================== */
+function initSegmen() {
+  const segs = $$("section.seg"), agenda = $("#agenda");
+  const total = segs.reduce((s, x) => s + Number(x.dataset.min || 0), 0);
+  if (total !== KONFIG.totalMenit) console.warn("Total menit segmen = " + total + ", seharusnya " + KONFIG.totalMenit);
+  const done = store.get("selesai", {});
+  let mulai = 0;
+  const links = [];
+  segs.forEach((s, i) => {
+    const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
+    const head = h("div", { class: "seg-head" }, h("h3", {}, judul));
+    s.prepend(head);
+    const foot = h("div", { class: "seg-foot" });
+    const sb = h("button", { class: "btn sec", type: "button" });
+    function tandai(v) {
+      s.classList.toggle("done", v); a.classList.toggle("done", v); sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
+      done[s.id] = v; store.set("selesai", done); progres();
+    }
+    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
+    foot.append(sb); s.append(foot);
+    const a = h("a", { href: "#" + s.id }, h("span", {}, judul), h("span", { class: "tick", "aria-label": "selesai" }, "✓"));
+    agenda.append(a); links.push({ a, s }); mulai += min;
+    tandai(!!done[s.id]);
+  });
+  function progres() { const n = segs.filter(x => x.classList.contains("done")).length; $("#hdr-bar").style.width = (n / segs.length * 100) + "%"; }
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target))); }), { rootMargin: "-20% 0px -70% 0px" });
+    segs.forEach(s => io.observe(s));
+  }
+}
+
+/* =====================================================================
+   Start
+   ===================================================================== */
+function isiHero() {
+  document.title = "Pertemuan " + KONFIG.nomor + " — " + KONFIG.judul + " | Komputer Rumah Sakit";
+  $("#hdr-judul").textContent = KONFIG.judul;
+  $("#hdr-sub").textContent = "Komputer Rumah Sakit · Pertemuan " + KONFIG.nomor;
+  $("#hero-kode").textContent = "Pertemuan " + KONFIG.nomor + " · " + KONFIG.cpmk.split(":")[0];
+  $("#hero-judul").textContent = KONFIG.judul;
+  $("#hero-cpmk").textContent = KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t => $("#hero-tujuan").append(h("li", {}, t)));
+}
+document.addEventListener("DOMContentLoaded", () => {
+  isiHero();
+  $$("[data-widget]").forEach(el => {
+    const fn = W[el.dataset.widget];
+    if (!fn) return;
+    try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal dimuat (" + el.dataset.widget + "): " + e.message)); }
+  });
+  initTabs(); initSegmen();
+  window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));
+});
+</script>
+<script>
+/* =====================================================================
+   Pengayaan Pertemuan 01 — gambar SVG interaktif dan aktivitas tambahan.
+   Seluruh kode dibungkus IIFE; tidak ada nama global baru.
+   Memakai h(), store, $, $$, getData, sv dari skrip utama di atas.
+   ===================================================================== */
+(function () {
+  "use strict";
+
+  /* ---------- Helper SVG ---------- */
+  function S(tag, attrs, ...kids) {
+    const e = sv(tag, attrs || {});
+    kids.flat().forEach(k => { if (k == null || k === false) return; e.append(k.nodeType ? k : document.createTextNode(String(k))); });
+    return e;
+  }
+  function T(x, y, txt, attrs) { return S("text", Object.assign({ x: x, y: y }, attrs || {}), txt); }
+  function tombol(g, label, fn) {
+    g.classList.add("sv-btn");
+    g.setAttribute("tabindex", "0"); g.setAttribute("role", "button"); g.setAttribute("aria-label", label);
+    g.addEventListener("click", fn);
+    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fn(); } });
+    return g;
+  }
+  function fmt(x) { return String(Math.round(x * 100) / 100).replace(".", ","); }
+  function nodesDosen(txt) {
+    const out = [];
+    txt.split("ATUR OLEH DOSEN").forEach((p, i) => {
+      if (i) out.push(h("span", { class: "warn", style: "display:inline-block;padding:0 6px;margin:0" }, "ATUR OLEH DOSEN"));
+      out.push(p);
+    });
+    return out;
+  }
+
+  /* ---------- Ikon sederhana (kotak 36x36) ---------- */
+  const IK = {
+    daftar: w => [S("rect", { x: 6, y: 5, width: 24, height: 29, rx: 3, fill: "var(--surface)" }), S("rect", { x: 12, y: 1, width: 12, height: 8, rx: 2, fill: w }), S("path", { d: "M11 18h14M11 24h14M11 30h8" })],
+    poli: w => [S("rect", { x: 3, y: 3, width: 30, height: 30, rx: 8, fill: "var(--surface)" }), S("path", { d: "M18 10v16M10 18h16", stroke: w, "stroke-width": 6 })],
+    lab: w => [S("path", { d: "M14 3h8M15 3v11L5 30a3 3 0 0 0 2.6 4.5h20.8A3 3 0 0 0 31 30L21 14V3", fill: "var(--surface)" }), S("path", { d: "M10 25h16", stroke: w, "stroke-width": 4 })],
+    farmasi: w => [S("g", { transform: "rotate(-40 18 18)" }, S("rect", { x: 2, y: 11, width: 32, height: 14, rx: 7, fill: "var(--surface)" }), S("path", { d: "M18 12.5H9.5a5.5 5.5 0 0 0 0 11H18z", fill: w, stroke: "none" }), S("path", { d: "M18 11v14" }))],
+    kasir: w => [S("circle", { cx: 18, cy: 18, r: 15, fill: "var(--surface)" }), S("text", { x: 18, y: 23.5, "text-anchor": "middle", "font-size": 15, "font-weight": 700, stroke: "none" }, "Rp")],
+    rm: w => [S("path", { d: "M3 9a3 3 0 0 1 3-3h8l4 4h12a3 3 0 0 1 3 3v15a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z", fill: w, "fill-opacity": 0.35 })],
+    server: w => [0, 1, 2].map(i => S("g", {}, S("rect", { x: 4, y: 3 + i * 11, width: 28, height: 9, rx: 2, fill: "var(--surface)" }), S("circle", { cx: 10, cy: 7.5 + i * 11, r: 1.8, fill: w, stroke: "none" }), S("path", { d: "M17 " + (7.5 + i * 11) + "h11" }))),
+    kantor: w => [S("path", { d: "M8 2h14l7 7v25H8z", fill: "var(--surface)" }), S("path", { d: "M22 2v7h7" }), S("path", { d: "M13 17h11M13 23h11M13 29h7", stroke: w })],
+    rapat: w => [S("rect", { x: 2, y: 4, width: 32, height: 20, rx: 2, fill: "var(--surface)" }), S("path", { d: "M18 24v8M10 33h16" }), S("path", { d: "M7 19l7-7 5 4 8-8", stroke: w })],
+    db: w => [S("path", { d: "M5 8v20c0 3 6 5 13 5s13-2 13-5V8", fill: w, "fill-opacity": 0.3 }), S("ellipse", { cx: 18, cy: 8, rx: 13, ry: 5, fill: "var(--surface)" }), S("path", { d: "M5 18c0 3 6 5 13 5s13-2 13-5" })],
+    kalender: w => [S("rect", { x: 4, y: 6, width: 28, height: 27, rx: 3, fill: "var(--surface)" }), S("path", { d: "M4 14h28M11 2v7M25 2v7" }), S("path", { d: "M11 23l4 4 9-9", stroke: w, "stroke-width": 3.5 })],
+    perisai: w => [S("path", { d: "M18 2l14 5v10c0 9-6 15-14 18C10 32 4 26 4 17V7z", fill: "var(--surface)" }), S("path", { d: "M11 18l5 5 9-10", stroke: w, "stroke-width": 3.5 })],
+    gembok: w => [S("rect", { x: 6, y: 16, width: 24, height: 18, rx: 3, fill: "var(--surface)" }), S("path", { d: "M11 16v-5a7 7 0 0 1 14 0v5" }), S("circle", { cx: 18, cy: 25, r: 2.8, fill: w, stroke: "none" })]
+  };
+  function ikon(nama, x, y, w) {
+    return S("g", { transform: "translate(" + x + "," + y + ")", fill: "none", stroke: "var(--ink)", "stroke-width": 2.5, "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true" }, IK[nama](w || "var(--accent)"));
+  }
+  function chipDot(warna, teks) { return h("span", { class: "chip", style: "border-color:" + warna }, teks); }
+
+  /* =====================================================================
+     PEMBUKA: gedung RS + poll
+     ===================================================================== */
+  const APP = {
+    word: { n: "Word", w: "var(--c7)", l: "W" }, excel: { n: "Excel", w: "var(--c4)", l: "X" },
+    ppt: { n: "PowerPoint", w: "var(--c2)", l: "P" }, email: { n: "Email", w: "var(--c5)", l: "@" }, cloud: { n: "Cloud", w: "var(--c3)", l: "C" }
+  };
+  const RUANG = [
+    { nama: "Pendaftaran", baris: ["Pendaftaran"], lt: 1, kol: 0, ikon: "daftar", warna: "var(--c1)", app: ["excel", "word", "email"],
+      kerja: ["Mencatat data pasien baru dan memperbarui data pasien lama.", "Merekap daftar kunjungan harian untuk bagian lain.", "Mengirim konfirmasi jadwal atau surat pemberitahuan ke pasien."] },
+    { nama: "Poliklinik", baris: ["Poliklinik"], lt: 1, kol: 1, ikon: "poli", warna: "var(--c2)", app: ["word", "excel"],
+      kerja: ["Menyusun jadwal praktik dokter dan memperbaruinya bila berubah.", "Membuat surat keterangan dan surat rujukan dari templat baku.", "Merekap jumlah kunjungan per poli untuk bahan laporan."] },
+    { nama: "Farmasi", baris: ["Farmasi"], lt: 1, kol: 2, ikon: "farmasi", warna: "var(--c4)", app: ["excel", "word", "email"],
+      kerja: ["Mencatat stok obat masuk dan keluar dalam tabel.", "Membuat surat pesanan ke pemasok.", "Menyusun laporan pemakaian obat untuk manajemen."] },
+    { nama: "Laboratorium", baris: ["Laboratorium"], lt: 2, kol: 0, ikon: "lab", warna: "var(--c3)", app: ["excel", "word", "cloud"],
+      kerja: ["Merekap jumlah pemeriksaan per hari dan per jenis.", "Menulis jadwal pemeliharaan alat laboratorium.", "Membagikan berkas laporan ke bagian lain dengan aman."] },
+    { nama: "Kasir", baris: ["Kasir"], lt: 2, kol: 1, ikon: "kasir", warna: "var(--c6)", app: ["excel", "word", "email"],
+      kerja: ["Merekap pemasukan harian dari berbagai cara pembayaran.", "Menyusun laporan keuangan harian untuk bagian akuntansi.", "Membuat surat penagihan ke pihak penjamin."] },
+    { nama: "Rekam Medis", baris: ["Rekam", "Medis"], lt: 2, kol: 2, ikon: "rm", warna: "var(--c5)", app: ["excel", "word", "cloud"],
+      kerja: ["Mengelola indeks dan arsip berkas rekam medis.", "Mencatat permintaan berkas dari unit lain.", "Menyimpan salinan cadangan arsip digital di tempat aman."] },
+    { nama: "Ruang Server", baris: ["Ruang", "Server"], lt: 3, kol: 0, ikon: "server", warna: "var(--c7)", app: ["excel", "email", "cloud"],
+      kerja: ["Membantu tim IT mencatat jadwal pencadangan (backup) data.", "Membuat laporan gangguan sistem dan mengirimkannya ke atasan.", "Mengatur siapa yang boleh mengakses folder bersama."] },
+    { nama: "Kantor Administrasi", baris: ["Kantor", "Administrasi"], lt: 3, kol: 1, ikon: "kantor", warna: "var(--c8)", app: ["word", "excel", "email", "cloud"],
+      kerja: ["Menyusun surat dinas dan undangan, termasuk surat massal dengan Mail Merge.", "Mengelola agenda pimpinan dan notulen.", "Menyusun laporan bulanan dari berbagai unit."] },
+    { nama: "Ruang Rapat", baris: ["Ruang", "Rapat"], lt: 3, kol: 2, ikon: "rapat", warna: "var(--c1)", app: ["ppt", "word", "cloud"],
+      kerja: ["Menyiapkan slide laporan kinerja untuk rapat manajemen.", "Mencatat notulen dan tindak lanjut rapat.", "Membagikan bahan rapat kepada peserta sebelum rapat."] }
+  ];
+  function gedung() {
+    const host = $("#fig-gedung"), info = $("#gedung-info");
+    if (!host) return;
+    const FL = [80, 186, 292], KX = [70, 280, 490];
+    const s = S("svg", { viewBox: "0 0 760 420", role: "group", "aria-label": "Potongan gedung RS Sehat Citra dengan sembilan ruang yang bisa diklik" });
+    s.append(S("rect", { x: 20, y: 394, width: 720, height: 14, rx: 7, fill: "var(--c4)", "fill-opacity": 0.35 }));
+    s.append(S("rect", { x: 60, y: 74, width: 640, height: 322, rx: 6, fill: "var(--surface)", stroke: "var(--ink)", "stroke-width": 3 }));
+    s.append(S("rect", { x: 46, y: 44, width: 668, height: 34, rx: 8, fill: "var(--primary)" }));
+    s.append(S("rect", { x: 372, y: 10, width: 16, height: 32, rx: 2, fill: "var(--bad)" }), S("rect", { x: 364, y: 18, width: 32, height: 16, rx: 2, fill: "var(--bad)" }));
+    s.append(T(380, 69, "RS SEHAT CITRA", { "text-anchor": "middle", "font-size": 20, "font-weight": 800, class: "on" }));
+    [3, 2, 1].forEach((n, i) => s.append(T(30, FL[i] + 56, "Lt. " + n, { "text-anchor": "middle", "font-size": 15, "font-weight": 700, class: "mut" })));
+    s.append(S("g", {}, S("rect", { x: 722, y: 360, width: 8, height: 34, fill: "var(--muted)" }), S("circle", { cx: 726, cy: 346, r: 20, fill: "var(--c4)", "fill-opacity": 0.8 })));
+    const semua = [];
+    RUANG.forEach(r => {
+      const rx = KX[r.kol], ry = FL[3 - r.lt];
+      const g = S("g", {});
+      g.append(S("rect", { class: "hov", x: rx, y: ry, width: 200, height: 100, rx: 10, fill: "var(--surface)", stroke: r.warna, "stroke-width": 3 }));
+      g.append(S("rect", { x: rx, y: ry, width: 200, height: 100, rx: 10, fill: r.warna, "fill-opacity": 0.13, "pointer-events": "none" }));
+      g.append(ikon(r.ikon, rx + 12, ry + 12, r.warna));
+      r.baris.forEach((tx, i) => g.append(T(rx + 58, ry + (r.baris.length === 1 ? 40 : 32 + i * 20), tx, { "font-size": 17, "font-weight": 700 })));
+      Object.keys(APP).forEach((k, i) => {
+        const on = r.app.includes(k), cx = rx + 22 + i * 30;
+        g.append(S("circle", { cx: cx, cy: ry + 78, r: 12, fill: on ? APP[k].w : "none", stroke: APP[k].w, "stroke-width": 2, "stroke-opacity": on ? 1 : 0.35, "pointer-events": "none" }));
+        g.append(T(cx, ry + 83.5, APP[k].l, { "text-anchor": "middle", "font-size": 14, "font-weight": 700, class: on ? "on" : "mut", "pointer-events": "none" }));
+      });
+      tombol(g, r.nama + ", lantai " + r.lt + ". Tekan untuk melihat pekerjaan staf administrasi dan aplikasinya.", () => {
+        semua.forEach(x => x.classList.toggle("sel", x === g));
+        info.textContent = "";
+        info.append(h("h5", {}, r.nama + " (lantai " + r.lt + ")"), h("p", {}, h("strong", {}, "Pekerjaan staf administrasi:")),
+          h("ul", {}, r.kerja.map(k => h("li", {}, k))),
+          h("p", {}, h("strong", {}, "Aplikasi yang sering dipakai: "), r.app.map(k => chipDot(APP[k].w, APP[k].n))));
+      });
+      semua.push(g); s.append(g);
+    });
+    host.append(s);
+    info.textContent = "Klik atau tekan salah satu ruang pada gambar untuk melihat pekerjaan staf administrasi di sana.";
+  }
+
+  function poll() {
+    const box = $("#p01-poll"), out = $("#p01-poll-hasil");
+    if (!box) return;
+    const daftar = ["Mengetik dengan 10 jari", "Membuat dokumen di Word", "Memakai rumus Excel", "Membuat slide PowerPoint", "Mengirim email dengan lampiran", "Menyimpan berkas di cloud", "Memakai printer dan scanner", "Membuat kata sandi yang kuat"];
+    let pil = store.get("poll-kemampuan", []);
+    if (!Array.isArray(pil)) pil = [];
+    function pesan() {
+      const n = pil.length;
+      out.textContent = "Kamu menandai " + n + " dari " + daftar.length + " kemampuan. " +
+        (n <= 2 ? "Tidak apa-apa. Semester ini memang dimulai dari dasar." : n <= 5 ? "Modal yang baik. Kita lengkapi sisanya bersama." : "Bekalmu sudah banyak. Bantu temanmu yang baru mulai.");
+    }
+    daftar.forEach((t, i) => {
+      const b = h("button", { type: "button", class: "chip", "aria-pressed": String(pil.includes(i)) }, t);
+      b.addEventListener("click", () => {
+        const aktif = !pil.includes(i);
+        pil = aktif ? pil.concat(i) : pil.filter(x => x !== i);
+        b.setAttribute("aria-pressed", String(aktif));
+        store.set("poll-kemampuan", pil); pesan();
+      });
+      box.append(b);
+    });
+    pesan();
+  }
+
+  /* =====================================================================
+     INTI 1: peta jalur 16 minggu
+     ===================================================================== */
+  function peta() {
+    const host = $("#fig-peta"), info = $("#peta-info"), leg = $("#peta-legenda"), tl = $("#timeline");
+    if (!host) return;
+    const data = getData("timeline-data").minggu;
+    const BLOK = {
+      perangkat: { n: "Perangkat", w: "var(--c1)" }, word: { n: "Word", w: "var(--c7)" }, excel: { n: "Excel", w: "var(--c4)" },
+      ppt: { n: "PowerPoint", w: "var(--c2)" }, integrasi: { n: "Integrasi", w: "var(--c3)" }, komunikasi: { n: "Komunikasi", w: "var(--c5)" }, ujian: { n: "Ujian", w: "var(--bad)" }
+    };
+    const PENDEK = ["Pengenalan", "Hardware", "Software", "Word", "Mail Merge", "Excel Dasar", "Excel Lanjut", "UTS", "PPT Dasar", "PPT Lanjut", "OLE", "Integrasi 2", "Email", "Cloud", "Mini Project", "UAS"];
+    const XS = [110, 290, 470, 650];
+    const s = S("svg", { viewBox: "0 0 760 500", role: "group", "aria-label": "Peta jalur 16 minggu perkuliahan" });
+    const jalur = "M110 90H650C730 90 730 200 650 200H110C30 200 30 310 110 310H650C730 310 730 420 650 420H110";
+    s.append(S("path", { d: jalur, fill: "none", stroke: "var(--line)", "stroke-width": 22, "stroke-linecap": "round" }));
+    s.append(S("path", { d: jalur, fill: "none", stroke: "var(--muted)", "stroke-width": 2.5, "stroke-dasharray": "9 11" }));
+    s.append(S("rect", { x: 52, y: 14, width: 116, height: 30, rx: 8, fill: "var(--accent)" }), S("path", { d: "M100 44h20l-10 10z", fill: "var(--accent)" }), T(110, 35, "Kamu di sini", { "text-anchor": "middle", "font-size": 15, "font-weight": 700, class: "on" }));
+    const node = [];
+    let terpilih = null, saring = null;
+    data.forEach((m, i) => {
+      const row = Math.floor(i / 4), col = i % 4, x = row % 2 === 0 ? XS[col] : XS[3 - col], y = 90 + row * 110, b = BLOK[m.blok];
+      const g = S("g", {});
+      const bentuk = (m.is_uts || m.is_uas)
+        ? S("polygon", { class: "hov", points: [x, y - 34, x + 34, y, x, y + 34, x - 34, y].join(" "), fill: "var(--surface)", stroke: b.w, "stroke-width": 5, "stroke-linejoin": "round" })
+        : S("circle", { class: "hov", cx: x, cy: y, r: 27, fill: "var(--surface)", stroke: b.w, "stroke-width": 5 });
+      const no = T(x, y + 7, String(m.n), { "text-anchor": "middle", "font-size": 20, "font-weight": 800, "pointer-events": "none" });
+      g.append(bentuk, no, T(x, y + 56, PENDEK[i], { "text-anchor": "middle", "font-size": 15, "font-weight": (m.is_uts || m.is_uas) ? 800 : 600, "pointer-events": "none" }));
+      tombol(g, "Minggu " + m.n + ": " + m.topik + ". Tekan untuk detail.", () => pilih(m.n));
+      node.push({ g, bentuk, no, w: b.w, blok: m.blok });
+      s.append(g);
+    });
+    host.append(s);
+
+    const tombolMinggu = [];
+    data.forEach(m => {
+      const b = BLOK[m.blok];
+      const btn = h("button", { type: "button", class: "btn sec card", "aria-pressed": "false", title: m.topik,
+        style: "min-height:60px;padding:12px;border-left:8px solid " + b.w.replace(/"/g, "") + (m.is_uts || m.is_uas ? ";background:var(--bad-soft)" : ""),
+        onclick: () => pilih(m.n) }, "M" + m.n + (m.is_uts ? " ⚠️ UTS" : m.is_uas ? " ⚠️ UAS" : ""));
+      tombolMinggu.push(btn); tl.append(btn);
+    });
+
+    function pilih(n) {
+      terpilih = n;
+      const m = data[n - 1], b = BLOK[m.blok];
+      node.forEach((o, i) => {
+        const on = i === n - 1;
+        o.g.classList.toggle("sel", on);
+        o.bentuk.setAttribute("fill", on ? o.w : "var(--surface)");
+        o.no.setAttribute("class", on ? "on" : "");
+      });
+      tombolMinggu.forEach((t, i) => t.setAttribute("aria-pressed", String(i === n - 1)));
+      info.textContent = "";
+      info.append(h("h5", {}, "Minggu " + m.n + ": " + m.topik),
+        h("p", {}, h("strong", {}, "Blok: "), chipDot(b.w, b.n)),
+        h("p", {}, h("strong", {}, "Produk akhir: "), m.produk),
+        h("p", {}, h("strong", {}, "Kaitan dengan pekerjaan di RS: "), m.rs));
+    }
+    function sorot(k) {
+      saring = saring === k ? null : k;
+      node.forEach(o => { o.g.style.opacity = (saring && o.blok !== saring) ? "0.25" : "1"; });
+      $$("button", leg).forEach(b => b.setAttribute("aria-pressed", String(b.dataset.k === saring)));
+    }
+    Object.keys(BLOK).forEach(k => {
+      const b = h("button", { type: "button", class: "chip", "data-k": k, "aria-pressed": "false", onclick: () => sorot(k) },
+        h("span", { class: "dot", style: "background:" + BLOK[k].w }), BLOK[k].n);
+      leg.append(b);
+    });
+  }
+
+  /* =====================================================================
+     INTI 2: diagram komposisi nilai + solver
+     ===================================================================== */
+  function nilai() {
+    const host = $("#fig-nilai");
+    if (!host) return;
+    const inp = ["val-tugas", "val-uts", "val-uas", "val-hadir", "val-sikap"].map(id => document.getElementById(id));
+    const BOB = [0.30, 0.25, 0.25, 0.10, 0.10], NAMA = ["Tugas", "UTS", "UAS", "Hadir", "Sikap"], WARNA = ["var(--c7)", "var(--c3)", "var(--c2)", "var(--c4)", "var(--c5)"];
+    const X0 = 30, SK = 7;
+    const s = S("svg", { viewBox: "0 0 760 300", role: "img", "aria-label": "Diagram batang komposisi nilai akhir dari Tugas, UTS, UAS, Kehadiran, dan Sikap" });
+    s.append(T(X0, 22, "Poin maksimum (sesuai bobot)", { "font-size": 15, class: "mut" }));
+    let ax = X0;
+    BOB.forEach((b, i) => {
+      const w = b * 100 * SK;
+      s.append(S("rect", { x: ax, y: 30, width: w, height: 40, fill: WARNA[i], "fill-opacity": 0.2, stroke: WARNA[i], "stroke-width": 2.5 }));
+      s.append(T(ax + w / 2, 57, NAMA[i] + " " + Math.round(b * 100), { "text-anchor": "middle", "font-size": b < 0.15 ? 14 : 17, "font-weight": 700 }));
+      ax += w;
+    });
+    s.append(T(X0, 100, "Poin yang kamu peroleh", { "font-size": 15, class: "mut" }));
+    s.append(S("rect", { x: X0, y: 108, width: 100 * SK, height: 56, fill: "none", stroke: "var(--muted)", "stroke-dasharray": "6 5", "stroke-width": 2 }));
+    const isi = NAMA.map((n, i) => ({ r: S("rect", { y: 108, height: 56, fill: WARNA[i] }), t: T(0, 144, "", { "text-anchor": "middle", "font-size": 19, "font-weight": 800, class: "on" }) }));
+    isi.forEach(o => s.append(o.r, o.t));
+    s.append(S("line", { x1: X0, x2: X0 + 100 * SK, y1: 200, y2: 200, stroke: "var(--ink)", "stroke-width": 2 }));
+    [0, 25, 50, 75, 100].forEach(v => {
+      s.append(S("line", { x1: X0 + v * SK, x2: X0 + v * SK, y1: 200, y2: 208, stroke: "var(--ink)", "stroke-width": 2 }));
+      s.append(T(X0 + v * SK, 229, String(v), { "text-anchor": "middle", "font-size": 15, class: "mut" }));
+    });
+    const garis = S("line", { y1: 164, y2: 200, stroke: "var(--accent)", "stroke-width": 3, "stroke-dasharray": "5 4" });
+    const titik = S("circle", { cy: 200, r: 8, fill: "var(--accent)" });
+    const label = T(0, 258, "", { "text-anchor": "middle", "font-size": 19, "font-weight": 800, class: "acc" });
+    const rumus = T(380, 288, "", { "text-anchor": "middle", "font-size": 16 });
+    s.append(garis, titik, label, rumus);
+    host.append(s);
+
+    function baca() { return inp.map(i => { let v = parseFloat(i.value); if (isNaN(v)) v = 0; return Math.min(100, Math.max(0, v)); }); }
+    function gambar() {
+      const v = baca(); let x = X0, tot = 0; const kont = [];
+      v.forEach((nl, i) => {
+        const poin = nl * BOB[i], w = poin * SK;
+        isi[i].r.setAttribute("x", x); isi[i].r.setAttribute("width", w);
+        isi[i].t.setAttribute("x", x + w / 2); isi[i].t.textContent = w >= 36 ? fmt(poin) : "";
+        x += w; tot += poin; kont.push(poin);
+      });
+      garis.setAttribute("x1", x); garis.setAttribute("x2", x); titik.setAttribute("cx", x);
+      label.setAttribute("x", Math.min(640, Math.max(120, x))); label.textContent = "Nilai akhir: " + fmt(tot);
+      rumus.textContent = "Tugas " + fmt(kont[0]) + " + UTS " + fmt(kont[1]) + " + UAS " + fmt(kont[2]) + " + Hadir " + fmt(kont[3]) + " + Sikap " + fmt(kont[4]) + " = " + fmt(tot);
+      solve();
+    }
+
+    const tgt = $("#p01-target"), out = $("#p01-target-out"), hasil = $("#p01-target-hasil"), bar = $("#p01-target-bar");
+    function solve() {
+      const v = baca(), target = Number(tgt.value), dasar = v[0] * 0.30 + v[1] * 0.25 + v[3] * 0.10 + v[4] * 0.10;
+      const perlu = Math.round((target - dasar) / 0.25 * 1e6) / 1e6;
+      out.textContent = String(target);
+      bar.classList.remove("bad"); hasil.classList.remove("err");
+      if (perlu <= 0) {
+        bar.style.width = "0%";
+        hasil.textContent = "Target sudah aman. Dengan nilai Tugas, UTS, Kehadiran, dan Sikap yang sekarang, nilai akhir minimum (UAS 0) sudah " + fmt(dasar) + ".";
+      } else if (perlu > 100) {
+        bar.style.width = "100%"; bar.classList.add("bad"); hasil.classList.add("err");
+        hasil.textContent = "Target belum terjangkau. Dengan UAS 100 pun nilai akhir maksimumnya " + fmt(dasar + 25) + ".";
+      } else {
+        bar.style.width = perlu + "%";
+        hasil.textContent = "UAS minimal: " + fmt(perlu) + (perlu === Math.ceil(perlu) ? "" : " (dibulatkan ke atas menjadi " + Math.ceil(perlu) + ")") + ".";
+      }
+    }
+    inp.forEach(i => i.addEventListener("input", gambar));
+    tgt.addEventListener("input", solve);
+    gambar();
+  }
+
+  /* =====================================================================
+     INTI 3: pilar + game boleh/tidak
+     ===================================================================== */
+  function pilar() {
+    const host = $("#fig-pilar"), info = $("#pilar-info");
+    if (!host) return;
+    const P = [
+      { judul: ["Disiplin", "Waktu"], ikon: "kalender", warna: "var(--c1)",
+        aturan: ["Hadir dan memulai kuliah tepat pada jadwal; dosen juga menghormati waktu akhir kelas.", "Toleransi keterlambatan: ATUR OLEH DOSEN menit.", "Izin disampaikan minimal 1 hari sebelumnya dengan surat keterangan sah."],
+        rs: "Di RS: pergantian jaga yang terlambat membuat pasien menunggu lebih lama untuk ditangani." },
+      { judul: ["Integritas", "Akademik"], ikon: "perisai", warna: "var(--c2)",
+        aturan: ["Tugas harus original; sumber lain dikutip dengan benar.", "Berdiskusi boleh, tetapi jawaban tugas individu tetap pribadi.", "Tugas kelompok: setiap anggota berkontribusi aktif."],
+        rs: "Di RS: laporan yang disalin tanpa diperiksa dapat menyesatkan keputusan pimpinan." },
+      { judul: ["Kerahasiaan", "Data"], ikon: "gembok", warna: "var(--c5)",
+        aturan: ["Semua data dalam kuliah ini fiktif.", "Dilarang memakai data pasien nyata untuk latihan.", "Kebiasaan menjaga rahasia dilatih mulai sekarang."],
+        rs: "Di RS nyata: data pasien adalah rahasia, dan pelanggarannya dapat berdampak hukum." }
+    ];
+    const s = S("svg", { viewBox: "0 0 760 380", role: "group", "aria-label": "Tiga pilar aturan main: disiplin waktu, integritas akademik, kerahasiaan data" });
+    s.append(S("polygon", { points: "50,118 380,28 710,118", fill: "var(--primary)" }));
+    s.append(T(380, 96, "Pembelajaran yang aman dan dipercaya", { "text-anchor": "middle", "font-size": 18, "font-weight": 700, class: "on" }));
+    s.append(S("rect", { x: 50, y: 306, width: 660, height: 54, rx: 8, fill: "var(--primary-soft)", stroke: "var(--primary)", "stroke-width": 2.5 }));
+    s.append(T(380, 340, "Dasar: kontrak belajar yang disepakati bersama", { "text-anchor": "middle", "font-size": 18, "font-weight": 700 }));
+    const semua = [];
+    P.forEach((p, i) => {
+      const x = 90 + i * 215, g = S("g", {});
+      g.append(S("rect", { class: "hov", x: x, y: 130, width: 170, height: 166, rx: 8, fill: "var(--surface)", stroke: p.warna, "stroke-width": 4 }));
+      g.append(S("rect", { x: x, y: 130, width: 170, height: 166, rx: 8, fill: p.warna, "fill-opacity": 0.14, "pointer-events": "none" }));
+      g.append(S("rect", { x: x - 10, y: 122, width: 190, height: 14, rx: 4, fill: p.warna, "pointer-events": "none" }));
+      g.append(ikon(p.ikon, x + 67, 150, p.warna));
+      p.judul.forEach((t, k) => g.append(T(x + 85, 222 + k * 26, t, { "text-anchor": "middle", "font-size": 20, "font-weight": 800, "pointer-events": "none" })));
+      g.append(T(x + 85, 285, "klik untuk detail", { "text-anchor": "middle", "font-size": 14, class: "mut", "pointer-events": "none" }));
+      tombol(g, "Pilar " + p.judul.join(" ") + ". Tekan untuk melihat aturan terkait.", () => {
+        semua.forEach(o => o.classList.toggle("sel", o === g));
+        info.textContent = "";
+        info.append(h("h5", {}, "Pilar: " + p.judul.join(" ")), h("ul", {}, p.aturan.map(a => h("li", {}, nodesDosen(a)))), h("p", {}, h("strong", {}, p.rs)));
+      });
+      semua.push(g); s.append(g);
+    });
+    host.append(s);
+  }
+
+  function boleh() {
+    const root = $("#p01-boleh");
+    if (!root) return;
+    const K = [
+      { k: "Rani menyalin file Excel tugas milik temannya, lalu mengganti nama pemilik dan tanggalnya sebelum dikumpulkan.", j: 2, e: "Ini plagiarisme. Tugas harus original. Kalau kesulitan, minta teman menjelaskan langkahnya, bukan memberikan filenya." },
+      { k: "Dika membawa laptop pribadi ke lab untuk mengerjakan praktik.", j: 1, e: "Gadget boleh dipakai untuk pembelajaran. Syaratnya: hanya untuk materi kuliah, bukan game atau media sosial, dan mengikuti arahan dosen." },
+      { k: "Untuk tugas laporan kunjungan, Sari memakai daftar pasien sungguhan dari tempat kerja orang tuanya.", j: 2, e: "Data pasien nyata dilarang. Pakai data fiktif seperti Budi Santoso atau RM-0001. Rahasia medis dilindungi dan pelanggarannya dapat berdampak hukum." },
+      { k: "Dua mahasiswa berdiskusi cara membuat surat dengan Mail Merge, lalu masing-masing mengerjakan tugasnya sendiri.", j: 0, e: "Saling membantu dianjurkan. Yang penting, jawaban tugas tetap pribadi masing-masing." },
+      { k: "Saat dosen menjelaskan Excel, Tono membuka media sosial di ponselnya.", j: 2, e: "Gadget dilarang untuk media sosial dan aktivitas yang tidak relevan, karena mengganggu belajarmu dan teman di sekitarmu." },
+      { k: "Dalam tugas kelompok, satu anggota mengerjakan semuanya dan empat anggota lain hanya menitip nama.", j: 2, e: "Tugas kelompok menuntut pembagian kerja yang jelas dan kontribusi aktif setiap anggota." },
+      { k: "Mira mengutip definisi dari sebuah artikel untuk laporannya dan mencantumkan sumbernya.", j: 0, e: "Mengutip itu boleh asalkan dikutip dengan benar dan menyebut sumber." },
+      { k: "Agus akan berobat sehingga tidak bisa hadir besok. Hari ini ia mengabari dosen dan mengirim surat keterangan dokter.", j: 0, e: "Izin harus disampaikan minimal 1 hari sebelumnya dengan surat keterangan yang sah. Agus sudah melakukannya." }
+    ];
+    const OPS = ["Boleh", "Boleh dengan syarat", "Tidak boleh"];
+    let i = 0, skor = 0;
+    function tampil() {
+      root.textContent = "";
+      const box = h("div", { class: "gm" });
+      if (i >= K.length) {
+        box.append(h("h5", { style: "margin:0 0 6px;font-size:1.1rem" }, "Selesai"),
+          h("p", { class: "skor", "aria-live": "polite" }, "Skormu " + skor + " dari " + K.length + ". " + (skor >= 7 ? "Hebat, kamu sudah paham aturan mainnya." : skor >= 5 ? "Cukup baik. Baca lagi aturan yang tadi keliru." : "Tidak apa-apa. Buka lagi aturan lengkap di atas, lalu coba ulang.")),
+          h("button", { class: "btn", type: "button", onclick: () => { i = 0; skor = 0; tampil(); } }, "Main lagi"));
+        root.append(box); return;
+      }
+      const c = K[i], fb = h("div", { class: "fbk", "aria-live": "polite", hidden: true });
+      const lanjut = h("button", { class: "btn", type: "button", hidden: true, onclick: () => { i++; tampil(); } }, i === K.length - 1 ? "Lihat skor" : "Kasus berikutnya");
+      const tb = OPS.map((o, j) => h("button", { class: "btn sec", type: "button", onclick: () => {
+        tb.forEach((b, k) => { b.disabled = true; if (k === c.j) b.classList.add("benar"); else if (k === j) b.classList.add("salah"); });
+        if (j === c.j) skor++;
+        fb.hidden = false; fb.classList.add(j === c.j ? "benar" : "salah");
+        fb.textContent = (j === c.j ? "Tepat. " : "Belum tepat. Jawaban yang benar: " + OPS[c.j] + ". ") + c.e;
+        lanjut.hidden = false;
+      } }, o));
+      box.append(h("p", { class: "kriteria", style: "margin:0;font-size:1rem" }, "Kasus " + (i + 1) + " dari " + K.length + " · skor sementara " + skor),
+        h("p", { class: "kasus" }, c.k), h("div", { class: "opsi" }, tb), fb, h("p", {}, lanjut));
+      root.append(box);
+    }
+    tampil();
+  }
+
+  /* =====================================================================
+     INTI 4: simulasi alur pelayanan
+     ===================================================================== */
+  function alur() {
+    const host = $("#fig-alur"), info = $("#alur-info");
+    if (!host) return;
+    const U = [
+      { id: "daftar", nama: ["Pendaftaran"], ikon: "daftar", w: "var(--c1)", dok: "Kartu antrian", docs: ["Nomor rekam medis", "Kartu antrian", "Data asuransi"], teks: "Komputer: input data pasien baru, cek rekam medis lama, cetak kartu antrian, catat asuransi." },
+      { id: "poli", nama: ["Poli Medis"], ikon: "poli", w: "var(--c2)", dok: "Resep digital", docs: ["Catatan keluhan", "Diagnosa", "Resep digital"], teks: "Komputer: rekam keluhan pasien, hasil pemeriksaan, diagnosa, resep digital untuk farmasi." },
+      { id: "lab", nama: ["Lab &", "Radiologi"], ikon: "lab", w: "var(--c3)", dok: "Hasil lab", docs: ["Order pemeriksaan", "Hasil pemeriksaan"], teks: "Komputer: order pemeriksaan otomatis dari rekam medis, hasil lab terekam digital, verifikasi hasil." },
+      { id: "farmasi", nama: ["Farmasi"], ikon: "farmasi", w: "var(--c4)", dok: "Label obat", docs: ["Label obat", "Catatan stok"], teks: "Komputer: terima resep digital, verifikasi interaksi obat, cetak label, catat stok real-time." },
+      { id: "kasir", nama: ["Kasir", "Billing"], ikon: "kasir", w: "var(--c6)", dok: "Kwitansi", docs: ["Rincian biaya", "Kwitansi", "Laporan harian"], teks: "Komputer: kalkulasi biaya otomatis, cetak kwitansi, catat pembayaran, laporan keuangan harian." }
+    ];
+    const RMTEKS = "Komputer: arsip elektronik terintegrasi, backup aman, akses cepat untuk pemeriksaan lanjutan.";
+    const CX = [110, 254, 398, 542, 686];
+    const s = S("svg", { viewBox: "0 0 780 360", role: "group", "aria-label": "Alur pelayanan pasien dari pendaftaran sampai kasir dengan arsip rekam medis digital" });
+    s.append(S("defs", {}, S("marker", { id: "p01-pnl", markerWidth: 10, markerHeight: 10, refX: 8, refY: 5, orient: "auto" }, S("path", { d: "M0 0L10 5L0 10z", fill: "var(--ink)" })),
+      S("marker", { id: "p01-pnl2", markerWidth: 10, markerHeight: 10, refX: 8, refY: 5, orient: "auto" }, S("path", { d: "M0 0L10 5L0 10z", fill: "var(--c3)" }))));
+    s.append(S("line", { x1: 24, x2: 768, y1: 48, y2: 48, stroke: "var(--ink)", "stroke-width": 3, "marker-end": "url(#p01-pnl)" }));
+    s.append(T(24, 24, "Masuk", { "font-size": 15, "font-weight": 700, class: "mut" }), T(772, 24, "Pulang", { "text-anchor": "end", "font-size": 15, "font-weight": 700, class: "mut" }));
+    // bus data + rekam medis
+    s.append(S("line", { x1: CX[0] + 52, x2: CX[4] + 52, y1: 262, y2: 262, stroke: "var(--c3)", "stroke-width": 3, "stroke-dasharray": "8 6" }));
+    s.append(S("line", { x1: 398, x2: 398, y1: 262, y2: 286, stroke: "var(--c3)", "stroke-width": 3, "stroke-dasharray": "8 6", "marker-end": "url(#p01-pnl2)" }));
+    const rm = S("g", {});
+    rm.append(S("rect", { class: "hov", x: 298, y: 288, width: 200, height: 62, rx: 12, fill: "var(--surface)", stroke: "var(--c3)", "stroke-width": 3 }),
+      S("rect", { x: 298, y: 288, width: 200, height: 62, rx: 12, fill: "var(--c3)", "fill-opacity": 0.14, "pointer-events": "none" }),
+      ikon("db", 310, 301, "var(--c3)"),
+      T(358, 315, "Rekam Medis", { "font-size": 17, "font-weight": 800, "pointer-events": "none" }), T(358, 336, "Digital", { "font-size": 17, "font-weight": 800, "pointer-events": "none" }));
+    s.append(S("line", { x1: 24, x2: 64, y1: 308, y2: 308, stroke: "var(--ink)", "stroke-width": 3 }), T(72, 314, "Alur pasien", { "font-size": 15 }),
+      S("line", { x1: 24, x2: 64, y1: 336, y2: 336, stroke: "var(--c3)", "stroke-width": 3, "stroke-dasharray": "8 6" }), T(72, 342, "Alur data", { "font-size": 15 }));
+    const kotak = [], dokEl = [], stub = [];
+    U.forEach((u, i) => {
+      const cx = CX[i];
+      const st = S("line", { x1: cx + 52, x2: cx + 52, y1: 170, y2: 262, stroke: "var(--c3)", "stroke-width": 3, "stroke-dasharray": "8 6", opacity: 0.35 });
+      stub.push(st); s.append(st);
+      const g = S("g", {});
+      const r = S("rect", { class: "hov", x: cx - 60, y: 70, width: 120, height: 100, rx: 10, fill: "var(--surface)", stroke: u.w, "stroke-width": 3 });
+      g.append(r, S("rect", { x: cx - 60, y: 70, width: 120, height: 100, rx: 10, fill: u.w, "fill-opacity": 0.13, "pointer-events": "none" }),
+        ikon(u.ikon, cx - 18, 78, u.w));
+      u.nama.forEach((t, k) => g.append(T(cx, (u.nama.length === 1 ? 148 : 140) + k * 20, t, { "text-anchor": "middle", "font-size": 16, "font-weight": 800, "pointer-events": "none" })));
+      g.append(S("circle", { cx: cx - 52, cy: 82, r: 11, fill: u.w, "pointer-events": "none" }), T(cx - 52, 87.5, String(i + 1), { "text-anchor": "middle", "font-size": 14, "font-weight": 800, class: "on", "pointer-events": "none" }));
+      tombol(g, u.nama.join(" ") + ". Tekan untuk membaca peran komputer di unit ini.", () => tampilUnit(i));
+      kotak.push(g); s.append(g);
+      const d = S("g", { class: "dokumen", opacity: 0 }, S("path", { d: "M" + (cx - 58) + " 184h18l8 8v26h-26z", fill: "var(--surface)", stroke: u.w, "stroke-width": 2.5, "stroke-linejoin": "round" }),
+        S("path", { d: "M" + (cx - 50) + " 202h10M" + (cx - 50) + " 209h10", stroke: u.w, "stroke-width": 2 }),
+        T(cx - 58, 240, u.dok, { "font-size": 14, "font-weight": 600 }));
+      dokEl.push(d); s.append(d);
+    });
+    rm.classList.add("sv-btn");
+    tombol(rm, "Rekam Medis Digital. Tekan untuk membaca perannya.", () => { kotak.forEach(k => k.classList.remove("sel")); rm.classList.add("sel"); isiInfo("Rekam Medis Digital", RMTEKS, ["Seluruh catatan dari semua unit tersimpan di sini", "Cadangan (backup) menjaga data tetap aman"]); });
+    s.append(rm);
+    const pasien = S("g", { class: "mover", style: "transform:translate(40px,48px)" }, S("circle", { r: 16, fill: "var(--accent)", stroke: "var(--surface)", "stroke-width": 3 }), T(0, 6, "B", { "text-anchor": "middle", "font-size": 17, "font-weight": 800, class: "on" }));
+    s.append(pasien);
+    host.append(s);
+
+    function isiInfo(judul, teks, docs, langkah) {
+      info.textContent = "";
+      info.append(h("h5", {}, judul), h("p", {}, teks), docs && docs.length ? h("p", {}, h("strong", {}, "Dokumen atau data yang dibuat: "), docs.join(", "), ".") : null, langkah ? h("p", { class: "kriteria", style: "margin:0;font-size:1rem" }, langkah) : null);
+    }
+    function tampilUnit(i, langkah) {
+      kotak.forEach((k, j) => k.classList.toggle("sel", j === i)); rm.classList.remove("sel");
+      isiInfo(U[i].nama.join(" "), U[i].teks, U[i].docs, langkah);
+    }
+    let pos = -1, jalan = false, tm = null;
+    const bRun = $("#p01-alur-jalan"), bMaju = $("#p01-alur-maju"), bUlang = $("#p01-alur-ulang");
+    function gerak(x) { pasien.style.transform = "translate(" + x + "px,48px)"; }
+    function maju() {
+      if (pos >= U.length) return false;
+      pos++;
+      if (pos < U.length) {
+        gerak(CX[pos]); tampilUnit(pos, "Langkah " + (pos + 1) + " dari " + U.length + " · pasien: Budi Santoso (fiktif)");
+        dokEl[pos].setAttribute("opacity", 1); stub[pos].setAttribute("opacity", 1);
+        return true;
+      }
+      gerak(752); kotak.forEach(k => k.classList.remove("sel"));
+      isiInfo("Selesai", "Budi Santoso pulang. Semua data yang dibuat di tiap unit sudah tersimpan di rekam medis digital dan siap dipakai pada kunjungan berikutnya.", null, "Tekan Ulangi untuk menjalankan lagi.");
+      return false;
+    }
+    function henti() { jalan = false; clearTimeout(tm); bRun.disabled = false; }
+    function putar() { if (!jalan) return; if (maju()) tm = setTimeout(putar, 2600); else henti(); }
+    bRun.addEventListener("click", () => { if (pos >= U.length) reset(); jalan = true; bRun.disabled = true; putar(); });
+    bMaju.addEventListener("click", () => { henti(); if (pos >= U.length) reset(); maju(); });
+    function reset() {
+      henti(); pos = -1; gerak(40);
+      dokEl.forEach(d => d.setAttribute("opacity", 0)); stub.forEach(x => x.setAttribute("opacity", 0.35)); kotak.forEach(k => k.classList.remove("sel")); rm.classList.remove("sel");
+      info.textContent = "Tekan Jalankan simulasi, atau klik salah satu unit pada gambar.";
+    }
+    bUlang.addEventListener("click", reset);
+  }
+
+  /* =====================================================================
+     PRAKTIK: radar kemampuan awal + kuis kilat
+     ===================================================================== */
+  function radar() {
+    const rows = $("#p01-skill-rows"), host = $("#fig-radar"), info = $("#skill-info");
+    if (!rows) return;
+    const K = [
+      { id: "word", n: "Word", minggu: "minggu 4 dan 5" }, { id: "excel", n: "Excel", minggu: "minggu 6 dan 7" },
+      { id: "ppt", n: "PowerPoint", minggu: "minggu 9 dan 10" }, { id: "email", n: "Email/Internet", minggu: "minggu 13" }, { id: "cloud", n: "Cloud", minggu: "minggu 14" }
+    ];
+    const LV = ["belum pernah", "pernah lihat", "bisa dengan bantuan", "bisa mandiri", "lancar", "mahir, bisa mengajari"];
+    const simpan = store.get("skill-awal", {});
+    const val = {}; K.forEach(k => { const v = Number(simpan && simpan[k.id]); val[k.id] = v >= 0 && v <= 5 ? Math.round(v) : 0; });
+    const CX = 320, CY = 205, R = 150;
+    const s = S("svg", { viewBox: "0 0 640 400", role: "img", "aria-label": "Diagram radar kemampuan awal pada lima aplikasi" });
+    const ang = i => -Math.PI / 2 + i * 2 * Math.PI / 5;
+    const pt = (i, r) => [CX + r * Math.cos(ang(i)), CY + r * Math.sin(ang(i))];
+    for (let l = 1; l <= 5; l++) s.append(S("polygon", { points: K.map((_, i) => pt(i, R * l / 5).join(",")).join(" "), fill: "none", stroke: "var(--line)", "stroke-width": l === 5 ? 2.5 : 1.5 }));
+    K.forEach((k, i) => {
+      s.append(S("line", { x1: CX, y1: CY, x2: pt(i, R)[0], y2: pt(i, R)[1], stroke: "var(--line)", "stroke-width": 1.5 }));
+      const p = pt(i, R + 36), c = Math.cos(ang(i));
+      s.append(T(p[0], p[1] + 5, k.n, { "text-anchor": c > 0.3 ? "start" : c < -0.3 ? "end" : "middle", "font-size": 17, "font-weight": 700 }));
+    });
+    for (let l = 1; l <= 5; l++) s.append(T(CX + 6, CY - R * l / 5 + 5, String(l), { "font-size": 14, class: "mut" }));
+    const poli = S("polygon", { fill: "var(--primary)", "fill-opacity": 0.3, stroke: "var(--primary)", "stroke-width": 3, "stroke-linejoin": "round" });
+    const titik = K.map(() => S("circle", { r: 6, fill: "var(--accent)", stroke: "var(--surface)", "stroke-width": 2 }));
+    const angka = K.map(() => T(0, 0, "", { "text-anchor": "middle", "font-size": 15, "font-weight": 800, class: "acc" }));
+    s.append(poli, titik, angka);
+    host.append(s);
+
+    function gambar() {
+      const pts = K.map((k, i) => pt(i, R * val[k.id] / 5));
+      poli.setAttribute("points", pts.map(p => p.join(",")).join(" "));
+      K.forEach((k, i) => {
+        titik[i].setAttribute("cx", pts[i][0]); titik[i].setAttribute("cy", pts[i][1]);
+        const lab = pt(i, R * val[k.id] / 5 + 16);
+        angka[i].setAttribute("x", lab[0]); angka[i].setAttribute("y", lab[1] + 5); angka[i].textContent = val[k.id] > 0 ? String(val[k.id]) : "";
+      });
+      const tot = K.reduce((a, k) => a + val[k.id], 0);
+      info.textContent = "";
+      if (tot === 0) { info.append("Geser slider di atas untuk mulai membentuk diagram."); return; }
+      const maks = K.reduce((a, k) => val[k.id] > val[a.id] ? k : a, K[0]), min = K.reduce((a, k) => val[k.id] < val[a.id] ? k : a, K[0]);
+      info.append(h("p", {}, h("strong", {}, "Rata-rata: "), fmt(tot / 5) + " dari 5. ", h("strong", {}, "Terkuat: "), maks.n + ". ", h("strong", {}, "Paling perlu dikejar: "), min.n + " (dibahas di " + min.minggu + ").") );
+    }
+    K.forEach(k => {
+      const out = h("output", { for: "sk-" + k.id }, ""), inp = h("input", { type: "range", min: 0, max: 5, step: 1, value: val[k.id], id: "sk-" + k.id, "aria-label": "Kemampuan " + k.n + " dari 0 sampai 5" });
+      const up = () => { val[k.id] = Number(inp.value); out.textContent = val[k.id] + " · " + LV[val[k.id]]; store.set("skill-awal", Object.assign({}, val)); gambar(); };
+      inp.addEventListener("input", up);
+      rows.append(h("div", { class: "rd-row" }, h("label", { for: "sk-" + k.id }, h("strong", {}, k.n)), inp, out));
+      out.textContent = val[k.id] + " · " + LV[val[k.id]];
+    });
+    gambar();
+  }
+
+  function siapa() {
+    const root = $("#p01-siapa");
+    if (!root) return;
+    const NAMA = ["MS Word", "MS Excel", "MS PowerPoint", "Email", "Cloud storage", "CPU"];
+    const Q = [
+      { a: 0, p: ["Aku dipakai untuk mengetik surat rujukan dan surat keterangan.", "Fitur Mail Merge-ku bisa membuat ratusan surat dengan nama berbeda.", "Berkasku biasanya berakhiran .docx."], e: "MS Word adalah pengolah kata untuk dokumen resmi." },
+      { a: 1, p: ["Aku tersusun dari baris, kolom, dan sel.", "Rumus seperti =SUM(B2:B10) adalah keahlianku.", "Aku mengubah rekap kunjungan pasien menjadi grafik."], e: "MS Excel adalah lembar kerja untuk mengolah angka dan membuat grafik." },
+      { a: 2, p: ["Aku dipakai saat kepala bagian melaporkan kinerja kepada direksi.", "Aku bekerja dalam bentuk slide.", "Berkasku biasanya berakhiran .pptx."], e: "MS PowerPoint dipakai untuk menyajikan hasil kerja dalam slide." },
+      { a: 3, p: ["Aku punya kolom Kepada, Cc, dan Perihal.", "Lewat aku, surat resmi ke dinas kesehatan sampai tanpa kurir.", "Alamatku memakai tanda @."], e: "Email mengirim pesan dan lampiran resmi dengan cepat." },
+      { a: 4, p: ["Berkasku tidak hanya tersimpan di satu komputer.", "Beberapa orang bisa membuka dan mengedit berkas yang sama.", "Kalau laptopmu rusak, berkasmu tetap aman di aku."], e: "Cloud storage menyimpan berkas di server sehingga bisa diakses dan dibagikan." },
+      { a: 5, p: ["Aku sering disebut otak komputer.", "Aku memproses semua instruksi yang diberikan aplikasi.", "Aku berupa chip kecil di motherboard dan bisa menjadi panas."], e: "CPU (Central Processing Unit) memproses semua instruksi dan data." }
+    ];
+    let i = 0, total = 0;
+    function tampil() {
+      root.textContent = "";
+      const box = h("div", { class: "gm" });
+      if (i >= Q.length) {
+        box.append(h("p", { class: "skor", "aria-live": "polite" }, "Poin total: " + total + " dari " + Q.length * 3 + ". " + (total >= 14 ? "Luar biasa, pengetahuan dasarmu kuat." : total >= 9 ? "Bagus. Sisanya akan kita asah di pertemuan berikutnya." : "Tidak apa-apa. Semua ini akan dibahas dari awal.")),
+          h("button", { class: "btn", type: "button", onclick: () => { i = 0; total = 0; tampil(); } }, "Main lagi"));
+        root.append(box); return;
+      }
+      const q = Q[i]; let buka = 1, salah = 0, selesai = false;
+      const dafP = h("ol", { style: "margin:4px 0 10px;padding-left:24px" }), fb = h("div", { class: "fbk", "aria-live": "polite", hidden: true });
+      const bMore = h("button", { class: "btn sec", type: "button", onclick: () => { if (buka < 3) { buka++; segar(); } } }, "Petunjuk berikutnya");
+      const lanjut = h("button", { class: "btn", type: "button", hidden: true, onclick: () => { i++; tampil(); } }, i === Q.length - 1 ? "Lihat poin" : "Soal berikutnya");
+      const pil = NAMA.map((n, j) => h("button", { type: "button", class: "chip", onclick: () => {
+        if (selesai) return;
+        if (j === q.a) {
+          selesai = true; const poin = Math.max(1, 3 - (buka - 1) - salah); total += poin;
+          pil.forEach(b => b.disabled = true); pil[j].classList.add("benar"); bMore.disabled = true;
+          fb.hidden = false; fb.classList.add("benar"); fb.textContent = "Benar, aku adalah " + n + ". +" + poin + " poin. " + q.e; lanjut.hidden = false;
+        } else {
+          salah++; pil[j].disabled = true;
+          fb.hidden = false; fb.classList.remove("benar"); fb.classList.add("salah"); fb.textContent = "Belum tepat. Coba lagi atau buka petunjuk berikutnya.";
+        }
+      } }, n));
+      function segar() { dafP.textContent = ""; q.p.slice(0, buka).forEach(t => dafP.append(h("li", {}, t))); bMore.disabled = buka >= 3; }
+      segar();
+      box.append(h("p", { class: "kriteria", style: "margin:0;font-size:1rem" }, "Soal " + (i + 1) + " dari " + Q.length + " · poin sementara " + total),
+        h("p", { class: "kasus" }, "Siapa aku?"), dafP, h("div", { class: "chips", role: "group", "aria-label": "Pilihan jawaban" }, pil), h("p", {}, bMore), fb, h("p", {}, lanjut));
+      root.append(box);
+    }
+    tampil();
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    [gedung, poll, peta, nilai, pilar, boleh, alur, radar, siapa].forEach(f => {
+      try { f(); } catch (e) { console.error("Pengayaan P01 gagal (" + f.name + "): " + e.message); }
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

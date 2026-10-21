@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 13 — Internet &amp; Komunikasi Email Resmi RS | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9; --surface:#ffffff; --ink:#12303a; --muted:#5b7480; --line:#d5e3e6;
+  --primary:#0b7285; --primary-ink:#ffffff; --primary-soft:#d3f0f4;
+  --accent:#e8590c; --ok:#2b8a3e; --ok-soft:#dff3e3; --warn:#e67700; --bad:#c92a2a; --bad-soft:#fbe1e1;
+  --c1:#0b7285; --c2:#e8590c; --c3:#7048e8; --c4:#2b8a3e; --c5:#c2255c; --c6:#f08c00; --c7:#1971c2; --c8:#5c940d;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1b20; --surface:#15272e; --ink:#e6f1f3; --muted:#9bb2ba; --line:#27414a;
+    --primary:#3bc0d6; --primary-ink:#06222a; --primary-soft:#14414b;
+    --accent:#ff922b; --ok:#69db7c; --ok-soft:#173a22; --warn:#ffc078; --bad:#ff8787; --bad-soft:#4a1d1d;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
+.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}
+nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+nav.agenda a.done .tick{visibility:visible}
+main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}
+.hero p{margin:6px 0;opacity:.95}
+.hero ul{margin:8px 0 0;padding-left:20px}
+@media (prefers-color-scheme: dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-timer{display:inline-flex;gap:6px;align-items:center}
+.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.seg-timer.over .btn{background:var(--bad);color:#fff}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}
+p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.warn-box{background:var(--bad-soft);border-radius:8px;padding:10px 14px;margin:12px 0;border-left:4px solid var(--bad)}
+.err{color:var(--bad);font-weight:700}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}
+.kriteria{font-size:.92rem;color:var(--muted)}
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}
+.quiz label.benar{background:var(--ok-soft)}
+.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}
+.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+.dm{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:700px){.dm{grid-template-columns:1fr}}
+.dm-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch;margin:6px 0}
+.dm-slot{min-height:44px;border:2px dashed var(--line);border-radius:8px;padding:6px 10px;background:var(--bg);text-align:left}
+.dm-slot.isi{border-style:solid;border-color:var(--primary)}
+.dm-slot.benar{border-color:var(--ok);background:var(--ok-soft)}
+.dm-slot.salah{border-color:var(--bad);background:var(--bad-soft)}
+.dm-bank{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.dm-item{border:2px solid var(--primary);background:var(--surface);border-radius:8px;padding:6px 12px}
+.dm-item.pilih{background:var(--primary);color:var(--primary-ink)}
+.checklist{list-style:none;padding:0;margin:8px 0}
+.checklist li{margin:4px 0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:6px}
+.checklist input{width:20px;height:20px;margin-top:4px;flex:none}
+.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}
+.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+/* Email preview */
+.email-preview{border:2px solid var(--line);border-radius:10px;background:var(--bg);padding:0;overflow:hidden;max-width:680px}
+.email-preview .ep-header{background:var(--primary-soft);padding:4px 12px;font-size:.82rem;font-weight:700;color:var(--muted)}
+.email-preview .ep-row{display:flex;gap:8px;padding:6px 14px;border-bottom:1px solid var(--line);font-size:.95rem;align-items:flex-start;flex-wrap:wrap}
+.email-preview .ep-row .label{min-width:80px;font-weight:700;color:var(--muted)}
+.email-preview .ep-body{padding:14px;line-height:1.7;font-size:.95rem}
+.ep-btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:6px;padding:2px 10px;font-size:.85rem;cursor:pointer;font-weight:600}
+.ep-btn:hover{filter:brightness(1.1)}
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:flex;align-items:center;justify-content:center}
+.modal-bg.hidden{display:none}
+.modal{background:var(--surface);border-radius:var(--r);padding:24px;max-width:480px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.modal h3{margin:0 0 10px;font-size:1.15rem}
+/* Inbox sim */
+.inbox-row{display:flex;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:8px}
+.inbox-row:hover{background:var(--primary-soft)}
+.inbox-row .subj{flex:1;font-weight:600;font-size:.95rem}
+.inbox-row .from{min-width:160px;font-size:.88rem;color:var(--muted)}
+.inbox-row mark{background:var(--warn);color:#000;border-radius:3px;padding:0 2px}
+/* Form praktik */
+.form-email{display:grid;gap:10px}
+.form-email label{font-weight:600;font-size:.9rem;color:var(--muted);margin-bottom:2px;display:block}
+.form-email input,.form-email select,.form-email textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--surface)}
+.form-email textarea{min-height:80px}
+.fb-item{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;border-radius:8px;margin:4px 0;font-size:.95rem}
+.fb-item.ok{background:var(--ok-soft);border-left:4px solid var(--ok)}
+.fb-item.bad{background:var(--bad-soft);border-left:4px solid var(--bad)}
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr;padding:12px}
+  nav.agenda{position:static;max-height:none}
+  nav.agenda .list{display:flex;flex-wrap:wrap}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
+  body{font-size:12pt}
+  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip,.modal-bg{display:none!important}
+  .wrap{display:block;padding:0}
+  .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
+  .hero{background:#fff;color:#000}
+}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+
+<header class="top">
+  <h1><span id="hdr-judul">Internet &amp; Komunikasi Email Resmi RS</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 13</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
+  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 13 · CPMK-6</span>
+      <h2 id="hero-judul">Internet &amp; Komunikasi Email Resmi RS</h2>
+      <p id="hero-cpmk">CPMK-6: Mampu memanfaatkan teknologi komunikasi elektronik resmi untuk keperluan administrasi RS.</p>
+      <ul id="hero-tujuan">
+        <li>Memahami etika dan format email dinas RS</li>
+        <li>Menggunakan kolom To/CC/BCC dengan benar</li>
+        <li>Menulis subjek email yang efektif</li>
+      </ul>
+    </div>
+
+    <!-- PEMBUKA -->
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">Pagi itu, Dian Rahayu — staf administrasi baru RS Harapan Medika (fiktif) — buru-buru mengirim email ke dr. Bambang Santoso, Kepala Instalasi Rawat Inap. Subjeknya hanya "halo". Isi emailnya: "Pak dokter, file-nya saya kirim ya, tolong dilihat". Tidak ada file terlampir, tidak ada salam resmi, dan tidak ada keterangan file apa yang dimaksud. Dr. Bambang bingung dan harus membalas untuk bertanya. Rapat koordinasi pun molor 30 menit menunggu data yang harusnya sudah ada.</p>
+      <p>Hari ini kita akan belajar cara menulis email dinas yang profesional: format yang benar, penggunaan To/CC/BCC, subjek yang efektif, dan etika pengiriman dokumen rumah sakit.</p>
+      <div class="note">📧 <strong>Ingat:</strong> Email resmi adalah representasi institusi. Satu email yang tidak profesional bisa mencoreng citra RS dan menghambat pelayanan pasien.</div>
+    </section>
+
+    <!-- PRE-TEST -->
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
+      <p>Jawab dulu tanpa takut salah. Ini hanya untuk melihat titik awal kalian.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test","soal":[
+        {"q":"Apa fungsi kolom BCC dalam email?","opsi":["Mengirim salinan ke penerima yang namanya terlihat semua orang","Mengirim salinan tersembunyi sehingga penerima lain tidak tahu","Meneruskan email secara otomatis ke server","Menandai email sebagai prioritas tinggi"],"benar":1,"jelas":"BCC (Blind Carbon Copy) menyembunyikan identitas penerima dari penerima lain."},
+        {"q":"Mana subjek email yang paling efektif untuk email dinas RS?","opsi":["halo","ada info penting","Laporan Kunjungan Poli Umum Februari 2026 — Mohon Ditindaklanjuti","FWD: RE:"],"benar":2,"jelas":"Subjek yang baik spesifik, jelas, dan mencantumkan konteks (jenis dokumen, periode, tindakan yang diharapkan)."},
+        {"q":"Apa yang WAJIB ada dalam signature block email dinas RS?","opsi":["Foto profil","Nama, jabatan, dan kontak resmi","Kutipan motivasi","Link media sosial pribadi"],"benar":1,"jelas":"Signature block minimal berisi: nama lengkap, jabatan, unit/instalasi, nomor kontak resmi."},
+        {"q":"Kapan sebaiknya menggunakan CC (Carbon Copy)?","opsi":["Untuk semua penerima agar hemat waktu","Untuk atasan yang perlu mengetahui tanpa harus menindaklanjuti","Untuk menyembunyikan penerima","Hanya saat file sangat besar"],"benar":1,"jelas":"CC digunakan untuk penerima yang perlu tahu (tembusan) tetapi bukan penanggung jawab tindak lanjut."}
+      ]}
+      </script>
+    </section>
+
+    <!-- INTI 1: Anatomi Email Dinas -->
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Anatomi Email Dinas RS" data-min="10">
+      <p>Perhatikan contoh email resmi RS berikut. Klik tombol <strong>ℹ</strong> pada setiap bagian untuk melihat penjelasan.</p>
+
+      <div class="email-preview" id="email-demo">
+        <div class="ep-header">📧 Contoh Email Resmi RS Harapan Medika (Fiktif)</div>
+        <div class="ep-row">
+          <span class="label">Dari</span>
+          <span>dian.rahayu@rsharapanmedika.id (fiktif)</span>
+          <button class="ep-btn" onclick="showModal('from')">ℹ</button>
+        </div>
+        <div class="ep-row">
+          <span class="label">Kepada (To)</span>
+          <span>bambang.santoso@rsharapanmedika.id (fiktif)</span>
+          <button class="ep-btn" onclick="showModal('to')">ℹ</button>
+        </div>
+        <div class="ep-row">
+          <span class="label">CC</span>
+          <span>kepala.admin@rsharapanmedika.id (fiktif)</span>
+          <button class="ep-btn" onclick="showModal('cc')">ℹ</button>
+        </div>
+        <div class="ep-row">
+          <span class="label">BCC</span>
+          <span>[tersembunyi dari penerima]</span>
+          <button class="ep-btn" onclick="showModal('bcc')">ℹ</button>
+        </div>
+        <div class="ep-row">
+          <span class="label">Subjek</span>
+          <span>Laporan Kunjungan Poli Umum — Januari 2026 [Mohon Review]</span>
+          <button class="ep-btn" onclick="showModal('subject')">ℹ</button>
+        </div>
+        <div class="ep-row">
+          <span class="label">Lampiran</span>
+          <span>Laporan-Kunjungan-Poli-Jan2026.pdf (420 KB)</span>
+          <button class="ep-btn" onclick="showModal('attachment')">ℹ</button>
+        </div>
+        <div class="ep-body">
+          <p><button class="ep-btn" onclick="showModal('salam')" style="float:right;margin-left:8px">ℹ</button>Yth. dr. Bambang Santoso, SpPD,<br>Kepala Instalasi Rawat Inap RS Harapan Medika</p>
+          <p><button class="ep-btn" onclick="showModal('body')" style="float:right;margin-left:8px">ℹ</button>Dengan hormat,<br><br>
+          Sehubungan dengan permintaan data kunjungan poli pada rapat koordinasi tanggal 10 Januari 2026, bersama ini saya lampirkan Laporan Kunjungan Poli Umum bulan Januari 2026 untuk bapak review.<br><br>
+          Data mencakup total 1.240 kunjungan dengan rincian lengkap per hari. Mohon konfirmasi penerimaan dan apabila ada koreksi, dapat disampaikan paling lambat Jumat, 17 Januari 2026 pukul 14.00 WIB.</p>
+          <p><button class="ep-btn" onclick="showModal('sig')" style="float:right;margin-left:8px">ℹ</button>
+          Hormat saya,<br><br>
+          <strong>Dian Rahayu, A.Md.RMIK</strong><br>
+          Staf Rekam Medis<br>
+          Instalasi Rekam Medis — RS Harapan Medika<br>
+          Telp: (021) 555-0142 Ext. 301 (fiktif)<br>
+          Email: dian.rahayu@rsharapanmedika.id (fiktif)</p>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal-bg hidden" id="modal-bg" onclick="hideModal(event)">
+        <div class="modal" role="dialog" aria-modal="true">
+          <h3 id="modal-title">Judul</h3>
+          <div id="modal-body"></div>
+          <p style="text-align:right;margin-bottom:0"><button class="btn" type="button" onclick="document.getElementById('modal-bg').classList.add('hidden')">Tutup</button></p>
+        </div>
+      </div>
+
+      <h4>Ceklist Elemen Wajib Email Dinas RS</h4>
+      <ul class="checklist" data-widget="checklist" data-key="cek-p13-1">
+        <li>Alamat email pengirim menggunakan domain instansi (bukan Gmail/Yahoo pribadi)</li>
+        <li>Kolom To berisi penerima utama yang harus menindaklanjuti</li>
+        <li>Subjek spesifik, deskriptif, dan tidak kosong</li>
+        <li>Salam pembuka resmi (Yth. / Dengan hormat)</li>
+        <li>Tubuh email: pembuka → isi → penutup + tenggat waktu jika perlu</li>
+        <li>Signature block lengkap (nama, jabatan, unit, kontak)</li>
+        <li>Lampiran dicantumkan jika disebut di badan email</li>
+      </ul>
+    </section>
+
+    <!-- INTI 2: To / CC / BCC -->
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: To, CC, dan BCC" data-min="10">
+      <p>Seret atau klik item di kanan, lalu klik kolom yang tepat di kiri. Cocokkan setiap skenario ke kolom yang benar.</p>
+      <div data-widget="dragmatch" data-src="dm-tccbcc"></div>
+      <script type="application/json" id="dm-tccbcc">
+      {"pairs":[
+        {"kiri":"Kepala Bagian yang HARUS menindaklanjuti laporan","kanan":"To"},
+        {"kiri":"Direktur RS sebagai FYI (tidak perlu balas)","kanan":"CC"},
+        {"kiri":"Koordinator eksternal yang tidak boleh diketahui penerima lain","kanan":"BCC"},
+        {"kiri":"Pasien Siti Aminah (fiktif) sebagai penerima surat hasil lab","kanan":"To"},
+        {"kiri":"Bagian IT untuk copy arsip insiden jaringan","kanan":"CC"},
+        {"kiri":"Daftar milis pasien: kirim tanpa saling mengetahui alamat","kanan":"BCC"},
+        {"kiri":"Dokter Purnomo (fiktif) sebagai penanggung jawab kasus","kanan":"To"},
+        {"kiri":"Bagian Keuangan untuk bukti pembayaran alat","kanan":"CC"}
+      ]}
+      </script>
+
+      <div class="warn-box">
+        <strong>⚠ Perhatian:</strong> Jangan gunakan kolom <em>To</em> untuk mengirim ke banyak pasien atau mitra eksternal secara massal. Gunakan <strong>BCC</strong> agar privasi alamat email setiap penerima terlindungi sesuai regulasi data kesehatan.
+      </div>
+
+      <h4>Tabel Perbandingan To / CC / BCC</h4>
+      <table class="data">
+        <thead><tr><th>Kolom</th><th>Kepada Siapa</th><th>Bisa Balas?</th><th>Terlihat oleh penerima lain?</th></tr></thead>
+        <tbody>
+          <tr><td><strong>To</strong></td><td>Penerima utama, wajib menindaklanjuti</td><td>Ya</td><td>Ya</td></tr>
+          <tr><td><strong>CC</strong></td><td>Tembusan terbuka (FYI)</td><td>Bisa, tapi opsional</td><td>Ya</td></tr>
+          <tr><td><strong>BCC</strong></td><td>Tembusan tersembunyi</td><td>Bisa, tidak akan terlihat</td><td>Tidak</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- INTI 3: Subjek Email Efektif -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Subjek Email Efektif" data-min="10">
+      <p>Subjek email adalah kesan pertama. Subjek yang buruk membuat email diabaikan atau tidak ditemukan saat dicari.</p>
+      <div data-widget="quiz" data-src="quiz-subjek" data-role="subjek" class="quiz"></div>
+      <script type="application/json" id="quiz-subjek">
+      {"judul":"Quiz: Perbaiki Subjek Email","soal":[
+        {"q":"Subjek email: \"FWD: RE: halo\" → Mana subjek yang lebih baik?","opsi":["Permohonan Data Kunjungan Poli — Januari 2026 [URGENT]","Email baru","FWD: halo v2","Re: halo (2)"],"benar":0,"jelas":"Subjek yang baik menyebutkan jenis permintaan, periode, dan urgensi jika ada. Hindari FWD/RE berulang tanpa konteks."},
+        {"q":"Subjek email: \"ada masalah\" → Mana subjek yang lebih baik?","opsi":["ada masalah penting","Kendala Input Data RM Pasien No. 2024-001 — Mohon Bantuan IT","masalah sistem","error"],"benar":1,"jelas":"Sertakan identifikasi masalah spesifik (nomor rekam medis), jenis kendala, dan siapa yang perlu ditindaklanjuti."},
+        {"q":"Subjek email: \"meeting\" → Mana subjek yang lebih baik?","opsi":["Undangan Rapat Koordinasi Bulanan — Kamis 15 Januari 2026, 09.00","rapat bulan ini","meeting penting segera","tolong hadir"],"benar":0,"jelas":"Undangan rapat harus menyebutkan jenis rapat, tanggal, dan jam agar mudah dicari di kotak masuk."},
+        {"q":"Subjek email: \"data pasien\" → Mana subjek yang lebih baik?","opsi":["data pasien ada","Rekap Data Rawat Inap Desember 2025 — Instalasi Bedah [Untuk Review Bulanan]","info pasien terbaru","update data"],"benar":2,"jelas":"Sertakan unit, periode, jenis dokumen, dan tujuan pengiriman agar penerima dapat memprioritaskan dengan tepat."}
+      ]}
+      </script>
+
+      <h4>Simulasi Kotak Masuk — Coba Fitur Pencarian</h4>
+      <div id="inbox-sim">
+        <div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+          <input type="text" id="inbox-search" placeholder="Cari subjek email…" style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--surface)" aria-label="Cari email">
+          <button class="btn" type="button" onclick="cariEmail()">Cari</button>
+          <button class="btn sec" type="button" onclick="resetInbox()">Reset</button>
+        </div>
+        <div id="inbox-list" style="border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg)"></div>
+        <p id="inbox-hasil" style="font-size:.9rem;color:var(--muted);margin-top:4px"></p>
+      </div>
+    </section>
+
+    <!-- INTI 4: Attachment & Kerahasiaan -->
+    <section class="seg" id="seg-inti4" data-judul="Inti 4: Attachment &amp; Kerahasiaan" data-min="10">
+      <p>Lampiran (attachment) adalah sumber kesalahan terbesar dalam email dinas RS. Pelajari aturannya:</p>
+
+      <details><summary>📎 Format File Lampiran Standar RS</summary>
+        <div>
+          <table class="data">
+            <thead><tr><th>Format</th><th>Kegunaan</th><th>Keuntungan</th></tr></thead>
+            <tbody>
+              <tr><td>PDF</td><td>Dokumen final, SK, laporan resmi</td><td>Tidak mudah diubah, tampilan konsisten di semua perangkat</td></tr>
+              <tr><td>XLSX/CSV</td><td>Data statistik, rekap kunjungan, billing</td><td>Mudah dianalisis, dapat diedit oleh penerima jika perlu</td></tr>
+              <tr><td>DOCX</td><td>Draf surat, SOP yang masih dalam revisi</td><td>Mudah diedit bersama, ada track-changes</td></tr>
+            </tbody>
+          </table>
+          <p>Hindari format: .exe, .zip berpassword yang tidak diinformasikan, format proprietary yang tidak umum.</p>
+        </div>
+      </details>
+
+      <details><summary>📦 Ukuran Maksimal Attachment</summary>
+        <div>
+          <ul>
+            <li>Kebijakan umum: maksimal <strong>10–25 MB</strong> per email (tergantung server RS)</li>
+            <li>Untuk file lebih besar: gunakan <strong>cloud storage</strong> (Google Drive/OneDrive) + kirim link</li>
+            <li>File besar yang dipaksakan dikirim via email dapat menyebabkan email dipental (bounce) atau diblokir spam filter</li>
+            <li>Kompres gambar atau scan dokumen sebelum dilampirkan</li>
+          </ul>
+        </div>
+      </details>
+
+      <details><summary>🔒 JANGAN Lampirkan Data Pasien Tanpa Enkripsi</summary>
+        <div>
+          <div class="warn-box">
+            Data pasien adalah data sensitif yang dilindungi UU No. 17 Tahun 2023 tentang Kesehatan dan regulasi BPJS. Mengirimkan data pasien tanpa proteksi via email adalah pelanggaran etika dan hukum.
+          </div>
+          <ul>
+            <li>Enkripsi file DOCX/XLSX dengan password sebelum dilampirkan</li>
+            <li>Kirim password melalui saluran terpisah (SMS, telepon)</li>
+            <li>Untuk volume besar: gunakan sistem transfer file RS yang terenkripsi</li>
+            <li>Jangan kirim data pasien ke email pribadi (Gmail/Yahoo)</li>
+          </ul>
+        </div>
+      </details>
+
+      <details><summary>✅ Konfirmasi Penerimaan</summary>
+        <div>
+          <p>Setelah mengirim email penting dengan lampiran:</p>
+          <ol>
+            <li>Minta penerima konfirmasi penerimaan dalam 1x24 jam</li>
+            <li>Tambahkan tenggat waktu konfirmasi di badan email</li>
+            <li>Jika tidak ada respons dalam 2 hari kerja, follow-up via telepon atau pesan singkat</li>
+          </ol>
+        </div>
+      </details>
+
+      <h4>✅ Checklist "Sebelum Tekan Kirim"</h4>
+      <ul class="checklist" data-widget="checklist" data-key="cek-p13-kirim">
+        <li>To, CC, BCC sudah diisi dengan orang yang tepat</li>
+        <li>Subjek sudah deskriptif dan spesifik</li>
+        <li>Salam pembuka resmi sudah ada</li>
+        <li>Isi email jelas: tujuan, konteks, tindakan yang diharapkan</li>
+        <li>Jika menyebut lampiran di badan email, lampiran sudah benar-benar terlampir</li>
+        <li>Signature block lengkap</li>
+        <li>Tidak ada ejaan atau tata bahasa yang salah parah</li>
+        <li>Data pasien sudah dienkripsi (jika ada)</li>
+      </ul>
+    </section>
+
+    <!-- PRAKTIK -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Penyusun Email Simulasi" data-min="25">
+      <p>Susun email dinas berikut. Setelah selesai, klik <strong>Periksa &amp; Kirim</strong> untuk mendapat skor dan umpan balik otomatis.</p>
+      <p class="note"><strong>Skenario:</strong> Anda (Agus Setiawan, Staf Rekam Medis RS Husada Prima — fiktif) perlu mengirim rekap data rawat jalan bulan Maret 2026 kepada dr. Yanti Kusuma (Kepala Poli), dengan tembusan ke Manajer Kualitas. File rekap sudah disiapkan.</p>
+
+      <div class="form-email" id="form-praktik13">
+        <div>
+          <label for="f13-to">To (penerima utama):</label>
+          <input type="text" id="f13-to" placeholder="contoh: yanti.kusuma@rshusadaprima.id (fiktif)">
+        </div>
+        <div>
+          <label for="f13-cc">CC (tembusan):</label>
+          <input type="text" id="f13-cc" placeholder="contoh: manajer.kualitas@rshusadaprima.id (fiktif)">
+        </div>
+        <div>
+          <label for="f13-bcc">BCC (opsional):</label>
+          <input type="text" id="f13-bcc" placeholder="kosongkan jika tidak diperlukan">
+        </div>
+        <div>
+          <label for="f13-subj">Subjek Email:</label>
+          <input type="text" id="f13-subj" placeholder="Tulis subjek yang spesifik...">
+        </div>
+        <div>
+          <label for="f13-salam">Salam Pembuka:</label>
+          <input type="text" id="f13-salam" placeholder="Yth. ...">
+        </div>
+        <div>
+          <label for="f13-body">Isi Email (Body):</label>
+          <textarea id="f13-body" rows="5" placeholder="Tulis isi email yang jelas, lengkap, dan sopan..."></textarea>
+        </div>
+        <div>
+          <label for="f13-sig">Signature Block:</label>
+          <textarea id="f13-sig" rows="3" placeholder="Nama, jabatan, unit, kontak..."></textarea>
+        </div>
+        <div>
+          <label for="f13-attach">Lampiran (nama file fiktif):</label>
+          <input type="text" id="f13-attach" placeholder="contoh: Rekap-Rawat-Jalan-Mar2026.pdf">
+        </div>
+        <p>
+          <button class="btn" type="button" onclick="periksaEmail13()">Periksa &amp; Kirim</button>
+          <button class="btn sec" type="button" onclick="resetEmail13()" style="margin-left:8px">Reset</button>
+        </p>
+      </div>
+
+      <div id="hasil-email13" style="margin-top:16px"></div>
+
+      <div class="tugas-lab">
+        <h4>Tugas Lab</h4>
+        <ol>
+          <li>Buka klien email institusi/simulasi yang disediakan lab</li>
+          <li>Buat email resmi sesuai skenario di atas kepada teman sekelas (gunakan alamat email lab, bukan email asli)</li>
+          <li>Sertakan lampiran fiktif (file kosong yang sudah diberi nama sesuai format RS)</li>
+          <li>Minta teman yang menerima untuk konfirmasi penerimaan dan memberikan umpan balik via balas email</li>
+        </ol>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Format email lengkap (To/CC/Subj/Salam/Body/Sig/Lamp) 2) Bahasa formal dan sopan 3) Subjek deskriptif 4) Penggunaan To/CC/BCC tepat 5) Konfirmasi penerimaan dilaksanakan</p>
+      </div>
+    </section>
+
+    <!-- POST-TEST -->
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test","soal":[
+        {"q":"Budi ingin mengirim undangan rapat ke 50 mitra eksternal RS tanpa mereka saling mengetahui alamat email satu sama lain. Kolom mana yang digunakan?","opsi":["To (semua dimasukkan)","CC","BCC","Reply All"],"benar":2,"jelas":"BCC menyembunyikan daftar penerima satu dari yang lain — sangat penting untuk privasi email massal ke pihak luar."},
+        {"q":"Dokumen apa yang TIDAK sebaiknya dilampirkan tanpa enkripsi?","opsi":["Jadwal rapat bulanan","Rekap data rekam medis pasien","Denah lokasi RS","Daftar menu kantin"],"benar":1,"jelas":"Data rekam medis adalah data sensitif pasien yang wajib dienkripsi sebelum dikirim via email."},
+        {"q":"Subjek email mana yang paling tepat untuk mengirim laporan keuangan triwulanan?","opsi":["laporan","Laporan Keuangan Q1 2026 — Instalasi Farmasi [Untuk Persetujuan Direktur]","Q1","FWD: laporan lama"],"benar":1,"jelas":"Sertakan jenis dokumen, periode, unit, dan tindakan yang diharapkan agar mudah diprioritaskan penerima."},
+        {"q":"Mana yang BUKAN elemen wajib dalam signature block email dinas RS?","opsi":["Nama lengkap dan gelar","Jabatan dan unit/instalasi","Nomor kontak resmi","Foto selfie profil"],"benar":3,"jelas":"Signature block resmi terdiri dari nama, jabatan, unit, dan kontak resmi. Foto profil bersifat opsional dan tidak wajib."}
+      ]}
+      </script>
+      <h4>Pre-test vs Post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <!-- PENUTUP -->
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
+      <h4>Ringkasan Pertemuan 13</h4>
+      <ol>
+        <li><strong>Anatomi email dinas</strong> mencakup 8 elemen: From, To, CC, BCC, Subject, Salam, Body, Signature</li>
+        <li><strong>To</strong> = penanggung jawab; <strong>CC</strong> = tembusan terbuka; <strong>BCC</strong> = tembusan tersembunyi</li>
+        <li><strong>Subjek efektif</strong>: spesifik, ada konteks (jenis dokumen, periode, tindakan)</li>
+        <li><strong>Lampiran</strong>: format standar (PDF/XLSX/DOCX), enkripsi data pasien, konfirmasi penerimaan</li>
+        <li>Selalu gunakan <strong>checklist sebelum kirim</strong> agar tidak ada yang terlewat</li>
+      </ol>
+      <h4>Refleksi</h4>
+      <div data-widget="reflect" data-key="refleksi-p13" data-prompt="Satu kebiasaan email yang akan kamu ubah setelah pertemuan ini, dan satu hal yang masih membingungkan:"></div>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 14 — Cloud Storage &amp; Kolaborasi Dokumen Online. Baca kebijakan penggunaan cloud di institusi RS masing-masing.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+"use strict";
+const KONFIG = {
+  kode: "krs-p13",
+  nomor: "13",
+  judul: "Internet & Komunikasi Email Resmi RS",
+  cpmk: "CPMK-6: Mampu memanfaatkan teknologi komunikasi elektronik resmi untuk keperluan administrasi RS.",
+  tujuan: ["Memahami etika dan format email dinas RS","Menggunakan kolom To/CC/BCC dengan benar","Menulis subjek email yang efektif"],
+  totalMenit: 90
+};
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, props, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in (props || {})) {
+    const v = props[k];
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (v === true) e.setAttribute(k, "");
+    else if (v !== false && v != null) e.setAttribute(k, v);
+  }
+  for (const c of kids.flat()) {
+    if (c == null || c === false) continue;
+    e.append(c.nodeType ? c : document.createTextNode(String(c)));
+  }
+  return e;
+}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(KONFIG.kode + "-" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(KONFIG.kode + "-" + k, JSON.stringify(v)); } catch (e) {} }
+};
+function getData(id) { return JSON.parse(document.getElementById(id).textContent); }
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+function mmss(s) { s = Math.max(0, Math.round(s)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+let uid = 0; const nextId = p => p + "-" + (++uid);
+
+/* Modal info email */
+const MODAL_DATA = {
+  from: { title: "From — Pengirim", body: "Alamat email pengirim HARUS menggunakan domain resmi instansi (contoh: @rsharapanmedika.id). Jangan menggunakan email pribadi (Gmail, Yahoo) untuk urusan dinas resmi karena tidak terlacak dalam sistem dan tidak profesional." },
+  to: { title: "To — Penerima Utama", body: "Masukkan alamat email orang yang HARUS menindaklanjuti email ini. Penerima di kolom To memiliki tanggung jawab untuk merespons atau bertindak. Untuk email kepada satu orang, cukup To saja." },
+  cc: { title: "CC — Carbon Copy (Tembusan Terbuka)", body: "CC digunakan untuk mengirim salinan email kepada orang yang perlu tahu tetapi tidak wajib menindaklanjuti. Semua penerima (To dan CC) bisa saling melihat alamat email masing-masing." },
+  bcc: { title: "BCC — Blind Carbon Copy (Tembusan Tersembunyi)", body: "Penerima BCC mendapat salinan email, tetapi alamatnya tidak terlihat oleh penerima To dan CC. Gunakan BCC untuk pengiriman massal ke daftar kontak atau saat privasi penerima perlu dijaga." },
+  subject: { title: "Subject — Subjek Email", body: "Subjek yang efektif memuat: (1) Jenis dokumen/permintaan, (2) Periode atau nomor referensi, (3) Tindakan yang diharapkan, dan (4) Tag urgensi jika perlu [URGENT]/[INFO]/[ACTION]. Hindari subjek generik seperti 'halo' atau 'ada info'." },
+  attachment: { title: "Lampiran (Attachment)", body: "Format standar RS: PDF untuk dokumen final, XLSX untuk data, DOCX untuk draf. Ukuran maksimal umumnya 10–25 MB. WAJIB enkripsi jika berisi data pasien. Selalu konfirmasi penerimaan lampiran kepada penerima." },
+  salam: { title: "Salam Pembuka", body: "Gunakan salam resmi: 'Yth. [Nama], [Jabatan]' untuk awal email dinas. Diikuti kalimat pembuka sopan seperti 'Dengan hormat,' atau 'Sehubungan dengan...'." },
+  body: { title: "Tubuh Email (Body)", body: "Struktur body email yang baik: (1) PEMBUKA: konteks dan tujuan email, (2) ISI: informasi detail, data, atau permintaan, (3) PENUTUP: tindakan yang diharapkan, tenggat waktu, dan ucapan terima kasih." },
+  sig: { title: "Signature Block", body: "Signature block wajib berisi: Nama lengkap + gelar, Jabatan, Unit/Instalasi, Nomor telepon kantor (beserta extension), Alamat email resmi. Tambahkan logo RS jika ada kebijakan instansi." }
+};
+function showModal(key) {
+  const d = MODAL_DATA[key]; if (!d) return;
+  document.getElementById("modal-title").textContent = d.title;
+  document.getElementById("modal-body").textContent = d.body;
+  document.getElementById("modal-bg").classList.remove("hidden");
+}
+function hideModal(e) { if (e.target === document.getElementById("modal-bg")) document.getElementById("modal-bg").classList.add("hidden"); }
+
+/* Inbox simulasi */
+const INBOX = [
+  { from: "dr.purnomo@rsmedikasentral.id (fiktif)", subj: "FWD: RE: halo", preview: "Hei, ada info..." },
+  { from: "admin.farmasi@rsmedikasentral.id (fiktif)", subj: "Permohonan Data Kunjungan Poli — Januari 2026 [URGENT]", preview: "Mohon data kunjungan..." },
+  { from: "rini.lestari@rsmedikasentral.id (fiktif)", subj: "ada masalah", preview: "Sistem error lagi..." },
+  { from: "it.support@rsmedikasentral.id (fiktif)", subj: "Kendala Input Data RM Pasien No. 2024-001 — Mohon Bantuan IT", preview: "Kami temukan error pada..." },
+  { from: "kepala.bagian@rsmedikasentral.id (fiktif)", subj: "meeting", preview: "Harap hadir besok..." },
+  { from: "sekretariat@rsmedikasentral.id (fiktif)", subj: "Undangan Rapat Koordinasi Bulanan — Kamis 15 Januari 2026, 09.00", preview: "Bersama ini disampaikan..." },
+  { from: "dr.santi@rsmedikasentral.id (fiktif)", subj: "Laporan Kunjungan Poli Umum Februari 2026 — Rekap Bulanan", preview: "Terlampir rekap data..." },
+  { from: "budi.hartono@rsmedikasentral.id (fiktif)", subj: "data pasien", preview: "Ini datanya pak..." }
+];
+function renderInbox(query) {
+  const box = document.getElementById("inbox-list"); box.textContent = "";
+  let n = 0;
+  INBOX.forEach(m => {
+    const q = (query || "").toLowerCase().trim();
+    const match = !q || m.subj.toLowerCase().includes(q);
+    if (!match) return;
+    n++;
+    const s = q ? m.subj.replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), x => "<mark>" + x + "</mark>") : m.subj;
+    const row = h("div", { class: "inbox-row" }, h("span", { class: "from" }, m.from), h("span", { class: "subj" }), h("span", { style: "font-size:.82rem;color:var(--muted)" }, m.preview));
+    row.querySelector(".subj").innerHTML = s;
+    box.append(row);
+  });
+  const hasil = document.getElementById("inbox-hasil");
+  hasil.textContent = query ? n + " email cocok dengan pencarian \"" + query + "\"" : "";
+}
+function cariEmail() { renderInbox(document.getElementById("inbox-search").value); }
+function resetInbox() { document.getElementById("inbox-search").value = ""; renderInbox(""); }
+
+/* Periksa email praktik */
+function periksaEmail13() {
+  const to = document.getElementById("f13-to").value.trim();
+  const cc = document.getElementById("f13-cc").value.trim();
+  const subj = document.getElementById("f13-subj").value.trim();
+  const salam = document.getElementById("f13-salam").value.trim();
+  const body = document.getElementById("f13-body").value.trim();
+  const sig = document.getElementById("f13-sig").value.trim();
+  const attach = document.getElementById("f13-attach").value.trim();
+  const hasil = document.getElementById("hasil-email13"); hasil.textContent = "";
+
+  const checks = [
+    { ok: to.length > 4, label: "To terisi dengan alamat email penerima utama" },
+    { ok: cc.length > 4, label: "CC terisi (tembusan ke Manajer Kualitas)" },
+    { ok: subj.length > 10, label: "Subjek deskriptif (lebih dari 10 karakter)" },
+    { ok: salam.toLowerCase().startsWith("yth") || salam.toLowerCase().startsWith("dengan") || salam.toLowerCase().startsWith("kepada"), label: "Salam pembuka resmi dimulai dengan Yth./Dengan/Kepada" },
+    { ok: body.length > 50, label: "Isi email cukup detail (lebih dari 50 karakter)" },
+    { ok: sig.length > 10, label: "Signature block diisi (nama, jabatan, kontak)" },
+    { ok: (() => { const m = body.toLowerCase(); return !(m.includes("lampiran") || m.includes("terlampir")) || attach.length > 3; })(), label: "Jika menyebut lampiran di body, file lampiran sudah diisi" }
+  ];
+
+  let skor = 0;
+  checks.forEach(c => { if (c.ok) skor++; });
+  const div = h("div");
+  div.append(h("p", { style: "font-weight:700;font-size:1.1rem;margin-bottom:8px" }, "Skor Email: " + skor + " / " + checks.length));
+  checks.forEach(c => {
+    div.append(h("div", { class: "fb-item " + (c.ok ? "ok" : "bad") }, c.ok ? "✔" : "✗", " " + c.label));
+  });
+  if (skor === checks.length) div.append(h("p", { class: "note" }, "🎉 Email sempurna! Siap dikirim secara profesional."));
+  else if (skor >= 5) div.append(h("p", { class: "note" }, "Hampir sempurna! Perbaiki poin yang masih ✗ di atas."));
+  else div.append(h("p", { style: "background:var(--bad-soft);border-radius:8px;padding:10px 14px;margin:8px 0" }, "Masih perlu perbaikan. Perhatikan setiap poin di atas."));
+  hasil.append(div);
+  store.set("praktik-skor", { skor, total: checks.length });
+}
+function resetEmail13() {
+  ["f13-to","f13-cc","f13-bcc","f13-subj","f13-salam","f13-body","f13-sig","f13-attach"].forEach(id => { document.getElementById(id).value = ""; });
+  document.getElementById("hasil-email13").textContent = "";
+}
+
+/* ======= Widget engine (dari template) ======= */
+const W = {};
+W.quiz = el => {
+  const d = getData(el.dataset.src);
+  const key = "quiz-" + (el.dataset.role || el.dataset.src);
+  const saved = store.get(key, { jawab: {} });
+  const jawab = saved.jawab || {};
+  const skorEl = h("p", { class: "skor", "aria-live": "polite" });
+  const items = [];
+  function hitung() {
+    let b = 0; for (const i in jawab) if (jawab[i] === d.soal[i].benar) b++;
+    const n = Object.keys(jawab).length;
+    skorEl.textContent = "Skor: " + b + " / " + d.soal.length + (n < d.soal.length ? "  (terjawab " + n + ")" : "");
+    store.set(key, { jawab, skor: b, total: d.soal.length, selesai: n === d.soal.length });
+    document.dispatchEvent(new CustomEvent("krs:skor"));
+  }
+  function tampil(i, pilih) {
+    const it = items[i], s = d.soal[i];
+    it.labels.forEach((l, j) => { l.classList.toggle("benar", j === s.benar); l.classList.toggle("salah", j === pilih && j !== s.benar); });
+    it.fb.textContent = (pilih === s.benar ? "Benar. " : "Belum tepat. ") + (s.jelas || "");
+  }
+  d.soal.forEach((s, i) => {
+    const name = nextId("q");
+    const fb = h("p", { class: "fb", "aria-live": "polite" });
+    const labels = s.opsi.map((o, j) => {
+      const inp = h("input", { type: "radio", name, value: j, onchange: () => { jawab[i] = j; tampil(i, j); hitung(); } });
+      if (jawab[i] === j) inp.checked = true;
+      return h("label", {}, inp, " ", o);
+    });
+    items.push({ labels, fb });
+    el.append(h("fieldset", {}, h("legend", {}, (i + 1) + ". " + s.q), labels, fb));
+    if (jawab[i] !== undefined) tampil(i, jawab[i]);
+  });
+  el.append(skorEl, h("button", { class: "btn sec", type: "button", onclick: () => {
+    for (const k in jawab) delete jawab[k];
+    $$("input", el).forEach(x => x.checked = false);
+    items.forEach(it => { it.labels.forEach(l => l.classList.remove("benar", "salah")); it.fb.textContent = ""; });
+    hitung();
+  } }, "Ulangi"));
+  hitung();
+};
+W.banding = el => {
+  function baris(role, nama, cls) {
+    const track = h("i"), val = h("span", {}, "–");
+    el.append(h("div", { class: "row " + cls }, h("span", {}, nama), h("div", { class: "track" }, track), val));
+    return () => {
+      const s = store.get("quiz-" + role, null);
+      if (!s || !s.selesai) { track.style.width = "0"; val.textContent = "–"; return; }
+      const p = Math.round(s.skor / s.total * 100);
+      track.style.width = p + "%"; val.textContent = p + "%";
+    };
+  }
+  el.classList.add("banding");
+  const a = baris("pre", "Pre-test", "pre"), b = baris("post", "Post-test", "post");
+  const up = () => { a(); b(); };
+  document.addEventListener("krs:skor", up); up();
+};
+W.dragmatch = el => {
+  const d = getData(el.dataset.src);
+  const bankItems = shuffle(d.pairs.map(p => p.kanan));
+  let placed = d.pairs.map(() => null);
+  let pilih = null, dicek = false;
+  const root = h("div", { class: "dm" }), kiri = h("div"), bank = h("div", { class: "dm-bank", "aria-label": "Pilihan jawaban" });
+  const hasil = h("p", { class: "skor", "aria-live": "polite" });
+  function lepas(slot) { if (pilih !== null) { placed = placed.map(x => (x === pilih ? null : x)); placed[slot] = pilih; pilih = null; dicek = false; r(); } }
+  function r() {
+    kiri.textContent = ""; bank.textContent = "";
+    d.pairs.forEach((p, i) => {
+      const t = placed[i] !== null ? bankItems[placed[i]] : "";
+      const cls = ["dm-slot"]; if (t) cls.push("isi");
+      if (dicek) cls.push(t === p.kanan ? "benar" : "salah");
+      const s = h("button", { type: "button", class: cls.join(" "), "aria-label": p.kiri + ": " + (t || "kosong"),
+        onclick: () => { if (pilih !== null) lepas(i); else if (placed[i] !== null) { placed[i] = null; dicek = false; r(); } },
+        ondragover: e => e.preventDefault(), ondrop: e => { e.preventDefault(); const k = Number(e.dataTransfer.getData("text/plain")); if (!isNaN(k)) { pilih = k; lepas(i); } } }, t || "…");
+      kiri.append(h("div", { class: "dm-row" }, h("div", { class: "card" }, p.kiri), s));
+    });
+    bankItems.forEach((t, k) => {
+      if (placed.includes(k)) return;
+      bank.append(h("button", { type: "button", draggable: "true", class: "dm-item" + (pilih === k ? " pilih" : ""),
+        onclick: () => { pilih = pilih === k ? null : k; r(); },
+        ondragstart: e => e.dataTransfer.setData("text/plain", String(k)) }, t));
+    });
+  }
+  const cek = h("button", { class: "btn", type: "button", onclick: () => {
+    dicek = true; r();
+    const b = d.pairs.filter((p, i) => placed[i] !== null && bankItems[placed[i]] === p.kanan).length;
+    hasil.textContent = "Benar " + b + " dari " + d.pairs.length;
+  } }, "Periksa");
+  const reset = h("button", { class: "btn sec", type: "button", onclick: () => { placed = d.pairs.map(() => null); pilih = null; dicek = false; hasil.textContent = ""; r(); } }, "Ulangi");
+  root.append(kiri, bank); el.append(root, h("p", {}, cek, " ", reset), hasil); r();
+};
+W.checklist = el => {
+  const key = "cek-" + (el.dataset.key || nextId("c"));
+  const saved = store.get(key, []);
+  const lis = $$(":scope > li", el);
+  const bar = h("i"), txt = h("span", { class: "kriteria" });
+  function up() {
+    const n = lis.filter(l => $("input", l).checked).length;
+    bar.style.width = (n / lis.length * 100) + "%"; txt.textContent = n + " / " + lis.length + " selesai";
+    store.set(key, lis.map(l => $("input", l).checked));
+  }
+  lis.forEach((li, i) => {
+    const t = li.textContent, cb = h("input", { type: "checkbox", onchange: up });
+    cb.checked = !!saved[i];
+    li.textContent = ""; li.append(h("label", {}, cb, h("span", {}, t)));
+  });
+  el.after(h("div", { class: "prog", "aria-hidden": "true" }, bar), txt); up();
+};
+W.reflect = el => {
+  const key = "ref-" + (el.dataset.key || "x");
+  const ta = h("textarea", { class: "reflect", "aria-label": el.dataset.prompt || "Refleksi" });
+  ta.value = store.get(key, "");
+  ta.addEventListener("input", () => store.set(key, ta.value));
+  el.append(h("p", {}, el.dataset.prompt || "Tuliskan refleksi singkat:"), ta);
+};
+
+function initTabs() {
+  $$(".tabs").forEach(box => {
+    const tabs = $$(".tablist button", box), panels = $$(":scope > .tabpanel", box);
+    function pilih(i) { tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; }); panels.forEach((p, k) => { p.hidden = k !== i; }); }
+    tabs.forEach((t, i) => t.addEventListener("click", () => pilih(i)));
+    pilih(0);
+  });
+}
+function initSegmen() {
+  const segs = $$("section.seg"), agenda = $("#agenda");
+  const done = store.get("selesai", {});
+  let mulai = 0;
+  const links = [];
+  segs.forEach((s, i) => {
+    const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
+    const head = h("div", { class: "seg-head" }, h("h3", {}, judul), h("span", { class: "badge" }, min + " menit"));
+    let sisa = min * 60, tid = null; const tb = h("button", { class: "btn sec", type: "button" }, "⏱ " + mmss(sisa));
+    const tw = h("span", { class: "seg-timer" }, tb);
+    tb.addEventListener("click", () => {
+      if (tid) { clearInterval(tid); tid = null; tb.textContent = "▶ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); return; }
+      tid = setInterval(() => { sisa--; tw.classList.toggle("over", sisa < 0); tb.textContent = "⏸ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); }, 1000);
+    });
+    head.append(tw); s.prepend(head);
+    const foot = h("div", { class: "seg-foot" });
+    const sb = h("button", { class: "btn sec", type: "button" });
+    function tandai(v) {
+      s.classList.toggle("done", v); a.classList.toggle("done", v); sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
+      done[s.id] = v; store.set("selesai", done); progres();
+    }
+    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
+    foot.append(sb); s.append(foot);
+    const a = h("a", { href: "#" + s.id }, h("span", { class: "mnt" }, mulai + "–" + (mulai + min) + "'"), h("span", {}, judul), h("span", { class: "tick", "aria-label": "selesai" }, "✓"));
+    agenda.append(a); links.push({ a, s }); mulai += min;
+    tandai(!!done[s.id]);
+  });
+  function progres() { const n = segs.filter(x => x.classList.contains("done")).length; $("#hdr-bar").style.width = (n / segs.length * 100) + "%"; }
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target))); }), { rootMargin: "-20% 0px -70% 0px" });
+    segs.forEach(s => io.observe(s));
+  }
+}
+function initJam() {
+  let t = 0, id = null; const c = $("#clock"), b = $("#clock-btn");
+  b.addEventListener("click", () => {
+    if (id) { clearInterval(id); id = null; b.textContent = "Lanjut"; }
+    else { id = setInterval(() => { t++; c.textContent = mmss(t); }, 1000); b.textContent = "Jeda"; }
+  });
+}
+document.addEventListener("DOMContentLoaded", () => {
+  $$("[data-widget]").forEach(el => {
+    const fn = W[el.dataset.widget];
+    if (!fn) return;
+    try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal dimuat: " + e.message)); }
+  });
+  initTabs(); initSegmen(); initJam();
+  renderInbox("");
+  window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

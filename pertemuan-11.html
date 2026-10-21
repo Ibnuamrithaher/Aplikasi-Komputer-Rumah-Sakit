@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 11 — Integrasi Office Bagian 1: OLE | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
+  --primary:#0b7285;--primary-ink:#fff;--primary-soft:#d3f0f4;
+  --accent:#e8590c;--ok:#2b8a3e;--ok-soft:#dff3e3;--warn:#e67700;--bad:#c92a2a;--bad-soft:#fbe1e1;
+  --c1:#0b7285;--c2:#e8590c;--c3:#7048e8;--c4:#2b8a3e;--c5:#c2255c;--c6:#f08c00;--c7:#1971c2;--c8:#5c940d;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);--r:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0e1b20;--surface:#15272e;--ink:#e6f1f3;--muted:#9bb2ba;--line:#27414a;
+  --primary:#3bc0d6;--primary-ink:#06222a;--primary-soft:#14414b;
+  --accent:#ff922b;--ok:#69db7c;--ok-soft:#173a22;--warn:#ffc078;--bad:#ff8787;--bad-soft:#4a1d1d;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
+.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}
+nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+nav.agenda a.done .tick{visibility:visible}
+main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}
+.hero p{margin:6px 0;opacity:.95}
+.hero ul{margin:8px 0 0;padding-left:20px}
+@media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-timer{display:inline-flex;gap:6px;align-items:center}
+.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.seg-timer.over .btn{background:var(--bad);color:#fff}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}
+p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.warn-box{background:var(--bad-soft);border-radius:8px;padding:10px 14px;margin:12px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}
+.kriteria{font-size:.92rem;color:var(--muted)}
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}
+.quiz label.benar{background:var(--ok-soft)}
+.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}
+.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+.sl{list-style:none;padding:0;margin:8px 0}
+.sl li{display:flex;gap:10px;align-items:center;border:2px solid var(--line);border-radius:8px;padding:6px 10px;margin:6px 0;background:var(--bg)}
+.sl li.benar{border-color:var(--ok);background:var(--ok-soft)}
+.sl li.salah{border-color:var(--bad);background:var(--bad-soft)}
+.sl .txt{flex:1}
+.sl button{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:2px 10px}
+.checklist{list-style:none;padding:0;margin:8px 0}
+.checklist li{margin:4px 0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:6px}
+.checklist input{width:20px;height:20px;margin-top:4px;flex:none}
+.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}
+.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+/* OLE simulator */
+.ole-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:14px 0}
+.ole-panel{border:2px solid var(--line);border-radius:10px;background:var(--bg);padding:10px}
+.ole-panel.linked{border-color:var(--ok)}
+.ole-panel.embedded{border-color:var(--warn)}
+.ole-panel.paste{border-color:var(--muted)}
+.ole-panel h5{margin:0 0 8px;font-size:.88rem;font-weight:700;display:flex;align-items:center;gap:6px}
+.ole-panel table{width:100%;border-collapse:collapse;font-size:.82rem}
+.ole-panel td{border:1px solid var(--line);padding:3px 6px}
+.ole-panel td:first-child{background:var(--primary-soft);font-weight:600}
+.ole-panel input[type=text]{width:100%;border:1px solid var(--line);border-radius:4px;padding:2px 6px;background:var(--surface);font-size:.85rem}
+.badge-status{display:inline-block;border-radius:99px;padding:1px 10px;font-size:.75rem;font-weight:700}
+.badge-status.ok{background:var(--ok-soft);color:var(--ok)}
+.badge-status.bad{background:var(--bad-soft);color:var(--bad)}
+/* Diagnosa link */
+.diagnosa-card{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--bg);overflow:hidden}
+.diagnosa-error{background:#1e1e2e;color:#f8f8f2;padding:10px 14px;font-family:ui-monospace,Consolas,monospace;font-size:.88rem;border-radius:6px;margin:10px 14px}
+.diagnosa-opsi{padding:8px 14px;display:flex;flex-direction:column;gap:6px}
+.diagnosa-opsi label{display:flex;gap:8px;align-items:flex-start;padding:6px 10px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--surface)}
+.diagnosa-opsi label:hover{background:var(--primary-soft)}
+.diagnosa-opsi label.benar{background:var(--ok-soft);border-color:var(--ok)}
+.diagnosa-opsi label.salah{background:var(--bad-soft);border-color:var(--bad)}
+/* Praktik OLE */
+.praktik-sheet{overflow-x:auto;margin:10px 0}
+.praktik-sheet table{border-collapse:collapse;font-size:.9rem;min-width:500px}
+.praktik-sheet th{background:var(--primary-soft);border:1px solid var(--line);padding:5px 10px;text-align:left}
+.praktik-sheet td{border:1px solid var(--line);padding:4px 8px}
+.praktik-sheet td input{width:100%;border:0;background:transparent;padding:2px 4px;font-size:.9rem}
+.word-doc{border:2px solid var(--line);border-radius:10px;padding:14px 18px;background:#fff;color:#1a1a1a;margin:10px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+@media(prefers-color-scheme:dark){.word-doc{background:#1e2a30;color:#e6f1f3}}
+.word-doc h5{margin:0 0 8px;font-size:.9rem;font-weight:700;color:var(--primary);border-bottom:1px solid var(--line);padding-bottom:6px}
+.word-doc table{width:100%;border-collapse:collapse;font-size:.85rem}
+.word-doc td,.word-doc th{border:1px solid var(--line);padding:3px 8px}
+.word-doc th{background:var(--primary-soft)}
+.praktik-docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:14px 0}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}.top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}.wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}.hero{background:#fff;color:#000}}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+<header class="top">
+  <h1><span id="hdr-judul">Integrasi Office Bagian 1: OLE</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 11</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
+  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 11 · CPMK-5</span>
+      <h2 id="hero-judul">Integrasi Office Bagian 1: Object Linking &amp; Embedding</h2>
+      <p id="hero-cpmk">CPMK-5: Mampu mengintegrasikan data secara dinamis antar-aplikasi perkantoran untuk keperluan pelaporan manajemen RS.</p>
+      <ul id="hero-tujuan"></ul>
+    </div>
+
+    <!-- ============ PEMBUKA ============ -->
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">Wahyu Nugroho, staf administrasi RS Bhakti Medika, setiap bulan harus menyiapkan lima dokumen Word berbeda: laporan direktur, laporan keuangan, laporan mutu, laporan poli, dan surat ke dinas. Semuanya memuat tabel kunjungan pasien yang sama — ia selalu <em>copy-paste</em> dari Excel ke setiap dokumen. Minggu ini data kunjungan bulan Januari dikoreksi oleh HIS. Wahyu harus membuka kelima dokumen satu per satu dan memperbarui tabelnya secara manual. Dua jam waktu terbuang hanya untuk update data yang sama.</p>
+      <p>Solusinya ada di fitur yang sudah lama tersedia di Microsoft Office: <strong>OLE — Object Linking and Embedding</strong>. Jika Wahyu menggunakan <em>Paste Link</em> dari awal, cukup satu kali ubah data di Excel, kelima dokumen Word langsung sinkron otomatis.</p>
+      <p class="note"><strong>Tujuan hari ini:</strong> Memahami perbedaan Paste Biasa, Embed, dan Link — serta kapan menggunakan masing-masing di lingkungan RS.</p>
+    </section>
+
+    <!-- ============ PRE-TEST ============ -->
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
+      <p>Jawab dulu tanpa takut salah. Ini hanya untuk melihat titik awal kalian sebelum materi dimulai.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test","soal":[
+        {"q":"OLE adalah singkatan dari …","opsi":["Object Layout Edit","Object Linking and Embedding","Output Link Execution","Open Link Extension"],"benar":1,"jelas":"OLE = Object Linking and Embedding, teknologi Microsoft untuk integrasi antar-aplikasi."},
+        {"q":"Paste Link berbeda dari Paste biasa karena …","opsi":["Lebih cepat dieksekusi","Data terhubung ke sumber asli","Mengubah format teks","Menghapus data asli"],"benar":1,"jelas":"Paste Link menciptakan tautan ke file sumber; perubahan di sumber otomatis tercermin di dokumen tujuan."},
+        {"q":"Jika file Excel sumber dipindah ke folder lain setelah Paste Link dibuat, link akan …","opsi":["Tetap berfungsi normal","Putus / broken link","Otomatis update sendiri","Terhapus dari Word"],"benar":1,"jelas":"Link menyimpan path absolut ke file sumber. Jika lokasi berubah, link tidak lagi menemukan file tersebut."},
+        {"q":"Embed berbeda dari Link karena …","opsi":["Data tidak disalin ke file tujuan","Data disalin mandiri ke dalam file tujuan","Ukuran file lebih kecil","Hanya bisa untuk gambar"],"benar":1,"jelas":"Embed menyisipkan salinan objek ke dalam file tujuan; tidak terhubung ke file sumber."},
+        {"q":"Tab di Microsoft Word untuk mengakses Paste Special adalah …","opsi":["Tab Home","Tab Insert","Tab Mailings","Tab File"],"benar":0,"jelas":"Paste Special ada di tab Home → grup Clipboard → tanda panah di bawah tombol Paste → Paste Special."}
+      ]}
+      </script>
+    </section>
+
+    <!-- ============ INTI 1: ANALOGI OLE ============ -->
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Analogi OLE" data-min="10">
+      <p>Sebelum masuk ke langkah teknis, pahami konsep OLE melalui tiga analogi yang mudah diingat.</p>
+      <details open>
+        <summary>📷 Paste Biasa = Foto Cetak</summary>
+        <div>
+          <p>Saat Anda mencetak foto dari HP, foto itu berdiri sendiri. Jika foto asli di HP diedit atau dihapus, foto cetakan tidak berubah sama sekali.</p>
+          <p><strong>Di RS:</strong> Anda meng-<em>copy</em> tabel kunjungan dari Excel dan mem-<em>paste</em> biasa ke Word. Hasilnya adalah <strong>salinan statis</strong> — data di Word tidak pernah berubah meski Excel diperbarui.</p>
+          <table class="data" style="margin-top:8px">
+            <tr><th>Kelebihan</th><td>Cepat, mudah, tidak bergantung file lain</td></tr>
+            <tr><th>Kekurangan</th><td>Harus update manual di setiap dokumen</td></tr>
+            <tr><th>Kapan pakai</th><td>Dokumen final/arsip yang tidak akan diubah lagi; data "snapshot" bulan tertentu</td></tr>
+          </table>
+        </div>
+      </details>
+      <details>
+        <summary>📱 Embed = Foto di HP (Mandiri)</summary>
+        <div>
+          <p>Foto di HP Anda bisa diedit langsung di dalam HP. Jika Anda mengirim foto itu ke HP orang lain, mereka bisa melihat dan mengeditnya di sana tanpa perlu HP Anda.</p>
+          <p><strong>Di RS:</strong> Embed menyisipkan <strong>objek Excel lengkap</strong> ke dalam file Word. Anda bisa double-click objek di Word untuk mengeditnya in-place dengan antarmuka Excel. File Word bisa dibuka di komputer mana pun tanpa memerlukan file Excel asli.</p>
+          <table class="data" style="margin-top:8px">
+            <tr><th>Kelebihan</th><td>Portable; file Word mandiri; bisa diedit in-place</td></tr>
+            <tr><th>Kekurangan</th><td>Ukuran file Word jauh lebih besar; tidak sinkron dengan sumber</td></tr>
+            <tr><th>Kapan pakai</th><td>Dokumen yang akan dikirim ke pihak lain tanpa menyertakan file Excel; presentasi offline</td></tr>
+          </table>
+        </div>
+      </details>
+      <details>
+        <summary>🔗 Paste Link = Shortcut / Bookmark</summary>
+        <div>
+          <p>Shortcut di desktop hanya menyimpan <em>alamat</em> program, bukan program itu sendiri. Klik shortcut → program aslinya berjalan. Pindahkan program → shortcut tidak bisa menemukan program lagi.</p>
+          <p><strong>Di RS:</strong> Paste Link menyisipkan <strong>tautan hidup</strong> ke file Excel. Setiap kali Word dibuka (atau klik kanan → Update Link), data terbaru dari Excel langsung ditampilkan.</p>
+          <table class="data" style="margin-top:8px">
+            <tr><th>Kelebihan</th><td>Selalu sinkron; satu update Excel = semua Word terperbarui</td></tr>
+            <tr><th>Kekurangan</th><td>File Excel harus ada dan di lokasi yang sama; link bisa putus</td></tr>
+            <tr><th>Kapan pakai</th><td>Laporan rutin (harian, mingguan, bulanan) yang sering diperbarui datanya</td></tr>
+          </table>
+          <p class="note">⚠ Simpan file Word dan Excel dalam <strong>satu folder yang sama</strong> agar link tidak putus saat dipindah ke komputer lain.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- ============ INTI 2: SIMULATOR OLE ============ -->
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Simulator Link vs Embed vs Paste" data-min="10">
+      <p>Ubah data di panel <strong>Sumber (Excel)</strong> dan amati panel mana yang ikut berubah.</p>
+      <div id="ole-sim-area"></div>
+      <p style="margin-top:12px"><button class="btn" type="button" id="btn-ubah-sumber">Ubah Data Sumber</button> <button class="btn sec" type="button" id="btn-reset-sumber">Reset</button></p>
+      <div id="ole-edit-form" style="display:none;margin-top:10px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px">
+        <p style="margin:0 0 8px"><strong>Edit nilai (pilih baris &amp; masukkan nilai baru):</strong></p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <label>Baris: <select id="ole-row-sel" style="border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--surface)">
+            <option value="0">Poli Umum</option>
+            <option value="1">Poli Gigi</option>
+            <option value="2">Poli Anak</option>
+          </select></label>
+          <label>Nilai: <input type="number" id="ole-val-inp" value="400" style="width:90px;border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--surface)"></label>
+          <button class="btn" type="button" id="btn-ole-apply">Terapkan</button>
+        </div>
+      </div>
+      <div class="note" style="margin-top:12px">
+        <strong>Amati:</strong> Panel <em>Linked</em> berubah mengikuti sumber. Panel <em>Embedded</em> dan <em>Paste Biasa</em> tetap menampilkan data saat halaman pertama dimuat.
+      </div>
+    </section>
+
+    <!-- ============ INTI 3: SORTLIST PASTE SPECIAL ============ -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Langkah Paste Special" data-min="10">
+      <p>Urutkan 7 langkah membuat <strong>Paste Link</strong> dari Excel ke Word menggunakan tombol ▲ ▼. Setelah yakin, klik <em>Cek Urutan</em>.</p>
+      <div data-widget="sortlist" data-src="sl-paste" id="sl-paste-widget"></div>
+      <script type="application/json" id="sl-paste">
+      {"langkah":[
+        "Salin tabel di Excel (Ctrl+C)",
+        "Pindah ke dokumen Word",
+        "Klik Home → Paste → Paste Special",
+        "Pilih \"Microsoft Excel Worksheet Object\"",
+        "Centang opsi \"Paste Link\"",
+        "Klik OK — tabel tertaut muncul di Word",
+        "Simpan kedua file di folder yang sama agar link tidak putus"
+      ]}
+      </script>
+      <p class="note" style="margin-top:10px">💡 Langkah ke-7 sering dilupakan! Menyimpan kedua file dalam satu folder adalah kunci agar link tetap berfungsi saat file dipindahkan.</p>
+    </section>
+
+    <!-- ============ INTI 4: GAME DIAGNOSA LINK ============ -->
+    <section class="seg" id="seg-inti4" data-judul="Inti 4: Game Diagnosa Link Putus" data-min="10">
+      <p>Setiap skenario menampilkan "pesan error" seperti yang muncul di dokumen Word. Pilih solusi yang paling tepat dari tiga opsi.</p>
+      <div id="diagnosa-area"></div>
+      <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button class="btn" type="button" id="btn-cek-diagnosa">Periksa Semua Jawaban</button>
+        <span class="quiz" id="skor-diagnosa" style="font-weight:700;font-size:1.05rem"></span>
+      </div>
+    </section>
+
+    <!-- ============ PRAKTIK ============ -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Simulator Lengkap OLE" data-min="25">
+      <p>Lembar kerja di bawah menampilkan data operasional RS Sehat Citra. Amati bagaimana tiga jenis dokumen Word bereaksi saat data diubah.</p>
+      <h4>Spreadsheet Data RS Sehat Citra</h4>
+      <div class="praktik-sheet">
+        <table id="tbl-praktik">
+          <thead><tr><th>Poli</th><th>Kunjungan</th><th>Pendapatan</th><th>Pasien Baru</th></tr></thead>
+          <tbody id="praktik-body">
+            <tr><td>Poli Umum</td><td><input type="number" class="prak-cell" data-row="0" data-col="1" value="445"></td><td><input type="text" class="prak-cell" data-row="0" data-col="2" value="Rp 89 jt"></td><td><input type="number" class="prak-cell" data-row="0" data-col="3" value="120"></td></tr>
+            <tr><td>Poli Gigi</td><td><input type="number" class="prak-cell" data-row="1" data-col="1" value="187"></td><td><input type="text" class="prak-cell" data-row="1" data-col="2" value="Rp 42 jt"></td><td><input type="number" class="prak-cell" data-row="1" data-col="3" value="45"></td></tr>
+            <tr><td>Poli Anak</td><td><input type="number" class="prak-cell" data-row="2" data-col="1" value="312"></td><td><input type="text" class="prak-cell" data-row="2" data-col="2" value="Rp 67 jt"></td><td><input type="number" class="prak-cell" data-row="2" data-col="3" value="89"></td></tr>
+            <tr><td>Kandungan</td><td><input type="number" class="prak-cell" data-row="3" data-col="1" value="98"></td><td><input type="text" class="prak-cell" data-row="3" data-col="2" value="Rp 55 jt"></td><td><input type="number" class="prak-cell" data-row="3" data-col="3" value="23"></td></tr>
+            <tr><td>Poli THT</td><td><input type="number" class="prak-cell" data-row="4" data-col="1" value="134"></td><td><input type="text" class="prak-cell" data-row="4" data-col="2" value="Rp 29 jt"></td><td><input type="number" class="prak-cell" data-row="4" data-col="3" value="38"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><button class="btn accent" type="button" id="btn-update-gigi">Update Data Poli Gigi (Simulasi Koreksi HIS)</button></p>
+      <h4>Tiga Dokumen Word — Amati Perbedaannya</h4>
+      <div class="praktik-docs">
+        <div class="word-doc">
+          <h5>📄 Laporan Direktur (Linked)</h5>
+          <span class="badge-status ok" id="badge-linked">Terkini ✓</span>
+          <div id="doc-linked-table" style="margin-top:8px"></div>
+        </div>
+        <div class="word-doc">
+          <h5>📁 Laporan Arsip (Embedded)</h5>
+          <span class="badge-status bad" id="badge-embedded">Tidak Sinkron ✗</span>
+          <div id="doc-embedded-table" style="margin-top:8px"></div>
+          <p style="font-size:.8rem;color:var(--muted);margin-top:6px">Data snapshot saat halaman dimuat. Double-click untuk edit (di Word nyata).</p>
+        </div>
+        <div class="word-doc">
+          <h5>📋 Surat Edaran (Paste Biasa)</h5>
+          <span class="badge-status bad" id="badge-paste">Tidak Sinkron ✗</span>
+          <div id="doc-paste-table" style="margin-top:8px"></div>
+          <p style="font-size:.8rem;color:var(--muted);margin-top:6px">Teks statis, tidak pernah berubah.</p>
+        </div>
+      </div>
+      <h4>Kuis Pengamatan</h4>
+      <div data-widget="quiz" data-src="quiz-praktik" class="quiz"></div>
+      <script type="application/json" id="quiz-praktik">
+      {"judul":"Kuis Praktik","soal":[
+        {"q":"Setelah mengklik 'Update Data Poli Gigi', dokumen mana yang langsung berubah?","opsi":["Laporan Arsip (Embedded)","Laporan Direktur (Linked)","Surat Edaran (Paste Biasa)","Semua dokumen berubah"],"benar":1,"jelas":"Hanya dokumen Linked yang terhubung ke data sumber dan ikut berubah secara otomatis."},
+        {"q":"Dokumen mana yang paling cocok untuk arsip permanen bulan Januari yang tidak perlu diubah lagi?","opsi":["Laporan Direktur (Linked)","Laporan Arsip (Embedded)","Surat Edaran (Paste Biasa)","Tidak ada yang cocok"],"benar":1,"jelas":"Embedded cocok karena data tersimpan mandiri di dalam file, tidak bergantung pada file Excel asli."},
+        {"q":"Dokumen mana yang paling cocok untuk laporan harian yang datanya sering diperbarui?","opsi":["Laporan Arsip (Embedded)","Surat Edaran (Paste Biasa)","Laporan Direktur (Linked)","Semua sama saja"],"benar":2,"jelas":"Linked selalu sinkron dengan sumber. Ideal untuk laporan rutin yang datanya terus diperbarui."}
+      ]}
+      </script>
+      <div class="tugas-lab">
+        <h4>Tugas Lab — Word + Excel Nyata</h4>
+        <ol>
+          <li>Buat file Excel baru: <code>Kunjungan_RS.xlsx</code>. Isi tabel 3 poli × 3 bulan (data fiktif).</li>
+          <li>Buka Word baru: <code>Laporan_Bulanan.docx</code>. Gunakan <strong>Paste Special → Paste Link → Microsoft Excel Worksheet Object</strong>.</li>
+          <li>Simpan kedua file dalam <strong>satu folder</strong> yang sama.</li>
+          <li>Ubah satu angka di Excel, lalu buka Word dan klik kanan → <em>Update Link</em>. Verifikasi perubahan.</li>
+          <li>Buat dokumen kedua: <code>Laporan_Arsip.docx</code>. Gunakan <strong>Paste Special → Embed</strong>. Bandingkan ukuran kedua file.</li>
+        </ol>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Link berfungsi dan ter-update; 2) Embed mandiri dapat dibuka tanpa Excel; 3) Kedua file tersimpan satu folder; 4) Laporan menggunakan data fiktif RS.</p>
+      </div>
+    </section>
+
+    <!-- ============ POST-TEST ============ -->
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test","soal":[
+        {"q":"Cara memperbarui link yang putus di Microsoft Word adalah …","opsi":["Hapus lalu paste ulang dari Excel","File → Info → Edit Links to Files","Insert → Object","Print Preview → Refresh"],"benar":1,"jelas":"Word menyediakan dialog Edit Links melalui File → Info → Edit Links to Files untuk mengubah lokasi sumber."},
+        {"q":"Embed paling cocok untuk …","opsi":["Laporan harian yang datanya sering berubah","Dokumen final yang akan dikirim tanpa menyertakan Excel","Presentasi online real-time","Basis data besar"],"benar":1,"jelas":"Embed membuat dokumen mandiri — penerima tidak perlu memiliki file Excel asli."},
+        {"q":"Ukuran file Word yang berisi objek Embed dibandingkan dengan yang berisi Link adalah …","opsi":["Lebih kecil","Sama besar","Lebih besar","Tidak tentu"],"benar":2,"jelas":"Embed menyisipkan seluruh data objek ke dalam file Word, sehingga ukurannya lebih besar."},
+        {"q":"Saat Anda double-click objek Embed di Word, yang terjadi adalah …","opsi":["Excel terbuka sebagai jendela terpisah","Mode edit objek in-place aktif di dalam Word","Objek terhapus dari dokumen","Objek tersalin ke clipboard"],"benar":1,"jelas":"OLE Embedding memungkinkan edit in-place — antarmuka Excel muncul di dalam Word tanpa membuka jendela baru."},
+        {"q":"Kelemahan utama Paste Link dibandingkan Paste biasa adalah …","opsi":["Data tidak dapat diedit","Bergantung pada keberadaan dan lokasi file sumber","Tidak mendukung tabel","Hanya berjalan di Windows"],"benar":1,"jelas":"Link akan putus jika file Excel sumber dipindah, diganti nama, atau dihapus."}
+      ]}
+      </script>
+      <h4>Perbandingan Pre-test vs Post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <!-- ============ PENUTUP ============ -->
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
+      <h4>Ringkasan Pertemuan 11</h4>
+      <ol>
+        <li><strong>Paste Biasa</strong> menghasilkan salinan statis — cocok untuk arsip final yang tidak perlu diperbarui.</li>
+        <li><strong>Embed</strong> menyisipkan objek mandiri ke dalam Word — file tujuan bisa dibuka tanpa Excel, tetapi ukurannya lebih besar.</li>
+        <li><strong>Paste Link</strong> menciptakan tautan hidup — perubahan di Excel langsung tercermin di Word, ideal untuk laporan rutin.</li>
+        <li>Link putus jika file sumber berpindah lokasi, berganti nama, atau terhapus — selalu simpan kedua file dalam satu folder.</li>
+        <li>Gunakan <strong>File → Info → Edit Links to Files</strong> di Word untuk memperbaiki link yang putus.</li>
+      </ol>
+      <h4>Refleksi</h4>
+      <div data-widget="reflect" data-key="krs-p11-refleksi" data-prompt="Situasi di RS mana yang akan kamu perbaiki dengan OLE? Dan apa yang masih membingungkan dari materi hari ini?"></div>
+      <p class="note"><strong>Tindak lanjut (Pertemuan 12):</strong> Integrasi Excel ke PowerPoint — grafik dinamis untuk presentasi rapat koordinasi RS.</p>
+    </section>
+
+  </main>
+</div>
+
+<script>
+"use strict";
+const KONFIG={kode:"krs-p11",nomor:"11",judul:"Integrasi Office Bagian 1: Object Linking & Embedding",cpmk:"CPMK-5: Mampu mengintegrasikan data secara dinamis antar-aplikasi perkantoran untuk keperluan pelaporan manajemen RS.",tujuan:["Memahami konsep OLE (Object Linking and Embedding)","Membedakan Link vs Embed vs Paste biasa","Menghubungkan tabel Excel ke dokumen Word secara dinamis"],totalMenit:90};
+
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+function h(tag,props,...kids){const e=document.createElement(tag);for(const k in(props||{})){const v=props[k];if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,"");else if(v!==false&&v!=null)e.setAttribute(k,v);}for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(String(c)));}return e;}
+const store={get(k,d){try{const v=localStorage.getItem(KONFIG.kode+"-"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem(KONFIG.kode+"-"+k,JSON.stringify(v));}catch(e){}}};
+function getData(id){return JSON.parse(document.getElementById(id).textContent);}
+function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function mmss(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+let uid=0;const nextId=p=>p+"-"+(++uid);
+
+const W={};
+W.quiz=el=>{
+  const d=getData(el.dataset.src);
+  const key="quiz-"+(el.dataset.role||el.dataset.src);
+  const saved=store.get(key,{jawab:{}});
+  const jawab=saved.jawab||{};
+  const skorEl=h("p",{class:"skor","aria-live":"polite"});
+  const items=[];
+  function hitung(){let b=0;for(const i in jawab)if(jawab[i]===d.soal[i].benar)b++;const n=Object.keys(jawab).length;skorEl.textContent="Skor: "+b+" / "+d.soal.length+(n<d.soal.length?"  (terjawab "+n+")":"");store.set(key,{jawab,skor:b,total:d.soal.length,selesai:n===d.soal.length});document.dispatchEvent(new CustomEvent("krs:skor"));}
+  function tampil(i,pilih){const it=items[i],s=d.soal[i];it.labels.forEach((l,j)=>{l.classList.toggle("benar",j===s.benar);l.classList.toggle("salah",j===pilih&&j!==s.benar);});it.fb.textContent=(pilih===s.benar?"Benar. ":"Belum tepat. ")+(s.jelas||"");}
+  d.soal.forEach((s,i)=>{
+    const name=nextId("q");
+    const fb=h("p",{class:"fb","aria-live":"polite"});
+    const labels=s.opsi.map((o,j)=>{const inp=h("input",{type:"radio",name,value:j,onchange:()=>{jawab[i]=j;tampil(i,j);hitung();}});if(jawab[i]===j)inp.checked=true;return h("label",{},inp," ",o);});
+    items.push({labels,fb});
+    el.append(h("fieldset",{},h("legend",{},(i+1)+". "+s.q),labels,fb));
+    if(jawab[i]!==undefined)tampil(i,jawab[i]);
+  });
+  el.append(skorEl,h("button",{class:"btn sec",type:"button",onclick:()=>{for(const k in jawab)delete jawab[k];$$("input",el).forEach(x=>x.checked=false);items.forEach(it=>{it.labels.forEach(l=>l.classList.remove("benar","salah"));it.fb.textContent="";});hitung();}},"Ulangi"));
+  hitung();
+};
+
+W.banding=el=>{
+  function baris(role,nama,cls){const track=h("i"),val=h("span",{},"–");el.append(h("div",{class:"row "+cls},h("span",{},nama),h("div",{class:"track"},track),val));return()=>{const s=store.get("quiz-"+role,null);if(!s||!s.selesai){track.style.width="0";val.textContent="–";return;}const p=Math.round(s.skor/s.total*100);track.style.width=p+"%";val.textContent=p+"%";};}
+  el.classList.add("banding");
+  const a=baris("pre","Pre-test","pre"),b=baris("post","Post-test","post");
+  const up=()=>{a();b();};
+  document.addEventListener("krs:skor",up);up();
+};
+
+W.sortlist=el=>{
+  const d=getData(el.dataset.src);
+  let order=d.langkah.map((_,i)=>i);
+  do{order=shuffle(order);}while(order.length>1&&order.every((v,i)=>v===i));
+  let dicek=false;
+  const ol=h("ol",{class:"sl"}),hasil=h("p",{class:"skor","aria-live":"polite"});
+  function gerak(i,dlt){const j=i+dlt;if(j<0||j>=order.length)return;[order[i],order[j]]=[order[j],order[i]];dicek=false;r();}
+  function r(){ol.textContent="";order.forEach((v,i)=>{const li=h("li",{class:dicek?(v===i?"benar":"salah"):""},h("span",{},(i+1)+"."),h("span",{class:"txt"},d.langkah[v]),h("button",{type:"button","aria-label":"Naikkan",onclick:()=>gerak(i,-1)},"▲"),h("button",{type:"button","aria-label":"Turunkan",onclick:()=>gerak(i,1)},"▼"));ol.append(li);});}
+  el.append(ol,h("button",{class:"btn",type:"button",onclick:()=>{dicek=true;r();const b=order.filter((v,i)=>v===i).length;hasil.textContent=b===order.length?"✔ Urutan sudah benar!":"Posisi benar: "+b+" dari "+order.length;}},"Cek Urutan"),hasil);
+  r();
+};
+
+W.reflect=el=>{
+  const key="ref-"+(el.dataset.key||"x");
+  const ta=h("textarea",{class:"reflect","aria-label":el.dataset.prompt||"Refleksi"});
+  ta.value=store.get(key,"");
+  ta.addEventListener("input",()=>store.set(key,ta.value));
+  el.append(h("p",{},el.dataset.prompt||"Tuliskan refleksi singkat:"),ta);
+};
+
+/* ============================================================
+   OLE Simulator — Inti 2
+   ============================================================ */
+(function initOLESim(){
+  const LABELS=["Poli Umum","Poli Gigi","Poli Anak"];
+  const DATA_AWAL=[[312,145,89],[98,52,34],[156,78,67]];
+  // snapshot saat load
+  const SNAPSHOT=DATA_AWAL.map(r=>r.slice());
+  let sumber=DATA_AWAL.map(r=>r.slice());
+
+  function buatTabel(data,editable){
+    const tbl=document.createElement("table");
+    tbl.style.cssText="width:100%;border-collapse:collapse;font-size:.82rem";
+    const hd=tbl.createTHead().insertRow();
+    ["Poli","Jan","Feb","Mar"].forEach(t=>{const th=document.createElement("th");th.textContent=t;th.style.cssText="border:1px solid var(--line);padding:3px 6px;background:var(--primary-soft)";hd.appendChild(th);});
+    const tb=tbl.createTBody();
+    data.forEach((row,i)=>{
+      const tr=tb.insertRow();
+      const td0=tr.insertCell();td0.textContent=LABELS[i];td0.style.cssText="border:1px solid var(--line);padding:3px 6px;font-weight:600;background:var(--primary-soft)";
+      row.forEach((v,j)=>{
+        const td=tr.insertCell();td.style.cssText="border:1px solid var(--line);padding:3px 6px;text-align:right";
+        if(editable){
+          const inp=document.createElement("input");inp.type="number";inp.value=v;
+          inp.style.cssText="width:100%;border:1px solid var(--line);border-radius:4px;padding:2px 4px;font-size:.82rem;text-align:right;background:var(--surface)";
+          inp.dataset.row=i;inp.dataset.col=j;
+          inp.addEventListener("input",function(){sumber[this.dataset.row][this.dataset.col]=Number(this.value)||0;updateLinked();});
+          td.appendChild(inp);
+        }else{td.textContent=v;}
+      });
+    });
+    return tbl;
+  }
+
+  const area=document.getElementById("ole-sim-area");
+  if(!area)return;
+  area.textContent="";
+  area.style.display="grid";
+  area.style.gridTemplateColumns="repeat(auto-fit,minmax(195px,1fr))";
+  area.style.gap="12px";
+
+  // Panel Sumber
+  const pSrc=document.createElement("div");pSrc.className="ole-panel";
+  pSrc.innerHTML='<h5>📊 Sumber (Excel) <span class="badge-status ok">Aktif</span></h5><p style="font-size:.78rem;color:var(--muted);margin:0 0 6px">RS Sehat Citra – Laporan Kunjungan</p>';
+  const srcTable=buatTabel(sumber,true);
+  pSrc.appendChild(srcTable);
+  area.appendChild(pSrc);
+
+  // Panel Linked
+  const pLinked=document.createElement("div");pLinked.className="ole-panel linked";
+  pLinked.innerHTML='<h5>🔗 Linked (Word) <span class="badge-status ok" id="badge-linked2">Terkini ✓</span></h5>';
+  const linkedDiv=document.createElement("div");pLinked.appendChild(linkedDiv);
+  area.appendChild(pLinked);
+
+  // Panel Embedded
+  const pEmbed=document.createElement("div");pEmbed.className="ole-panel embedded";
+  pEmbed.innerHTML='<h5>📱 Embedded (Word) <span class="badge-status bad">Tidak Sinkron ✗</span></h5>';
+  const embedDiv=document.createElement("div");pEmbed.appendChild(embedDiv);
+  area.appendChild(pEmbed);
+
+  // Panel Paste Biasa
+  const pPaste=document.createElement("div");pPaste.className="ole-panel paste";
+  pPaste.innerHTML='<h5>📷 Paste Biasa (Word) <span class="badge-status bad">Tidak Sinkron ✗</span></h5>';
+  const pasteDiv=document.createElement("div");pPaste.appendChild(pasteDiv);
+  area.appendChild(pPaste);
+
+  function updateLinked(){linkedDiv.textContent="";linkedDiv.appendChild(buatTabel(sumber,false));}
+  function initStatic(){embedDiv.textContent="";embedDiv.appendChild(buatTabel(SNAPSHOT,false));pasteDiv.textContent="";pasteDiv.appendChild(buatTabel(SNAPSHOT,false));}
+  updateLinked();initStatic();
+
+  // Tombol ubah
+  const btnUbah=document.getElementById("btn-ubah-sumber");
+  const editForm=document.getElementById("ole-edit-form");
+  if(btnUbah)btnUbah.addEventListener("click",()=>{editForm.style.display=editForm.style.display==="none"?"block":"none";});
+  const btnApply=document.getElementById("btn-ole-apply");
+  if(btnApply)btnApply.addEventListener("click",()=>{
+    const row=parseInt(document.getElementById("ole-row-sel").value,10);
+    const val=parseInt(document.getElementById("ole-val-inp").value,10)||0;
+    if(row>=0&&row<3){sumber[row][0]=val;const inputs=pSrc.querySelectorAll("input[type=number]");inputs.forEach(inp=>{if(parseInt(inp.dataset.row,10)===row&&parseInt(inp.dataset.col,10)===0)inp.value=val;});updateLinked();}
+  });
+  const btnReset=document.getElementById("btn-reset-sumber");
+  if(btnReset)btnReset.addEventListener("click",()=>{sumber=DATA_AWAL.map(r=>r.slice());area.textContent="";initOLESim();});
+})();
+
+/* ============================================================
+   Diagnosa Link Putus — Inti 4
+   ============================================================ */
+(function initDiagnosa(){
+  const skenario=[
+    {no:1,error:'⚠ Kesalahan: File sumber tidak ditemukan.\nPath: D:\\Laporan\\Kunjungan_Jan.xlsx\nFile tidak ada di lokasi tersebut.',opsi:["Hapus link dan paste ulang data","Update link dengan lokasi baru melalui dialog Edit Links","Tutup Word dan restart komputer"],benar:1},
+    {no:2,error:'⚠ Kesalahan: Link tidak valid.\nPath: D:\\Laporan\\Laporan_Jan.xlsx\n(File sebelumnya: Laporan_Jan.xlsx, sekarang: Lap-Jan-2026.xlsx)',opsi:["Abaikan saja, data tidak penting","Update link atau kembalikan nama file ke nama semula","Install ulang Microsoft Office"],benar:1},
+    {no:3,error:'⚠ Peringatan: Link tidak dapat diperbarui.\nFile sumber tidak ditemukan di komputer ini.',opsi:["Kirim kedua file (Word + Excel) sekaligus dalam satu folder","Hanya kirim file Word saja","Konversi Word ke PDF dulu"],benar:0},
+    {no:4,error:'⚠ Kesalahan: Drive tidak ditemukan.\nPath: D:\\Laporan\\Data_RS.xlsx\n(Drive D: tidak ada, berubah menjadi E:)',opsi:["Beli hard disk baru","Update link ke jalur baru di Drive E:, atau gunakan jalur relatif","Simpan file ke cloud dulu"],benar:1},
+    {no:5,error:'⚠ Kesalahan kritis: File sumber telah dihapus permanen.\nFile tidak ditemukan di Recycle Bin.',opsi:["Biarkan saja, Word masih bisa dibuka","Pulihkan file dari backup atau buat ulang link dari data baru","Hapus dokumen Word juga"],benar:1}
+  ];
+  const area=document.getElementById("diagnosa-area");
+  if(!area)return;
+  const jawab={};
+  skenario.forEach((sk,idx)=>{
+    const card=document.createElement("div");card.className="diagnosa-card";
+    const errorDiv=document.createElement("div");errorDiv.className="diagnosa-error";
+    errorDiv.textContent="Skenario "+sk.no+": "+sk.error;
+    card.appendChild(errorDiv);
+    const opsiDiv=document.createElement("div");opsiDiv.className="diagnosa-opsi";
+    const name="diag-"+idx;
+    sk.opsi.forEach((o,j)=>{
+      const label=document.createElement("label");
+      const inp=document.createElement("input");inp.type="radio";inp.name=name;inp.value=j;
+      inp.addEventListener("change",()=>{jawab[idx]=j;});
+      label.appendChild(inp);label.appendChild(document.createTextNode(" "+o));
+      opsiDiv.appendChild(label);
+    });
+    card.appendChild(opsiDiv);
+    area.appendChild(card);
+  });
+
+  const btnCek=document.getElementById("btn-cek-diagnosa");
+  const skorEl=document.getElementById("skor-diagnosa");
+  if(btnCek)btnCek.addEventListener("click",()=>{
+    let benar=0;
+    const cards=area.querySelectorAll(".diagnosa-card");
+    skenario.forEach((sk,idx)=>{
+      const labels=cards[idx].querySelectorAll("label");
+      labels.forEach((lbl,j)=>{lbl.classList.remove("benar","salah");if(j===sk.benar)lbl.classList.add("benar");else if(jawab[idx]===j)lbl.classList.add("salah");});
+      if(jawab[idx]===sk.benar)benar++;
+    });
+    skorEl.textContent="Skor: "+benar+" / "+skenario.length;
+  });
+})();
+
+/* ============================================================
+   Praktik OLE — spreadsheet + dokumen Word
+   ============================================================ */
+(function initPraktik(){
+  const POLI=["Poli Umum","Poli Gigi","Poli Anak","Kandungan","Poli THT"];
+  const COLS=["Kunjungan","Pendapatan","Pasien Baru"];
+  let data=[[445,"Rp 89 jt",120],[187,"Rp 42 jt",45],[312,"Rp 67 jt",89],[98,"Rp 55 jt",23],[134,"Rp 29 jt",38]];
+  const snapshot=data.map(r=>r.slice());
+
+  function buatTabelDoc(rows){
+    const tbl=document.createElement("table");tbl.style.cssText="width:100%;border-collapse:collapse;font-size:.8rem";
+    const hd=tbl.createTHead().insertRow();
+    ["Poli",...COLS].forEach(t=>{const th=document.createElement("th");th.textContent=t;th.style.cssText="border:1px solid var(--line);padding:3px 6px;background:var(--primary-soft)";hd.appendChild(th);});
+    const tb=tbl.createTBody();
+    rows.forEach((row,i)=>{
+      const tr=tb.insertRow();
+      const td0=tr.insertCell();td0.textContent=POLI[i];td0.style.cssText="border:1px solid var(--line);padding:3px 6px;font-weight:600";
+      row.forEach(v=>{const td=tr.insertCell();td.textContent=v;td.style.cssText="border:1px solid var(--line);padding:3px 6px;text-align:right";});
+    });
+    return tbl;
+  }
+
+  function renderLinked(){const d=document.getElementById("doc-linked-table");if(d){d.textContent="";d.appendChild(buatTabelDoc(data));}}
+  function renderStatic(){
+    const de=document.getElementById("doc-embedded-table");if(de){de.textContent="";de.appendChild(buatTabelDoc(snapshot));}
+    const dp=document.getElementById("doc-paste-table");if(dp){dp.textContent="";dp.appendChild(buatTabelDoc(snapshot));}
+  }
+  renderLinked();renderStatic();
+
+  // Sinkronkan input spreadsheet
+  document.querySelectorAll(".prak-cell").forEach(inp=>{
+    inp.addEventListener("input",function(){
+      const r=parseInt(this.dataset.row,10),c=parseInt(this.dataset.col,10)-1;
+      if(r>=0&&c>=0){data[r][c]=this.value;renderLinked();}
+    });
+  });
+
+  // Tombol update Gigi
+  const btn=document.getElementById("btn-update-gigi");
+  if(btn)btn.addEventListener("click",()=>{
+    data[1]=[201,"Rp 48 jt",52];
+    // Update input cells
+    document.querySelectorAll('.prak-cell[data-row="1"]').forEach(inp=>{
+      const c=parseInt(inp.dataset.col,10);
+      if(c===1)inp.value=201;
+      else if(c===2)inp.value="Rp 48 jt";
+      else if(c===3)inp.value=52;
+    });
+    renderLinked();
+    // flash linked doc
+    const linkedDoc=document.getElementById("doc-linked-table");
+    if(linkedDoc){linkedDoc.style.outline="3px solid var(--ok)";setTimeout(()=>{linkedDoc.style.outline="";},1500);}
+  });
+})();
+
+/* ============================================================
+   Timer, agenda, progres segmen
+   ============================================================ */
+function initSegmen(){
+  const segs=$$("section.seg"),agenda=$("#agenda");
+  const done=store.get("selesai",{});
+  let mulai=0;const links=[];
+  segs.forEach((s,i)=>{
+    const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
+    const head=h("div",{class:"seg-head"},h("h3",{},judul),h("span",{class:"badge"},min+" menit"));
+    let sisa=min*60,tid=null;const tb=h("button",{class:"btn sec",type:"button"},"⏱ "+mmss(sisa));
+    const tw=h("span",{class:"seg-timer"},tb);
+    tb.addEventListener("click",()=>{if(tid){clearInterval(tid);tid=null;tb.textContent="▶ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));return;}tid=setInterval(()=>{sisa--;tw.classList.toggle("over",sisa<0);tb.textContent="⏸ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));},1000);});
+    head.append(tw);s.prepend(head);
+    const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
+    function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";done[s.id]=v;store.set("selesai",done);progres();}
+    sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));
+    foot.append(sb);s.append(foot);
+    const a=h("a",{href:"#"+s.id},h("span",{class:"mnt"},mulai+"–"+(mulai+min)+"'"),h("span",{},judul),h("span",{class:"tick","aria-label":"selesai"},"✓"));
+    agenda.append(a);links.push({a,s});mulai+=min;tandai(!!done[s.id]);
+  });
+  function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;$("#hdr-bar").style.width=(n/segs.length*100)+"%";}
+  if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
+}
+function initJam(){let t=0,id=null;const c=$("#clock"),b=$("#clock-btn");b.addEventListener("click",()=>{if(id){clearInterval(id);id=null;b.textContent="Lanjut";}else{id=setInterval(()=>{t++;c.textContent=mmss(t);},1000);b.textContent="Jeda";}});}
+
+function isiHero(){
+  document.title="Pertemuan "+KONFIG.nomor+" — "+KONFIG.judul+" | Komputer Rumah Sakit";
+  $("#hdr-judul").textContent=KONFIG.judul;
+  $("#hdr-sub").textContent="Komputer Rumah Sakit · Pertemuan "+KONFIG.nomor;
+  $("#hero-kode").textContent="Pertemuan "+KONFIG.nomor+" · "+KONFIG.cpmk.split(":")[0];
+  $("#hero-judul").textContent=KONFIG.judul;
+  $("#hero-cpmk").textContent=KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t=>$("#hero-tujuan").append(h("li",{},t)));
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  isiHero();
+  $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal ("+el.dataset.widget+"): "+e.message));}});
+  initSegmen();initJam();
+  window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 15 — Mini Project Terpadu | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
+  --primary:#0b7285;--primary-ink:#fff;--primary-soft:#d3f0f4;
+  --accent:#e8590c;--ok:#2b8a3e;--ok-soft:#dff3e3;--warn:#e67700;--bad:#c92a2a;--bad-soft:#fbe1e1;
+  --c1:#0b7285;--c2:#e8590c;--c3:#7048e8;--c4:#2b8a3e;--c5:#c2255c;--c6:#f08c00;--c7:#1971c2;--c8:#5c940d;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);--r:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0e1b20;--surface:#15272e;--ink:#e6f1f3;--muted:#9bb2ba;--line:#27414a;
+  --primary:#3bc0d6;--primary-ink:#06222a;--primary-soft:#14414b;
+  --accent:#ff922b;--ok:#69db7c;--ok-soft:#173a22;--warn:#ffc078;--bad:#ff8787;--bad-soft:#4a1d1d;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}.btn.sec{background:var(--primary-soft);color:var(--ink)}.btn.accent{background:var(--accent);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}nav.agenda a.done .tick{visibility:visible}
+main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}.hero p{margin:6px 0;opacity:.95}.hero ul{margin:8px 0 0;padding-left:20px}
+@media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-timer{display:inline-flex;gap:6px;align-items:center}.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}.seg-timer.over .btn{background:var(--bad);color:#fff}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}.kriteria{font-size:.92rem;color:var(--muted)}
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}.quiz label.benar{background:var(--ok-soft)}.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+.checklist{list-style:none;padding:0;margin:8px 0}.checklist li{margin:4px 0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:6px}
+.checklist input{width:20px;height:20px;margin-top:4px;flex:none}.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+textarea.reflect{width:100%;min-height:120px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+/* Project map */
+.proj-map{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:14px 0}
+.proj-card{border:2px solid var(--line);border-radius:var(--r);padding:16px;background:var(--bg);cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.proj-card:hover{border-color:var(--primary);box-shadow:var(--shadow)}
+.proj-card[aria-expanded="true"]{border-color:var(--primary);background:var(--primary-soft)}
+.proj-card .pc-icon{font-size:2rem;margin-bottom:8px}
+.proj-card .pc-title{font-weight:700;font-size:1rem;margin-bottom:4px}
+.proj-card .pc-sub{font-size:.82rem;color:var(--muted)}
+.proj-detail{border:1px solid var(--line);border-radius:var(--r);padding:14px 18px;margin-top:10px;background:var(--surface);display:none}
+.proj-detail.show{display:block}
+.panah-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0}
+.panah-box{border:2px solid var(--primary);border-radius:8px;padding:6px 12px;font-size:.85rem;font-weight:600;text-align:center}
+.panah{font-size:1.2rem;color:var(--primary)}
+/* Timeline grid */
+.timeline-wrap{overflow-x:auto;margin:10px 0}
+.timeline-table{border-collapse:collapse;min-width:700px;font-size:.82rem;width:100%}
+.timeline-table th,.timeline-table td{border:1px solid var(--line);padding:3px 5px;text-align:center}
+.timeline-table th{background:var(--primary-soft);white-space:nowrap}
+.timeline-table th.row-label{background:var(--primary);color:var(--primary-ink);text-align:left;padding:4px 8px;min-width:100px}
+.tl-cell{width:36px}
+.tl-cell input[type=checkbox]{width:16px;height:16px;cursor:pointer}
+.prog-row{height:8px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:2px 0}
+.prog-row i{display:block;height:100%;background:var(--ok);transition:width .3s}
+/* Deliverable checklist */
+.deliv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:10px 0}
+.deliv-item{border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--bg);display:flex;gap:8px;align-items:flex-start}
+.deliv-item input{width:18px;height:18px;margin-top:2px;flex:none;cursor:pointer}
+.deliv-item.done-item{background:var(--ok-soft);border-color:var(--ok)}
+/* Slider penilaian */
+.slider-grid{display:grid;gap:14px;max-width:520px;margin:10px 0}
+.slider-row{display:grid;grid-template-columns:130px 1fr 60px;gap:10px;align-items:center}
+.slider-row label{font-size:.9rem;font-weight:600}
+.slider-row input[type=range]{width:100%}
+.slider-row output{font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+.prediksi-nilai{background:linear-gradient(135deg,var(--primary-soft),var(--ok-soft));border-radius:var(--r);padding:14px 18px;margin-top:10px;text-align:center}
+.prediksi-nilai .angka{font-size:2.5rem;font-weight:700;color:var(--primary)}
+.prediksi-nilai .huruf{font-size:1.2rem;font-weight:700;color:var(--ok)}
+/* Peran kelompok */
+.peran-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:10px 0}
+.peran-card{border:2px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)}
+.peran-card h5{margin:0 0 6px;font-size:.9rem;color:var(--primary)}
+.peran-card input{width:100%;border:1px solid var(--line);border-radius:6px;padding:5px 8px;background:var(--surface);margin:3px 0}
+.peran-card .tugas-list{font-size:.78rem;color:var(--muted);margin-top:6px}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}.top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}.wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}.hero{background:#fff;color:#000}details{break-inside:avoid}}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+<header class="top">
+  <h1><span id="hdr-judul">Mini Project Terpadu</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 15</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
+  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 15 · CPMK-1 s.d. CPMK-6</span>
+      <h2 id="hero-judul">Mini Project Terpadu: Laporan Akhir Tahun Administrasi RS</h2>
+      <p id="hero-cpmk">CPMK-1 s.d. CPMK-6: Mengintegrasikan semua kompetensi dalam proyek nyata administrasi RS.</p>
+      <ul id="hero-tujuan"></ul>
+    </div>
+
+    <!-- PEMBUKA -->
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">dr. Kusuma Wardani, Direktur RS Sehat Citra, memanggil kepala bagian administrasi. "Saya butuh laporan akhir tahun lengkap: dokumen Word untuk arsip, data Excel dengan grafik tren, dan presentasi PowerPoint untuk rapat dengan dewan pengawas — semua dalam satu paket terpadu, dua minggu dari sekarang." Tim administrasi terdiri dari tiga orang: Siti Aminah (Word), Budi Santoso (Excel), dan Rina Wulandari (PowerPoint). Dengan koordinasi yang baik dan keterampilan yang sudah dipelajari, dua minggu lebih dari cukup.</p>
+      <p class="note"><strong>Pertemuan ini:</strong> 45 menit pertama = teori &amp; perencanaan bersama; 45 menit kedua = kerja mandiri kelompok. Tidak ada post-test — pre-test 10 soal hari ini berfungsi sekaligus sebagai kuis komprehensif akhir semester.</p>
+    </section>
+
+    <!-- PRE-TEST KOMPREHENSIF -->
+    <section class="seg" id="seg-pre" data-judul="Pre-test Komprehensif (Lintas Pertemuan)" data-min="10">
+      <p>10 soal dari seluruh materi P01–P14. Ini adalah kuis komprehensif akhir semester — kerjakan sendiri.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Kuis Komprehensif Akhir Semester","soal":[
+        {"q":"Mail Merge menggabungkan master dokumen dengan …","opsi":["File gambar atau foto","Data source (Excel/CSV)","File font tambahan","Macro Visual Basic"],"benar":1,"jelas":"Mail Merge menggabungkan template dokumen Word dengan data source berformat tabel (Excel, CSV, atau Access)."},
+        {"q":"Fungsi Excel =MAX(A1:A12) mengembalikan …","opsi":["Nilai rata-rata rentang","Nilai terbesar dalam rentang","Jumlah semua nilai","Nilai terkecil dalam rentang"],"benar":1,"jelas":"MAX() mengembalikan nilai terbesar dari rentang yang ditentukan."},
+        {"q":"Prinsip desain slide '1 slide 1 pesan' berarti …","opsi":["Hanya 1 kata per slide","Fokus pada 1 ide utama yang ingin disampaikan","Hanya 1 warna per slide","Hanya 1 gambar per slide"],"benar":1,"jelas":"Setiap slide harus mengkomunikasikan satu pesan utama yang jelas agar mudah dipahami audiens."},
+        {"q":"Paste Link di Word/PPT berbeda dari Paste biasa karena …","opsi":["Lebih cepat dieksekusi","Data terhubung ke file sumber dan otomatis update","Ukuran file lebih kecil","Hanya bekerja untuk teks"],"benar":1,"jelas":"Paste Link menciptakan tautan ke file sumber; perubahan di sumber tercermin di dokumen tujuan."},
+        {"q":"BOR 72% di RS berarti …","opsi":["72% staf RS hadir pada hari itu","72% tempat tidur terisi oleh pasien","72% pasien berhasil sembuh","72% obat sudah tersedia di farmasi"],"benar":1,"jelas":"BOR (Bed Occupancy Rate) = persentase tempat tidur yang terisi. BOR 72% berarti 72% dari kapasitas tempat tidur RS digunakan."},
+        {"q":"Format file lampiran email dinas RS yang paling standar adalah …","opsi":["Format RAR/ZIP","Format TXT","Format PDF","Format BMP"],"benar":2,"jelas":"PDF adalah format dokumen yang paling universal, portabel, dan tidak mudah diedit — ideal untuk korespondensi resmi."},
+        {"q":"Cloud storage cocok untuk RS karena …","opsi":["Biaya langganan murah saja","Akses dari mana saja dan backup otomatis","Tidak memerlukan koneksi internet","Data tidak bisa dihapus oleh siapa pun"],"benar":1,"jelas":"Cloud memungkinkan akses dari berbagai perangkat/lokasi dan menyediakan backup otomatis yang mencegah kehilangan data."},
+        {"q":"Rasio kontras WCAG AA minimum untuk teks normal adalah …","opsi":["2:1","3:1","4,5:1","7:1"],"benar":2,"jelas":"WCAG AA mewajibkan kontras minimal 4,5:1 untuk teks normal agar dapat dibaca oleh pengguna dengan gangguan penglihatan."},
+        {"q":"Kolom BCC di email digunakan untuk …","opsi":["Mencantumkan penerima utama email","Tembusan terbuka yang bisa dilihat semua penerima","Tembusan tersembunyi yang hanya diketahui pengirim","Nama pengirim alternatif"],"benar":2,"jelas":"BCC (Blind Carbon Copy) mengirim salinan email tanpa memberitahu penerima lain tentang keberadaan BCC."},
+        {"q":"Grafik Pie paling cocok untuk data …","opsi":["Tren nilai dari waktu ke waktu","Perbandingan banyak kategori berbeda","Proporsi bagian dari keseluruhan (persentase)","Korelasi antara dua variabel"],"benar":2,"jelas":"Pie chart menampilkan bagian-bagian dari 100%, ideal untuk data komposisi seperti proporsi pasien BPJS vs Umum."}
+      ]}
+      </script>
+    </section>
+
+    <!-- INTI 1: PETA PROYEK -->
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Peta Proyek Laporan Akhir Tahun" data-min="10">
+      <p>Proyek terdiri dari tiga komponen utama. Klik kartu untuk melihat detail masing-masing.</p>
+      <div class="proj-map">
+        <div class="proj-card" id="pc-word" role="button" tabindex="0" aria-expanded="false">
+          <div class="pc-icon">📝</div>
+          <div class="pc-title">Dokumen Word</div>
+          <div class="pc-sub">Laporan Teks Akhir Tahun</div>
+        </div>
+        <div class="proj-card" id="pc-excel" role="button" tabindex="0" aria-expanded="false">
+          <div class="pc-icon">📊</div>
+          <div class="pc-title">Spreadsheet Excel</div>
+          <div class="pc-sub">Database &amp; Grafik</div>
+        </div>
+        <div class="proj-card" id="pc-ppt" role="button" tabindex="0" aria-expanded="false">
+          <div class="pc-icon">🎯</div>
+          <div class="pc-title">Presentasi PPT</div>
+          <div class="pc-sub">Presentasi Eksekutif</div>
+        </div>
+      </div>
+
+      <div class="proj-detail" id="detail-word">
+        <strong>📝 Dokumen Word — Laporan Teks Akhir Tahun</strong>
+        <table class="data" style="margin-top:8px">
+          <tr><th>Konten</th><td>Cover, Daftar Isi, Pendahuluan, Bab I–III (Pelayanan, Keuangan, SDM), Penutup, Lampiran</td></tr>
+          <tr><th>Format</th><td>Kertas A4, Margin 3-2,5-2,5-2,5 cm, Font Times New Roman 12pt, Spasi 1,5</td></tr>
+          <tr><th>Integrasi</th><td>Tabel kunjungan 12 bulan di-Paste Link dari Excel; foto/grafik di-Embed</td></tr>
+          <tr><th>Bobot Nilai</th><td>40% dari total proyek</td></tr>
+        </table>
+      </div>
+      <div class="proj-detail" id="detail-excel">
+        <strong>📊 Spreadsheet Excel — Database &amp; Grafik</strong>
+        <table class="data" style="margin-top:8px">
+          <tr><th>Konten</th><td>Sheet "Data Kunjungan" (12 bulan × 5 poli), Sheet "Keuangan" (pendapatan bulanan), Sheet "Grafik" (bar tren + line perbandingan)</td></tr>
+          <tr><th>Formula</th><td>SUM, AVERAGE, MAX, MIN per kolom; persentase pertumbuhan; conditional formatting</td></tr>
+          <tr><th>Grafik</th><td>Bar chart kunjungan, Line chart tren pendapatan, Pie chart proporsi poli</td></tr>
+          <tr><th>Bobot Nilai</th><td>30% dari total proyek</td></tr>
+        </table>
+      </div>
+      <div class="proj-detail" id="detail-ppt">
+        <strong>🎯 Presentasi PPT — Presentasi Eksekutif</strong>
+        <table class="data" style="margin-top:8px">
+          <tr><th>Konten</th><td>Min. 10 slide: Judul+Agenda, Ringkasan Kinerja, Data Kunjungan, Data Keuangan, Capaian Mutu, Masalah &amp; Analisis, Rekomendasi, Tindak Lanjut, Penutup</td></tr>
+          <tr><th>Format</th><td>Rasio 16:9, Font min. 24pt untuk judul, Grafik linked dari Excel, Warna konsisten</td></tr>
+          <tr><th>Integrasi</th><td>Grafik tren Linked dari Excel (auto-update); tabel kinerja Embedded</td></tr>
+          <tr><th>Bobot Nilai</th><td>30% dari total proyek</td></tr>
+        </table>
+      </div>
+
+      <h4>Alur Integrasi Antar-Dokumen</h4>
+      <div class="panah-row">
+        <div class="panah-box">📊 Excel<br><span style="font-size:.72rem;color:var(--muted)">Sumber Data</span></div>
+        <div class="panah">→</div>
+        <div class="panah-box">📝 Word<br><span style="font-size:.72rem;color:var(--muted)">Tabel (Link)</span></div>
+        <div class="panah">+</div>
+        <div class="panah-box">🎯 PPT<br><span style="font-size:.72rem;color:var(--muted)">Grafik (Link)</span></div>
+      </div>
+      <p class="note">Excel adalah <strong>sumber kebenaran tunggal</strong>. Word dan PPT tidak menyimpan data sendiri — semuanya mengambil dari Excel melalui Link. Ubah satu kali di Excel → semua dokumen sinkron.</p>
+    </section>
+
+    <!-- INTI 2: FAQ KENDALA -->
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: FAQ Kendala Umum" data-min="10">
+      <p>12 masalah paling sering terjadi saat mengerjakan proyek administrasi RS terpadu — beserta solusinya.</p>
+      <details><summary>Word: format hilang setelah copy-paste dari email</summary><div><p><strong>Solusi:</strong> Gunakan <strong>Paste Special → Keep Text Only</strong> (Ctrl+Shift+V), lalu format ulang menggunakan Style di Word. Hindari paste langsung dari browser/email karena membawa format HTML yang merusak tampilan.</p></div></details>
+      <details><summary>Excel: #VALUE! error di formula</summary><div><p><strong>Solusi:</strong> Periksa apakah ada teks atau spasi tersembunyi di sel yang seharusnya berisi angka. Gunakan fungsi <code>=ISNUMBER(A1)</code> untuk mengecek. Konversi teks ke angka dengan <code>=VALUE(A1)</code> atau klik Data → Text to Columns.</p></div></details>
+      <details><summary>Excel: #DIV/0! error</summary><div><p><strong>Solusi:</strong> Pembagi bernilai nol atau kosong. Gunakan: <code>=IF(B2=0,"",A2/B2)</code> untuk mencegah error ditampilkan. Atau gunakan <code>=IFERROR(A2/B2,0)</code> untuk menampilkan 0 jika terjadi error.</p></div></details>
+      <details><summary>PPT: font tidak terbaca di komputer lain</summary><div><p><strong>Solusi:</strong> Saat menyimpan PPT, gunakan <strong>File → Options → Save → Embed fonts in the file</strong>. Centang "Embed only the characters used in the presentation" untuk menjaga ukuran file tetap kecil.</p></div></details>
+      <details><summary>Link putus setelah file dipindah ke folder lain</summary><div><p><strong>Solusi:</strong> Di Word/PPT, klik <strong>File → Info → Edit Links to Files</strong>. Pilih link yang putus → Change Source → navigasikan ke lokasi file baru. Ke depannya, simpan selalu Word/PPT dan Excel dalam satu folder yang sama.</p></div></details>
+      <details><summary>File terlalu besar untuk dilampirkan di email (&gt;25 MB)</summary><div><p><strong>Solusi:</strong> (1) Kompres gambar di Word/PPT: Picture Tools → Compress Pictures. (2) Simpan sebagai PDF untuk pengiriman. (3) Upload ke cloud (Google Drive/OneDrive RS) dan kirim link. (4) Zip dengan kompresi jika memungkinkan.</p></div></details>
+      <details><summary>Mail Merge tidak menemukan datasource Excel</summary><div><p><strong>Solusi:</strong> Pastikan file Excel berada di lokasi yang sama seperti saat pertama kali di-link. Nama sheet Excel tidak boleh berubah. Jika pindah komputer, reconnect melalui <strong>Mailings → Select Recipients → Use Existing List</strong>.</p></div></details>
+      <details><summary>Grafik di PPT tidak update setelah Excel diubah</summary><div><p><strong>Solusi:</strong> Klik kanan pada grafik di PPT → <strong>Update Link</strong>. Atau masuk ke <strong>File → Info → Edit Links to Files → Update Now</strong>. Pastikan file Excel sudah disimpan (Ctrl+S) sebelum kembali ke PPT.</p></div></details>
+      <details><summary>Tabel Word berantakan setelah diedit</summary><div><p><strong>Solusi:</strong> Klik kanan tabel → <strong>Table Properties → Column</strong> → atur lebar kolom dengan nilai tetap (Fixed). Jangan biarkan Word mengatur lebar otomatis jika tabel harus terlihat konsisten. Gunakan "AutoFit to Fixed Column Width".</p></div></details>
+      <details><summary>Kontras warna slide terlalu rendah, sulit dibaca di proyektor</summary><div><p><strong>Solusi:</strong> Uji kontras dengan tools online seperti WebAIM Contrast Checker. Standar WCAG AA minimum 4,5:1. Kombinasi aman: teks putih di atas biru gelap (#0b7285), teks hitam di atas kuning terang. Hindari merah di atas hijau (tidak aman untuk buta warna).</p></div></details>
+      <details><summary>Data pasien tersimpan di cloud akun pribadi staf</summary><div><p><strong>Solusi:</strong> Data pasien termasuk data sensitif (ITE, UU No.29/2004 tentang Praktik Kedokteran). Wajib disimpan di <strong>akun institusi RS</strong> (bukan Gmail/personal OneDrive staf). Hubungi IT RS untuk setup akun Office 365 atau Google Workspace institusi.</p></div></details>
+      <details><summary>Email massal dengan CC terekspos ke semua penerima</summary><div><p><strong>Solusi:</strong> Untuk email ke banyak orang, masukkan semua penerima di kolom <strong>BCC</strong>, bukan CC. Kolom To bisa diisi alamat email RS sendiri. Ini melindungi privasi data kontak penerima dan terlihat lebih profesional.</p></div></details>
+    </section>
+
+    <!-- INTI 3: STRATEGI PRESENTASI -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Strategi Presentasi Proyek" data-min="10">
+      <h4>Checklist Persiapan Presentasi Proyek Akhir</h4>
+      <ul class="checklist" data-widget="checklist" data-key="cek-p15-presentasi">
+        <li>File Word sudah final: diperiksa spelling, grammar, dan konsistensi format</li>
+        <li>File Excel: semua formula berfungsi, grafik menampilkan data terbaru</li>
+        <li>File PPT: link grafik sudah di-update dari Excel, font sudah di-embed</li>
+        <li>Semua file tersimpan dalam 1 folder dengan nama yang konsisten (cth: Laporan_AkhirTahun_RS/)</li>
+        <li>Backup tersimpan di cloud storage atau flash disk yang dibawa saat presentasi</li>
+        <li>Presentasi sudah di-rehearsal, total durasi ≤ 10 menit</li>
+        <li>Siap menjawab pertanyaan teknis tentang data dan metode</li>
+        <li>Print-out cadangan tersedia (minimal 2 halaman ringkasan) berjaga jika proyektor bermasalah</li>
+      </ul>
+
+      <h4>3 Pertanyaan Penguji yang Paling Sering Muncul</h4>
+      <details>
+        <summary>❓ "Mengapa tidak menggunakan format PDF saja untuk seluruh dokumen?"</summary>
+        <div>
+          <p><strong>Tips Jawaban:</strong> PDF adalah format final untuk distribusi dan arsip — tidak bisa diedit, ukuran terkontrol, tampilan konsisten di semua perangkat. Namun Word tetap diperlukan untuk kolaborasi, revisi, dan pembaruan konten di masa depan. Keduanya punya peran berbeda dan saling melengkapi. Dalam proyek ini, kami menghasilkan keduanya: Word sebagai source file yang bisa diedit, PDF sebagai versi final untuk distribusi.</p>
+        </div>
+      </details>
+      <details>
+        <summary>❓ "Jika data Excel berubah mendadak, bagaimana memperbarui seluruh paket dokumen?"</summary>
+        <div>
+          <p><strong>Tips Jawaban:</strong> Karena kami menggunakan Paste Link, cukup satu langkah: (1) Perbarui data di Excel dan simpan. (2) Buka Word → klik kanan tabel tertaut → Update Link. (3) Buka PPT → klik kanan grafik → Update Link. Seluruh proses bisa selesai dalam 5 menit — inilah keunggulan integrasi OLE dibandingkan copy-paste biasa.</p>
+        </div>
+      </details>
+      <details>
+        <summary>❓ "Kenapa BOR bulan Oktober turun dari 82% menjadi 67%?"</summary>
+        <div>
+          <p><strong>Tips Jawaban:</strong> Siapkan analisis sebelum presentasi! Cek: (1) Apakah ada perubahan jumlah tempat tidur total? (2) Apakah ada penurunan kasus/rujukan karena faktor musiman? (3) Apakah ada pengaruh kebijakan BPJS? (4) Apakah data input sudah benar (tidak ada error input di HIS)? Presenter yang baik sudah mengantisipasi pertanyaan seperti ini dengan menyiapkan "slide backup" yang berisi analisis mendalam.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- PRAKTIK: PERENCANA PROYEK -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Perencana Proyek Kelompok" data-min="35">
+      <p>Gunakan bagian ini untuk merencanakan dan memantau proyek kelompokmu. Data tersimpan otomatis di browser.</p>
+
+      <!-- A: Pembagian Peran -->
+      <h4>A. Pembagian Peran Kelompok</h4>
+      <div class="peran-grid">
+        <div class="peran-card">
+          <h5>📝 PJ Dokumen Word</h5>
+          <input type="text" class="peran-inp" data-peran="word" placeholder="Nama anggota..." style="">
+          <div class="tugas-list">Tugas: Cover, Daftar Isi, Bab I–III, Lampiran, Daftar Pustaka</div>
+        </div>
+        <div class="peran-card">
+          <h5>📊 PJ Spreadsheet Excel</h5>
+          <input type="text" class="peran-inp" data-peran="excel" placeholder="Nama anggota...">
+          <div class="tugas-list">Tugas: Input data 12 bulan, Rumus SUM/AVG/MAX/MIN, Grafik tren bar+line</div>
+        </div>
+        <div class="peran-card">
+          <h5>🎯 PJ Presentasi PPT</h5>
+          <input type="text" class="peran-inp" data-peran="ppt" placeholder="Nama anggota...">
+          <div class="tugas-list">Tugas: 10+ slide, Link grafik dari Excel, Desain konsisten, Rehearsal</div>
+        </div>
+        <div class="peran-card">
+          <h5>🗂 Koordinator</h5>
+          <input type="text" class="peran-inp" data-peran="koordinator" placeholder="Nama anggota...">
+          <div class="tugas-list">Tugas: Backup file, Nama file konsisten, Koordinasi lintas PJ, Uji integrasi final</div>
+        </div>
+      </div>
+
+      <!-- B: Linimasa 2 Minggu -->
+      <h4>B. Linimasa 2 Minggu</h4>
+      <div class="timeline-wrap">
+        <table class="timeline-table" id="timeline-tbl">
+          <thead>
+            <tr>
+              <th class="row-label">Tugas</th>
+              <th>H1</th><th>H2</th><th>H3</th><th>H4</th><th>H5</th><th>H6</th><th>H7</th>
+              <th>H8</th><th>H9</th><th>H10</th><th>H11</th><th>H12</th><th>H13</th><th>H14</th>
+              <th>Progres</th>
+            </tr>
+          </thead>
+          <tbody id="timeline-body"></tbody>
+        </table>
+      </div>
+
+      <!-- C: Checklist Deliverable + Kalkulator -->
+      <h4>C. Checklist Deliverable &amp; Penilaian Diri</h4>
+      <div class="deliv-grid" id="deliv-grid"></div>
+
+      <h4>Kalkulator Prediksi Nilai</h4>
+      <div class="slider-grid">
+        <div class="slider-row">
+          <label for="sl-word">Word (×0,4)</label>
+          <input type="range" id="sl-word" min="0" max="100" value="70">
+          <output id="out-word">70</output>
+        </div>
+        <div class="slider-row">
+          <label for="sl-excel">Excel (×0,3)</label>
+          <input type="range" id="sl-excel" min="0" max="100" value="70">
+          <output id="out-excel">70</output>
+        </div>
+        <div class="slider-row">
+          <label for="sl-ppt">PPT (×0,3)</label>
+          <input type="range" id="sl-ppt" min="0" max="100" value="70">
+          <output id="out-ppt">70</output>
+        </div>
+      </div>
+      <div class="prediksi-nilai" id="prediksi-area">
+        <div style="font-size:.9rem;color:var(--muted);margin-bottom:4px">Prediksi Nilai Proyek</div>
+        <div class="angka" id="prediksi-angka">70</div>
+        <div class="huruf" id="prediksi-huruf">B</div>
+      </div>
+
+      <p style="margin-top:16px">
+        <button class="btn accent" type="button" id="btn-csv">Unduh Ringkasan Proyek (.csv)</button>
+      </p>
+    </section>
+
+    <!-- PENUTUP (10 menit — extended) -->
+    <section class="seg" id="seg-penutup" data-judul="Penutup &amp; Ringkasan Semester" data-min="10">
+      <h4>Ringkasan 7 Kompetensi Selama 1 Semester (P01–P15)</h4>
+      <ol>
+        <li><strong>Penguasaan Perangkat (P01–P03):</strong> Memahami ekosistem hardware, software, dan aplikasi yang digunakan di lingkungan RS.</li>
+        <li><strong>Word untuk Administrasi (P04–P05):</strong> Dokumen resmi berformat baku, Mail Merge untuk surat massal efisien.</li>
+        <li><strong>Excel untuk Data (P06–P07):</strong> Pengolahan data operasional RS dengan formula, grafik, dan analisis statistik dasar.</li>
+        <li><strong>PowerPoint untuk Komunikasi (P09–P10):</strong> Data storytelling — menyajikan data kompleks menjadi visual yang mudah dipahami eksekutif.</li>
+        <li><strong>Integrasi Office (P11–P12):</strong> OLE Linking &amp; Embedding — satu sumber data, banyak dokumen yang selalu sinkron.</li>
+        <li><strong>Komunikasi Digital (P13–P14):</strong> Email resmi RS yang profesional dan pengelolaan file di cloud storage institusi.</li>
+        <li><strong>Proyek Terpadu (P15):</strong> Mengintegrasikan semua kompetensi dalam satu paket laporan akhir tahun yang siap disajikan ke pimpinan RS.</li>
+      </ol>
+
+      <h4>Refleksi Akhir Semester</h4>
+      <div data-widget="reflect" data-key="krs-p15-refleksi-akhir" data-prompt="Kompetensi mana yang paling berkembang selama 1 semester ini? Apa yang masih perlu ditingkatkan sebelum terjun ke dunia kerja RS?"></div>
+
+      <div style="background:linear-gradient(135deg,var(--ok-soft),var(--primary-soft));border-radius:var(--r);padding:20px 24px;margin-top:16px;text-align:center">
+        <p style="font-size:1.2rem;font-weight:700;margin:0 0 8px">Selamat! Kamu telah menyelesaikan seluruh materi Komputer Rumah Sakit.</p>
+        <p style="color:var(--muted);font-size:.9rem;margin:0">Ilmu yang kamu pelajari hari ini akan membantumu bekerja lebih efisien, akurat, dan profesional di lingkungan rumah sakit digital. Gunakan dengan bijak.</p>
+      </div>
+
+      <div class="note" style="margin-top:14px">
+        <strong>Informasi UAS:</strong> Ujian Akhir Semester (P16) mencakup seluruh materi P01–P15 termasuk praktik di komputer. Bawa flash disk berisi hasil tugas-tugas lab yang sudah selesai. Pastikan semua file proyek akhir sudah tersimpan dengan benar.
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+"use strict";
+const KONFIG={kode:"krs-p15",nomor:"15",judul:"Mini Project Terpadu: Laporan Akhir Tahun Administrasi RS",cpmk:"CPMK-1 s.d. CPMK-6: Mengintegrasikan semua kompetensi dalam proyek nyata administrasi RS.",tujuan:["Merancang paket dokumen administrasi RS terpadu (Word+Excel+PPT)","Memahami integrasi antar-aplikasi untuk pelaporan","Mempersiapkan presentasi proyek akhir"],totalMenit:90};
+
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+function h(tag,props,...kids){const e=document.createElement(tag);for(const k in(props||{})){const v=props[k];if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,"");else if(v!==false&&v!=null)e.setAttribute(k,v);}for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(String(c)));}return e;}
+const store={get(k,d){try{const v=localStorage.getItem(KONFIG.kode+"-"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem(KONFIG.kode+"-"+k,JSON.stringify(v));}catch(e){}}};
+function getData(id){return JSON.parse(document.getElementById(id).textContent);}
+function mmss(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+let uid=0;const nextId=p=>p+"-"+(++uid);
+
+const W={};
+W.quiz=el=>{
+  const d=getData(el.dataset.src);const key="quiz-"+(el.dataset.role||el.dataset.src);
+  const saved=store.get(key,{jawab:{}});const jawab=saved.jawab||{};
+  const skorEl=h("p",{class:"skor","aria-live":"polite"});const items=[];
+  function hitung(){let b=0;for(const i in jawab)if(jawab[i]===d.soal[i].benar)b++;const n=Object.keys(jawab).length;skorEl.textContent="Skor: "+b+" / "+d.soal.length+(n<d.soal.length?"  (terjawab "+n+")":"");store.set(key,{jawab,skor:b,total:d.soal.length,selesai:n===d.soal.length});document.dispatchEvent(new CustomEvent("krs:skor"));}
+  function tampil(i,pilih){const it=items[i],s=d.soal[i];it.labels.forEach((l,j)=>{l.classList.toggle("benar",j===s.benar);l.classList.toggle("salah",j===pilih&&j!==s.benar);});it.fb.textContent=(pilih===s.benar?"Benar. ":"Belum tepat. ")+(s.jelas||"");}
+  d.soal.forEach((s,i)=>{const name=nextId("q");const fb=h("p",{class:"fb","aria-live":"polite"});const labels=s.opsi.map((o,j)=>{const inp=h("input",{type:"radio",name,value:j,onchange:()=>{jawab[i]=j;tampil(i,j);hitung();}});if(jawab[i]===j)inp.checked=true;return h("label",{},inp," ",o);});items.push({labels,fb});el.append(h("fieldset",{},h("legend",{},(i+1)+". "+s.q),labels,fb));if(jawab[i]!==undefined)tampil(i,jawab[i]);});
+  el.append(skorEl,h("button",{class:"btn sec",type:"button",onclick:()=>{for(const k in jawab)delete jawab[k];$$("input",el).forEach(x=>x.checked=false);items.forEach(it=>{it.labels.forEach(l=>l.classList.remove("benar","salah"));it.fb.textContent="";});hitung();}},"Ulangi"));
+  hitung();
+};
+
+W.checklist=el=>{
+  const key="cek-"+(el.dataset.key||nextId("c"));const saved=store.get(key,[]);
+  const lis=$$(":scope > li",el);const bar=h("i"),txt=h("span",{class:"kriteria"});
+  function up(){const n=lis.filter(l=>$("input",l).checked).length;bar.style.width=(n/lis.length*100)+"%";txt.textContent=n+" / "+lis.length+" selesai";store.set(key,lis.map(l=>$("input",l).checked));}
+  lis.forEach((li,i)=>{const t=li.textContent,cb=h("input",{type:"checkbox",onchange:up});cb.checked=!!saved[i];li.textContent="";li.append(h("label",{},cb,h("span",{},t)));});
+  el.after(h("div",{class:"prog","aria-hidden":"true"},bar),txt);up();
+};
+
+W.reflect=el=>{
+  const key="ref-"+(el.dataset.key||"x");const ta=h("textarea",{class:"reflect","aria-label":el.dataset.prompt||"Refleksi"});
+  ta.value=store.get(key,"");ta.addEventListener("input",()=>store.set(key,ta.value));
+  el.append(h("p",{},el.dataset.prompt||"Tuliskan refleksi singkat:"),ta);
+};
+
+/* ============================================================
+   Project map cards
+   ============================================================ */
+(function initProjMap(){
+  const pairs=[
+    ["pc-word","detail-word"],
+    ["pc-excel","detail-excel"],
+    ["pc-ppt","detail-ppt"]
+  ];
+  pairs.forEach(([cardId,detailId])=>{
+    const card=document.getElementById(cardId);const detail=document.getElementById(detailId);
+    if(!card||!detail)return;
+    function toggle(){const open=card.getAttribute("aria-expanded")==="true";
+      pairs.forEach(([cId,dId])=>{const c=document.getElementById(cId),d=document.getElementById(dId);if(c&&d){c.setAttribute("aria-expanded","false");d.classList.remove("show");}});
+      if(!open){card.setAttribute("aria-expanded","true");detail.classList.add("show");}
+    }
+    card.addEventListener("click",toggle);
+    card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();}});
+  });
+})();
+
+/* ============================================================
+   Timeline 14 hari
+   ============================================================ */
+(function initTimeline(){
+  const TUGAS=["Kumpul & Verifikasi Data","Draft Dokumen Word","Susun Spreadsheet Excel","Desain & Finalisasi PPT"];
+  const KEY="tl-data";
+  const saved=store.get(KEY,{});
+  const tbody=document.getElementById("timeline-body");if(!tbody)return;
+  TUGAS.forEach((tugas,ti)=>{
+    const tr=document.createElement("tr");
+    const th=document.createElement("th");th.className="row-label";th.textContent=tugas;tr.appendChild(th);
+    const bars=[];
+    for(let d=0;d<14;d++){
+      const td=document.createElement("td");td.className="tl-cell";
+      const k="t"+ti+"d"+d;
+      const cb=document.createElement("input");cb.type="checkbox";
+      cb.checked=!!saved[k];
+      cb.setAttribute("aria-label","Hari "+(d+1)+": "+tugas);
+      cb.addEventListener("change",function(){saved[k]=this.checked;store.set(KEY,saved);updateBar(ti,bars,TUGAS.length);});
+      td.appendChild(cb);tr.appendChild(td);bars.push(cb);
+    }
+    // Progress cell
+    const ptd=document.createElement("td");ptd.style.minWidth="70px";
+    const prWrap=document.createElement("div");prWrap.className="prog-row";
+    const prBar=document.createElement("i");prWrap.appendChild(prBar);
+    const prTxt=document.createElement("div");prTxt.style.fontSize=".72rem";
+    ptd.appendChild(prWrap);ptd.appendChild(prTxt);tr.appendChild(ptd);
+    bars._bar=prBar;bars._txt=prTxt;
+    tbody.appendChild(tr);
+    updateBar(ti,bars);
+  });
+  function updateBar(ti,bars){const n=bars.filter(cb=>cb.checked&&cb.type==="checkbox").length;const pct=Math.round(n/14*100);if(bars._bar)bars._bar.style.width=pct+"%";if(bars._txt)bars._txt.textContent=pct+"%";}
+})();
+
+/* ============================================================
+   Deliverable checklist
+   ============================================================ */
+(function initDeliv(){
+  const items=["Word: Halaman cover dan daftar isi","Word: Bab I–III (isi laporan)","Word: Daftar pustaka dan lampiran","Word: Format dan spelling sudah diperiksa","Excel: Sheet data kunjungan 12 bulan","Excel: Grafik bar, line, dan pie sudah ada","PPT: Minimal 10 slide berisi semua bagian","Semua file terintegrasi (Link/Embed berfungsi)"];
+  const KEY="deliv-data";const saved=store.get(KEY,[]);
+  const grid=document.getElementById("deliv-grid");if(!grid)return;
+  items.forEach((item,i)=>{
+    const div=document.createElement("div");div.className="deliv-item"+(saved[i]?" done-item":"");
+    const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!saved[i];
+    cb.setAttribute("aria-label",item);
+    cb.addEventListener("change",function(){saved[i]=this.checked;store.set(KEY,saved);div.classList.toggle("done-item",this.checked);});
+    const span=document.createElement("span");span.style.fontSize=".9rem";span.textContent=item;
+    div.appendChild(cb);div.appendChild(span);grid.appendChild(div);
+  });
+})();
+
+/* ============================================================
+   Slider kalkulator nilai
+   ============================================================ */
+(function initSlider(){
+  const sl={word:document.getElementById("sl-word"),excel:document.getElementById("sl-excel"),ppt:document.getElementById("sl-ppt")};
+  const out={word:document.getElementById("out-word"),excel:document.getElementById("out-excel"),ppt:document.getElementById("out-ppt")};
+  function huruf(n){if(n>=85)return"A";if(n>=75)return"B+";if(n>=70)return"B";if(n>=65)return"C+";if(n>=60)return"C";if(n>=55)return"D";return"E";}
+  function update(){
+    const w=Number(sl.word?.value||0),e=Number(sl.excel?.value||0),p=Number(sl.ppt?.value||0);
+    if(out.word)out.word.textContent=w;if(out.excel)out.excel.textContent=e;if(out.ppt)out.ppt.textContent=p;
+    const total=Math.round(w*0.4+e*0.3+p*0.3);
+    const pa=document.getElementById("prediksi-angka");const ph=document.getElementById("prediksi-huruf");
+    if(pa)pa.textContent=total;if(ph)ph.textContent=huruf(total);
+  }
+  Object.values(sl).forEach(inp=>{if(inp)inp.addEventListener("input",update);});update();
+})();
+
+/* ============================================================
+   Peran kelompok — simpan ke localStorage
+   ============================================================ */
+(function initPeran(){
+  const KEY="peran-data";const saved=store.get(KEY,{});
+  document.querySelectorAll(".peran-inp").forEach(inp=>{
+    const peran=inp.dataset.peran;if(!peran)return;
+    if(saved[peran])inp.value=saved[peran];
+    inp.addEventListener("input",function(){saved[this.dataset.peran]=this.value;store.set(KEY,saved);});
+  });
+})();
+
+/* ============================================================
+   CSV Download
+   ============================================================ */
+document.getElementById("btn-csv")?.addEventListener("click",()=>{
+  const peranKey=KONFIG.kode+"-peran-data";const tlKey=KONFIG.kode+"-tl-data";const delivKey=KONFIG.kode+"-deliv-data";
+  let peran={},tl={},deliv=[];
+  try{peran=JSON.parse(localStorage.getItem(peranKey)||"{}");}catch(e){}
+  try{tl=JSON.parse(localStorage.getItem(tlKey)||"{}");}catch(e){}
+  try{deliv=JSON.parse(localStorage.getItem(delivKey)||"[]");}catch(e){}
+  const esc=v=>{const s=String(v);return/[;",\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+  const DELIVERABLES=["Word: Cover & Daftar Isi","Word: Bab I–III","Word: Daftarpustaka & Lampiran","Word: Format diperiksa","Excel: Sheet data","Excel: Grafik","PPT: Min 10 slide","Integrasi berfungsi"];
+  const baris=[
+    ["=== RINGKASAN PROYEK MINI PROJECT TERPADU ===","","",""],
+    ["Diekspor dari","Bahan Ajar Komputer Rumah Sakit P15","",""],
+    ["","","",""],
+    ["=== PEMBAGIAN PERAN ===","","",""],
+    ["Peran","Nama Anggota","",""],
+    ["PJ Word",peran.word||"-","",""],
+    ["PJ Excel",peran.excel||"-","",""],
+    ["PJ PPT",peran.ppt||"-","",""],
+    ["Koordinator",peran.koordinator||"-","",""],
+    ["","","",""],
+    ["=== DELIVERABLE CHECKLIST ===","","",""],
+    ["No","Item","Status",""]
+  ];
+  DELIVERABLES.forEach((item,i)=>{baris.push([String(i+1),item,deliv[i]?"✔ Selesai":"✗ Belum",""]);});
+  baris.push(["","","",""]);
+  baris.push(["=== LINIMASA (hari yang dicentang) ===","","",""]);
+  const TUGAS=["Kumpul Data","Draft Word","Susun Excel","Finalisasi PPT"];
+  TUGAS.forEach((tugas,ti)=>{const days=[];for(let d=0;d<14;d++){if(tl["t"+ti+"d"+d])days.push("H"+(d+1));}baris.push([tugas,days.join(", ")||"-","",""]);});
+  const isi="﻿"+baris.map(r=>r.map(esc).join(";")).join("\r\n");
+  const url=URL.createObjectURL(new Blob([isi],{type:"text/csv;charset=utf-8"}));
+  const a=document.createElement("a");a.href=url;a.download="RingkasanProyek_P15.csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+
+/* ============================================================
+   Timer, agenda, progres segmen
+   ============================================================ */
+function initSegmen(){
+  const segs=$$("section.seg"),agenda=$("#agenda");const done=store.get("selesai",{});
+  let mulai=0;const links=[];
+  segs.forEach((s,i)=>{
+    const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
+    const head=h("div",{class:"seg-head"},h("h3",{},judul),h("span",{class:"badge"},min+" menit"));
+    let sisa=min*60,tid=null;const tb=h("button",{class:"btn sec",type:"button"},"⏱ "+mmss(sisa));
+    const tw=h("span",{class:"seg-timer"},tb);
+    tb.addEventListener("click",()=>{if(tid){clearInterval(tid);tid=null;tb.textContent="▶ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));return;}tid=setInterval(()=>{sisa--;tw.classList.toggle("over",sisa<0);tb.textContent="⏸ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));},1000);});
+    head.append(tw);s.prepend(head);
+    const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
+    function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";done[s.id]=v;store.set("selesai",done);progres();}
+    sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));
+    foot.append(sb);s.append(foot);
+    const a=h("a",{href:"#"+s.id},h("span",{class:"mnt"},mulai+"–"+(mulai+min)+"'"),h("span",{},judul),h("span",{class:"tick","aria-label":"selesai"},"✓"));
+    agenda.append(a);links.push({a,s});mulai+=min;tandai(!!done[s.id]);
+  });
+  function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;$("#hdr-bar").style.width=(n/segs.length*100)+"%";}
+  if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
+}
+function initJam(){let t=0,id=null;const c=$("#clock"),b=$("#clock-btn");b.addEventListener("click",()=>{if(id){clearInterval(id);id=null;b.textContent="Lanjut";}else{id=setInterval(()=>{t++;c.textContent=mmss(t);},1000);b.textContent="Jeda";}});}
+
+function isiHero(){
+  document.title="Pertemuan "+KONFIG.nomor+" — "+KONFIG.judul+" | Komputer Rumah Sakit";
+  $("#hdr-judul").textContent=KONFIG.judul;$("#hdr-sub").textContent="Komputer Rumah Sakit · Pertemuan "+KONFIG.nomor;
+  $("#hero-kode").textContent="Pertemuan "+KONFIG.nomor+" · CPMK-1 s.d. CPMK-6";
+  $("#hero-judul").textContent=KONFIG.judul;$("#hero-cpmk").textContent=KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t=>$("#hero-tujuan").append(h("li",{},t)));
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  isiHero();
+  $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{style:"color:var(--bad)"},"Widget gagal ("+el.dataset.widget+"): "+e.message));}});
+  initSegmen();initJam();
+  window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

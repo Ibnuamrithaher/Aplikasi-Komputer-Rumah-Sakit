@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 12 — Integrasi Office Bagian 2: Excel ke PowerPoint | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
+  --primary:#0b7285;--primary-ink:#fff;--primary-soft:#d3f0f4;
+  --accent:#e8590c;--ok:#2b8a3e;--ok-soft:#dff3e3;--warn:#e67700;--bad:#c92a2a;--bad-soft:#fbe1e1;
+  --c1:#0b7285;--c2:#e8590c;--c3:#7048e8;--c4:#2b8a3e;--c5:#c2255c;--c6:#f08c00;--c7:#1971c2;--c8:#5c940d;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);--r:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0e1b20;--surface:#15272e;--ink:#e6f1f3;--muted:#9bb2ba;--line:#27414a;
+  --primary:#3bc0d6;--primary-ink:#06222a;--primary-soft:#14414b;
+  --accent:#ff922b;--ok:#69db7c;--ok-soft:#173a22;--warn:#ffc078;--bad:#ff8787;--bad-soft:#4a1d1d;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}.btn.sec{background:var(--primary-soft);color:var(--ink)}.btn.accent{background:var(--accent);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}nav.agenda a.done .tick{visibility:visible}
+main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}.hero p{margin:6px 0;opacity:.95}.hero ul{margin:8px 0 0;padding-left:20px}
+@media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-timer{display:inline-flex;gap:6px;align-items:center}.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}.seg-timer.over .btn{background:var(--bad);color:#fff}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}.kriteria{font-size:.92rem;color:var(--muted)}
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}.quiz label.benar{background:var(--ok-soft)}.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+.tablist{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--line)}
+.tablist button{border:0;background:none;padding:8px 16px;border-radius:8px 8px 0 0;font-weight:600;color:var(--muted)}
+.tablist button[aria-selected="true"]{background:var(--primary-soft);color:var(--ink);box-shadow:inset 0 -3px 0 var(--primary)}
+.tabpanel{padding:14px 4px}.tabpanel[hidden]{display:none}
+.checklist{list-style:none;padding:0;margin:8px 0}.checklist li{margin:4px 0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:6px}
+.checklist input{width:20px;height:20px;margin-top:4px;flex:none}
+.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+/* Chart panels */
+.chart-panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+@media(max-width:700px){.chart-panel-grid{grid-template-columns:1fr}}
+.chart-panel{border:2px solid var(--line);border-radius:10px;padding:10px;background:var(--bg)}
+.chart-panel.linked{border-color:var(--ok)}.chart-panel.embedded{border-color:var(--warn)}
+.chart-panel h5{margin:0 0 8px;font-size:.88rem;font-weight:700}
+.chart-panel svg{width:100%;height:auto;max-width:360px;display:block;margin:0 auto}
+.badge-status{display:inline-block;border-radius:99px;padding:1px 10px;font-size:.75rem;font-weight:700}
+.badge-status.ok{background:var(--ok-soft);color:var(--ok)}.badge-status.bad{background:var(--bad-soft);color:var(--bad)}
+/* Chart data table */
+.chart-data-table{border-collapse:collapse;width:100%;font-size:.88rem;margin-top:8px}
+.chart-data-table th,.chart-data-table td{border:1px solid var(--line);padding:4px 8px}
+.chart-data-table th{background:var(--primary-soft)}
+.chart-data-table input{width:80px;border:1px solid var(--line);border-radius:4px;padding:2px 6px;background:var(--surface)}
+/* Slide sim */
+.slide-container{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin:12px 0}
+.slide-nav{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap}
+.slide-frame{background:#1a1a2e;color:#fff;border-radius:10px;aspect-ratio:16/9;max-width:640px;margin:0 auto;padding:28px;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden}
+.slide-frame .slide-title{font-size:1.4rem;font-weight:700;margin-bottom:12px}
+.slide-frame .slide-sub{font-size:.85rem;opacity:.8}
+.slide-frame svg{max-width:380px;width:100%;height:auto}
+.slide-num{font-size:.82rem;color:var(--muted);font-weight:700}
+/* Builder praktik */
+.builder-step{border:1px solid var(--line);border-radius:10px;padding:16px;margin:10px 0;background:var(--bg)}
+.builder-step h5{margin:0 0 10px;color:var(--primary);font-size:1rem}
+.step-num{display:inline-block;background:var(--primary);color:var(--primary-ink);width:26px;height:26px;border-radius:50%;font-size:.8rem;font-weight:700;text-align:center;line-height:26px;margin-right:8px}
+.deck-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.deck-slide{background:#1a1a2e;color:#fff;border-radius:8px;aspect-ratio:16/9;padding:10px;font-size:.72rem;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.deck-slide .ds-title{font-weight:700;font-size:.78rem;margin-bottom:4px}
+.kinerja-row{display:grid;grid-template-columns:1fr 80px 80px 60px;gap:8px;align-items:center;margin:4px 0}
+.kinerja-row input{border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--surface);width:100%}
+.k-ok{color:var(--ok);font-weight:700}.k-warn{color:var(--warn);font-weight:700}.k-bad{color:var(--bad);font-weight:700}
+.skor-completeness{background:var(--ok-soft);border-radius:8px;padding:10px 14px;margin:10px 0;font-weight:700}
+.quiz-chart-opt{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:8px 0}
+.chart-opt-card{border:2px solid var(--line);border-radius:8px;padding:8px;cursor:pointer;text-align:center;background:var(--bg);transition:border-color .15s}
+.chart-opt-card:hover{border-color:var(--primary)}.chart-opt-card.pilih{border-color:var(--primary);background:var(--primary-soft)}
+.chart-opt-card.benar{border-color:var(--ok);background:var(--ok-soft)}.chart-opt-card.salah{border-color:var(--bad);background:var(--bad-soft)}
+.chart-opt-card svg{width:100%;height:auto;max-width:120px;margin:0 auto 4px;display:block}
+.chart-opt-card .lbl{font-size:.78rem;font-weight:600}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}.top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}.wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}.hero{background:#fff;color:#000}.tabpanel[hidden]{display:block!important}}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+<header class="top">
+  <h1><span id="hdr-judul">Integrasi Office Bagian 2: Excel ke PowerPoint</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 12</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
+  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 12 · CPMK-5</span>
+      <h2 id="hero-judul">Integrasi Office Bagian 2: Excel ke PowerPoint</h2>
+      <p id="hero-cpmk">CPMK-5: Mampu menyusun materi presentasi manajemen yang terintegrasi langsung dengan database lembar kerja.</p>
+      <ul id="hero-tujuan"></ul>
+    </div>
+
+    <!-- PEMBUKA -->
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">dr. Irwan Saputra, Kepala Bidang Pelayanan RS Bhakti Medika, harus presentasi di rapat koordinasi bulanan. Slide-nya menampilkan grafik kunjungan poli — yang ternyata masih data bulan lalu karena di-copy-paste biasa dari Excel ke PowerPoint tiga bulan yang lalu. Saat ditanya oleh direktur mengapa angka di slide berbeda dengan laporan HIS, dr. Irwan tidak bisa menjawab. Hari itu ia memutuskan untuk belajar cara membuat grafik yang selalu terkini otomatis.</p>
+      <p class="note"><strong>Tujuan hari ini:</strong> Menyisipkan grafik Excel ke PowerPoint dengan teknik linked dan embedded, serta mensimulasikan pembaruan data di tengah rapat.</p>
+    </section>
+
+    <!-- PRE-TEST -->
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
+      <p>Jawab dulu tanpa takut salah.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test","soal":[
+        {"q":"Grafik Excel di PPT yang bersifat 'Linked' artinya …","opsi":["Grafik hanya dekorasi tanpa data","Grafik terhubung ke file Excel asli","Grafik tidak dapat diedit","Ukuran file PPT lebih kecil"],"benar":1,"jelas":"Linked chart menyimpan tautan ke file Excel; perubahan di Excel tercermin di PPT setelah di-update."},
+        {"q":"Fungsi 'Update Link' di PowerPoint dilakukan agar …","opsi":["Warna grafik berubah secara otomatis","Data grafik sinkron dengan file Excel terbaru","Slide berpindah otomatis saat presentasi","Animasi grafik berjalan"],"benar":1,"jelas":"Update Link memerintahkan PPT untuk membaca ulang data dari file Excel yang tertaut."},
+        {"q":"Grafik untuk menampilkan data proporsi persentase paling tepat menggunakan jenis …","opsi":["Bar chart","Line chart","Pie chart","Scatter plot"],"benar":2,"jelas":"Pie chart menampilkan proporsi bagian dari keseluruhan (misalnya: 65% BPJS, 35% Umum)."},
+        {"q":"Embedded chart di PPT cocok digunakan untuk …","opsi":["Laporan real-time yang data selalu berubah","Dokumen final yang portable tanpa perlu file Excel","Dashboard langsung dari HIS","Data streaming pasien masuk"],"benar":1,"jelas":"Embedded chart mandiri di dalam PPT — tidak membutuhkan file Excel sumber saat dibuka."},
+        {"q":"Untuk memilih beberapa sel yang tidak berurutan di Excel sebelum membuat grafik, gunakan …","opsi":["Shift + klik","Ctrl + klik","Alt + klik","Tombol F4"],"benar":1,"jelas":"Ctrl + klik memungkinkan pemilihan sel / range tidak berurutan di Excel."}
+      ]}
+      </script>
+    </section>
+
+    <!-- INTI 1: SIMULATOR CHART -->
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Simulator Embed vs Link Chart" data-min="10">
+      <p>Edit nilai di tabel data di bawah. Amati: <strong>Grafik Linked</strong> langsung mengikuti perubahan, <strong>Grafik Embedded</strong> tidak berubah (snapshot saat halaman dimuat).</p>
+      <h4>Tabel Data Kunjungan Poli (Editable)</h4>
+      <table class="chart-data-table">
+        <thead><tr><th>Poli</th><th>Kunjungan</th></tr></thead>
+        <tbody>
+          <tr><td>Poli Umum</td><td><input type="number" class="chart-inp" data-idx="0" value="445" min="0" max="9999"></td></tr>
+          <tr><td>Poli Gigi</td><td><input type="number" class="chart-inp" data-idx="1" value="187" min="0" max="9999"></td></tr>
+          <tr><td>Poli Anak</td><td><input type="number" class="chart-inp" data-idx="2" value="312" min="0" max="9999"></td></tr>
+          <tr><td>Kandungan</td><td><input type="number" class="chart-inp" data-idx="3" value="98" min="0" max="9999"></td></tr>
+          <tr><td>Poli THT</td><td><input type="number" class="chart-inp" data-idx="4" value="134" min="0" max="9999"></td></tr>
+        </tbody>
+      </table>
+      <div class="chart-panel-grid">
+        <div class="chart-panel linked">
+          <h5>📈 Grafik Linked <span class="badge-status ok" id="badge-linked-chart">Terkini ✓</span></h5>
+          <div id="chart-linked-area"></div>
+        </div>
+        <div class="chart-panel embedded">
+          <h5>📊 Grafik Embedded <span class="badge-status bad">Tidak Sinkron ✗</span></h5>
+          <div id="chart-embed-area"></div>
+        </div>
+      </div>
+      <p><button class="btn sec" type="button" id="btn-chart-reset">Reset Data Asli</button></p>
+    </section>
+
+    <!-- INTI 2: QUIZ STRATEGI GRAFIK -->
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Quiz Strategi Penyajian Grafik" data-min="10">
+      <p>Untuk setiap kasus berikut, pilih jenis grafik yang paling tepat. Klik kartu untuk memilih, lalu klik Periksa.</p>
+      <div id="chart-strategy-quiz"></div>
+      <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button class="btn" type="button" id="btn-cek-strategy">Periksa Semua</button>
+        <span id="skor-strategy" style="font-weight:700;font-size:1.05rem"></span>
+      </div>
+    </section>
+
+    <!-- INTI 3: SIMULASI UPDATE SAAT RAPAT -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Simulasi Update Data Saat Rapat" data-min="10">
+      <p>"Presentasi sedang berjalan" — navigasikan slide, dan lihat apa yang terjadi saat koreksi data masuk dari HIS di tengah rapat.</p>
+      <div class="slide-container">
+        <div class="slide-nav">
+          <button class="btn sec" type="button" id="slide-prev">◀ Sebelumnya</button>
+          <span class="slide-num" id="slide-num">Slide 1 / 3</span>
+          <button class="btn sec" type="button" id="slide-next">Berikutnya ▶</button>
+        </div>
+        <div class="slide-frame" id="slide-frame"></div>
+      </div>
+      <div style="background:var(--bad-soft);border-radius:10px;padding:12px 16px;margin-top:12px">
+        <strong style="color:var(--bad)">⚠ Koreksi data masuk dari HIS:</strong>
+        <p style="margin:6px 0">Poli Umum kunjungan dikoreksi dari 445 menjadi <strong>467</strong>.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+          <button class="btn" type="button" id="btn-update-linked-slide">Update Linked (Slide 2 ikut berubah)</button>
+          <button class="btn sec" type="button" id="btn-no-update-slide">Tidak Update (Paste Biasa)</button>
+        </div>
+        <p id="slide-update-msg" style="margin-top:8px;font-weight:600;font-size:.9rem"></p>
+      </div>
+    </section>
+
+    <!-- INTI 4: TABS STRATEGI RAPAT -->
+    <section class="seg" id="seg-inti4" data-judul="Inti 4: Strategi Rapat Efektif" data-min="10">
+      <div class="tabs" id="rapat-tabs">
+        <div class="tablist" role="tablist">
+          <button type="button" role="tab">Persiapan File</button>
+          <button type="button" role="tab">Struktur Presentasi</button>
+          <button type="button" role="tab">Etika Live Demo</button>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <h4>Checklist Persiapan File Rapat</h4>
+          <ul class="checklist" data-widget="checklist" data-key="cek-p12-persiapan">
+            <li>File Excel sumber sudah diisi dengan data terbaru dan disimpan</li>
+            <li>File PPT sudah tersimpan dan link grafik sudah di-update (klik kanan → Update Link)</li>
+            <li>Backup file tersimpan di flash disk dan/atau cloud storage</li>
+            <li>Uji tampilan di proyektor / monitor presentasi sebelum rapat dimulai</li>
+            <li>Font yang digunakan sudah terpasang di komputer presentasi</li>
+            <li>Laser pointer / presenter remote sudah dicek baterainya</li>
+            <li>Print-out cadangan tersedia jika proyektor bermasalah</li>
+          </ul>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <h4>Template Struktur 5 Slide Rapat Kerja RS</h4>
+          <div class="grid2">
+            <div class="card"><strong>Slide 1: Judul + Agenda</strong><br><span style="font-size:.88rem;color:var(--muted)">Nama rapat, tanggal, peserta, 3–5 poin agenda</span></div>
+            <div class="card"><strong>Slide 2: Data Kinerja</strong><br><span style="font-size:.88rem;color:var(--muted)">Grafik bar/line dari Excel; BOR, kunjungan, pendapatan</span></div>
+            <div class="card"><strong>Slide 3: Analisis Masalah</strong><br><span style="font-size:.88rem;color:var(--muted)">Identifikasi gap, akar masalah, komparasi target vs realisasi</span></div>
+            <div class="card"><strong>Slide 4: Rekomendasi</strong><br><span style="font-size:.88rem;color:var(--muted)">3–5 rekomendasi konkret, prioritas, penanggungjawab</span></div>
+            <div class="card"><strong>Slide 5: Tindak Lanjut</strong><br><span style="font-size:.88rem;color:var(--muted)">Action items, deadline, penanggung jawab, jadwal follow-up</span></div>
+          </div>
+          <p class="note">💡 Prinsip "1 slide 1 pesan" — setiap slide harus menyampaikan satu ide utama yang jelas.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <h4>5 Etika Live Demo Data di Rapat</h4>
+          <ol style="padding-left:20px">
+            <li><strong>Siapkan backup plan</strong> — jika link grafik putus, print-out atau PDF cadangan harus tersedia.</li>
+            <li><strong>Jangan edit data live tanpa konfirmasi</strong> — perubahan angka di depan peserta harus disetujui lebih dulu.</li>
+            <li><strong>Simpan semua file sebelum presentasi</strong> — Ctrl+S pada Excel dan PPT, lalu tutup Excel agar tidak ada konflik akses.</li>
+            <li><strong>Gunakan mode read-only jika memungkinkan</strong> — buka Excel dalam Protected View untuk mencegah edit tidak sengaja.</li>
+            <li><strong>Siapkan print-out cadangan</strong> — minimal ringkasan data penting, berjaga jika proyektor atau laptop bermasalah.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRAKTIK -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Builder Presentasi Rapat" data-min="25">
+      <p>Bangun presentasi rapat 3 slide secara bertahap. Pratinjau akan muncul di bawah.</p>
+
+      <div class="builder-step">
+        <h5><span class="step-num">1</span> Judul &amp; Tema Rapat</h5>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start">
+          <div style="flex:1 1 240px">
+            <label style="display:block;margin-bottom:4px;font-size:.9rem">Judul Presentasi:</label>
+            <input type="text" id="prak-judul" placeholder="cth: Laporan Kinerja Poli — Jan 2026"
+              style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface)">
+          </div>
+          <div style="flex:1 1 200px">
+            <label style="display:block;margin-bottom:4px;font-size:.9rem">Tema Rapat:</label>
+            <select id="prak-tema" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface)">
+              <option value="Kinerja Bulanan">Kinerja Bulanan</option>
+              <option value="Laporan Keuangan">Laporan Keuangan</option>
+              <option value="Evaluasi Mutu">Evaluasi Mutu</option>
+              <option value="Rencana Kerja">Rencana Kerja</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="builder-step">
+        <h5><span class="step-num">2</span> Buat Grafik Data</h5>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start">
+          <div style="flex:1 1 200px">
+            <label style="display:block;margin-bottom:4px;font-size:.9rem">Jenis Grafik:</label>
+            <select id="prak-chart-type" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface)">
+              <option value="bar">Bar (Batang)</option>
+              <option value="line">Line (Garis)</option>
+              <option value="pie">Pie (Lingkaran)</option>
+            </select>
+          </div>
+          <div style="flex:2 1 280px">
+            <label style="display:block;margin-bottom:4px;font-size:.9rem">Data (label : nilai):</label>
+            <div id="prak-chart-rows"></div>
+          </div>
+        </div>
+        <div id="prak-chart-preview" style="margin-top:10px;text-align:center"></div>
+      </div>
+
+      <div class="builder-step">
+        <h5><span class="step-num">3</span> Tabel Kinerja Indikator</h5>
+        <div style="overflow-x:auto">
+          <table style="border-collapse:collapse;min-width:460px;font-size:.88rem;width:100%">
+            <thead><tr>
+              <th style="border:1px solid var(--line);padding:5px 8px;background:var(--primary-soft)">Indikator</th>
+              <th style="border:1px solid var(--line);padding:5px 8px;background:var(--primary-soft)">Target</th>
+              <th style="border:1px solid var(--line);padding:5px 8px;background:var(--primary-soft)">Realisasi</th>
+              <th style="border:1px solid var(--line);padding:5px 8px;background:var(--primary-soft)">Status</th>
+            </tr></thead>
+            <tbody id="kinerja-tbody">
+              <tr>
+                <td style="border:1px solid var(--line);padding:2px 4px"><input type="text" class="kin-nama" value="BOR" style="width:100%;border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:var(--surface)"></td>
+                <td style="border:1px solid var(--line);padding:2px 4px"><input type="number" class="kin-target" value="80" style="width:70px;border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:var(--surface)"></td>
+                <td style="border:1px solid var(--line);padding:2px 4px"><input type="number" class="kin-real" value="78" style="width:70px;border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:var(--surface)"></td>
+                <td style="border:1px solid var(--line);padding:4px 8px;font-weight:700" class="kin-status"></td>
+              </tr>
+              <tr>
+                <td style="border:1px solid var(--line);padding:2px 4px"><input type="text" class="kin-nama" value="Kepuasan Pasien" style="width:100%;border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:var(--surface)"></td>
+                <td style="border:1px solid var(--line);padding:2px 4px"><input type="number" class="kin-target" value="90" style="width:70px;border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:var(--surface)"></td>
+                <td style="border:1px solid var(--line);padding:2px 4px"><input type="number" class="kin-real" value="93" style="width:70px;border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:var(--surface)"></td>
+                <td style="border:1px solid var(--line);padding:4px 8px;font-weight:700" class="kin-status"></td>
+              </tr>
+              <tr>
+                <td style="border:1px solid var(--line);padding:2px 4px"><input type="text" class="kin-nama" value="Kunjungan Total" style="width:100%;border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:var(--surface)"></td>
+                <td style="border:1px solid var(--line);padding:2px 4px"><input type="number" class="kin-target" value="1200" style="width:70px;border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:var(--surface)"></td>
+                <td style="border:1px solid var(--line);padding:2px 4px"><input type="number" class="kin-real" value="1176" style="width:70px;border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:var(--surface)"></td>
+                <td style="border:1px solid var(--line);padding:4px 8px;font-weight:700" class="kin-status"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p><button class="btn" type="button" id="btn-preview-deck">Tampilkan Pratinjau Deck 3 Slide ▶</button></p>
+      <div id="deck-preview-area" style="display:none;margin-top:14px">
+        <h4>Pratinjau Deck Presentasi</h4>
+        <div class="deck-preview" id="deck-slides"></div>
+        <div class="skor-completeness" id="skor-completeness" style="display:none"></div>
+      </div>
+
+      <div class="tugas-lab">
+        <h4>Tugas Lab — PPT + Excel Nyata</h4>
+        <ol>
+          <li>Buat file Excel <code>Data_Rapat_Kinerja.xlsx</code>: sheet "Kunjungan" (5 poli, 3 bulan) dan sheet "Keuangan" (pendapatan per poli).</li>
+          <li>Buat grafik bar dari sheet Kunjungan. <em>Copy</em> grafik tersebut.</li>
+          <li>Di PowerPoint baru, gunakan <strong>Paste Special → Paste Link → Microsoft Excel Chart Object</strong>.</li>
+          <li>Buat juga versi <strong>Embed</strong> di slide berikutnya. Bandingkan ukuran file PPT sebelum dan sesudah.</li>
+          <li>Ubah satu angka di Excel, kembali ke PPT, klik kanan grafik linked → <em>Update Link</em>. Verifikasi perubahan.</li>
+        </ol>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Linked chart berfungsi dan dapat di-update; 2) Embedded chart mandiri; 3) Grafik jenis sesuai data; 4) Slide rapi dan terbaca dari jarak 3 meter.</p>
+      </div>
+    </section>
+
+    <!-- POST-TEST -->
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test","soal":[
+        {"q":"Saat link grafik putus di PPT, langkah pertama yang harus dilakukan adalah …","opsi":["Hapus grafik dan buat ulang","Edit Links → Update Source / Change Source","Copy ulang grafik dari Excel","Restart PowerPoint"],"benar":1,"jelas":"File → Info → Edit Links to Files memungkinkan kita mengarahkan ulang link ke lokasi file baru."},
+        {"q":"File PPT yang berisi linked chart harus selalu dibuka bersama …","opsi":["File PDF laporan","File Excel sumber yang tertaut","File Word yang berkaitan","File gambar logo RS"],"benar":1,"jelas":"Link grafik membutuhkan file Excel sumber berada di lokasi yang dikenal PPT untuk bisa di-update."},
+        {"q":"Warna grafik di PPT sebaiknya …","opsi":["Sesuai selera pribadi presenter","Konsisten dengan tema slide dan mudah dibedakan antar-kategori","Selalu menggunakan warna paling cerah","Tidak penting, data yang utama"],"benar":1,"jelas":"Konsistensi warna dan kontras yang cukup meningkatkan keterbacaan grafik, terutama di proyektor."},
+        {"q":"Menu 'Chart Tools → Design → Edit Data' di PPT akan …","opsi":["Mengubah warna grafik","Membuka spreadsheet data grafik untuk diedit","Menghapus grafik dari slide","Menambahkan animasi masuk grafik"],"benar":1,"jelas":"Edit Data membuka mini-spreadsheet atau file Excel terhubung untuk mengubah data grafik."},
+        {"q":"Keuntungan utama menggunakan Linked chart saat rapat adalah …","opsi":["Grafik terlihat lebih indah","Data grafik selalu terbaru dari file Excel","Grafik lebih cepat dimuat","Tidak perlu memiliki Excel di komputer"],"benar":1,"jelas":"Linked chart dapat di-update kapan saja dari file Excel, memastikan data yang disajikan selalu akurat."}
+      ]}
+      </script>
+      <h4>Perbandingan Pre-test vs Post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <!-- PENUTUP -->
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
+      <h4>Ringkasan Pertemuan 12</h4>
+      <ol>
+        <li><strong>Linked chart</strong> di PPT selalu sinkron dengan Excel — ideal untuk laporan rutin rapat koordinasi.</li>
+        <li><strong>Embedded chart</strong> mandiri di dalam PPT — ideal untuk dokumen final yang dikirim ke pihak lain.</li>
+        <li>Pilih jenis grafik sesuai pesan: <em>bar</em> untuk perbandingan, <em>line</em> untuk tren, <em>pie</em> untuk proporsi.</li>
+        <li>Siapkan backup (print-out/PDF) untuk antisipasi link putus saat rapat berlangsung.</li>
+        <li>Perbarui link (<em>Update Link</em>) segera sebelum rapat dimulai, bukan saat rapat berjalan.</li>
+      </ol>
+      <h4>Refleksi</h4>
+      <div data-widget="reflect" data-key="krs-p12-refleksi" data-prompt="Rapat apa di RS yang akan kamu perbaiki dengan teknik ini? Apa kendala teknis yang paling mungkin terjadi?"></div>
+      <p class="note"><strong>Tindak lanjut (Pertemuan 13):</strong> Email Resmi RS — korespondensi elektronik profesional dalam lingkungan rumah sakit.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+"use strict";
+const KONFIG={kode:"krs-p12",nomor:"12",judul:"Integrasi Office Bagian 2: Excel ke PowerPoint",cpmk:"CPMK-5: Mampu menyusun materi presentasi manajemen yang terintegrasi langsung dengan database lembar kerja.",tujuan:["Menyisipkan grafik Excel ke slide PowerPoint","Membedakan embedded vs linked chart","Mensimulasikan pembaruan data saat rapat"],totalMenit:90};
+
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+function h(tag,props,...kids){const e=document.createElement(tag);for(const k in(props||{})){const v=props[k];if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,"");else if(v!==false&&v!=null)e.setAttribute(k,v);}for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(String(c)));}return e;}
+const store={get(k,d){try{const v=localStorage.getItem(KONFIG.kode+"-"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem(KONFIG.kode+"-"+k,JSON.stringify(v));}catch(e){}}};
+function getData(id){return JSON.parse(document.getElementById(id).textContent);}
+function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function mmss(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+let uid=0;const nextId=p=>p+"-"+(++uid);
+
+const W={};
+W.quiz=el=>{
+  const d=getData(el.dataset.src);const key="quiz-"+(el.dataset.role||el.dataset.src);
+  const saved=store.get(key,{jawab:{}});const jawab=saved.jawab||{};
+  const skorEl=h("p",{class:"skor","aria-live":"polite"});const items=[];
+  function hitung(){let b=0;for(const i in jawab)if(jawab[i]===d.soal[i].benar)b++;const n=Object.keys(jawab).length;skorEl.textContent="Skor: "+b+" / "+d.soal.length+(n<d.soal.length?"  (terjawab "+n+")":"");store.set(key,{jawab,skor:b,total:d.soal.length,selesai:n===d.soal.length});document.dispatchEvent(new CustomEvent("krs:skor"));}
+  function tampil(i,pilih){const it=items[i],s=d.soal[i];it.labels.forEach((l,j)=>{l.classList.toggle("benar",j===s.benar);l.classList.toggle("salah",j===pilih&&j!==s.benar);});it.fb.textContent=(pilih===s.benar?"Benar. ":"Belum tepat. ")+(s.jelas||"");}
+  d.soal.forEach((s,i)=>{const name=nextId("q");const fb=h("p",{class:"fb","aria-live":"polite"});const labels=s.opsi.map((o,j)=>{const inp=h("input",{type:"radio",name,value:j,onchange:()=>{jawab[i]=j;tampil(i,j);hitung();}});if(jawab[i]===j)inp.checked=true;return h("label",{},inp," ",o);});items.push({labels,fb});el.append(h("fieldset",{},h("legend",{},(i+1)+". "+s.q),labels,fb));if(jawab[i]!==undefined)tampil(i,jawab[i]);});
+  el.append(skorEl,h("button",{class:"btn sec",type:"button",onclick:()=>{for(const k in jawab)delete jawab[k];$$("input",el).forEach(x=>x.checked=false);items.forEach(it=>{it.labels.forEach(l=>l.classList.remove("benar","salah"));it.fb.textContent="";});hitung();}},"Ulangi"));
+  hitung();
+};
+W.banding=el=>{
+  function baris(role,nama,cls){const track=h("i"),val=h("span",{},"–");el.append(h("div",{class:"row "+cls},h("span",{},nama),h("div",{class:"track"},track),val));return()=>{const s=store.get("quiz-"+role,null);if(!s||!s.selesai){track.style.width="0";val.textContent="–";return;}const p=Math.round(s.skor/s.total*100);track.style.width=p+"%";val.textContent=p+"%";};}
+  el.classList.add("banding");const a=baris("pre","Pre-test","pre"),b=baris("post","Post-test","post");
+  const up=()=>{a();b();};document.addEventListener("krs:skor",up);up();
+};
+W.checklist=el=>{
+  const key="cek-"+(el.dataset.key||nextId("c"));const saved=store.get(key,[]);
+  const lis=$$(":scope > li",el);const bar=h("i"),txt=h("span",{class:"kriteria"});
+  function up(){const n=lis.filter(l=>$("input",l).checked).length;bar.style.width=(n/lis.length*100)+"%";txt.textContent=n+" / "+lis.length+" selesai";store.set(key,lis.map(l=>$("input",l).checked));}
+  lis.forEach((li,i)=>{const t=li.textContent,cb=h("input",{type:"checkbox",onchange:up});cb.checked=!!saved[i];li.textContent="";li.append(h("label",{},cb,h("span",{},t)));});
+  el.after(h("div",{class:"prog","aria-hidden":"true"},bar),txt);up();
+};
+W.reflect=el=>{
+  const key="ref-"+(el.dataset.key||"x");const ta=h("textarea",{class:"reflect","aria-label":el.dataset.prompt||"Refleksi"});
+  ta.value=store.get(key,"");ta.addEventListener("input",()=>store.set(key,ta.value));
+  el.append(h("p",{},el.dataset.prompt||"Tuliskan refleksi singkat:"),ta);
+};
+
+/* ============================================================
+   SVG Chart helper
+   ============================================================ */
+const NS="http://www.w3.org/2000/svg";
+function sv(tag,attrs,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;return e;}
+function nice(max){if(max<=0)return 1;const e=Math.pow(10,Math.floor(Math.log10(max))),f=max/e;return(f<=1?1:f<=2?2:f<=5?5:10)*e;}
+const COLORS=["#0b7285","#e8590c","#7048e8","#2b8a3e","#c2255c","#f08c00","#1971c2","#5c940d"];
+
+function desenhoBar(labels,values,W_=340,H_=220){
+  const svg=sv("svg",{viewBox:"0 0 "+W_+" "+H_,role:"img","aria-label":"Bar chart"});
+  const v=values.map(x=>Math.max(0,Number(x)||0));
+  const mx=nice(Math.max(...v,1));
+  const L=44,Rr=12,T=16,B=36,pw=W_-L-Rr,ph=H_-T-B;
+  for(let g=0;g<=4;g++){const y=T+ph-ph*g/4;svg.append(sv("line",{x1:L,x2:W_-Rr,y1:y,y2:y,stroke:"#d5e3e6"}));svg.append(sv("text",{x:L-4,y:y+4,"text-anchor":"end",style:"font-size:9px;fill:#5b7480"},String(Math.round(mx*g/4))));}
+  const n=v.length,step=pw/Math.max(n,1);
+  v.forEach((x,i)=>{const bw=step*0.6,bx=L+step*i+(step-bw)/2,bh=ph*x/mx;svg.append(sv("rect",{x:bx,y:T+ph-bh,width:bw,height:bh,fill:COLORS[i%8],rx:2}));if(bh>12)svg.append(sv("text",{x:bx+bw/2,y:T+ph-bh-3,"text-anchor":"middle",style:"font-size:9px"},String(x)));});
+  v.forEach((x,i)=>svg.append(sv("text",{x:L+step*(i+0.5),y:H_-6,"text-anchor":"middle",style:"font-size:9px"},labels[i].length>8?labels[i].slice(0,7)+"…":labels[i])));
+  svg.append(sv("line",{x1:L,x2:L,y1:T,y2:T+ph,stroke:"currentColor"}));
+  svg.append(sv("line",{x1:L,x2:W_-Rr,y1:T+ph,y2:T+ph,stroke:"currentColor"}));
+  return svg;
+}
+function desenhoLine(labels,values,W_=340,H_=220){
+  const svg=sv("svg",{viewBox:"0 0 "+W_+" "+H_,role:"img","aria-label":"Line chart"});
+  const v=values.map(x=>Math.max(0,Number(x)||0));const mx=nice(Math.max(...v,1));
+  const L=44,Rr=12,T=16,B=36,pw=W_-L-Rr,ph=H_-T-B;
+  for(let g=0;g<=4;g++){const y=T+ph-ph*g/4;svg.append(sv("line",{x1:L,x2:W_-Rr,y1:y,y2:y,stroke:"#d5e3e6"}));svg.append(sv("text",{x:L-4,y:y+4,"text-anchor":"end",style:"font-size:9px;fill:#5b7480"},String(Math.round(mx*g/4))));}
+  const n=v.length,step=pw/Math.max(n,1);
+  const pts=v.map((x,i)=>[L+step*(i+0.5),T+ph-ph*x/mx]);
+  svg.append(sv("polyline",{points:pts.map(p=>p.join(",")).join(" "),fill:"none",stroke:COLORS[0],"stroke-width":2.5}));
+  pts.forEach((p,i)=>{svg.append(sv("circle",{cx:p[0],cy:p[1],r:4,fill:COLORS[0]}));svg.append(sv("text",{x:p[0],y:p[1]-6,"text-anchor":"middle",style:"font-size:8px"},String(v[i])));});
+  v.forEach((x,i)=>svg.append(sv("text",{x:L+step*(i+0.5),y:H_-6,"text-anchor":"middle",style:"font-size:9px"},labels[i].length>8?labels[i].slice(0,7)+"…":labels[i])));
+  svg.append(sv("line",{x1:L,x2:L,y1:T,y2:T+ph,stroke:"currentColor"}));
+  svg.append(sv("line",{x1:L,x2:W_-Rr,y1:T+ph,y2:T+ph,stroke:"currentColor"}));
+  return svg;
+}
+function desenhoPie(labels,values,W_=280,H_=200){
+  const svg=sv("svg",{viewBox:"0 0 "+W_+" "+H_,role:"img","aria-label":"Pie chart"});
+  const v=values.map(x=>Math.max(0,Number(x)||0));const tot=v.reduce((a,b)=>a+b,0);if(tot<=0)return svg;
+  const cx=90,cy=H_/2,r=70;let a0=-Math.PI/2;
+  v.forEach((x,i)=>{if(x<=0)return;const fr=x/tot;if(fr>0.9999){svg.append(sv("circle",{cx,cy,r,fill:COLORS[i%8]}));return;}const a1=a0+fr*2*Math.PI,big=fr>0.5?1:0;svg.append(sv("path",{d:"M"+cx+","+cy+" L"+(cx+r*Math.cos(a0))+","+(cy+r*Math.sin(a0))+" A"+r+","+r+" 0 "+big+" 1 "+(cx+r*Math.cos(a1))+","+(cy+r*Math.sin(a1))+" Z",fill:COLORS[i%8],stroke:"white","stroke-width":1.5}));a0=a1;});
+  v.forEach((x,i)=>{const pct=Math.round(x/tot*100);svg.append(sv("rect",{x:W_-105,y:20+i*20-8,width:10,height:10,fill:COLORS[i%8]}));svg.append(sv("text",{x:W_-90,y:20+i*20,style:"font-size:9px"},labels[i].slice(0,10)+" "+pct+"%"));});
+  return svg;
+}
+function desenhoGrafik(type,labels,values,small=false){const W_=small?120:340,H_=small?80:220;return type==="pie"?desenhoPie(labels,values,W_,H_):type==="line"?desenhoLine(labels,values,W_,H_):desenhoBar(labels,values,W_,H_);}
+function desenhoGaugeText(value,W_=160,H_=80){
+  const svg=sv("svg",{viewBox:"0 0 "+W_+" "+H_,role:"img","aria-label":"Nilai besar"});
+  svg.append(sv("text",{x:W_/2,y:H_*0.65,"text-anchor":"middle",style:"font-size:40px;font-weight:700;fill:#0b7285"},String(value)+"%"));
+  svg.append(sv("text",{x:W_/2,y:H_*0.9,"text-anchor":"middle",style:"font-size:11px;fill:#5b7480"},"Utilization Rate"));
+  return svg;
+}
+
+/* ============================================================
+   Inti 1: Chart Simulator
+   ============================================================ */
+(function initChartSim(){
+  const LABELS=["Poli Umum","Poli Gigi","Poli Anak","Kandungan","Poli THT"];
+  const AWAL=[445,187,312,98,134];
+  const SNAPSHOT=AWAL.slice();
+  let data=AWAL.slice();
+
+  function render(){const la=document.getElementById("chart-linked-area");if(la){la.textContent="";la.appendChild(desenhoGrafik("bar",LABELS,data));}}
+  function renderEmbed(){const ea=document.getElementById("chart-embed-area");if(ea){ea.textContent="";ea.appendChild(desenhoGrafik("bar",LABELS,SNAPSHOT));}}
+  render();renderEmbed();
+
+  document.querySelectorAll(".chart-inp").forEach(inp=>{
+    inp.addEventListener("input",function(){data[parseInt(this.dataset.idx,10)]=Number(this.value)||0;render();});
+  });
+  const btnReset=document.getElementById("btn-chart-reset");
+  if(btnReset)btnReset.addEventListener("click",()=>{data=AWAL.slice();document.querySelectorAll(".chart-inp").forEach((inp,i)=>{inp.value=AWAL[i];});render();});
+})();
+
+/* ============================================================
+   Inti 2: Quiz Strategi Grafik
+   ============================================================ */
+(function initChartStrategy(){
+  const kasus=[
+    {q:"Tren kunjungan RS Sehat Citra selama 12 bulan terakhir",opsi:["bar","line","pie"],benar:1,jelas:"Line chart terbaik untuk menampilkan tren data deret waktu."},
+    {q:"Proporsi pasien: BPJS (65%) vs Umum (35%)",opsi:["bar","pie","line"],benar:1,jelas:"Pie chart ideal untuk data proporsi bagian dari keseluruhan."},
+    {q:"Perbandingan kunjungan 5 poli dalam 1 bulan",opsi:["line","pie","bar"],benar:2,jelas:"Bar chart terbaik untuk membandingkan nilai antar-kategori diskrit."},
+    {q:"BOR bulan ini: 78% — tampilkan sebagai angka besar yang mencolok",opsi:["bar","angka-besar","pie"],benar:1,jelas:"Angka besar / KPI tile paling efektif untuk satu nilai kunci yang perlu segera terlihat."},
+    {q:"Kunjungan IGD per jam dalam sehari (00:00 – 23:00)",opsi:["pie","bar","line"],benar:2,jelas:"Line chart sesuai untuk data kontinu yang berubah seiring waktu."}
+  ];
+  const area=document.getElementById("chart-strategy-quiz");if(!area)return;
+  const jawab={};
+  kasus.forEach((k,idx)=>{
+    const wrap=document.createElement("div");wrap.style.cssText="margin:14px 0;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)";
+    const qlbl=document.createElement("p");qlbl.style.cssText="margin:0 0 8px;font-weight:700";qlbl.textContent=(idx+1)+". "+k.q;
+    wrap.appendChild(qlbl);
+    const optGrid=document.createElement("div");optGrid.className="quiz-chart-opt";
+    k.opsi.forEach((o,j)=>{
+      const card=document.createElement("div");card.className="chart-opt-card";
+      let svgEl;
+      if(o==="bar")svgEl=desenhoGrafik("bar",["A","B","C"],[30,50,40],true);
+      else if(o==="line")svgEl=desenhoGrafik("line",["1","2","3","4"],[20,40,30,50],true);
+      else if(o==="pie")svgEl=desenhoGrafik("pie",["X","Y"],[60,40],true);
+      else{svgEl=desenhoGaugeText(78,120,80);}
+      if(svgEl){card.appendChild(svgEl);}
+      const lbl=document.createElement("div");lbl.className="lbl";lbl.textContent=o==="bar"?"Bar":o==="line"?"Line":o==="pie"?"Pie":"Angka Besar";
+      card.appendChild(lbl);
+      card.addEventListener("click",()=>{optGrid.querySelectorAll(".chart-opt-card").forEach(c=>c.classList.remove("pilih"));card.classList.add("pilih");jawab[idx]=j;});
+      optGrid.appendChild(card);
+    });
+    const fb=document.createElement("p");fb.style.cssText="margin:6px 0 0;font-size:.88rem;color:var(--muted)";fb.id="fb-strat-"+idx;
+    wrap.appendChild(optGrid);wrap.appendChild(fb);
+    area.appendChild(wrap);
+  });
+
+  const btnCek=document.getElementById("btn-cek-strategy"),skorEl=document.getElementById("skor-strategy");
+  if(btnCek)btnCek.addEventListener("click",()=>{
+    let b=0;
+    kasus.forEach((k,idx)=>{
+      const cards=area.querySelectorAll(".quiz-chart-opt")[idx].querySelectorAll(".chart-opt-card");
+      cards.forEach((c,j)=>{c.classList.remove("benar","salah","pilih");if(j===k.benar)c.classList.add("benar");else if(jawab[idx]===j)c.classList.add("salah");});
+      const fbEl=document.getElementById("fb-strat-"+idx);
+      if(fbEl)fbEl.textContent=(jawab[idx]===k.benar?"✓ Benar. ":"✗ Kurang tepat. ")+k.jelas;
+      if(jawab[idx]===k.benar)b++;
+    });
+    if(skorEl)skorEl.textContent="Skor: "+b+" / "+kasus.length;
+  });
+})();
+
+/* ============================================================
+   Inti 3: Slide Simulator
+   ============================================================ */
+(function initSlideSim(){
+  const LABELS=["Umum","Gigi","Anak","Kand.","THT"];
+  let nilai=[445,187,312,98,134];
+  let nilaiLinked=[445,187,312,98,134];
+  let slideIdx=0;
+  const SLIDE_COUNT=3;
+
+  function buatSlide1(){
+    const d=document.createElement("div");d.style.cssText="color:#fff;text-align:center;padding:20px";
+    d.innerHTML='<div style="font-size:.7rem;opacity:.6;margin-bottom:6px">RS BHAKTI MEDIKA</div>'
+      +'<div style="font-size:1.1rem;font-weight:700" id="slide1-judul">Rapat Koordinasi Bulanan</div>'
+      +'<div style="font-size:.7rem;opacity:.7;margin-top:8px">Januari 2026 · Ruang Direksi</div>';
+    return d;
+  }
+  function buatSlide2(data){
+    const d=document.createElement("div");d.style.cssText="display:flex;flex-direction:column;align-items:center;gap:6px;width:100%";
+    const t=document.createElement("div");t.style.cssText="font-size:.8rem;font-weight:700;color:#fff";t.textContent="Kunjungan Poli – Januari 2026";
+    d.appendChild(t);
+    const svg=desenhoBar(LABELS,data,360,160);
+    svg.querySelectorAll("text").forEach(el=>el.style.fill="#e0f0f4");
+    svg.querySelectorAll("line").forEach(el=>el.setAttribute("stroke","#3a5060"));
+    d.appendChild(svg);
+    return d;
+  }
+  function buatSlide3(){
+    const d=document.createElement("div");d.style.cssText="color:#fff;text-align:left;width:100%;padding:4px 0";
+    d.innerHTML='<div style="font-size:.85rem;font-weight:700;margin-bottom:8px">Tindak Lanjut</div>'
+      +'<div style="font-size:.72rem;line-height:1.8;opacity:.9">• Poli Umum: tambah 1 dokter jaga sore<br>• Poli Gigi: optimasi jadwal, tambah slot<br>• Poli Anak: koordinasi dengan bagian farmasi<br>• Evaluasi kembali di rapat bulan depan</div>';
+    return d;
+  }
+
+  function renderFrame(){
+    const frame=document.getElementById("slide-frame");if(!frame)return;
+    frame.textContent="";
+    if(slideIdx===0)frame.appendChild(buatSlide1());
+    else if(slideIdx===1)frame.appendChild(buatSlide2(nilaiLinked));
+    else frame.appendChild(buatSlide3());
+    document.getElementById("slide-num").textContent="Slide "+(slideIdx+1)+" / "+SLIDE_COUNT;
+  }
+  renderFrame();
+
+  document.getElementById("slide-prev")?.addEventListener("click",()=>{slideIdx=Math.max(0,slideIdx-1);renderFrame();});
+  document.getElementById("slide-next")?.addEventListener("click",()=>{slideIdx=Math.min(SLIDE_COUNT-1,slideIdx+1);renderFrame();});
+
+  document.getElementById("btn-update-linked-slide")?.addEventListener("click",()=>{
+    nilaiLinked=[467,187,312,98,134];renderFrame();
+    const msg=document.getElementById("slide-update-msg");if(msg){msg.style.color="var(--ok)";msg.textContent="✔ Grafik Slide 2 diperbarui ke 467 (data koreksi HIS). Pindah ke Slide 2 untuk melihat perubahan.";}
+  });
+  document.getElementById("btn-no-update-slide")?.addEventListener("click",()=>{
+    nilaiLinked=nilai.slice();renderFrame();
+    const msg=document.getElementById("slide-update-msg");if(msg){msg.style.color="var(--bad)";msg.textContent="✗ Data tidak diperbarui. Slide 2 masih menampilkan angka lama (445).";}
+  });
+})();
+
+/* ============================================================
+   Praktik: Builder Presentasi
+   ============================================================ */
+(function initBuilder(){
+  const LABELS_DEFAULT=["Poli Umum","Poli Gigi","Poli Anak","Kandungan","Poli THT"];
+  const VALS_DEFAULT=[445,187,312,98,134];
+  const rowsContainer=document.getElementById("prak-chart-rows");
+  if(!rowsContainer)return;
+  const labels=LABELS_DEFAULT.slice(),values=VALS_DEFAULT.slice();
+  labels.forEach((l,i)=>{
+    const row=document.createElement("div");row.style.cssText="display:flex;gap:8px;margin:3px 0;align-items:center";
+    const li=document.createElement("input");li.type="text";li.value=l;li.style.cssText="flex:1 1 120px;border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--surface)";
+    const vi=document.createElement("input");vi.type="number";vi.value=values[i];vi.style.cssText="width:80px;border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--surface)";
+    li.addEventListener("input",function(){labels[i]=this.value;updateChartPrev();});
+    vi.addEventListener("input",function(){values[i]=Number(this.value)||0;updateChartPrev();});
+    row.append(li,vi);rowsContainer.appendChild(row);
+  });
+
+  function updateChartPrev(){
+    const type=document.getElementById("prak-chart-type")?.value||"bar";
+    const area=document.getElementById("prak-chart-preview");if(!area)return;
+    area.textContent="";area.appendChild(desenhoGrafik(type,labels,values));
+  }
+  document.getElementById("prak-chart-type")?.addEventListener("change",updateChartPrev);
+  updateChartPrev();
+
+  function updateKinerja(){
+    document.querySelectorAll("#kinerja-tbody tr").forEach(tr=>{
+      const target=parseFloat(tr.querySelector(".kin-target")?.value||0);
+      const real=parseFloat(tr.querySelector(".kin-real")?.value||0);
+      const statusEl=tr.querySelector(".kin-status");if(!statusEl)return;
+      const ratio=target>0?real/target:0;
+      if(ratio>=1){statusEl.textContent="✔ Tercapai";statusEl.className="kin-status k-ok";}
+      else if(ratio>=0.9){statusEl.textContent="⚠ Hampir";statusEl.className="kin-status k-warn";}
+      else{statusEl.textContent="✗ Belum";statusEl.className="kin-status k-bad";}
+    });
+  }
+  document.querySelectorAll(".kin-target,.kin-real,.kin-nama").forEach(inp=>inp.addEventListener("input",updateKinerja));
+  updateKinerja();
+
+  document.getElementById("btn-preview-deck")?.addEventListener("click",()=>{
+    const area=document.getElementById("deck-preview-area");const slides=document.getElementById("deck-slides");
+    if(!area||!slides)return;area.style.display="block";slides.textContent="";
+    const judul=document.getElementById("prak-judul")?.value||"(Judul belum diisi)";
+    const tema=document.getElementById("prak-tema")?.value||"";
+    const type=document.getElementById("prak-chart-type")?.value||"bar";
+
+    // Slide 1
+    const s1=document.createElement("div");s1.className="deck-slide";
+    s1.innerHTML='<div class="ds-title">'+escS(judul.slice(0,30))+'</div><div style="font-size:.65rem;opacity:.7">'+escS(tema)+'<br>RS Bhakti Medika · 2026</div>';
+    // Slide 2
+    const s2=document.createElement("div");s2.className="deck-slide";
+    const miniSvg=desenhoGrafik(type,labels,values,true);s2.appendChild(miniSvg);
+    s2.insertAdjacentHTML("afterbegin","<div class='ds-title'>Data Kunjungan</div>");
+    // Slide 3
+    const s3=document.createElement("div");s3.className="deck-slide";
+    const rows=Array.from(document.querySelectorAll("#kinerja-tbody tr"));
+    const kins=rows.map(tr=>({nama:tr.querySelector(".kin-nama")?.value||"-",status:tr.querySelector(".kin-status")?.textContent||"-"}));
+    s3.innerHTML='<div class="ds-title">Kinerja</div>'+(kins.map(k=>'<div style="font-size:.62rem">'+escS(k.nama)+': '+escS(k.status)+'</div>').join(""));
+    slides.append(s1,s2,s3);
+
+    // Skor kelengkapan
+    let skor=0;const msg=[];
+    if(judul.length>=5){skor++;msg.push("✓ Judul terisi");}else msg.push("✗ Judul belum diisi (min. 5 karakter)");
+    if(values.some(v=>v>0)){skor++;msg.push("✓ Data grafik terisi");}else msg.push("✗ Data grafik masih kosong");
+    const allKin=document.querySelectorAll(".kin-nama");if(allKin.length>=3&&Array.from(allKin).every(i=>i.value.length>=2)){skor++;msg.push("✓ Indikator kinerja lengkap");}else msg.push("✗ Lengkapi nama indikator kinerja");
+    const skorEl=document.getElementById("skor-completeness");if(skorEl){skorEl.style.display="block";skorEl.textContent="Skor Kelengkapan: "+skor+" / 3  |  "+msg.join("  ");}
+  });
+  function escS(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+})();
+
+/* ============================================================
+   Tabs init
+   ============================================================ */
+function initTabs(){
+  $$(".tabs").forEach(box=>{
+    const tabs=$$(".tablist button",box),panels=$$(":scope > .tabpanel",box);
+    function pilih(i){tabs.forEach((t,k)=>{t.setAttribute("aria-selected",String(k===i));t.tabIndex=k===i?0:-1;});panels.forEach((p,k)=>{p.hidden=k!==i;});}
+    tabs.forEach((t,i)=>t.addEventListener("click",()=>pilih(i)));pilih(0);
+  });
+}
+
+/* ============================================================
+   Timer, agenda, progres segmen
+   ============================================================ */
+function initSegmen(){
+  const segs=$$("section.seg"),agenda=$("#agenda");const done=store.get("selesai",{});
+  let mulai=0;const links=[];
+  segs.forEach((s,i)=>{
+    const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
+    const head=h("div",{class:"seg-head"},h("h3",{},judul),h("span",{class:"badge"},min+" menit"));
+    let sisa=min*60,tid=null;const tb=h("button",{class:"btn sec",type:"button"},"⏱ "+mmss(sisa));
+    const tw=h("span",{class:"seg-timer"},tb);
+    tb.addEventListener("click",()=>{if(tid){clearInterval(tid);tid=null;tb.textContent="▶ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));return;}tid=setInterval(()=>{sisa--;tw.classList.toggle("over",sisa<0);tb.textContent="⏸ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));},1000);});
+    head.append(tw);s.prepend(head);
+    const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
+    function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";done[s.id]=v;store.set("selesai",done);progres();}
+    sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));
+    foot.append(sb);s.append(foot);
+    const a=h("a",{href:"#"+s.id},h("span",{class:"mnt"},mulai+"–"+(mulai+min)+"'"),h("span",{},judul),h("span",{class:"tick","aria-label":"selesai"},"✓"));
+    agenda.append(a);links.push({a,s});mulai+=min;tandai(!!done[s.id]);
+  });
+  function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;$("#hdr-bar").style.width=(n/segs.length*100)+"%";}
+  if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
+}
+function initJam(){let t=0,id=null;const c=$("#clock"),b=$("#clock-btn");b.addEventListener("click",()=>{if(id){clearInterval(id);id=null;b.textContent="Lanjut";}else{id=setInterval(()=>{t++;c.textContent=mmss(t);},1000);b.textContent="Jeda";}});}
+
+function isiHero(){
+  document.title="Pertemuan "+KONFIG.nomor+" — "+KONFIG.judul+" | Komputer Rumah Sakit";
+  $("#hdr-judul").textContent=KONFIG.judul;$("#hdr-sub").textContent="Komputer Rumah Sakit · Pertemuan "+KONFIG.nomor;
+  $("#hero-kode").textContent="Pertemuan "+KONFIG.nomor+" · "+KONFIG.cpmk.split(":")[0];
+  $("#hero-judul").textContent=KONFIG.judul;$("#hero-cpmk").textContent=KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t=>$("#hero-tujuan").append(h("li",{},t)));
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  isiHero();
+  $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal ("+el.dataset.widget+"): "+e.message));}});
+  initTabs();initSegmen();initJam();
+  window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

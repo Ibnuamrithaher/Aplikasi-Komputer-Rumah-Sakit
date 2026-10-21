@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 10 — PowerPoint Lanjutan: Data Storytelling | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9; --surface:#ffffff; --ink:#12303a; --muted:#5b7480; --line:#d5e3e6;
+  --primary:#0b7285; --primary-ink:#ffffff; --primary-soft:#d3f0f4;
+  --accent:#e8590c; --ok:#2b8a3e; --ok-soft:#dff3e3; --warn:#e67700; --bad:#c92a2a; --bad-soft:#fbe1e1;
+  --c1:#0b7285; --c2:#e8590c; --c3:#7048e8; --c4:#2b8a3e; --c5:#c2255c; --c6:#f08c00; --c7:#1971c2; --c8:#5c940d;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1b20; --surface:#15272e; --ink:#e6f1f3; --muted:#9bb2ba; --line:#27414a;
+    --primary:#3bc0d6; --primary-ink:#06222a; --primary-soft:#14414b;
+    --accent:#ff922b; --ok:#69db7c; --ok-soft:#173a22; --warn:#ffc078; --bad:#ff8787; --bad-soft:#4a1d1d;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
+.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}
+nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+nav.agenda a.done .tick{visibility:visible}
+main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}
+.hero p{margin:6px 0;opacity:.95}
+.hero ul{margin:8px 0 0;padding-left:20px}
+@media (prefers-color-scheme: dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-timer{display:inline-flex;gap:6px;align-items:center}
+.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.seg-timer.over .btn{background:var(--bad);color:#fff}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}
+p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.err{color:var(--bad);font-weight:700}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}
+.kriteria{font-size:.92rem;color:var(--muted)}
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}
+.quiz label.benar{background:var(--ok-soft)}
+.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}
+.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+.sl{list-style:none;padding:0;margin:8px 0}
+.sl li{display:flex;gap:10px;align-items:center;border:2px solid var(--line);border-radius:8px;padding:6px 10px;margin:6px 0;background:var(--bg)}
+.sl li.benar{border-color:var(--ok);background:var(--ok-soft)}
+.sl li.salah{border-color:var(--bad);background:var(--bad-soft)}
+.sl .txt{flex:1}
+.sl button{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:2px 10px}
+.tablist{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--line)}
+.tablist button{border:0;background:none;padding:8px 16px;border-radius:8px 8px 0 0;font-weight:600;color:var(--muted)}
+.tablist button[aria-selected="true"]{background:var(--primary-soft);color:var(--ink);box-shadow:inset 0 -3px 0 var(--primary)}
+.tabpanel{padding:14px 4px}
+.tabpanel[hidden]{display:none}
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}
+.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+/* Custom P10 */
+.story-toggle-bar{display:flex;gap:8px;margin-bottom:12px;align-items:center}
+.story-panels{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.story-panel{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg)}
+.story-panel h5{margin:0 0 8px;font-size:1rem}
+.story-panel.raw h5{color:var(--muted)}
+.story-panel.narasi h5{color:var(--primary)}
+.hilite{background:#ffd43b;color:#000;padding:1px 4px;border-radius:3px;font-weight:600}
+.hilite.bad{background:var(--bad-soft);color:var(--bad)}
+.hilite.ok{background:var(--ok-soft);color:var(--ok)}
+.principles{counter-reset:pr;list-style:none;padding:0}
+.principles li{counter-increment:pr;padding:8px 12px 8px 48px;position:relative;margin:6px 0;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.principles li::before{content:counter(pr);position:absolute;left:12px;top:8px;width:24px;height:24px;border-radius:50%;background:var(--primary);color:var(--primary-ink);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;line-height:24px;text-align:center}
+.ind-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:12px 0}
+.ind-card{background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:16px;text-align:center;transition:border-color .25s}
+.ind-card .val{font-size:2rem;font-weight:700;line-height:1.1;color:var(--primary)}
+.ind-card .lbl{font-size:.85rem;color:var(--muted);margin:4px 0}
+.ind-card .rumus{font-size:.78rem;font-family:ui-monospace,Consolas,monospace;color:var(--muted);background:var(--primary-soft);padding:3px 8px;border-radius:4px;display:inline-block;margin:6px 0}
+.ind-card .status{font-size:.85rem;font-weight:700;margin-top:6px;padding:3px 10px;border-radius:99px;display:inline-block}
+.ind-card.ok{border-color:var(--ok)}.ind-card.ok .val{color:var(--ok)}.ind-card.ok .status{background:var(--ok-soft);color:var(--ok)}
+.ind-card.warn{border-color:var(--warn)}.ind-card.warn .val{color:var(--warn)}.ind-card.warn .status{background:#fff3e0;color:var(--warn)}
+.ind-card.bad{border-color:var(--bad)}.ind-card.bad .val{color:var(--bad)}.ind-card.bad .status{background:var(--bad-soft);color:var(--bad)}
+.calc-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:12px 0}
+.calc-field{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.calc-field label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:4px;font-weight:600}
+.calc-field input{width:100%;border:1px solid var(--line);border-radius:6px;padding:6px 10px;background:var(--surface);font-size:1rem}
+.minideck{background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.deck-nav{display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--primary-soft);flex-wrap:wrap}
+.deck-nav .jump-btns{display:flex;gap:4px;flex-wrap:wrap}
+.deck-nav .jump-btns button{width:36px;height:36px;border-radius:50%;border:2px solid var(--line);background:var(--surface);font-weight:700}
+.deck-nav .jump-btns button.aktif{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.slide-area{padding:20px 24px;min-height:200px}
+.slide-frame{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;min-height:180px}
+.slide-frame h4{margin:0 0 10px;color:var(--primary)}
+.slide-frame .slide-num{font-size:.8rem;color:var(--muted);float:right}
+.rehear-table{width:100%;border-collapse:collapse;font-size:.95rem}
+.rehear-table th,.rehear-table td{border:1px solid var(--line);padding:7px 12px;text-align:center}
+.rehear-table th{background:var(--primary-soft)}
+.rehear-table td.aktif-row{background:var(--primary-soft);font-weight:700}
+.rehear-table td.over{color:var(--bad);font-weight:700}
+.rehear-table td.ok{color:var(--ok)}
+.dash-builder{display:grid;grid-template-columns:280px 1fr;gap:20px}
+.dash-picker{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px}
+.dash-picker h5{margin:0 0 10px;font-size:1rem}
+.dash-picker label{display:flex;gap:8px;align-items:center;padding:5px 6px;border-radius:6px;cursor:pointer;font-size:.95rem}
+.dash-picker label:hover{background:var(--primary-soft)}
+.dash-picker input[type=checkbox]{width:18px;height:18px}
+.dash-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dash-panel{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.dash-panel .big-num{font-size:2.4rem;font-weight:700;color:var(--primary)}
+.dash-panel .panel-label{font-size:.85rem;color:var(--muted);margin-top:4px}
+.gauge-wrap{position:relative;width:100px;height:54px;overflow:hidden;margin:0 auto 6px}
+.gauge-wrap svg{width:100%;height:100%}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}.story-panels{grid-template-columns:1fr}.dash-builder{grid-template-columns:1fr}}
+@media(max-width:600px){.ind-grid{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
+  body{font-size:12pt}
+  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}
+  .wrap{display:block;padding:0}
+  .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
+  .hero{background:#fff;color:#000}
+  .tabpanel[hidden]{display:block!important}
+}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+<header class="top">
+  <h1><span id="hdr-judul">Memuat…</span><small id="hdr-sub">Komputer Rumah Sakit</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
+  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode"></span>
+      <h2 id="hero-judul"></h2>
+      <p id="hero-cpmk"></p>
+      <ul id="hero-tujuan"></ul>
+    </div>
+
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">Dr. Hendra, Kepala Bidang Mutu RS Harapan Medika (fiktif), diminta direktur presentasi kinerja Oktober. BOR turun dari 82% ke 71%, LOS naik, ada masalah nyata — tapi semua ada di tabel angka biasa. Direktur melihat tabel dan berkata, <strong>"Data ini tidak bilang apa-apa."</strong> Dr. Hendra tersadar: data ada, tapi tidak <em>bercerita</em>. Padahal sebuah cerita yang didukung data adalah alat perubahan paling ampuh di manajemen RS.</p>
+      <p>Hari ini kita belajar mengubah angka menjadi narasi yang meyakinkan, menghitung indikator mutu RS secara akurat, dan merancang dasbor presentasi interaktif di PowerPoint.</p>
+    </section>
+
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
+      <p>Jawab 5 soal ini jujur — tidak ada penalti. Ini hanya melihat titik awal kalian.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test Pertemuan 10","soal":[
+        {"q":"Rumus BOR (Bed Occupancy Rate) yang benar adalah …","opsi":["(Pasien Keluar ÷ Tempat Tidur) × 100%","(Hari Perawatan ÷ (TT × Hari Periode)) × 100%","Hari Perawatan ÷ Pasien Keluar","(TT × Hari Periode) ÷ Pasien Keluar"],"benar":1,"jelas":"BOR mengukur persentase TT terpakai = HP ÷ (TT × Periode) × 100%."},
+        {"q":"Rentang normal BOR untuk RS umum adalah …","opsi":["20–40%","60–85%","86–100%","Di atas 100%"],"benar":1,"jelas":"WHO/Kemenkes: BOR ideal 60–85%."},
+        {"q":"LOS (Length of Stay) adalah …","opsi":["Jumlah total pasien yang dirawat","Rata-rata lama hari perawatan per pasien keluar","Interval waktu antar pasien di TT yang sama","Kunjungan rawat jalan per bulan"],"benar":1,"jelas":"LOS = HP ÷ Pasien Keluar."},
+        {"q":"'Data storytelling' dalam presentasi RS bertujuan …","opsi":["Menyembunyikan data negatif","Menambah slide sebanyak-banyaknya","Mengubah angka menjadi narasi yang mendorong keputusan","Menghapus grafik agar lebih ringkas"],"benar":2,"jelas":"Data storytelling menyajikan angka dengan konteks, narasi, dan visual yang memudahkan keputusan."},
+        {"q":"Fitur PowerPoint untuk navigasi non-linear (lompat ke slide mana saja) adalah …","opsi":["Slide Sorter","Presenter View","Action Button / Hyperlink","Rehearse Timings"],"benar":2,"jelas":"Action Button dan Hyperlink memungkinkan lompat ke slide mana pun tanpa urutan linear."}
+      ]}
+      </script>
+    </section>
+
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Data Storytelling" data-min="10">
+      <h4>Angka vs Cerita: klik tombol untuk beralih tampilan</h4>
+      <div class="story-toggle-bar">
+        <button class="btn sec" id="btn-toggle-story" type="button">Tampilkan Cerita</button>
+        <span id="story-label" style="color:var(--muted);font-size:.9rem">Sekarang: Tampilan Angka Mentah</span>
+      </div>
+      <div class="story-panels">
+        <div class="story-panel raw" id="panel-raw">
+          <h5>Angka Mentah — Data BOR/LOS Triwulan III (Fiktif)</h5>
+          <table class="data">
+            <thead><tr><th>Indikator</th><th>Jul</th><th>Agt</th><th>Sep</th></tr></thead>
+            <tbody>
+              <tr><td>BOR (%)</td><td>81</td><td>78</td><td>71</td></tr>
+              <tr><td>LOS (hari)</td><td>6.2</td><td>6.8</td><td>8.1</td></tr>
+              <tr><td>TOI (hari)</td><td>2.1</td><td>2.4</td><td>1.1</td></tr>
+              <tr><td>BTO (kali)</td><td>42</td><td>40</td><td>37</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="story-panel narasi" id="panel-narasi" hidden>
+          <h5>Narasi Cerita — Data yang Sama, Konteks Berbeda</h5>
+          <p>Selama Triwulan III, RS Harapan Medika mengalami <span class="hilite bad">tekanan kapasitas yang memburuk</span>: BOR turun dari <strong>81%</strong> di Juli menjadi <span class="hilite bad">71%</span> di September — di bawah ambang batas optimal 60-85%.</p>
+          <p>Lebih mengkhawatirkan, LOS melonjak dari <span class="hilite ok">6,2 hari</span> (normal) ke <span class="hilite bad">8,1 hari</span> — pasien dirawat lebih lama, mengindikasikan kemungkinan komplikasi atau hambatan discharge.</p>
+          <p>TOI yang menyempit ke <span class="hilite bad">1,1 hari</span> berarti TT hampir tidak sempat "bernapas" antara pasien. Tren ini perlu tindakan segera di bulan Oktober.</p>
+        </div>
+      </div>
+      <h4>5 Prinsip Data Storytelling</h4>
+      <ol class="principles">
+        <li><strong>Konteks:</strong> Selalu tampilkan data dalam konteks (bandingkan dengan target, periode lalu, atau standar).</li>
+        <li><strong>Fokus:</strong> Satu pesan utama per slide — jangan semuanya sekaligus.</li>
+        <li><strong>Visual:</strong> Pilih grafik yang sesuai dengan pesan, bukan sekadar "keren".</li>
+        <li><strong>Narasi:</strong> Rangkai data menjadi alur cerita: situasi → masalah → rekomendasi.</li>
+        <li><strong>Relevansi:</strong> Sesuaikan kedalaman data dengan kebutuhan audiens (direktur vs staf klinis).</li>
+      </ol>
+    </section>
+
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Kalkulator Indikator Mutu RS" data-min="10">
+      <p>Ubah angka input di bawah — hasil, rumus, dan status normal tampil otomatis.</p>
+      <div class="calc-inputs">
+        <div class="calc-field"><label for="inp-tt">Tempat Tidur (TT)</label><input type="number" id="inp-tt" min="1" max="1000" value="100"></div>
+        <div class="calc-field"><label for="inp-hp">Hari Perawatan (HP)</label><input type="number" id="inp-hp" min="0" max="400000" value="22500"></div>
+        <div class="calc-field"><label for="inp-pk">Pasien Keluar (PK)</label><input type="number" id="inp-pk" min="1" max="100000" value="3000"></div>
+        <div class="calc-field"><label for="inp-per">Periode (hari)</label><input type="number" id="inp-per" min="1" max="366" value="365"></div>
+      </div>
+      <div class="ind-grid" id="ind-grid-result"></div>
+      <p class="note"><strong>Catatan:</strong> Data default fiktif RS Harapan Medika. Nilai normal: BOR 60–85%, LOS 6–9 hari, TOI 1–3 hari, BTO 40–50 kali/tahun.</p>
+    </section>
+
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Hyperlink & Navigasi Non-Linear" data-min="10">
+      <p>Presentasi PPT tidak harus linear. Klik tombol nomor slide untuk lompat langsung — ini meniru fitur <strong>Hyperlink</strong> dan <strong>Action Button</strong> di PPT nyata.</p>
+      <div class="minideck" id="minideck-p10"></div>
+      <h4>Kapan pakai navigasi non-linear?</h4>
+      <div class="grid2">
+        <div class="card"><strong>Hyperlink teks/gambar</strong> → Buka slide tertentu, URL, atau file lain. Cocok untuk referensi atau lampiran yang jarang dibuka.</div>
+        <div class="card"><strong>Action Button</strong> → Tombol navigasi standar (Home, Back, Forward, Info). Cocok untuk presentasi booth/kiosk.</div>
+        <div class="card"><strong>Slide Zoom</strong> → Thumbnail interaktif yang bisa "dizoom" ke slide target. Cocok untuk dasbor dengan section berbeda.</div>
+        <div class="card"><strong>Zoom to Section</strong> → Mirip Slide Zoom tapi untuk seluruh section. Cocok untuk presentasi panjang dengan bab-bab.</div>
+      </div>
+    </section>
+
+    <section class="seg" id="seg-inti4" data-judul="Inti 4: Rehearse Timings & Timer Latihan" data-min="10">
+      <p>Latih presentasi dengan timer per slide. Set target waktu, klik Mulai, dan lihat selisih aktual vs target.</p>
+      <div id="rehearsal-widget"></div>
+    </section>
+
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Builder Dasbor" data-min="25">
+      <p>Bangun dasbor presentasi 4-panel sendiri. Pilih 4 indikator dari 8 yang tersedia, pilih jenis visual, lalu lihat pratinjau dasbor.</p>
+      <div id="dashbuilder-widget"></div>
+      <div class="tugas-lab">
+        <h4>Tugas Lab</h4>
+        <ol>
+          <li>Buka PowerPoint. Buat presentasi baru dengan tema RS Harapan Medika (fiktif).</li>
+          <li>Slide 1: Judul laporan kinerja. Slide 2-5: satu indikator per slide dengan grafik dan narasi singkat.</li>
+          <li>Tambahkan hyperlink di slide 1 yang langsung lompat ke slide indikator yang diklik (buat navigation map).</li>
+          <li>Aktifkan Rehearse Timings, rekam presentasi &le;5 menit, simpan timings.</li>
+          <li>Ekspor sebagai PDF dan unggah ke LMS.</li>
+        </ol>
+        <p><button class="btn sec" type="button" id="btn-export-csv-p10">Unduh Data Indikator (.csv)</button></p>
+        <p class="kriteria"><strong>Kriteria (RPS CPMK-4):</strong> 1) Kelengkapan 4 indikator dengan grafik yang tepat (40%) 2) Navigasi hyperlink berfungsi (30%) 3) Kualitas narasi data storytelling (30%).</p>
+      </div>
+    </section>
+
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test Pertemuan 10","soal":[
+        {"q":"RS dengan BOR 90% selama 3 bulan berturut-turut mengindikasikan …","opsi":["Kinerja sempurna, tidak perlu tindakan","Kelebihan beban, risiko mutu dan infeksi meningkat","Kekurangan pasien, perlu promosi","TT terlalu banyak"],"benar":1,"jelas":"BOR >85% terus-menerus mengindikasikan overkapasitas, risiko infeksi nosokomial meningkat."},
+        {"q":"Manakah contoh penerapan prinsip 'fokus' dalam data storytelling?","opsi":["Memasukkan semua tabel data di satu slide","Membuat satu kalimat headline yang meringkas pesan utama slide","Menggunakan 10 warna berbeda untuk tiap grafik","Menghapus semua grafik dan hanya menampilkan tabel"],"benar":1,"jelas":"Prinsip fokus = satu pesan utama per slide, diperkuat headline yang kuat."},
+        {"q":"TOI = 0,5 hari artinya …","opsi":["TT kosong setengah hari antara dua pasien — sangat efisien","TT hampir tidak sempat dibersihkan/disiapkan ulang — berisiko INOS","LOS terlalu pendek","BOR terlalu rendah"],"benar":1,"jelas":"TOI ideal 1–3 hari. TOI 0,5 hari berarti TT hampir langsung terisi — risiko kebersihan dan infeksi."},
+        {"q":"Rumus BTO yang benar adalah …","opsi":["Pasien Keluar × Tempat Tidur","Hari Perawatan ÷ Pasien Keluar","Pasien Keluar ÷ Tempat Tidur","(TT × Periode − HP) ÷ PK"],"benar":2,"jelas":"BTO = Pasien Keluar ÷ Tempat Tidur, menunjukkan berapa kali rata-rata TT dipakai dalam setahun."},
+        {"q":"Fitur 'Rehearse Timings' di PowerPoint berguna untuk …","opsi":["Menambah animasi otomatis","Merekam berapa lama tiap slide ditampilkan saat latihan","Membuat hyperlink antar slide","Mengubah ukuran font secara otomatis"],"benar":1,"jelas":"Rehearse Timings merekam durasi tiap slide agar slide berpindah otomatis sesuai ritme latihan."}
+      ]}
+      </script>
+      <h4>Perbandingan Pre-test vs Post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
+      <h4>5 Poin Ringkasan</h4>
+      <ol>
+        <li><strong>Data Storytelling</strong> mengubah angka menjadi narasi berstruktur: situasi → masalah → rekomendasi.</li>
+        <li><strong>BOR, LOS, TOI, BTO</strong> adalah empat indikator efisiensi utama RS — masing-masing punya rentang normal berbeda.</li>
+        <li><strong>BOR ideal 60–85%</strong>; di bawah itu underutilized, di atas itu overloaded.</li>
+        <li><strong>Hyperlink & Action Button</strong> memungkinkan navigasi non-linear di PPT — ideal untuk laporan berbasis pertanyaan audiens.</li>
+        <li><strong>Rehearse Timings</strong> membantu presenter melatih ritme tanpa melebihi batas waktu rapat.</li>
+      </ol>
+      <h4>Refleksi</h4>
+      <div data-widget="reflect" data-key="refleksi-p10" data-prompt="Satu hal yang paling berguna hari ini, dan satu hal tentang data storytelling yang masih ingin kamu perjelas:"></div>
+      <p class="note"><strong>Tindak lanjut:</strong> Sebelum pertemuan 11 — pastikan terinstal Microsoft Word dan Excel. Kita akan menghubungkan kedua aplikasi secara dinamis menggunakan OLE (Object Linking &amp; Embedding).</p>
+    </section>
+  </main>
+</div>
+<script>
+"use strict";
+const KONFIG = {
+  kode: "krs-p10",
+  nomor: "10",
+  judul: "PowerPoint Lanjutan: Data Storytelling & Dasbor Interaktif",
+  cpmk: "CPMK-4: Mampu menyajikan data kesehatan kompleks dan visualisasi indikator RS secara dinamis dan interaktif.",
+  tujuan: [
+    "Memahami konsep data storytelling dalam konteks RS",
+    "Menghitung indikator mutu RS: BOR, LOS, TOI, BTO",
+    "Merancang dasbor presentasi yang efektif di PowerPoint"
+  ],
+  totalMenit: 90
+};
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, props, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in (props || {})) {
+    const v = props[k];
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (v === true) e.setAttribute(k, "");
+    else if (v !== false && v != null) e.setAttribute(k, v);
+  }
+  for (const c of kids.flat()) {
+    if (c == null || c === false) continue;
+    e.append(c.nodeType ? c : document.createTextNode(String(c)));
+  }
+  return e;
+}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(KONFIG.kode + "-" + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(KONFIG.kode + "-" + k, JSON.stringify(v)); } catch { } }
+};
+function getData(id) { return JSON.parse(document.getElementById(id).textContent); }
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+function mmss(s) { s = Math.max(0, Math.round(s)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+let uid = 0; const nextId = p => p + "-" + (++uid);
+
+const W = {};
+W.quiz = el => {
+  const d = getData(el.dataset.src);
+  const key = "quiz-" + (el.dataset.role || el.dataset.src);
+  const saved = store.get(key, { jawab: {} });
+  const jawab = saved.jawab || {};
+  const skorEl = h("p", { class: "skor", "aria-live": "polite" });
+  const items = [];
+  function hitung() {
+    let b = 0; for (const i in jawab) if (jawab[i] === d.soal[i].benar) b++;
+    const n = Object.keys(jawab).length;
+    skorEl.textContent = "Skor: " + b + " / " + d.soal.length + (n < d.soal.length ? "  (terjawab " + n + ")" : "");
+    store.set(key, { jawab, skor: b, total: d.soal.length, selesai: n === d.soal.length });
+    document.dispatchEvent(new CustomEvent("krs:skor"));
+  }
+  function tampil(i, pilih) {
+    const it = items[i], s = d.soal[i];
+    it.labels.forEach((l, j) => { l.classList.toggle("benar", j === s.benar); l.classList.toggle("salah", j === pilih && j !== s.benar); });
+    it.fb.textContent = (pilih === s.benar ? "Benar. " : "Belum tepat. ") + (s.jelas || "");
+  }
+  d.soal.forEach((s, i) => {
+    const name = nextId("q");
+    const fb = h("p", { class: "fb", "aria-live": "polite" });
+    const labels = s.opsi.map((o, j) => {
+      const inp = h("input", { type: "radio", name, value: j, onchange: () => { jawab[i] = j; tampil(i, j); hitung(); } });
+      if (jawab[i] === j) inp.checked = true;
+      return h("label", {}, inp, " ", o);
+    });
+    items.push({ labels, fb });
+    el.append(h("fieldset", {}, h("legend", {}, (i + 1) + ". " + s.q), labels, fb));
+    if (jawab[i] !== undefined) tampil(i, jawab[i]);
+  });
+  el.append(skorEl, h("button", { class: "btn sec", type: "button", onclick: () => {
+    for (const k in jawab) delete jawab[k];
+    $$("input", el).forEach(x => x.checked = false);
+    items.forEach(it => { it.labels.forEach(l => l.classList.remove("benar", "salah")); it.fb.textContent = ""; });
+    hitung();
+  } }, "Ulangi"));
+  hitung();
+};
+W.banding = el => {
+  function baris(role, nama, cls) {
+    const track = h("i"), val = h("span", {}, "–");
+    el.append(h("div", { class: "row " + cls }, h("span", {}, nama), h("div", { class: "track" }, track), val));
+    return () => {
+      const s = store.get("quiz-" + role, null);
+      if (!s || !s.selesai) { track.style.width = "0"; val.textContent = "–"; return; }
+      const p = Math.round(s.skor / s.total * 100);
+      track.style.width = p + "%"; val.textContent = p + "%";
+    };
+  }
+  el.classList.add("banding");
+  const a = baris("pre", "Pre-test", "pre"), b = baris("post", "Post-test", "post");
+  const up = () => { a(); b(); };
+  document.addEventListener("krs:skor", up); up();
+};
+W.reflect = el => {
+  const key = "ref-" + (el.dataset.key || "x");
+  const ta = h("textarea", { class: "reflect", "aria-label": el.dataset.prompt || "Refleksi" });
+  ta.value = store.get(key, "");
+  ta.addEventListener("input", () => store.set(key, ta.value));
+  el.append(h("p", {}, el.dataset.prompt || "Tuliskan refleksi singkat:"), ta);
+};
+
+function initTabs() {
+  $$(".tabs").forEach(box => {
+    const tabs = $$(".tablist button", box), panels = $$(":scope > .tabpanel", box);
+    function pilih(i) { tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; }); panels.forEach((p, k) => { p.hidden = k !== i; }); }
+    tabs.forEach((t, i) => t.addEventListener("click", () => pilih(i)));
+    pilih(0);
+  });
+}
+
+/* === Story toggle === */
+function initStoryToggle() {
+  const btn = $("#btn-toggle-story"), lbl = $("#story-label");
+  const raw = $("#panel-raw"), nar = $("#panel-narasi");
+  if (!btn) return;
+  let isNarasi = false;
+  btn.addEventListener("click", () => {
+    isNarasi = !isNarasi;
+    raw.hidden = isNarasi;
+    nar.hidden = !isNarasi;
+    btn.textContent = isNarasi ? "Tampilkan Angka Mentah" : "Tampilkan Cerita";
+    lbl.textContent = "Sekarang: " + (isNarasi ? "Tampilan Cerita Naratif" : "Tampilan Angka Mentah");
+  });
+}
+
+/* === Kalkulator Indikator === */
+function getStatus(key, val) {
+  if (key === "bor") return val < 60 ? "Rendah (< 60%)" : val > 85 ? "Tinggi (> 85%)" : "Normal";
+  if (key === "los") return val < 6 ? "Pendek (< 6 hr)" : val > 9 ? "Panjang (> 9 hr)" : "Normal";
+  if (key === "toi") return val < 1 ? "Sempit (< 1 hr)" : val > 3 ? "Longgar (> 3 hr)" : "Normal";
+  if (key === "bto") return val < 40 ? "Rendah (< 40)" : val > 50 ? "Tinggi (> 50)" : "Normal";
+  return "";
+}
+function getClass(key, val) {
+  if (key === "bor") return (val >= 60 && val <= 85) ? "ok" : (val < 40 || val > 95) ? "bad" : "warn";
+  if (key === "los") return (val >= 6 && val <= 9) ? "ok" : (val < 3 || val > 15) ? "bad" : "warn";
+  if (key === "toi") return (val >= 1 && val <= 3) ? "ok" : (val < 0.5 || val > 6) ? "bad" : "warn";
+  if (key === "bto") return (val >= 40 && val <= 50) ? "ok" : (val < 20 || val > 70) ? "bad" : "warn";
+  return "";
+}
+function initKalkulator() {
+  const grid = $("#ind-grid-result");
+  if (!grid) return;
+  const defs = [
+    { key: "bor", nama: "BOR", satuan: "%", desimal: 1, rumus: "(HP ÷ (TT × Periode)) × 100", normal: "60–85%" },
+    { key: "los", nama: "LOS", satuan: " hari", desimal: 1, rumus: "HP ÷ PK", normal: "6–9 hari" },
+    { key: "toi", nama: "TOI", satuan: " hari", desimal: 1, rumus: "((TT × Periode) − HP) ÷ PK", normal: "1–3 hari" },
+    { key: "bto", nama: "BTO", satuan: " kali", desimal: 1, rumus: "PK ÷ TT", normal: "40–50/tahun" }
+  ];
+  const cards = {};
+  defs.forEach(d => {
+    const valEl = h("div", { class: "val" }, "—");
+    const statusEl = h("div", { class: "status" }, "—");
+    const card = h("div", { class: "ind-card" },
+      h("div", { class: "lbl" }, d.nama),
+      valEl,
+      h("div", { class: "rumus" }, d.rumus),
+      h("div", { style: "font-size:.8rem;color:var(--muted)" }, "Normal: " + d.normal),
+      statusEl
+    );
+    grid.append(card);
+    cards[d.key] = { card, valEl, statusEl, d };
+  });
+  function calc() {
+    const tt = parseFloat($("#inp-tt").value) || 1;
+    const hp = parseFloat($("#inp-hp").value) || 0;
+    const pk = parseFloat($("#inp-pk").value) || 1;
+    const per = parseFloat($("#inp-per").value) || 365;
+    const vals = {
+      bor: (hp / (tt * per)) * 100,
+      los: hp / pk,
+      toi: ((tt * per) - hp) / pk,
+      bto: pk / tt
+    };
+    Object.keys(cards).forEach(key => {
+      const { card, valEl, statusEl, d } = cards[key];
+      const v = vals[key];
+      const fmt = isNaN(v) || !isFinite(v) ? "—" : v.toFixed(d.desimal) + d.satuan;
+      valEl.textContent = fmt;
+      statusEl.textContent = isNaN(v) ? "—" : getStatus(key, v);
+      card.className = "ind-card " + (isNaN(v) ? "" : getClass(key, v));
+    });
+    store.set("kalkulator", { tt, hp, pk, per });
+  }
+  const saved = store.get("kalkulator", null);
+  if (saved) {
+    if (saved.tt) $("#inp-tt").value = saved.tt;
+    if (saved.hp) $("#inp-hp").value = saved.hp;
+    if (saved.pk) $("#inp-pk").value = saved.pk;
+    if (saved.per) $("#inp-per").value = saved.per;
+  }
+  ["#inp-tt","#inp-hp","#inp-pk","#inp-per"].forEach(sel => {
+    const el = $(sel); if (el) el.addEventListener("input", calc);
+  });
+  calc();
+}
+
+/* === Mini deck (navigasi non-linear) === */
+function initMiniDeck() {
+  const wrap = $("#minideck-p10");
+  if (!wrap) return;
+  const slides = [
+    { judul: "Ringkasan Kinerja Oktober", isi: "BOR Oktober: 71% (turun dari 82%). LOS: 8,1 hari (di atas normal). Tren memburuk selama 3 bulan terakhir. [→ Klik slide 2 untuk detail BOR, slide 3 untuk LOS, slide 4 untuk rekomendasi]" },
+    { judul: "Detail BOR — Trend Turun", isi: "Juli: 81% ✓ | Agustus: 78% ✓ | September: 71% ⚠. Penyebab: refurbishment bangsal Anggrek (20 TT tidak aktif). Proyeksi Oktober setelah renovasi selesai: kembali ke 78–80%." },
+    { judul: "Analisis LOS — Mengapa Naik?", isi: "LOS naik ke 8,1 hari (normal: 6–9). Faktor: 1) Kasus DM dengan komplikasi meningkat 18%. 2) Hambatan discharge pasien BPJS (verifikasi berkas 2 hari). Rekomendasi: percepat proses discharge planning." },
+    { judul: "Rekomendasi & Tindak Lanjut", isi: "1. Aktifkan kembali 20 TT bangsal Anggrek paling lambat 15 Nov. 2. Buat SOP discharge planning ≤ 24 jam untuk pasien BPJS. 3. Monitor BOR mingguan, target kembali ke 80% pada Desember." }
+  ];
+  let cur = 0;
+  const navBar = h("div", { class: "deck-nav" });
+  const jumpDiv = h("div", { class: "jump-btns", "aria-label": "Lompat ke slide" });
+  const slideArea = h("div", { class: "slide-area" });
+  const slideFrame = h("div", { class: "slide-frame" });
+  const btnPrev = h("button", { class: "btn sec", type: "button", onclick: () => go(cur - 1) }, "◀");
+  const btnNext = h("button", { class: "btn sec", type: "button", onclick: () => go(cur + 1) }, "▶");
+  const posLabel = h("span", { style: "color:var(--muted);font-size:.9rem" });
+  const jumpBtns = slides.map((_, i) => h("button", { type: "button", "aria-label": "Slide " + (i+1), onclick: () => go(i) }, String(i + 1)));
+  jumpBtns.forEach(b => jumpDiv.append(b));
+  navBar.append(btnPrev, jumpDiv, btnNext, posLabel);
+  wrap.append(navBar, slideArea);
+  slideArea.append(slideFrame);
+  function go(i) {
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    const s = slides[cur];
+    slideFrame.textContent = "";
+    const numEl = h("span", { class: "slide-num" }, (cur + 1) + " / " + slides.length);
+    const h4El = h("h4", {}, s.judul);
+    const pEl = h("p", {}, s.isi);
+    h4El.append(numEl);
+    slideFrame.append(h4El, pEl);
+    jumpBtns.forEach((b, i) => b.classList.toggle("aktif", i === cur));
+    posLabel.textContent = " Slide " + (cur+1) + " / " + slides.length;
+    btnPrev.disabled = cur === 0;
+    btnNext.disabled = cur === slides.length - 1;
+  }
+  go(0);
+}
+
+/* === Rehearsal timer === */
+function initRehearsal() {
+  const wrap = $("#rehearsal-widget");
+  if (!wrap) return;
+  const slideNames = ["Pembuka & Ringkasan", "Detail BOR", "Analisis LOS", "Rekomendasi", "Penutup & Q&A"];
+  const targets = [30, 45, 45, 45, 15]; // detik default
+  let aktif = -1, tid = null;
+  const actuals = slideNames.map(() => 0);
+  const rows = [];
+  const tbl = h("table", { class: "rehear-table" });
+  const thead = h("thead", {}, h("tr", {},
+    h("th", {}, "Slide"), h("th", {}, "Target"), h("th", {}, "Aktual"), h("th", {}, "Selisih"), h("th", {}, "Status")
+  ));
+  tbl.append(thead);
+  const tbody = h("tbody");
+  tbl.append(tbody);
+  slideNames.forEach((nm, i) => {
+    const targInp = h("input", { type: "number", min: "5", max: "300", value: targets[i], style: "width:70px;border:1px solid var(--line);border-radius:4px;padding:2px 6px;background:var(--surface)", "aria-label": "Target detik slide " + (i+1),
+      onchange: () => { targets[i] = parseInt(targInp.value) || 30; update(); } });
+    const actEl = h("td", { class: "aktif-row" }, "0:00");
+    const diffEl = h("td", {}, "—");
+    const statEl = h("td", {}, "—");
+    const tr = h("tr", {}, h("td", {}, nm), h("td", {}, targInp, h("span", {}, " dtk")), actEl, diffEl, statEl);
+    rows.push({ tr, actEl, diffEl, statEl });
+    tbody.append(tr);
+  });
+  function update() {
+    rows.forEach((r, i) => {
+      const a = actuals[i], t = targets[i];
+      r.actEl.textContent = mmss(a);
+      if (a === 0) { r.diffEl.textContent = "—"; r.statEl.textContent = "—"; r.actEl.className = aktif === i ? "aktif-row" : ""; return; }
+      const diff = a - t;
+      r.diffEl.textContent = (diff >= 0 ? "+" : "") + mmss(Math.abs(diff));
+      r.diffEl.className = diff > 5 ? "over" : diff < -5 ? "ok" : "";
+      r.statEl.textContent = diff > 10 ? "⚠ Melebihi" : diff > 0 ? "Sedikit lebih" : "Tepat ✓";
+      r.statEl.className = diff > 10 ? "over" : diff < -5 ? "ok" : "";
+    });
+  }
+  const ctrlDiv = h("div", { style: "display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap" });
+  const selSlide = h("select", { "aria-label": "Pilih slide", style: "padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)" });
+  slideNames.forEach((nm, i) => selSlide.append(h("option", { value: i }, "Slide " + (i+1) + ": " + nm)));
+  const btnMulai = h("button", { class: "btn", type: "button", onclick: () => {
+    if (tid) { clearInterval(tid); tid = null; btnMulai.textContent = "▶ Lanjut"; return; }
+    aktif = parseInt(selSlide.value);
+    tid = setInterval(() => { actuals[aktif]++; update(); }, 1000);
+    btnMulai.textContent = "⏸ Jeda";
+  } }, "▶ Mulai");
+  const btnNext = h("button", { class: "btn sec", type: "button", onclick: () => {
+    if (tid) { clearInterval(tid); tid = null; }
+    aktif = Math.min(aktif + 1, slideNames.length - 1);
+    selSlide.value = aktif;
+    btnMulai.textContent = "▶ Mulai";
+    update();
+  } }, "Slide Berikutnya ▶");
+  const btnReset = h("button", { class: "btn sec", type: "button", onclick: () => {
+    if (tid) { clearInterval(tid); tid = null; }
+    aktif = -1; actuals.fill(0);
+    btnMulai.textContent = "▶ Mulai"; update();
+  } }, "Reset");
+  const timerEl = h("div", { style: "font-size:2rem;font-weight:700;font-variant-numeric:tabular-nums;color:var(--primary);min-width:80px" }, "0:00");
+  let dispTid = null;
+  function startDisplay() {
+    if (dispTid) clearInterval(dispTid);
+    dispTid = setInterval(() => { if (aktif >= 0) timerEl.textContent = mmss(actuals[aktif]); }, 200);
+  }
+  startDisplay();
+  ctrlDiv.append(h("label", {}, "Slide: ", selSlide), btnMulai, btnNext, btnReset, timerEl);
+  wrap.append(h("p", { style: "font-size:.9rem;color:var(--muted)" }, "Set target waktu tiap slide (detik), pilih slide, klik Mulai. Tombol 'Slide Berikutnya' otomatis beralih ke slide selanjutnya."), ctrlDiv, tbl);
+  update();
+}
+
+/* === Dashboard Builder === */
+function initDashBuilder() {
+  const wrap = $("#dashbuilder-widget");
+  if (!wrap) return;
+  const inds = [
+    { id:"bor", nama:"BOR", val:"74%", desc:"Bed Occupancy Rate" },
+    { id:"los", nama:"LOS", val:"7,2 hr", desc:"Length of Stay" },
+    { id:"toi", nama:"TOI", val:"2,1 hr", desc:"Turn Over Interval" },
+    { id:"bto", nama:"BTO", val:"38 kali", desc:"Bed Turn Over" },
+    { id:"ndr", nama:"NDR", val:"18‰", desc:"Net Death Rate" },
+    { id:"gdr", nama:"GDR", val:"32‰", desc:"Gross Death Rate" },
+    { id:"alos", nama:"ALOS", val:"6,8 hr", desc:"Avg. Length of Stay" },
+    { id:"poli", nama:"Kunjungan Poli", val:"4.120", desc:"Kunjungan rawat jalan" }
+  ];
+  const visTypes = ["Angka Besar","Bar Chart","Gauge"];
+  let selected = new Set(["bor","los","toi","bto"]);
+  const visChoice = {}; inds.forEach(i => visChoice[i.id] = "Angka Besar");
+
+  const outer = h("div", { class: "dash-builder" });
+  const picker = h("div", { class: "dash-picker" });
+  picker.append(h("h5", {}, "Pilih 4 Indikator:"));
+  inds.forEach(ind => {
+    const cb = h("input", { type: "checkbox", id: "db-" + ind.id, "aria-label": ind.nama, onchange: () => {
+      if (cb.checked) { if (selected.size < 4) selected.add(ind.id); else { cb.checked = false; return; } }
+      else selected.delete(ind.id);
+      renderPreview();
+    } });
+    cb.checked = selected.has(ind.id);
+    const sel = h("select", { "aria-label": "Jenis visual " + ind.nama, style: "font-size:.8rem;margin-left:4px;border:1px solid var(--line);border-radius:4px;padding:1px 4px;background:var(--surface)",
+      onchange: () => { visChoice[ind.id] = sel.value; renderPreview(); } });
+    visTypes.forEach(t => sel.append(h("option", { value: t, selected: t === visChoice[ind.id] }, t)));
+    picker.append(h("label", {}, cb, h("span", {}, " " + ind.nama + " "), sel));
+  });
+
+  const preview = h("div", {});
+  preview.append(h("h5", { style: "margin:0 0 8px" }, "Pratinjau Dasbor (4 panel):"));
+  const grid = h("div", { class: "dash-preview" });
+  preview.append(grid);
+  outer.append(picker, preview);
+  wrap.append(outer);
+
+  function makeGaugeSVG(pct) {
+    const ns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("viewBox","0 0 100 54");
+    svg.setAttribute("aria-hidden","true");
+    const bg = document.createElementNS(ns, "path");
+    bg.setAttribute("d","M10,50 A40,40 0 0,1 90,50");
+    bg.setAttribute("fill","none"); bg.setAttribute("stroke","var(--line)"); bg.setAttribute("stroke-width","10");
+    const p = Math.min(1, Math.max(0, pct));
+    const angle = Math.PI * p;
+    const x = 50 + 40 * Math.cos(Math.PI - angle);
+    const y = 50 - 40 * Math.sin(Math.PI - angle);
+    const arc = document.createElementNS(ns, "path");
+    arc.setAttribute("d","M10,50 A40,40 0 0," + (p > 0.5 ? 1 : 0) + " " + x.toFixed(1) + "," + y.toFixed(1));
+    arc.setAttribute("fill","none"); arc.setAttribute("stroke","var(--primary)"); arc.setAttribute("stroke-width","10");
+    const lbl = document.createElementNS(ns, "text");
+    lbl.setAttribute("x","50"); lbl.setAttribute("y","48"); lbl.setAttribute("text-anchor","middle");
+    lbl.setAttribute("style","font-size:12px;font-weight:700;fill:var(--ink)");
+    lbl.textContent = Math.round(p * 100) + "%";
+    svg.append(bg, arc, lbl);
+    return svg;
+  }
+
+  function makeBarSVG(val, max) {
+    const ns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("viewBox","0 0 100 40");
+    svg.setAttribute("aria-hidden","true");
+    const bg = document.createElementNS(ns, "rect");
+    bg.setAttribute("x","0"); bg.setAttribute("y","10"); bg.setAttribute("width","100"); bg.setAttribute("height","20"); bg.setAttribute("rx","4"); bg.setAttribute("fill","var(--primary-soft)");
+    const w = Math.min(100, Math.max(0, (val / max) * 100));
+    const bar = document.createElementNS(ns, "rect");
+    bar.setAttribute("x","0"); bar.setAttribute("y","10"); bar.setAttribute("width", w.toFixed(1)); bar.setAttribute("height","20"); bar.setAttribute("rx","4"); bar.setAttribute("fill","var(--primary)");
+    svg.append(bg, bar);
+    return svg;
+  }
+
+  function renderPreview() {
+    grid.textContent = "";
+    const selList = inds.filter(i => selected.has(i.id));
+    if (selList.length === 0) { grid.append(h("p", { style: "color:var(--muted)" }, "Pilih minimal 1 indikator.")); return; }
+    selList.slice(0, 4).forEach(ind => {
+      const vis = visChoice[ind.id];
+      const panel = h("div", { class: "dash-panel" });
+      if (vis === "Angka Besar") {
+        panel.append(h("div", { class: "big-num" }, ind.val));
+      } else if (vis === "Gauge") {
+        const pct = parseFloat(ind.val) / 100 || 0.74;
+        panel.append(makeGaugeSVG(pct));
+      } else {
+        const num = parseFloat(ind.val) || 50;
+        panel.append(makeBarSVG(num, num * 1.5));
+        panel.append(h("div", { style: "font-size:.85rem;color:var(--muted)" }, ind.val));
+      }
+      panel.append(h("div", { class: "panel-label" }, ind.nama + " — " + ind.desc));
+      grid.append(panel);
+    });
+  }
+  renderPreview();
+
+  const btnCSV = $("#btn-export-csv-p10");
+  if (btnCSV) {
+    btnCSV.addEventListener("click", () => {
+      const baris = [["Indikator","Deskripsi","Nilai (Fiktif)","Normal","Satuan"]];
+      inds.forEach(i => {
+        const normals = {bor:"60–85",los:"6–9",toi:"1–3",bto:"40–50",ndr:"<25",gdr:"<45",alos:"6–9",poli:"n/a"};
+        const sats = {bor:"%",los:"hari",toi:"hari",bto:"kali/tahun",ndr:"‰",gdr:"‰",alos:"hari",poli:"kunjungan"};
+        baris.push([i.nama, i.desc, i.val, normals[i.id]||"", sats[i.id]||""]);
+      });
+      const sep = ";";
+      const esc = v => { v = String(v); return /[";,\n\r]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v; };
+      const isi = "﻿" + baris.map(r => r.map(esc).join(sep)).join("\r\n");
+      const url = URL.createObjectURL(new Blob([isi], { type: "text/csv;charset=utf-8" }));
+      const a = h("a", { href: url, download: "data-indikator-rs-fiktif.csv" });
+      document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  }
+}
+
+/* === Timer & agenda === */
+function initSegmen() {
+  const segs = $$("section.seg"), agenda = $("#agenda");
+  const done = store.get("selesai", {});
+  let mulai = 0;
+  const links = [];
+  segs.forEach((s, i) => {
+    const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
+    const head = h("div", { class: "seg-head" }, h("h3", {}, judul), h("span", { class: "badge" }, min + " menit"));
+    let sisa = min * 60, tid = null;
+    const tb = h("button", { class: "btn sec", type: "button" }, "⏱ " + mmss(sisa));
+    const tw = h("span", { class: "seg-timer" }, tb);
+    tb.addEventListener("click", () => {
+      if (tid) { clearInterval(tid); tid = null; tb.textContent = "▶ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); return; }
+      tid = setInterval(() => { sisa--; tw.classList.toggle("over", sisa < 0); tb.textContent = "⏸ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); }, 1000);
+    });
+    head.append(tw); s.prepend(head);
+    const foot = h("div", { class: "seg-foot" });
+    const sb = h("button", { class: "btn sec", type: "button" });
+    function tandai(v) {
+      s.classList.toggle("done", v); a.classList.toggle("done", v); sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
+      done[s.id] = v; store.set("selesai", done); progres();
+    }
+    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
+    foot.append(sb); s.append(foot);
+    const a = h("a", { href: "#" + s.id }, h("span", { class: "mnt" }, mulai + "–" + (mulai + min) + "'"), h("span", {}, judul), h("span", { class: "tick", "aria-label": "selesai" }, "✓"));
+    agenda.append(a); links.push({ a, s }); mulai += min;
+    tandai(!!done[s.id]);
+  });
+  function progres() { const n = segs.filter(x => x.classList.contains("done")).length; $("#hdr-bar").style.width = (n / segs.length * 100) + "%"; }
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target))); }), { rootMargin: "-20% 0px -70% 0px" });
+    segs.forEach(s => io.observe(s));
+  }
+}
+function initJam() {
+  let t = 0, id = null;
+  const c = $("#clock"), b = $("#clock-btn");
+  b.addEventListener("click", () => {
+    if (id) { clearInterval(id); id = null; b.textContent = "Lanjut"; }
+    else { id = setInterval(() => { t++; c.textContent = mmss(t); }, 1000); b.textContent = "Jeda"; }
+  });
+}
+function isiHero() {
+  document.title = "Pertemuan " + KONFIG.nomor + " — " + KONFIG.judul + " | Komputer Rumah Sakit";
+  $("#hdr-judul").textContent = KONFIG.judul;
+  $("#hdr-sub").textContent = "Komputer Rumah Sakit · Pertemuan " + KONFIG.nomor;
+  $("#hero-kode").textContent = "Pertemuan " + KONFIG.nomor + " · " + KONFIG.cpmk.split(":")[0];
+  $("#hero-judul").textContent = KONFIG.judul;
+  $("#hero-cpmk").textContent = KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t => $("#hero-tujuan").append(h("li", {}, t)));
+}
+document.addEventListener("DOMContentLoaded", () => {
+  isiHero();
+  $$("[data-widget]").forEach(el => {
+    const fn = W[el.dataset.widget];
+    if (!fn) return;
+    try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal (" + el.dataset.widget + "): " + e.message)); }
+  });
+  initTabs(); initSegmen(); initJam();
+  initStoryToggle(); initKalkulator(); initMiniDeck(); initRehearsal(); initDashBuilder();
+  window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

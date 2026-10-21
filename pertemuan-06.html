@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 06 — Microsoft Excel Dasar | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9;--surface:#ffffff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
+  --primary:#0b7285;--primary-ink:#ffffff;--primary-soft:#d3f0f4;
+  --accent:#e8590c;--ok:#2b8a3e;--ok-soft:#dff3e3;--warn:#e67700;--bad:#c92a2a;--bad-soft:#fbe1e1;
+  --c1:#0b7285;--c2:#e8590c;--c3:#7048e8;--c4:#2b8a3e;--c5:#c2255c;--c6:#f08c00;--c7:#1971c2;--c8:#5c940d;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);--r:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0e1b20;--surface:#15272e;--ink:#e6f1f3;--muted:#9bb2ba;--line:#27414a;
+  --primary:#3bc0d6;--primary-ink:#06222a;--primary-soft:#14414b;
+  --accent:#ff922b;--ok:#69db7c;--ok-soft:#173a22;--warn:#ffc078;--bad:#ff8787;--bad-soft:#4a1d1d;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
+.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}
+nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+nav.agenda a.done .tick{visibility:visible}
+main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}
+.hero p{margin:6px 0;opacity:.95}
+.hero ul{margin:8px 0 0;padding-left:20px}
+@media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-timer{display:inline-flex;gap:6px;align-items:center}
+.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.seg-timer.over .btn{background:var(--bad);color:#fff}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}
+p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.warn-box{background:var(--bad-soft);border-radius:8px;padding:10px 14px;margin:12px 0}
+.err{color:var(--bad);font-weight:700}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}
+.kriteria{font-size:.92rem;color:var(--muted)}
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}
+.quiz label.benar{background:var(--ok-soft)}
+.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}
+.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+.dm{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:700px){.dm{grid-template-columns:1fr}}
+.dm-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch;margin:6px 0}
+.dm-slot{min-height:44px;border:2px dashed var(--line);border-radius:8px;padding:6px 10px;background:var(--bg);text-align:left}
+.dm-slot.isi{border-style:solid;border-color:var(--primary)}
+.dm-slot.benar{border-color:var(--ok);background:var(--ok-soft)}
+.dm-slot.salah{border-color:var(--bad);background:var(--bad-soft)}
+.dm-bank{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.dm-item{border:2px solid var(--primary);background:var(--surface);border-radius:8px;padding:6px 12px}
+.dm-item.pilih{background:var(--primary);color:var(--primary-ink)}
+.hs-stage{position:relative;max-width:640px;margin:0 auto;border:1px solid var(--line);border-radius:10px;background:var(--bg);overflow:hidden}
+.hs-stage svg{display:block;width:100%;height:auto}
+.hs-dot{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;
+  border:3px solid #fff;background:var(--accent);color:#fff;font-weight:700;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.hs-dot[aria-pressed="true"]{background:var(--primary)}
+.hs-info{max-width:640px;margin:10px auto 0;min-height:70px;background:var(--primary-soft);border-radius:10px;padding:10px 14px}
+.checklist{list-style:none;padding:0;margin:8px 0}
+.checklist li{margin:4px 0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:6px}
+.checklist input{width:20px;height:20px;margin-top:4px;flex:none}
+.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.ms-wrap{overflow:auto;border:1px solid var(--line);border-radius:8px;max-height:480px}
+table.ms{border-collapse:collapse;font-size:.95rem;min-width:100%}
+table.ms th{background:var(--primary-soft);position:sticky;top:0;z-index:1;border:1px solid var(--line);padding:2px 8px;font-weight:600}
+table.ms th.rh{position:sticky;left:0;top:auto;z-index:1}
+table.ms td{border:1px solid var(--line);padding:0;min-width:96px}
+table.ms input{width:100%;border:0;background:transparent;padding:4px 8px;font-size:.95rem}
+table.ms input:focus{background:var(--primary-soft);outline:2px solid var(--primary);outline-offset:-2px}
+table.ms input.num{text-align:right}
+table.ms input.err{color:var(--bad)}
+.ms-bar{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.ms-bar .addr{min-width:54px;font-weight:700;background:var(--primary-soft);padding:2px 10px;border-radius:6px;text-align:center}
+.ms-bar .fx{flex:1;min-width:160px;font-family:ui-monospace,Consolas,monospace;border:1px solid var(--line);border-radius:6px;padding:4px 10px;background:var(--surface)}
+.tantangan{list-style:none;padding:0}
+.tantangan li{padding:6px 10px;margin:4px 0;border-radius:8px;background:var(--bg);border:1px solid var(--line);font-size:.95rem}
+.tantangan li.ok{background:var(--ok-soft);border-color:var(--ok)}
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}
+.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+.kode-box{font-family:ui-monospace,Consolas,monospace;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 12px;font-size:.95rem;display:inline-block;margin:2px 0}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
+  body{font-size:12pt}
+  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}
+  .wrap{display:block;padding:0}
+  .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
+  .hero{background:#fff;color:#000}
+}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+
+<header class="top">
+  <h1><span id="hdr-judul">Microsoft Excel Dasar</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 06</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
+  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 06 · CPMK-2</span>
+      <h2 id="hero-judul">Microsoft Excel Dasar</h2>
+      <p id="hero-cpmk"></p>
+      <ul id="hero-tujuan"></ul>
+    </div>
+
+    <!-- ===== PEMBUKA ===== -->
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">Pak Rudi, staf administrasi RS Harapan Bersama (fiktif), menerima email dari kepala bagian berisi tabel kunjungan pasien 100 baris. "Hitung total per poli dan rata-rata harian!" pinta atasan sebelum rapat pukul 09.00. Pak Rudi panik — ia belum pernah memakai rumus Excel, dan menghitung manual 100 baris berarti sejam lebih. Seandainya ia tahu tiga formula ajaib itu...</p>
+      <p>Hari ini kita belajar tiga hal: mengenal tampilan Excel, memahami tipe data agar tidak salah hitung, lalu menggunakan formula <strong>SUM</strong>, <strong>AVERAGE</strong>, dan <strong>COUNT</strong> untuk menyelesaikan pekerjaan seperti Pak Rudi dalam hitungan detik.</p>
+    </section>
+
+    <!-- ===== PRE-TEST ===== -->
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
+      <p>Jawab dulu tanpa takut salah — ini hanya untuk melihat titik awal kalian sebelum belajar.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test","soal":[
+        {"q":"Kotak kecil di pojok kiri atas lembar kerja Excel yang menampilkan alamat sel aktif disebut…","opsi":["Formula Bar","Name Box","Cell Pointer","Status Bar"],"benar":1,"jelas":"Name Box menampilkan alamat sel aktif (mis. B3). Formula Bar ada di sebelah kanannya untuk menampilkan isi/rumus sel."},
+        {"q":"Sel C5 berarti sel yang berada di…","opsi":["Baris C, Kolom 5","Kolom C, Baris 5","Kolom 5, Baris C","Baris 3, Kolom 5"],"benar":1,"jelas":"Konvensi Excel: huruf = kolom, angka = baris. Jadi C5 = Kolom C, Baris 5."},
+        {"q":"Data '2026-03-15' yang diketik di sel Excel paling tepat bertipe…","opsi":["Teks","Angka","Tanggal","Boolean"],"benar":2,"jelas":"Format YYYY-MM-DD dikenali Excel sebagai tipe Tanggal (Date). Tanggal disimpan sebagai angka serial, sehingga bisa dihitung selisihnya."},
+        {"q":"Rumus manakah yang benar untuk menjumlahkan sel B2 sampai B10?","opsi":["=JUMLAH(B2:B10)","=SUM(B2,B10)","=SUM(B2:B10)","SUM(B2:B10)"],"benar":2,"jelas":"=SUM(B2:B10) menggunakan titik dua (:) untuk rentang dan harus diawali tanda = agar Excel mengenalinya sebagai rumus."},
+        {"q":"Hasil dari rumus =5+3*2 di Excel adalah…","opsi":["16","11","13","10"],"benar":1,"jelas":"Excel mengikuti urutan operasi matematika: perkalian (*) dikerjakan sebelum penjumlahan (+). Jadi 3×2=6, lalu 5+6=11."}
+      ]}
+      </script>
+    </section>
+
+    <!-- ===== INTI 1: Anatomi Lembar Kerja ===== -->
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Anatomi Lembar Kerja" data-min="10">
+      <p>Sebelum mengetik rumus, kita harus tahu <em>di mana</em> setiap bagian Excel berada. Klik titik bernomor pada gambar untuk melihat penjelasannya.</p>
+
+      <div data-widget="hotspot">
+        <div class="hs-stage">
+          <svg viewBox="0 0 500 300" role="img" aria-label="Antarmuka Microsoft Excel yang disederhanakan">
+            <!-- title bar -->
+            <rect x="0" y="0" width="500" height="22" fill="#1a5276" rx="0"/>
+            <text x="250" y="15" text-anchor="middle" font-size="11" fill="#fff" font-family="sans-serif">Buku1 — Microsoft Excel</text>
+            <!-- ribbon tabs -->
+            <rect x="0" y="22" width="500" height="22" fill="#d6e8f0"/>
+            <text x="14" y="36" font-size="10" fill="#333" font-family="sans-serif">Beranda</text>
+            <text x="72" y="36" font-size="10" fill="#333" font-family="sans-serif">Sisipkan</text>
+            <text x="132" y="36" font-size="10" fill="#333" font-family="sans-serif">Rumus</text>
+            <text x="185" y="36" font-size="10" fill="#333" font-family="sans-serif">Data</text>
+            <!-- Name Box -->
+            <rect x="0" y="44" width="68" height="22" fill="#fff" stroke="#aaa" stroke-width="1"/>
+            <text x="34" y="59" text-anchor="middle" font-size="12" fill="#12303a" font-family="sans-serif" font-weight="bold">A1</text>
+            <!-- fx -->
+            <rect x="68" y="44" width="26" height="22" fill="#f0f0f0" stroke="#aaa" stroke-width="1"/>
+            <text x="81" y="59" text-anchor="middle" font-size="11" fill="#0b7285" font-family="sans-serif" font-weight="bold">fx</text>
+            <!-- Formula Bar -->
+            <rect x="94" y="44" width="406" height="22" fill="#fff" stroke="#aaa" stroke-width="1"/>
+            <text x="104" y="59" font-size="10" fill="#888" font-family="sans-serif">Ketik nilai atau rumus di sini (diawali = untuk rumus)</text>
+            <!-- Corner -->
+            <rect x="0" y="66" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
+            <!-- Col headers -->
+            <rect x="28" y="66" width="72" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
+            <text x="64" y="80" text-anchor="middle" font-size="12" font-family="sans-serif" font-weight="bold" fill="#12303a">A</text>
+            <rect x="100" y="66" width="72" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
+            <text x="136" y="80" text-anchor="middle" font-size="12" font-family="sans-serif" font-weight="bold" fill="#12303a">B</text>
+            <rect x="172" y="66" width="72" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
+            <text x="208" y="80" text-anchor="middle" font-size="12" font-family="sans-serif" fill="#555">C</text>
+            <rect x="244" y="66" width="72" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
+            <text x="280" y="80" text-anchor="middle" font-size="12" font-family="sans-serif" fill="#555">D</text>
+            <!-- Row 1 -->
+            <rect x="0" y="86" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
+            <text x="14" y="100" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#12303a" font-weight="bold">1</text>
+            <rect x="28" y="86" width="72" height="20" fill="#e0f4f9" stroke="#0b7285" stroke-width="2"/>
+            <text x="64" y="100" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#12303a">Nama Obat</text>
+            <rect x="100" y="86" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
+            <text x="136" y="100" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#12303a">Harga</text>
+            <rect x="172" y="86" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
+            <text x="208" y="100" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#12303a">Jumlah</text>
+            <rect x="244" y="86" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
+            <text x="280" y="100" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#12303a">Subtotal</text>
+            <!-- Row 2 -->
+            <rect x="0" y="106" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
+            <text x="14" y="120" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#555">2</text>
+            <rect x="28" y="106" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
+            <text x="64" y="120" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#333">Paracetamol</text>
+            <rect x="100" y="106" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
+            <text x="136" y="120" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#333">5000</text>
+            <rect x="172" y="106" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
+            <text x="208" y="120" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#333">10</text>
+            <rect x="244" y="106" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
+            <text x="280" y="120" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#0b7285">=B2*C2</text>
+            <!-- Rows 3-6 simplified -->
+            <rect x="0" y="126" width="500" height="20" fill="#fff" stroke="#ddd" stroke-width="0.5"/>
+            <rect x="0" y="126" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
+            <text x="14" y="140" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#555">3</text>
+            <text x="64" y="140" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#333">Amoxicillin</text>
+            <rect x="0" y="146" width="500" height="20" fill="#f9f9f9" stroke="#ddd" stroke-width="0.5"/>
+            <rect x="0" y="146" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
+            <text x="14" y="160" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#555">4</text>
+            <rect x="0" y="166" width="500" height="20" fill="#fff" stroke="#ddd" stroke-width="0.5"/>
+            <rect x="0" y="166" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
+            <text x="14" y="180" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#555">5</text>
+            <!-- Status bar -->
+            <rect x="0" y="272" width="500" height="18" fill="#d6e8f0"/>
+            <text x="8" y="284" font-size="10" fill="#333" font-family="sans-serif">Siap</text>
+            <text x="400" y="284" font-size="10" fill="#333" font-family="sans-serif">Lembar 1 dari 3</text>
+            <!-- Sheet tabs -->
+            <rect x="0" y="254" width="500" height="18" fill="#e8f2f5"/>
+            <rect x="4" y="243" width="58" height="16" rx="3" fill="#fff" stroke="#0b7285" stroke-width="1.5"/>
+            <text x="33" y="254" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#0b7285" font-weight="bold">Sheet1</text>
+            <rect x="67" y="244" width="48" height="14" rx="3" fill="#e0ecf0" stroke="#aaa" stroke-width="1"/>
+            <text x="91" y="254" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#666">Sheet2</text>
+          </svg>
+          <button type="button" class="hs-dot" style="--x:7%;--y:18%" data-judul="Name Box" data-teks="Name Box menampilkan alamat sel yang sedang aktif (mis. A1, B3, C12). Klik Name Box dan ketik alamat sel untuk melompat langsung ke sel tersebut.">1</button>
+          <button type="button" class="hs-dot" style="--x:57%;--y:18%" data-judul="Formula Bar" data-teks="Formula Bar menampilkan isi asli sel — nilai, teks, atau rumus (mis. =SUM(B2:B10)). Di sinilah Anda mengedit rumus yang sudah ada di sel.">2</button>
+          <button type="button" class="hs-dot" style="--x:28%;--y:25%" data-judul="Header Kolom" data-teks="Header kolom bertanda huruf (A, B, C, ...). Klik header kolom untuk memilih seluruh kolom. Kolom maksimum Excel: XFD (16.384 kolom).">3</button>
+          <button type="button" class="hs-dot" style="--x:3%;--y:35%" data-judul="Header Baris" data-teks="Header baris bertanda angka (1, 2, 3, ...). Klik header baris untuk memilih seluruh baris. Baris maksimum Excel: 1.048.576 baris.">4</button>
+          <button type="button" class="hs-dot" style="--x:7%;--y:86%" data-judul="Tab Lembar (Sheet Tab)" data-teks="Tab di bagian bawah menunjukkan lembar kerja dalam satu buku kerja (workbook). Klik tab untuk berpindah lembar, klik kanan untuk mengubah nama atau menambah lembar baru.">5</button>
+        </div>
+        <div class="hs-info" aria-live="polite">Klik salah satu titik bernomor untuk melihat penjelasan bagian tersebut.</div>
+      </div>
+
+      <h4>Cara membaca alamat sel</h4>
+      <div class="grid2">
+        <div class="card">
+          <p><strong>Sel tunggal</strong><br>
+          <span class="kode-box">B3</span> = Kolom <strong>B</strong>, Baris <strong>3</strong><br>
+          <span class="kode-box">D12</span> = Kolom <strong>D</strong>, Baris <strong>12</strong></p>
+        </div>
+        <div class="card">
+          <p><strong>Rentang sel</strong><br>
+          <span class="kode-box">B2:B10</span> = Kolom B, baris 2 sampai 10<br>
+          <span class="kode-box">A1:D5</span> = Blok 4 kolom × 5 baris</p>
+        </div>
+      </div>
+      <details><summary>Cara cepat navigasi sel</summary>
+        <div>
+          <ul>
+            <li><strong>Enter</strong> — turun satu baris</li>
+            <li><strong>Tab</strong> — geser ke kanan satu kolom</li>
+            <li><strong>Ctrl + End</strong> — lompat ke sel terakhir berisi data</li>
+            <li><strong>Ctrl + Home</strong> — kembali ke A1</li>
+            <li>Ketik alamat di <strong>Name Box</strong> lalu Enter — langsung ke sel tersebut</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- ===== INTI 2: Tipe Data ===== -->
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Tipe Data & Referensi Sel" data-min="10">
+      <p>Excel membedakan empat tipe data utama. Tipe yang salah bisa membuat rumus tidak berjalan atau menghasilkan error.</p>
+
+      <h4>Pasangkan: pilih item di kanan, lalu klik kotak di kiri</h4>
+      <div data-widget="dragmatch" data-src="dm-tipe" class="quiz"></div>
+      <script type="application/json" id="dm-tipe">
+      {"pairs":[
+        {"kiri":"Siti Aminah","kanan":"Teks"},
+        {"kiri":"125000","kanan":"Angka"},
+        {"kiri":"2026-03-15","kanan":"Tanggal"},
+        {"kiri":"85%","kanan":"Persen"}
+      ]}
+      </script>
+
+      <h4>Contoh lengkap: semua 8 data dari administrasi RS</h4>
+      <table class="data">
+        <thead><tr><th>Contoh Data</th><th>Tipe</th><th>Keterangan & Dampak Salah Tipe</th></tr></thead>
+        <tbody>
+          <tr><td>"Siti Aminah"</td><td>Teks</td><td>Nama tidak bisa dijumlahkan. Rumus =SUM pada kolom nama menghasilkan 0.</td></tr>
+          <tr><td>"Poli Umum"</td><td>Teks</td><td>Teks rata kiri secara default. Jika muncul angka rata kiri, kemungkinan tersimpan sebagai teks.</td></tr>
+          <tr><td>"Rp 50.000"</td><td>Teks</td><td>Meskipun terlihat seperti angka, simbol Rp dan titik pemisah ribuan membuatnya jadi teks — tidak bisa dihitung!</td></tr>
+          <tr><td>125000</td><td>Angka</td><td>Angka murni, rata kanan, bisa dijumlahkan dengan SUM.</td></tr>
+          <tr><td>0.75</td><td>Angka</td><td>Desimal. Format sebagai Persen (%) di Format Cells agar tampil 75%.</td></tr>
+          <tr><td>2026-03-15</td><td>Tanggal</td><td>Disimpan sebagai angka serial (mis. 46291). Bisa dihitung: selisih dua tanggal = jumlah hari.</td></tr>
+          <tr><td>01/Apr/2026</td><td>Tanggal</td><td>Format tanggal lain yang dikenali Excel. Tetap disimpan sebagai angka serial.</td></tr>
+          <tr><td>85%</td><td>Persen</td><td>Disimpan sebagai 0.85. Tampilkan dengan format Persen agar terlihat 85%.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="note"><strong>Ingat:</strong> Angka yang tersimpan sebagai teks punya tanda segitiga hijau kecil di pojok sel. Gunakan <em>Convert to Number</em> atau ketik ulang tanpa simbol mata uang/titik ribuan.</div>
+
+      <h4>Referensi Sel: Relatif vs Absolut</h4>
+      <div class="grid2">
+        <div class="card">
+          <strong>Relatif</strong> — <span class="kode-box">=B2*C2</span><br>
+          <p style="font-size:.92rem">Saat disalin ke baris bawah, berubah jadi =B3*C3, =B4*C4, dst. Cocok untuk operasi berulang per baris.</p>
+        </div>
+        <div class="card">
+          <strong>Absolut</strong> — <span class="kode-box">=B2*$C$1</span><br>
+          <p style="font-size:.92rem">Tanda $ mengunci kolom dan/atau baris. $C$1 tidak berubah saat disalin. Cocok untuk tarif/konstan yang sama untuk semua baris.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== INTI 3: Formula Dasar ===== -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Formula Dasar (×, ÷, +, −)" data-min="10">
+      <p>Semua rumus Excel dimulai dengan <strong>=</strong>. Urutan operasi: <code>( )</code> lebih dulu, lalu <code>*</code> dan <code>/</code>, baru <code>+</code> dan <code>-</code>.</p>
+      <p class="note">Data stok obat di bawah adalah fiktif untuk keperluan latihan.</p>
+
+      <h4>Tantangan: isi kolom Subtotal = Harga × Jumlah (ketik rumus diawali =)</h4>
+      <div data-widget="minisheet" data-src="ms-inti3"></div>
+      <script type="application/json" id="ms-inti3">
+      {"baris":8,"kolom":4,
+       "sel":{
+         "A1":"Nama Obat","B1":"Harga (Rp)","C1":"Jumlah","D1":"Subtotal",
+         "A2":"Paracetamol","B2":"5000","C2":"10",
+         "A3":"Amoxicillin","B3":"12000","C3":"5",
+         "A4":"Vitamin C","B4":"8000","C4":"3",
+         "A5":"Antasida","B5":"3500","C5":"8",
+         "A6":"Ibuprofen","B6":"7500","C6":"6"
+       },
+       "tantangan":[
+         {"teks":"D2 = Subtotal Paracetamol (=B2*C2)","sel":"D2","nilai":50000,"wajibRumus":true},
+         {"teks":"D3 = Subtotal Amoxicillin (=B3*C3)","sel":"D3","nilai":60000,"wajibRumus":true},
+         {"teks":"D4 = Subtotal Vitamin C (=B4*C4)","sel":"D4","nilai":24000,"wajibRumus":true},
+         {"teks":"D5 = Subtotal Antasida (=B5*C5)","sel":"D5","nilai":28000,"wajibRumus":true},
+         {"teks":"D6 = Subtotal Ibuprofen (=B6*C6)","sel":"D6","nilai":45000,"wajibRumus":true}
+       ]}
+      </script>
+
+      <details><summary>Petunjuk: cara menulis rumus perkalian</summary>
+        <div>Klik sel D2, ketik <code>=B2*C2</code> lalu tekan Enter. Untuk baris berikutnya, ketik <code>=B3*C3</code> dan seterusnya. Tanda bintang (*) adalah operator kali di Excel.</div>
+      </details>
+    </section>
+
+    <!-- ===== INTI 4: SUM, AVERAGE, COUNT ===== -->
+    <section class="seg" id="seg-inti4" data-judul="Inti 4: SUM, AVERAGE, COUNT" data-min="10">
+      <p>Tiga fungsi paling sering dipakai di administrasi RS. Data subtotal sudah terisi dari latihan sebelumnya.</p>
+
+      <div class="grid2">
+        <div class="card"><strong>=SUM(rentang)</strong><p style="font-size:.92rem">Menjumlahkan semua angka dalam rentang. Mis.: =SUM(D2:D6) menjumlahkan D2 hingga D6.</p></div>
+        <div class="card"><strong>=AVERAGE(rentang)</strong><p style="font-size:.92rem">Menghitung rata-rata. Mis.: =AVERAGE(B2:B6) membagi total harga dengan jumlah item.</p></div>
+        <div class="card"><strong>=COUNT(rentang)</strong><p style="font-size:.92rem">Menghitung jumlah sel yang berisi angka. Teks tidak dihitung. Berguna untuk menghitung banyaknya data.</p></div>
+        <div class="card"><strong>=MAX / =MIN</strong><p style="font-size:.92rem">Mencari nilai terbesar atau terkecil dalam rentang. Sangat berguna untuk laporan BOR atau kunjungan tertinggi.</p></div>
+      </div>
+
+      <h4>Tantangan: lengkapi baris ringkasan di bawah</h4>
+      <div data-widget="minisheet" data-src="ms-inti4"></div>
+      <script type="application/json" id="ms-inti4">
+      {"baris":10,"kolom":4,
+       "sel":{
+         "A1":"Nama Obat","B1":"Harga (Rp)","C1":"Jumlah","D1":"Subtotal",
+         "A2":"Paracetamol","B2":"5000","C2":"10","D2":"50000",
+         "A3":"Amoxicillin","B3":"12000","C3":"5","D3":"60000",
+         "A4":"Vitamin C","B4":"8000","C4":"3","D4":"24000",
+         "A5":"Antasida","B5":"3500","C5":"8","D5":"28000",
+         "A6":"Ibuprofen","B6":"7500","C6":"6","D6":"45000",
+         "A8":"Total Nilai Stok","A9":"Rata-rata Harga","A10":"Jumlah Jenis Obat"
+       },
+       "tantangan":[
+         {"teks":"D8 = Total semua subtotal (=SUM(D2:D6))","sel":"D8","nilai":207000,"wajibRumus":true},
+         {"teks":"D9 = Rata-rata harga per obat (=AVERAGE(B2:B6))","sel":"D9","nilai":7200,"wajibRumus":true},
+         {"teks":"D10 = Jumlah jenis obat (=COUNT(B2:B6))","sel":"D10","nilai":5,"wajibRumus":true}
+       ]}
+      </script>
+
+      <details><summary>Cek perhitungan manual</summary>
+        <div>
+          SUM: 50000+60000+24000+28000+45000 = <strong>207.000</strong><br>
+          AVERAGE harga: (5000+12000+8000+3500+7500)÷5 = 36000÷5 = <strong>7.200</strong><br>
+          COUNT angka di B2:B6 = <strong>5</strong> (semua sel berisi angka)
+        </div>
+      </details>
+    </section>
+
+    <!-- ===== PRAKTIK ===== -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik / Simulasi" data-min="25">
+      <p>Latihan lengkap: data kunjungan poli fiktif RS Harapan Bersama selama sepekan. Selesaikan 5 tantangan bertingkat.</p>
+      <p class="note"><strong>Data di bawah sepenuhnya fiktif</strong> dan hanya digunakan untuk keperluan pembelajaran.</p>
+
+      <div data-widget="minisheet" data-src="ms-praktik"></div>
+      <script type="application/json" id="ms-praktik">
+      {"baris":16,"kolom":6,
+       "sel":{
+         "A1":"Poli","B1":"Senin","C1":"Selasa","D1":"Rabu","E1":"Kamis","F1":"Jumat",
+         "A2":"Umum","B2":"45","C2":"38","D2":"52","E2":"41","F2":"49",
+         "A3":"Gigi","B3":"12","C3":"15","D3":"10","E3":"18","F3":"14",
+         "A4":"Anak","B4":"28","C4":"32","D4":"25","E4":"30","F4":"27",
+         "A5":"Kandungan","B5":"8","C5":"11","D5":"9","E5":"7","F5":"12",
+         "A6":"THT","B6":"15","C6":"13","D6":"17","E6":"14","F6":"16",
+         "A7":"Saraf","B7":"10","C7":"12","D7":"8","E7":"11","F7":"9",
+         "A8":"Kulit","B8":"20","C8":"18","D8":"22","E8":"19","F8":"21",
+         "A10":"=== Isi jawaban di kolom B baris 11–15 ===",
+         "A11":"1) Total kunjungan Poli Umum (sepekan)",
+         "A12":"2) Rata-rata per hari Poli Umum",
+         "A13":"3) Jumlah jenis poli (COUNT kolom B)",
+         "A14":"4) Kunjungan tertinggi Poli Umum (MAX)",
+         "A15":"5) Total SEMUA kunjungan semua poli"
+       },
+       "tantangan":[
+         {"teks":"B11 = Total kunjungan Poli Umum sepekan (=SUM(B2:F2))","sel":"B11","nilai":225,"wajibRumus":true},
+         {"teks":"B12 = Rata-rata per hari Poli Umum (=AVERAGE(B2:F2))","sel":"B12","nilai":45,"wajibRumus":true},
+         {"teks":"B13 = Jumlah jenis poli (=COUNT(B2:B8))","sel":"B13","nilai":7,"wajibRumus":true},
+         {"teks":"B14 = Kunjungan tertinggi Poli Umum (=MAX(B2:F2))","sel":"B14","nilai":52,"wajibRumus":true},
+         {"teks":"B15 = Total semua kunjungan semua poli (=SUM(B2:F8))","sel":"B15","nilai":708,"wajibRumus":true}
+       ]}
+      </script>
+
+      <div class="tugas-lab">
+        <h4>Tugas Lab — Kerjakan di Excel Nyata</h4>
+        <ol>
+          <li>Unduh CSV di bawah, buka di Excel atau LibreOffice Calc.</li>
+          <li>Tambahkan kolom <strong>G "Total"</strong> dan isi dengan =SUM(B2:F2) untuk tiap poli.</li>
+          <li>Tambahkan kolom <strong>H "Rata-rata"</strong> dan isi dengan =AVERAGE(B2:F2).</li>
+          <li>Di baris bawah tabel, buat baris <strong>"TOTAL"</strong> menggunakan =SUM(G2:G6).</li>
+          <li>Simpan sebagai <em>Nama_NIM_P06.xlsx</em> dan kumpulkan.</li>
+        </ol>
+        <p><button class="btn sec" type="button" data-widget="csv" data-src="csv-p06">Unduh data-kunjungan-poli.csv</button></p>
+        <script type="application/json" id="csv-p06">
+        {"nama":"data-kunjungan-poli.csv","pemisah":";","baris":[
+          ["Poli","Senin","Selasa","Rabu","Kamis","Jumat"],
+          ["Umum",45,38,52,41,49],
+          ["Gigi",12,15,10,18,14],
+          ["Anak",28,32,25,30,27],
+          ["Kandungan",8,11,9,7,12],
+          ["THT",15,13,17,14,16],
+          ["Saraf",10,12,8,11,9],
+          ["Kulit",20,18,22,19,21]
+        ]}
+        </script>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Semua rumus menggunakan = dan rentang yang benar. 2) Tidak ada nilai hardcoded (angka diketik manual). 3) Hasil nilai SUM dan AVERAGE tepat. 4) File disimpan format .xlsx dengan nama yang sesuai.</p>
+      </div>
+    </section>
+
+    <!-- ===== POST-TEST ===== -->
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <p>Jawab setelah mengikuti seluruh materi. Bandingkan dengan skor pre-test kalian.</p>
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test","soal":[
+        {"q":"Rumus =SUM(D2:D6) menghitung…","opsi":["Hanya sel D2 dan D6","Semua sel dari D2 sampai D6","Rata-rata D2 hingga D6","Jumlah sel yang berisi angka di kolom D"],"benar":1,"jelas":"Titik dua (:) dalam rentang berarti 'dari ... sampai ...', sehingga =SUM(D2:D6) menjumlahkan D2, D3, D4, D5, dan D6."},
+        {"q":"Jika sel B2 berisi 'Rp 50.000' (dengan teks Rp), maka =SUM(B2:B5) akan…","opsi":["Menjumlahkan nilai mata uangnya","Menghasilkan 0 atau mengabaikan sel B2","Menghasilkan error #VALUE!","Mengkonversi otomatis ke angka"],"benar":1,"jelas":"SUM mengabaikan teks. Sel berisi teks dianggap 0, sehingga tidak ikut dijumlahkan. Solusi: hilangkan simbol Rp dan gunakan format Currency."},
+        {"q":"Fungsi =COUNT(B2:B10) menghitung…","opsi":["Jumlah semua sel (kosong maupun isi)","Jumlah sel yang berisi teks","Jumlah sel yang berisi angka","Jumlah karakter dalam sel"],"benar":2,"jelas":"COUNT hanya menghitung sel berisi angka. Untuk menghitung semua sel tidak kosong (termasuk teks), gunakan COUNTA."},
+        {"q":"Dari data: {20, 30, 40, 50, 60}, nilai =AVERAGE(A1:A5) adalah…","opsi":["150","30","40","50"],"benar":2,"jelas":"Rata-rata = (20+30+40+50+60)÷5 = 200÷5 = 40."},
+        {"q":"Mengapa angka harus rata kanan dan teks rata kiri di Excel?","opsi":["Sekadar selera tampilan","Karena aturan internasional","Excel menggunakan perataan default untuk menunjukkan tipe data: angka selalu rata kanan, teks selalu rata kiri","Karena keyboard lebih mudah mengetik ke kiri"],"benar":2,"jelas":"Perataan default Excel adalah tanda tipe data: angka (termasuk tanggal) rata kanan, teks rata kiri. Ini membantu mendeteksi angka yang tersimpan sebagai teks."}
+      ]}
+      </script>
+      <h4>Perbandingan Pre-test vs Post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <!-- ===== PENUTUP ===== -->
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
+      <h4>Ringkasan 5 Poin Kunci</h4>
+      <ol>
+        <li><strong>Anatomi Excel</strong>: Name Box (alamat sel), Formula Bar (isi/rumus), header kolom (huruf), header baris (angka), sheet tab (lembar).</li>
+        <li><strong>Alamat sel</strong>: huruf = kolom, angka = baris. B3 = Kolom B Baris 3. Rentang B2:B10 berarti B2 sampai B10.</li>
+        <li><strong>Tipe data</strong>: Angka murni (rata kanan) bisa dihitung. Teks dan angka dengan simbol (Rp, %) tidak bisa dihitung langsung.</li>
+        <li><strong>Formula dasar</strong>: semua rumus diawali =. Operator: * (kali), / (bagi), + (tambah), - (kurang). Urutan: kurung dahulu, lalu */, baru +-.</li>
+        <li><strong>SUM/AVERAGE/COUNT</strong>: =SUM(rentang) menjumlahkan, =AVERAGE(rentang) merata-ratakan, =COUNT(rentang) menghitung banyaknya angka.</li>
+      </ol>
+      <h4>Refleksi</h4>
+      <div data-widget="reflect" data-key="refleksi-p06" data-prompt="Satu hal paling berguna hari ini dan satu hal yang masih membingungkan:"></div>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 07 akan membahas fungsi MAX, MIN, dan cara membuat grafik dari data kunjungan RS. Pastikan file .xlsx dari Tugas Lab sudah disiapkan.</p>
+    </section>
+
+  </main>
+</div>
+
+<script>
+"use strict";
+const KONFIG = {
+  kode: "krs-p06",
+  nomor: "06",
+  judul: "Microsoft Excel Dasar",
+  cpmk: "CPMK-2: Mampu menerapkan operasi matematika dasar pada MS Excel untuk data administrasi RS.",
+  tujuan: ["Mengenal antarmuka lembar kerja Excel", "Memahami tipe data dan referensi sel", "Menggunakan formula SUM, AVERAGE, COUNT"],
+  totalMenit: 90
+};
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, props, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in (props || {})) {
+    const v = props[k];
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (v === true) e.setAttribute(k, "");
+    else if (v !== false && v != null) e.setAttribute(k, v);
+  }
+  for (const c of kids.flat()) {
+    if (c == null || c === false) continue;
+    e.append(c.nodeType ? c : document.createTextNode(String(c)));
+  }
+  return e;
+}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(KONFIG.kode + "-" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(KONFIG.kode + "-" + k, JSON.stringify(v)); } catch (e) {} }
+};
+function getData(id) { return JSON.parse(document.getElementById(id).textContent); }
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+function mmss(s) { s = Math.max(0, Math.round(s)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+let uid = 0; const nextId = p => p + "-" + (++uid);
+
+const W = {};
+W.quiz = el => {
+  const d = getData(el.dataset.src);
+  const key = "quiz-" + (el.dataset.role || el.dataset.src);
+  const saved = store.get(key, { jawab: {} });
+  const jawab = saved.jawab || {};
+  const skorEl = h("p", { class: "skor", "aria-live": "polite" });
+  const items = [];
+  function hitung() {
+    let b = 0; for (const i in jawab) if (jawab[i] === d.soal[i].benar) b++;
+    const n = Object.keys(jawab).length;
+    skorEl.textContent = "Skor: " + b + " / " + d.soal.length + (n < d.soal.length ? "  (terjawab " + n + ")" : "");
+    store.set(key, { jawab, skor: b, total: d.soal.length, selesai: n === d.soal.length });
+    document.dispatchEvent(new CustomEvent("krs:skor"));
+  }
+  function tampil(i, pilih) {
+    const it = items[i], s = d.soal[i];
+    it.labels.forEach((l, j) => { l.classList.toggle("benar", j === s.benar); l.classList.toggle("salah", j === pilih && j !== s.benar); });
+    it.fb.textContent = (pilih === s.benar ? "Benar. " : "Belum tepat. ") + (s.jelas || "");
+  }
+  d.soal.forEach((s, i) => {
+    const name = nextId("q");
+    const fb = h("p", { class: "fb", "aria-live": "polite" });
+    const labels = s.opsi.map((o, j) => {
+      const inp = h("input", { type: "radio", name, value: j, onchange: () => { jawab[i] = j; tampil(i, j); hitung(); } });
+      if (jawab[i] === j) inp.checked = true;
+      return h("label", {}, inp, " ", o);
+    });
+    items.push({ labels, fb });
+    el.append(h("fieldset", {}, h("legend", {}, (i + 1) + ". " + s.q), labels, fb));
+    if (jawab[i] !== undefined) tampil(i, jawab[i]);
+  });
+  el.append(skorEl, h("button", { class: "btn sec", type: "button", onclick: () => {
+    for (const k in jawab) delete jawab[k];
+    $$("input", el).forEach(x => x.checked = false);
+    items.forEach(it => { it.labels.forEach(l => l.classList.remove("benar", "salah")); it.fb.textContent = ""; });
+    hitung();
+  } }, "Ulangi"));
+  hitung();
+};
+
+W.banding = el => {
+  function baris(role, nama, cls) {
+    const track = h("i"), val = h("span", {}, "–");
+    el.append(h("div", { class: "row " + cls }, h("span", {}, nama), h("div", { class: "track" }, track), val));
+    return () => {
+      const s = store.get("quiz-" + role, null);
+      if (!s || !s.selesai) { track.style.width = "0"; val.textContent = "–"; return; }
+      const p = Math.round(s.skor / s.total * 100);
+      track.style.width = p + "%"; val.textContent = p + "%";
+    };
+  }
+  el.classList.add("banding");
+  const a = baris("pre", "Pre-test", "pre"), b = baris("post", "Post-test", "post");
+  const up = () => { a(); b(); };
+  document.addEventListener("krs:skor", up); up();
+};
+
+W.dragmatch = el => {
+  const d = getData(el.dataset.src);
+  const bankItems = shuffle(d.pairs.map(p => p.kanan));
+  let placed = d.pairs.map(() => null);
+  let pilih = null, dicek = false;
+  const root = h("div", { class: "dm" }), kiri = h("div"), bank = h("div", { class: "dm-bank" });
+  const hasil = h("p", { class: "skor", "aria-live": "polite" });
+  function lepas(slot) { if (pilih !== null) { placed = placed.map(x => (x === pilih ? null : x)); placed[slot] = pilih; pilih = null; dicek = false; r(); } }
+  function r() {
+    kiri.textContent = ""; bank.textContent = "";
+    d.pairs.forEach((p, i) => {
+      const t = placed[i] !== null ? bankItems[placed[i]] : "";
+      const cls = ["dm-slot"]; if (t) cls.push("isi");
+      if (dicek) cls.push(t === p.kanan ? "benar" : "salah");
+      const s = h("button", { type: "button", class: cls.join(" "), onclick: () => { if (pilih !== null) lepas(i); else if (placed[i] !== null) { placed[i] = null; dicek = false; r(); } },
+        ondragover: e => e.preventDefault(), ondrop: e => { e.preventDefault(); const k = Number(e.dataTransfer.getData("text/plain")); if (!isNaN(k)) { pilih = k; lepas(i); } } }, t || "…");
+      kiri.append(h("div", { class: "dm-row" }, h("div", { class: "card" }, p.kiri), s));
+    });
+    bankItems.forEach((t, k) => {
+      if (placed.includes(k)) return;
+      bank.append(h("button", { type: "button", draggable: "true", class: "dm-item" + (pilih === k ? " pilih" : ""),
+        onclick: () => { pilih = pilih === k ? null : k; r(); },
+        ondragstart: e => e.dataTransfer.setData("text/plain", String(k)) }, t));
+    });
+  }
+  const cek = h("button", { class: "btn", type: "button", onclick: () => {
+    dicek = true; r();
+    const b = d.pairs.filter((p, i) => placed[i] !== null && bankItems[placed[i]] === p.kanan).length;
+    hasil.textContent = "Benar " + b + " dari " + d.pairs.length;
+  } }, "Periksa");
+  const reset = h("button", { class: "btn sec", type: "button", onclick: () => { placed = d.pairs.map(() => null); pilih = null; dicek = false; hasil.textContent = ""; r(); } }, "Ulangi");
+  root.append(kiri, bank); el.append(root, h("p", {}, cek, " ", reset), hasil); r();
+};
+
+W.hotspot = el => {
+  const info = $(".hs-info", el), dots = $$(".hs-dot", el);
+  dots.forEach(b => {
+    b.setAttribute("aria-label", b.dataset.judul);
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => {
+      dots.forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      info.textContent = "";
+      info.append(h("strong", {}, b.dataset.judul), h("br"), b.dataset.teks);
+    });
+  });
+};
+
+W.checklist = el => {
+  const key = "cek-" + (el.dataset.key || nextId("c"));
+  const saved = store.get(key, []);
+  const lis = $$(":scope > li", el);
+  const bar = h("i"), txt = h("span", { class: "kriteria" });
+  function up() {
+    const n = lis.filter(l => $("input", l).checked).length;
+    bar.style.width = (n / lis.length * 100) + "%"; txt.textContent = n + " / " + lis.length + " selesai";
+    store.set(key, lis.map(l => $("input", l).checked));
+  }
+  lis.forEach((li, i) => {
+    const t = li.textContent, cb = h("input", { type: "checkbox", onchange: up });
+    cb.checked = !!saved[i];
+    li.textContent = ""; li.append(h("label", {}, cb, h("span", {}, t)));
+  });
+  el.after(h("div", { class: "prog" }, bar), txt); up();
+};
+
+W.reflect = el => {
+  const key = "ref-" + (el.dataset.key || "x");
+  const ta = h("textarea", { class: "reflect", "aria-label": el.dataset.prompt || "Refleksi" });
+  ta.value = store.get(key, "");
+  ta.addEventListener("input", () => store.set(key, ta.value));
+  el.append(h("p", {}, el.dataset.prompt || "Tuliskan refleksi singkat:"), ta);
+};
+
+W.csv = el => {
+  el.addEventListener("click", () => {
+    const d = getData(el.dataset.src), sep = d.pemisah || ";";
+    const esc = v => { v = String(v); return /[";,\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    const isi = "﻿" + d.baris.map(r => r.map(esc).join(sep)).join("\r\n");
+    const url = URL.createObjectURL(new Blob([isi], { type: "text/csv;charset=utf-8" }));
+    const a = h("a", { href: url, download: d.nama || "data.csv" });
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+};
+
+/* === PARSER-AWAL === */
+function kolHuruf(n) { return String.fromCharCode(65 + n); }
+function parseRef(s) { const m = /^([A-Z])(\d+)$/.exec(s.toUpperCase()); return m ? { c: m[1].charCodeAt(0) - 65, r: parseInt(m[2], 10) - 1 } : null; }
+function tokenisasi(s) {
+  const t = []; let i = 0;
+  while (i < s.length) {
+    const c = s[i];
+    if (/\s/.test(c)) { i++; continue; }
+    let m = /^(\d+(\.\d+)?|\.\d+)/.exec(s.slice(i));
+    if (m) { t.push({ t: "n", v: parseFloat(m[0]) }); i += m[0].length; continue; }
+    m = /^[A-Za-z]+\d*/.exec(s.slice(i));
+    if (m) {
+      const nm = m[0], nx = s[i + nm.length];
+      if (nx === "(") t.push({ t: "f", v: nm.toUpperCase() });
+      else if (/^[A-Za-z]+\d+$/.test(nm)) t.push({ t: "r", v: nm.toUpperCase() });
+      else throw new Error("#NAME?");
+      i += nm.length; continue;
+    }
+    if ("+-*/(),:;".includes(c)) { t.push({ t: c === ";" ? "," : c }); i++; continue; }
+    throw new Error("#ERROR");
+  }
+  return t;
+}
+function evalRumus(src, getCell) {
+  const tk = tokenisasi(src); let p = 0;
+  const peek = () => tk[p] && tk[p].t, ambil = () => tk[p++];
+  const jml = x => { if (Array.isArray(x)) throw new Error("#VALUE!"); if (x === null) return 0; if (typeof x === "string") throw new Error("#VALUE!"); return x; };
+  function expr() { let v = term(); while (peek() === "+" || peek() === "-") { const o = ambil().t; const r = term(); v = o === "+" ? jml(v) + jml(r) : jml(v) - jml(r); } return v; }
+  function term() { let v = unary(); while (peek() === "*" || peek() === "/") { const o = ambil().t; const r = unary(); if (o === "*") v = jml(v) * jml(r); else { const d = jml(r); if (d === 0) throw new Error("#DIV/0!"); v = jml(v) / d; } } return v; }
+  function unary() { if (peek() === "-") { ambil(); return -jml(unary()); } if (peek() === "+") { ambil(); return jml(unary()); } return primary(); }
+  function ref(tok) { const a = parseRef(tok.v); if (!a) throw new Error("#REF!"); return a; }
+  function primary() {
+    const k = ambil(); if (!k) throw new Error("#ERROR");
+    if (k.t === "n") return k.v;
+    if (k.t === "(") { const v = expr(); if (ambil() == null || tk[p - 1].t !== ")") throw new Error("#ERROR"); return v; }
+    if (k.t === "r") {
+      const a = ref(k);
+      if (peek() === ":") {
+        ambil(); const k2 = ambil(); if (!k2 || k2.t !== "r") throw new Error("#ERROR");
+        const b = ref(k2), out = [];
+        for (let r = Math.min(a.r, b.r); r <= Math.max(a.r, b.r); r++) for (let c = Math.min(a.c, b.c); c <= Math.max(a.c, b.c); c++) out.push(getCell(c, r));
+        return out;
+      }
+      return getCell(a.c, a.r);
+    }
+    if (k.t === "f") {
+      if (ambil() == null || tk[p - 1].t !== "(") throw new Error("#ERROR");
+      const args = [];
+      if (peek() !== ")") { args.push(expr()); while (peek() === ",") { ambil(); args.push(expr()); } }
+      if (ambil() == null || tk[p - 1].t !== ")") throw new Error("#ERROR");
+      const angka = [];
+      args.forEach(a => { if (Array.isArray(a)) a.forEach(x => { if (typeof x === "number") angka.push(x); }); else if (typeof a === "number") angka.push(a); else if (a !== null) throw new Error("#VALUE!"); });
+      switch (k.v) {
+        case "SUM": return angka.reduce((s, x) => s + x, 0);
+        case "AVERAGE": if (!angka.length) throw new Error("#DIV/0!"); return angka.reduce((s, x) => s + x, 0) / angka.length;
+        case "COUNT": return angka.length;
+        case "MAX": return angka.length ? Math.max(...angka) : 0;
+        case "MIN": return angka.length ? Math.min(...angka) : 0;
+        default: throw new Error("#NAME?");
+      }
+    }
+    throw new Error("#ERROR");
+  }
+  const hasil = expr();
+  if (p < tk.length) throw new Error("#ERROR");
+  if (Array.isArray(hasil)) throw new Error("#VALUE!");
+  return hasil;
+}
+/* === PARSER-AKHIR === */
+
+W.minisheet = el => {
+  const d = getData(el.dataset.src);
+  const R = d.baris || 10, C = Math.min(d.kolom || 6, 26);
+  const key = "ms-" + el.dataset.src;
+  const raw = Object.assign({}, d.sel || {}, store.get(key, {}));
+  let cache = new Map(), aktif = new Set();
+  const nilaiAsli = (c, r) => {
+    if (c < 0 || c >= C || r < 0 || r >= R) throw new Error("#REF!");
+    const id = kolHuruf(c) + (r + 1);
+    if (cache.has(id)) { const v = cache.get(id); if (v instanceof Error) throw v; return v; }
+    if (aktif.has(id)) throw new Error("#CIRC!");
+    aktif.add(id);
+    let v; const s = String(raw[id] === undefined ? "" : raw[id]).trim();
+    try {
+      if (s === "") v = null;
+      else if (s[0] === "=") v = evalRumus(s.slice(1), nilaiAsli);
+      else if (/^-?\d+(\.\d+)?$/.test(s)) v = parseFloat(s);
+      else v = s;
+    } catch (e) { v = e; }
+    aktif.delete(id); cache.set(id, v);
+    if (v instanceof Error) throw v; return v;
+  };
+  const hitung = id => { cache = new Map(); aktif = new Set(); const a = parseRef(id); try { return nilaiAsli(a.c, a.r); } catch (e) { return e; } };
+  const fmt = v => v instanceof Error ? v.message : v === null ? "" : typeof v === "number" ? String(Math.round(v * 1e6) / 1e6) : v;
+  const addr = h("span", { class: "addr" }, "–"), fx = h("span", { class: "fx" }, "");
+  const tbl = h("table", { class: "ms" }), inputs = {};
+  const head = h("tr", {}, h("th", { class: "rh" }, ""));
+  for (let c = 0; c < C; c++) head.append(h("th", { scope: "col" }, kolHuruf(c)));
+  tbl.append(h("thead", {}, head));
+  const tb = h("tbody");
+  for (let r = 0; r < R; r++) {
+    const tr = h("tr", {}, h("th", { class: "rh", scope: "row" }, r + 1));
+    for (let c = 0; c < C; c++) {
+      const id = kolHuruf(c) + (r + 1);
+      const inp = h("input", { type: "text", "aria-label": "Sel " + id, autocomplete: "off", spellcheck: "false" });
+      inp.value = fmt(hitung(id)); inputs[id] = inp;
+      inp.addEventListener("focus", () => { addr.textContent = id; fx.textContent = raw[id] || ""; inp.value = raw[id] === undefined ? "" : raw[id]; });
+      inp.addEventListener("input", () => { fx.textContent = inp.value; });
+      inp.addEventListener("blur", () => { raw[id] = inp.value; simpan(); segarkan(); });
+      inp.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === "ArrowDown") { e.preventDefault(); const n = inputs[kolHuruf(c) + (r + 2)]; if (n) n.focus(); else inp.blur(); }
+        else if (e.key === "ArrowUp") { e.preventDefault(); const n = inputs[kolHuruf(c) + r]; if (n) n.focus(); }
+      });
+      tr.append(h("td", {}, inp));
+    }
+    tb.append(tr);
+  }
+  tbl.append(tb);
+  function simpan() { const u = {}; for (const k in raw) if (raw[k] !== (d.sel || {})[k] && raw[k] !== "") u[k] = raw[k]; store.set(key, u); }
+  function segarkan() {
+    for (const id in inputs) {
+      if (document.activeElement === inputs[id]) continue;
+      const v = hitung(id);
+      inputs[id].value = fmt(v);
+      inputs[id].className = (v instanceof Error ? "err" : typeof v === "number" ? "num" : "");
+    }
+    cekTantangan(false);
+  }
+  const daftar = h("ul", { class: "tantangan" }), hasil = h("p", { class: "skor", "aria-live": "polite" });
+  const li = (d.tantangan || []).map(t => { const e = h("li", {}, "☐ " + t.teks); daftar.append(e); return e; });
+  function cekTantangan(tampilPesan) {
+    let ok = 0;
+    (d.tantangan || []).forEach((t, i) => {
+      const v = hitung(t.sel), rumus = String(raw[t.sel] || "").trim().startsWith("=");
+      const benar = typeof v === "number" && Math.abs(v - t.nilai) < 1e-9 && (!t.wajibRumus || rumus);
+      li[i].classList.toggle("ok", benar); li[i].textContent = (benar ? "✔ " : "☐ ") + t.teks; if (benar) ok++;
+    });
+    if (tampilPesan && d.tantangan) hasil.textContent = "Tantangan selesai: " + ok + " / " + d.tantangan.length;
+  }
+  el.append(h("div", { class: "ms-bar" }, addr, fx), h("div", { class: "ms-wrap" }, tbl));
+  if (d.tantangan && d.tantangan.length) el.append(h("h4", {}, "Tantangan"), daftar, h("button", { class: "btn", type: "button", onclick: () => cekTantangan(true) }, "Periksa jawaban"), hasil);
+  el.append(h("p", {}, h("button", { class: "btn sec", type: "button", onclick: () => { for (const k in raw) delete raw[k]; Object.assign(raw, d.sel || {}); store.set(key, {}); segarkan(); } }, "Reset lembar")));
+  cekTantangan(false);
+};
+
+function initTabs() {
+  $$(".tabs").forEach(box => {
+    const tabs = $$(".tablist button", box), panels = $$(":scope > .tabpanel", box);
+    function pilih(i) { tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; }); panels.forEach((p, k) => { p.hidden = k !== i; }); }
+    tabs.forEach((t, i) => t.addEventListener("click", () => pilih(i)));
+    pilih(0);
+  });
+}
+
+function initSegmen() {
+  const segs = $$("section.seg"), agenda = $("#agenda");
+  const total = segs.reduce((s, x) => s + Number(x.dataset.min || 0), 0);
+  if (total !== KONFIG.totalMenit) console.warn("Total menit segmen = " + total + ", seharusnya " + KONFIG.totalMenit);
+  const done = store.get("selesai", {});
+  let mulai = 0;
+  const links = [];
+  segs.forEach((s, i) => {
+    const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
+    const head = h("div", { class: "seg-head" }, h("h3", {}, judul), h("span", { class: "badge" }, min + " menit"));
+    let sisa = min * 60, tid = null; const tb = h("button", { class: "btn sec", type: "button" }, "⏱ " + mmss(sisa));
+    const tw = h("span", { class: "seg-timer" }, tb);
+    tb.addEventListener("click", () => {
+      if (tid) { clearInterval(tid); tid = null; tb.textContent = "▶ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); return; }
+      tid = setInterval(() => { sisa--; tw.classList.toggle("over", sisa < 0); tb.textContent = "⏸ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); }, 1000);
+    });
+    head.append(tw); s.prepend(head);
+    const foot = h("div", { class: "seg-foot" });
+    const sb = h("button", { class: "btn sec", type: "button" });
+    function tandai(v) {
+      s.classList.toggle("done", v); a.classList.toggle("done", v); sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
+      done[s.id] = v; store.set("selesai", done); progres();
+    }
+    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
+    foot.append(sb); s.append(foot);
+    const a = h("a", { href: "#" + s.id }, h("span", { class: "mnt" }, mulai + "–" + (mulai + min) + "'"), h("span", {}, judul), h("span", { class: "tick", "aria-label": "selesai" }, "✓"));
+    agenda.append(a); links.push({ a, s }); mulai += min;
+    tandai(!!done[s.id]);
+  });
+  function progres() { const n = segs.filter(x => x.classList.contains("done")).length; $("#hdr-bar").style.width = (n / segs.length * 100) + "%"; }
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target))); }), { rootMargin: "-20% 0px -70% 0px" });
+    segs.forEach(s => io.observe(s));
+  }
+}
+function initJam() {
+  let t = 0, id = null; const c = $("#clock"), b = $("#clock-btn");
+  b.addEventListener("click", () => {
+    if (id) { clearInterval(id); id = null; b.textContent = "Lanjut"; }
+    else { id = setInterval(() => { t++; c.textContent = mmss(t); }, 1000); b.textContent = "Jeda"; }
+  });
+}
+
+function isiHero() {
+  document.title = "Pertemuan " + KONFIG.nomor + " — " + KONFIG.judul + " | Komputer Rumah Sakit";
+  $("#hdr-judul").textContent = KONFIG.judul;
+  $("#hdr-sub").textContent = "Komputer Rumah Sakit · Pertemuan " + KONFIG.nomor;
+  $("#hero-kode").textContent = "Pertemuan " + KONFIG.nomor + " · " + KONFIG.cpmk.split(":")[0];
+  $("#hero-judul").textContent = KONFIG.judul;
+  $("#hero-cpmk").textContent = KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t => $("#hero-tujuan").append(h("li", {}, t)));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  isiHero();
+  $$("[data-widget]").forEach(el => {
+    const fn = W[el.dataset.widget];
+    if (!fn) return;
+    try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal dimuat (" + el.dataset.widget + "): " + e.message)); }
+  });
+  initTabs(); initSegmen(); initJam();
+  window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 04 — Microsoft Word untuk Administrasi RS | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
+  --primary:#0b7285;--primary-ink:#fff;--primary-soft:#d3f0f4;
+  --accent:#e8590c;--ok:#2b8a3e;--ok-soft:#dff3e3;--warn:#e67700;--bad:#c92a2a;--bad-soft:#fbe1e1;
+  --c1:#0b7285;--c2:#e8590c;--c3:#7048e8;--c4:#2b8a3e;--c5:#c2255c;--c6:#f08c00;--c7:#1971c2;--c8:#5c940d;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);--r:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0e1b20;--surface:#15272e;--ink:#e6f1f3;--muted:#9bb2ba;--line:#27414a;
+  --primary:#3bc0d6;--primary-ink:#06222a;--primary-soft:#14414b;
+  --accent:#ff922b;--ok:#69db7c;--ok-soft:#173a22;--warn:#ffc078;--bad:#ff8787;--bad-soft:#4a1d1d;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
+.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+nav.agenda a.done .tick{visibility:visible}main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}.hero p{margin:6px 0;opacity:.95}
+.hero ul{margin:8px 0 0;padding-left:20px}
+@media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-timer{display:inline-flex;gap:6px;align-items:center}
+.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.seg-timer.over .btn{background:var(--bad);color:#fff}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}
+.kriteria{font-size:.92rem;color:var(--muted)}
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}
+.quiz label.benar{background:var(--ok-soft)}.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+.checklist{list-style:none;padding:0;margin:8px 0}
+.checklist li{margin:4px 0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:6px}
+.checklist input{width:20px;height:20px;margin-top:4px;flex:none}
+.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}
+.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+/* Letter preview */
+.surat-a4{background:#fff;color:#111;border:1px solid #bbb;box-shadow:var(--shadow);max-width:500px;margin:12px auto;padding:28px 32px;font-family:"Times New Roman",serif;font-size:13px;line-height:1.6;position:relative}
+.surat-kop{text-align:center;border-bottom:3px double #111;padding-bottom:8px;margin-bottom:12px}
+.surat-kop .rs-nama{font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.surat-kop .rs-tagline{font-size:12px}
+.surat-kop .rs-alamat{font-size:11px;color:#333}
+.surat-nomor{margin:6px 0}
+.surat-tujuan{margin:8px 0}
+.surat-isi{text-indent:2em;margin:8px 0}
+.surat-ttd{margin-top:20px;text-align:left}
+/* Numbered labels */
+.label-num{display:inline-flex;width:22px;height:22px;background:var(--accent);color:#fff;border-radius:50%;
+  font-size:12px;font-weight:700;align-items:center;justify-content:center;cursor:pointer;vertical-align:middle;
+  border:2px solid var(--accent);position:relative}
+.label-num:hover{background:#c94a00}
+.label-info{background:var(--primary-soft);border:1px solid var(--primary);border-radius:8px;padding:10px 14px;
+  margin:8px 0;display:none;font-family:system-ui,sans-serif;font-size:.95rem;line-height:1.5;color:var(--ink)}
+.label-info.aktif{display:block}
+/* Formatter */
+.ss{display:grid;gap:10px}
+.ss label{display:grid;grid-template-columns:160px 1fr auto;gap:10px;align-items:center}
+.ss output{font-variant-numeric:tabular-nums;font-weight:700;min-width:60px}
+.page-demo{background:#fff;color:#111;border:2px solid #bbb;max-width:400px;margin:12px auto;
+  padding:var(--pd,24px);font-family:var(--pf,"Times New Roman",serif);font-size:var(--pfs,12pt);
+  line-height:var(--plh,1.5);min-height:200px;position:relative;box-shadow:var(--shadow)}
+.badge-standar{display:inline-block;padding:3px 12px;border-radius:99px;font-size:.85rem;font-weight:700;margin:8px 0}
+.badge-standar.ok{background:var(--ok-soft);color:var(--ok)}.badge-standar.no{background:var(--bad-soft);color:var(--bad)}
+/* Kop builder */
+.kop-preview{background:#fff;color:#111;border:2px solid #bbb;max-width:500px;margin:12px auto;
+  padding:16px 24px;font-family:"Times New Roman",serif;text-align:center;box-shadow:var(--shadow)}
+.kop-nama{font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.kop-tagline{font-size:12px;font-style:italic;margin:2px 0}
+.kop-garis{border-bottom:3px double #111;margin:8px 0}
+.kop-alamat{font-size:11px;color:#333}
+.kop-form{display:grid;gap:8px}
+.kop-form label{display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:center;font-size:.95rem}
+.kop-form input{border:1px solid var(--line);border-radius:6px;padding:6px 10px;background:var(--surface)}
+/* Bug game */
+.game-surat{background:#fff;color:#111;border:2px solid #bbb;max-width:540px;margin:12px auto;
+  padding:28px 32px;font-size:13px;line-height:1.6;position:relative}
+.bug{cursor:pointer;border-bottom:2px dashed #f00;position:relative;display:inline}
+.bug:hover{background:rgba(255,200,0,.3)}
+.bug.found{background:#ffe066;border-bottom:2px solid #e67700}
+.bug-popup{background:var(--warn);color:#111;border-radius:8px;padding:10px 14px;margin:8px 0;
+  display:none;font-family:system-ui,sans-serif;font-size:.9rem;line-height:1.4}
+.bug-popup.vis{display:block}
+.skor-game{font-weight:700;font-size:1.1rem;color:var(--primary);margin:10px 0}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}
+  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}
+  .wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
+  .hero{background:#fff;color:#000}}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+<header class="top">
+  <h1><span id="hdr-judul">Microsoft Word untuk Administrasi RS</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 04</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
+  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 04 · CPMK-1</span>
+      <h2 id="hero-judul">Microsoft Word untuk Administrasi RS</h2>
+      <p id="hero-cpmk">CPMK-1: Mampu menggunakan MS Word untuk pembuatan dokumen resmi dan surat-menyurat RS.</p>
+      <ul id="hero-tujuan"></ul>
+    </div>
+
+    <!-- PEMBUKA -->
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">Rina Wulandari, staf administrasi baru RS Sehat Citra (fiktif), diminta membuat surat rujukan pasien ke RS Bhakti Medika. Saat ia membuka dokumen lama sebagai acuan, tampilannya berantakan — margin kiri-kanan berbeda-beda, ada paragraf dengan font Arial dan ada yang Times New Roman, ukuran tulisan 10pt di satu bagian dan 14pt di bagian lain, serta tidak ada kop surat resmi sama sekali. Kepala Tata Usaha menegur: "Surat ini tidak bisa dikirim, tidak standar!"</p>
+      <p>Dalam 90 menit ke depan kita akan mempelajari standar format dokumen resmi RS: mulai dari margin, font, spasi, hingga cara membuat kop surat yang benar sehingga surat rujukan Rina — dan semua dokumen RS — terlihat profesional dan konsisten.</p>
+    </section>
+
+    <!-- PRE-TEST -->
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
+      <p>Jawab dulu tanpa takut salah. Ini untuk melihat titik awal pengetahuan kamu tentang format surat dinas.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test","soal":[
+        {"q":"Margin standar surat dinas (atas–kiri–kanan–bawah) adalah:","opsi":["2–2–2–2 cm","3–3–2,5–2,5 cm","4–4–3–3 cm","2,5–3–2,5–3 cm"],"benar":1,"jelas":"Standar Permendagri dan instansi pemerintah menggunakan 3 cm atas-kiri dan 2,5 cm kanan-bawah."},
+        {"q":"Font resmi yang digunakan pada surat dinas pemerintah/RS adalah:","opsi":["Comic Sans MS","Times New Roman","Wingdings","Impact"],"benar":1,"jelas":"Times New Roman 12pt adalah font standar surat dinas formal di Indonesia."},
+        {"q":"Spasi baris standar untuk isi surat dinas adalah:","opsi":["Single (1)","1,5","Double (2)","At least"],"benar":1,"jelas":"Spasi 1,5 memberikan keterbacaan yang baik tanpa membuang terlalu banyak halaman."},
+        {"q":"Ukuran font standar untuk isi surat dinas adalah:","opsi":["10 pt","11 pt","12 pt","14 pt"],"benar":2,"jelas":"12 pt adalah ukuran baku untuk isi surat dinas, sesuai standar nasional."},
+        {"q":"Bagian pertama pada kop surat RS adalah:","opsi":["Nomor surat","Logo dan nama RS","Alamat tujuan surat","Tanggal surat"],"benar":1,"jelas":"Kop surat dimulai dengan identitas instansi: logo (jika ada), nama RS, alamat, dan kontak."}
+      ]}
+      </script>
+    </section>
+
+    <!-- INTI 1 -->
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Anatomi Surat Dinas RS" data-min="10">
+      <p>Klik angka bernomor pada surat untuk melihat penjelasan setiap bagian surat dinas RS.</p>
+      <div id="label-info-box" class="label-info aktif" aria-live="polite">
+        <strong>Klik nomor pada surat untuk melihat penjelasan.</strong>
+      </div>
+      <div class="surat-a4" id="surat-preview">
+        <!-- Bagian 1: Kop Surat -->
+        <div class="surat-kop">
+          <span class="label-num" data-bag="1" tabindex="0" role="button" aria-label="Bagian 1: Kop Surat">1</span>
+          <div class="rs-nama">Rumah Sakit Sehat Citra</div>
+          <div class="rs-tagline">Rumah Sakit Umum Swasta · Terakreditasi Paripurna</div>
+          <div class="rs-alamat">Jl. Kenanga No. 47, Kec. Sukamaju, Kota Mediasari 12345<br>Telp: (021) 8765-4321 · Email: info@rssehatcitra.id · rssehatcitra.id</div>
+        </div>
+        <!-- Bagian 2: Nomor Surat -->
+        <div class="surat-nomor">
+          <span class="label-num" data-bag="2" tabindex="0" role="button" aria-label="Bagian 2: Nomor Surat">2</span>
+          Nomor: <strong>045/RS-SC/XI/2026</strong>
+        </div>
+        <!-- Bagian 3: Lampiran & Perihal -->
+        <div>
+          <span class="label-num" data-bag="3" tabindex="0" role="button" aria-label="Bagian 3: Lampiran dan Perihal">3</span>
+          Lampiran: 1 (satu) berkas<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perihal: <strong>Rujukan Pasien</strong>
+        </div>
+        <!-- Bagian 4: Tanggal -->
+        <div style="text-align:right;margin:6px 0">
+          <span class="label-num" data-bag="4" tabindex="0" role="button" aria-label="Bagian 4: Tanggal Surat">4</span>
+          Mediasari, 14 November 2026
+        </div>
+        <!-- Bagian 5: Alamat Tujuan -->
+        <div class="surat-tujuan">
+          <span class="label-num" data-bag="5" tabindex="0" role="button" aria-label="Bagian 5: Alamat Tujuan">5</span><br>
+          Yth. Direktur Utama<br>
+          RS Bhakti Medika<br>
+          Jl. Melati No. 12, Kota Mediasari
+        </div>
+        <!-- Bagian 6: Salam Pembuka -->
+        <p class="surat-isi">
+          <span class="label-num" data-bag="6" tabindex="0" role="button" aria-label="Bagian 6: Salam Pembuka">6</span>
+          Dengan hormat,
+        </p>
+        <!-- Bagian 7: Isi Surat -->
+        <p class="surat-isi">
+          <span class="label-num" data-bag="7" tabindex="0" role="button" aria-label="Bagian 7: Isi Surat">7</span>
+          Bersama surat ini kami merujuk pasien atas nama <strong>Budi Santoso</strong> (No. RM: 2024-0815-F) untuk mendapatkan penanganan lebih lanjut di RS Bhakti Medika karena keterbatasan fasilitas yang kami miliki.
+        </p>
+        <p class="surat-isi">Demikian surat rujukan ini kami buat. Atas perhatian dan kerjasamanya kami ucapkan terima kasih.</p>
+        <!-- Bagian 8: Penutup & Tanda Tangan -->
+        <div class="surat-ttd">
+          <span class="label-num" data-bag="8" tabindex="0" role="button" aria-label="Bagian 8: Penutup dan Tanda Tangan">8</span>
+          <p style="margin:4px 0">Hormat kami,<br>Kepala Tata Usaha RS Sehat Citra</p>
+          <div style="height:48px"></div>
+          <p style="margin:4px 0"><strong>dr. Sri Wahyuni, M.Kes</strong><br>NIK: 198504152010012001</p>
+        </div>
+      </div>
+      <script type="application/json" id="anatomi-data">
+      {"1":{"judul":"Kop Surat","teks":"Kop surat berisi identitas lengkap RS: nama RS (bold, kapital), jenis/tagline RS, alamat lengkap, nomor telepon, email, dan website. Diakhiri garis tebal sebagai pemisah visual dari bagian isi surat."},
+       "2":{"judul":"Nomor Surat","teks":"Format nomor surat: [urutan]/[kode instansi]/[bulan Romawi]/[tahun]. Contoh: 045/RS-SC/XI/2026 → urutan ke-45, RS Sehat Citra, bulan November (XI), tahun 2026."},
+       "3":{"judul":"Lampiran & Perihal","teks":"'Lampiran' diisi jumlah berkas yang disertakan (tulis angka dan huruf, contoh: 1 (satu) berkas). Jika tidak ada, tulis '–' atau dihilangkan. 'Perihal' merupakan ringkasan isi surat."},
+       "4":{"judul":"Tanggal Surat","teks":"Format standar: [Kota], [tanggal] [bulan dalam huruf] [tahun]. Tidak menggunakan singkatan bulan atau angka. Contoh: Mediasari, 14 November 2026."},
+       "5":{"judul":"Alamat Tujuan","teks":"Dimulai dengan 'Yth.' (Yang terhormat), diikuti jabatan penerima, nama instansi, dan alamat lengkap. Tidak perlu menulis 'Kepada' sebelum 'Yth.'"},
+       "6":{"judul":"Salam Pembuka","teks":"'Dengan hormat,' adalah salam pembuka standar surat dinas resmi. Diikuti koma dan dilanjutkan di baris baru dengan indent. Tidak menggunakan 'Dear' atau sapaan informal."},
+       "7":{"judul":"Isi Surat","teks":"Isi surat terdiri dari paragraf pembuka (tujuan), paragraf inti (penjelasan), dan paragraf penutup (harapan/ucapan terima kasih). Setiap paragraf menggunakan indentasi 1,25 cm. Bahasa formal, EYD."},
+       "8":{"judul":"Penutup & Tanda Tangan","teks":"Penutup berisi salam penutup ('Hormat kami,'), jabatan penandatangan, ruang tanda tangan (min. 3–4 baris), nama terang (bold), dan NIP/NIK. Nama terang WAJIB ada agar surat sah secara administratif."}}
+      </script>
+    </section>
+
+    <!-- INTI 2 -->
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Formatter Langsung" data-min="10">
+      <p>Ubah pengaturan di bawah dan lihat efeknya secara langsung pada pratinjau halaman A4.</p>
+      <div class="grid2">
+        <div>
+          <div class="ss" id="fmt-controls">
+            <label>Margin (cm)<input type="range" id="fmt-margin" min="1" max="5" step="0.5" value="3"><output id="out-margin">3 cm</output></label>
+            <label>Font
+              <select id="fmt-font" aria-label="Pilih font">
+                <option value='"Times New Roman",serif'>Times New Roman</option>
+                <option value='Arial,sans-serif'>Arial</option>
+                <option value='Calibri,sans-serif'>Calibri</option>
+              </select>
+              <output></output>
+            </label>
+            <label>Ukuran Font (pt)<input type="range" id="fmt-size" min="10" max="14" step="1" value="12"><output id="out-size">12 pt</output></label>
+            <label>Spasi Baris
+              <select id="fmt-spacing" aria-label="Pilih spasi baris">
+                <option value="1">Single (1)</option>
+                <option value="1.5" selected>1,5</option>
+                <option value="2">Double (2)</option>
+              </select>
+              <output></output>
+            </label>
+          </div>
+          <p style="margin-top:12px">
+            <button class="btn accent" id="btn-standar" type="button">Terapkan Standar RS</button>
+          </p>
+          <div id="badge-standar" class="badge-standar no">Belum sesuai standar</div>
+        </div>
+        <div>
+          <div class="page-demo" id="page-demo">
+            <p style="margin:0 0 6px;font-weight:700">RS Sehat Citra</p>
+            <p style="margin:0">Nomor: 045/RS-SC/XI/2026<br>Perihal: Rujukan Pasien</p>
+            <p style="margin:8px 0 0">Dengan hormat,</p>
+            <p>Bersama surat ini kami merujuk pasien atas nama Budi Santoso (No. RM: 2024-0815-F) untuk mendapatkan penanganan lebih lanjut di RS Bhakti Medika.</p>
+            <p>Demikian surat ini dibuat. Atas perhatian dan kerjasamanya kami ucapkan terima kasih.</p>
+            <p>Hormat kami,<br>Kepala Tata Usaha<br><br><br>dr. Sri Wahyuni, M.Kes</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTI 3 -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Pembuat Kop Surat" data-min="10">
+      <p>Isi form di bawah untuk membuat kop surat RS. Pratinjau berubah secara langsung.</p>
+      <div class="grid2">
+        <div class="kop-form">
+          <label>Nama RS<input type="text" id="kop-nama" maxlength="60" placeholder="RS Sehat Citra" value="RS Sehat Citra"></label>
+          <label>Tagline / Jenis RS<input type="text" id="kop-tagline" maxlength="80" placeholder="Rumah Sakit Umum Swasta" value="Rumah Sakit Umum Swasta · Terakreditasi Paripurna"></label>
+          <label>Alamat<input type="text" id="kop-alamat" maxlength="100" placeholder="Jl. Kenanga No. 47" value="Jl. Kenanga No. 47, Kec. Sukamaju"></label>
+          <label>Kota + Kode Pos<input type="text" id="kop-kota" maxlength="60" placeholder="Kota Mediasari 12345" value="Kota Mediasari 12345"></label>
+          <label>Telepon<input type="text" id="kop-telp" maxlength="40" placeholder="(021) 8765-4321" value="(021) 8765-4321"></label>
+          <label>Email<input type="text" id="kop-email" maxlength="60" placeholder="info@rssehatcitra.id" value="info@rssehatcitra.id"></label>
+          <label>Website<input type="text" id="kop-web" maxlength="60" placeholder="rssehatcitra.id" value="rssehatcitra.id"></label>
+          <p><button class="btn" id="btn-salin-kop" type="button">Salin Teks Kop</button> <span id="salin-info" aria-live="polite" style="color:var(--ok);font-size:.9rem"></span></p>
+        </div>
+        <div>
+          <div class="kop-preview" id="kop-preview">
+            <div class="kop-nama" id="kp-nama">RS Sehat Citra</div>
+            <div class="kop-tagline" id="kp-tagline">Rumah Sakit Umum Swasta · Terakreditasi Paripurna</div>
+            <div class="kop-garis"></div>
+            <div class="kop-alamat" id="kp-alamat">Jl. Kenanga No. 47, Kec. Sukamaju, Kota Mediasari 12345<br>Telp: (021) 8765-4321 · Email: info@rssehatcitra.id · rssehatcitra.id</div>
+          </div>
+          <p class="note" style="font-size:.9rem">Klik "Salin Teks Kop" untuk menyalin isi kop sebagai teks biasa yang bisa ditempel di MS Word.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTI 4 -->
+    <section class="seg" id="seg-inti4" data-judul="Inti 4: Checklist Kelengkapan Surat" data-min="10">
+      <p>Centang setiap elemen yang sudah ada di surat dinas RS kamu. Pantau progress kelengkapan surat di bawah.</p>
+      <div class="prog" aria-label="Progress kelengkapan surat"><i id="prog-cek"></i></div>
+      <div id="prog-txt" style="font-size:.9rem;color:var(--muted);margin-bottom:12px">0 / 14 item terpenuhi</div>
+
+      <details open>
+        <summary>a) Kop Surat (3 item)</summary>
+        <div>
+          <ul class="checklist" id="cek-a">
+            <li>Nama RS lengkap (resmi, tidak disingkat)</li>
+            <li>Alamat RS lengkap beserta kode pos</li>
+            <li>Nomor telepon dan/atau email RS</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>b) Identitas Surat (3 item)</summary>
+        <div>
+          <ul class="checklist" id="cek-b">
+            <li>Nomor surat dengan format yang benar (urutan/kode/bln-Romawi/tahun)</li>
+            <li>Tanggal surat lengkap (kota, tanggal, bulan kata, tahun)</li>
+            <li>Lampiran dan Perihal tercantum</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>c) Alamat Tujuan (2 item)</summary>
+        <div>
+          <ul class="checklist" id="cek-c">
+            <li>Nama instansi/penerima tercantum lengkap</li>
+            <li>Alamat instansi tujuan lengkap</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>d) Isi Surat (3 item)</summary>
+        <div>
+          <ul class="checklist" id="cek-d">
+            <li>Salam pembuka ("Dengan hormat,")</li>
+            <li>Paragraf isi yang jelas dan menggunakan bahasa formal</li>
+            <li>Salam penutup dan ucapan terima kasih</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>e) Tanda Tangan (3 item)</summary>
+        <div>
+          <ul class="checklist" id="cek-e">
+            <li>Nama terang penandatangan (dicetak tebal)</li>
+            <li>Jabatan penandatangan tercantum</li>
+            <li>NIP atau NIK penandatangan tercantum</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- PRAKTIK -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Temukan 8 Kesalahan Format" data-min="25">
+      <p><strong>Instruksi:</strong> Surat dinas di bawah memiliki <strong>8 kesalahan format</strong>. Klik area yang kamu curigai sebagai kesalahan. Skor: <span class="skor-game" id="bug-skor">0 / 8</span></p>
+      <p><button class="btn sec" id="btn-reset-bug" type="button">Reset Semua</button></p>
+      <div id="bug-popup-area" aria-live="polite"></div>
+
+      <div class="game-surat" id="game-surat">
+        <!-- Kop tanpa garis (bug 7) -->
+        <div style="text-align:center;margin-bottom:10px">
+          <div style="font-size:17px;font-weight:700;text-transform:uppercase">RUMAH SAKIT SEHAT CITRA</div>
+          <div style="font-size:12px">Rumah Sakit Umum Swasta</div>
+          <div style="font-size:11px">Jl. Kenanga No. 47, Kota Mediasari</div>
+          <span class="bug" data-bug="7" data-judul="Bug 7: Kop tanpa garis pemisah" data-cara="Tambahkan garis tebal (border-bottom double) di bawah kop surat untuk memisahkan kop dari isi surat secara visual."><!-- tidak ada garis --></span>
+        </div>
+
+        <!-- Margin kiri terlalu kecil (bug 1) - simulasikan dengan padding -->
+        <div style="padding-left:2px">
+          <span class="bug" data-bug="1" data-judul="Bug 1: Margin kiri terlalu kecil" data-cara="Margin kiri seharusnya 3 cm. Di Word: Layout → Margins → atur Left = 3 cm.">Nomor: <span style="font-family:Arial">045.RS.SC.2026</span></span>
+          <!-- Nomor format salah juga (bug 5) -->
+          &nbsp;<span class="bug" data-bug="5" data-judul="Bug 5: Format nomor surat salah" data-cara="Format nomor surat yang benar: [urut]/[kode instansi]/[bulan Romawi]/[tahun]. Contoh: 045/RS-SC/XI/2026. Bukan titik sebagai pemisah."> ← format pemisah salah</span>
+        </div>
+
+        <div style="padding-left:2px">Lampiran: 1 berkas<br>Perihal: Rujukan Pasien</div>
+
+        <!-- Tanggal format tidak baku (bug 6) -->
+        <div style="text-align:right;margin:6px 0">
+          <span class="bug" data-bug="6" data-judul="Bug 6: Format tanggal tidak baku" data-cara="Tanggal seharusnya: Mediasari, 14 November 2026. Tidak menggunakan format angka/singkatan.">14/11/2026</span>
+        </div>
+
+        <div style="margin:6px 0">Yth. Direktur RS Bhakti Medika<br>Jl. Melati No. 12, Kota Mediasari</div>
+
+        <!-- Font bercampur + ukuran berbeda (bug 2, 3) -->
+        <p style="text-indent:2em;font-family:Arial;font-size:13px">
+          <span class="bug" data-bug="2" data-judul="Bug 2: Font isi bercampur (Arial dan Comic Sans)" data-cara="Seluruh isi surat harus menggunakan satu font konsisten, yaitu Times New Roman. Gunakan Ctrl+A → pilih font di Home.">Dengan hormat,</span>
+        </p>
+        <p style="text-indent:2em;font-family:'Comic Sans MS','Comic Sans',cursive;font-size:15px">
+          <span class="bug" data-bug="3" data-judul="Bug 3: Ukuran font berbeda di tiap paragraf" data-cara="Semua paragraf isi harus menggunakan ukuran font yang sama: 12 pt. Pilih semua teks (Ctrl+A) lalu set font size = 12.">Bersama surat ini kami merujuk pasien atas nama Budi Santoso (No. RM: 2024-0815-F) untuk mendapatkan penanganan lebih lanjut.</span>
+        </p>
+        <!-- Spasi tidak konsisten (bug 4) -->
+        <p style="text-indent:2em;line-height:3;font-size:11px">
+          <span class="bug" data-bug="4" data-judul="Bug 4: Spasi baris tidak konsisten" data-cara="Spasi baris standar surat dinas adalah 1,5. Di Word: pilih semua teks → Home → Line Spacing → 1.5.">Demikian surat ini dibuat untuk dapat dipergunakan sebagaimana mestinya.</span>
+        </p>
+
+        <!-- Tanda tangan tanpa nama terang (bug 8) -->
+        <div style="margin-top:16px">
+          Hormat kami,<br>
+          Kepala Tata Usaha RS Sehat Citra<br><br><br>
+          <span class="bug" data-bug="8" data-judul="Bug 8: Tanda tangan tanpa nama terang" data-cara="Di bawah ruang tanda tangan HARUS ada nama terang (dicetak bold) dan NIP/NIK. Tanpa ini, surat tidak sah secara administratif.">( _________________________ )<br>NIP: -</span>
+        </div>
+      </div>
+
+      <div class="tugas-lab">
+        <h4>Tugas Lab</h4>
+        <p>Buat surat rujukan pasien <strong>Budi Santoso</strong> ke <strong>RS Bhakti Medika</strong> di MS Word nyata dengan ketentuan:</p>
+        <ol>
+          <li>Margin: atas 3 cm, kiri 3 cm, kanan 2,5 cm, bawah 2,5 cm</li>
+          <li>Font: Times New Roman 12 pt di seluruh isi surat</li>
+          <li>Spasi baris: 1,5 untuk isi surat</li>
+          <li>Kop surat lengkap RS Sehat Citra (nama, alamat, kontak, garis pemisah)</li>
+          <li>Nomor surat dengan format: XXX/RS-SC/bulan-Romawi/tahun</li>
+          <li>Tanggal surat format baku (kota, tanggal, bulan kata, tahun)</li>
+          <li>Isi surat: tujuan rujukan pasien Budi Santoso (No. RM: 2024-0815-F)</li>
+          <li>Tanda tangan lengkap dengan nama terang, jabatan, NIP</li>
+        </ol>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Kelengkapan 8 bagian surat. 2) Kesesuaian format (margin, font, spasi). 3) Konsistensi penulisan dan ejaan yang disempurnakan (EYD).</p>
+      </div>
+    </section>
+
+    <!-- POST-TEST -->
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test","soal":[
+        {"q":"Garis pemisah pada kop surat RS berfungsi untuk:","opsi":["Sekadar dekorasi visual","Memisahkan kop dari isi surat secara formal","Menandai awal halaman baru","Mempercantik tampilan surat"],"benar":1,"jelas":"Garis pemisah adalah elemen struktural wajib yang secara formal memisahkan identitas instansi (kop) dari isi surat."},
+        {"q":"Nomor surat 045/RS-SC/X/2026 — angka romawi X menandakan:","opsi":["Nomor urutan surat","Bulan Oktober","Tahun 2026","Kode unit kerja"],"benar":1,"jelas":"Dalam format nomor surat dinas, angka romawi menunjukkan bulan. X = Oktober dalam penomoran romawi."},
+        {"q":"Shortcut keyboard di MS Word untuk mengatur spasi baris menjadi 1,5 adalah:","opsi":["Ctrl+1","Ctrl+2","Ctrl+5","Ctrl+3"],"benar":2,"jelas":"Ctrl+5 = spasi 1,5. Ctrl+1 = single, Ctrl+2 = double. Ingat: 5 di tengah 1 dan 2!"},
+        {"q":"Kolom 'Lampiran' pada surat dinas diisi apabila:","opsi":["Harus selalu diisi","Ada dokumen yang dilampirkan bersama surat","Tidak perlu pernah diisi","Hanya untuk surat eksternal ke instansi lain"],"benar":1,"jelas":"Lampiran hanya diisi jika ada berkas yang ikut dikirim. Jika tidak ada, tulis '–' atau kosongkan/hilangkan baris tersebut."},
+        {"q":"Surat dinas resmi harus disertai:","opsi":["Foto penandatangan","Cap jempol","Nama terang dan jabatan penandatangan","Stempel instansi saja sudah cukup"],"benar":2,"jelas":"Nama terang (dicetak bold) dan jabatan adalah syarat sah surat dinas. Tanpanya, surat tidak dapat diidentifikasi penandatangannya."}
+      ]}
+      </script>
+      <h4>Perbandingan Pre-test vs Post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <!-- PENUTUP -->
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
+      <h4>Ringkasan Pertemuan 04</h4>
+      <ol>
+        <li>Surat dinas RS menggunakan margin standar 3–3–2,5–2,5 cm, font Times New Roman 12 pt, dan spasi 1,5.</li>
+        <li>Kop surat wajib memuat nama RS, alamat, kontak, dan garis pemisah double di bagian bawahnya.</li>
+        <li>Nomor surat menggunakan format: [urutan]/[kode RS]/[bulan Romawi]/[tahun].</li>
+        <li>Tanda tangan surat dinas harus disertai nama terang (bold) dan jabatan penandatangan serta NIP/NIK.</li>
+        <li>Konsistensi font, ukuran, dan spasi di seluruh dokumen adalah kunci surat dinas yang profesional.</li>
+      </ol>
+      <h4>Refleksi</h4>
+      <p>Tuliskan satu hal yang paling berguna hari ini dan satu hal yang masih membingungkan:</p>
+      <textarea class="reflect" id="refleksi-ta" aria-label="Refleksi pertemuan 04"></textarea>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 05 — Word Lanjutan & Mail Merge: membuat tabel data di Word dan mensimulasikan pengiriman dokumen massal menggunakan Mail Merge.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+"use strict";
+const KONFIG={kode:"krs-p04",nomor:"04",judul:"Microsoft Word untuk Administrasi RS",
+  cpmk:"CPMK-1: Mampu menggunakan MS Word untuk pembuatan dokumen resmi dan surat-menyurat RS.",
+  tujuan:["Memahami standar format dokumen resmi RS","Mengatur margin, font, dan spasi sesuai standar","Membuat kop surat resmi RS"],
+  totalMenit:90};
+
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+function h(tag,props,...kids){
+  const e=document.createElement(tag);
+  for(const k in(props||{})){const v=props[k];if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,"");else if(v!==false&&v!=null)e.setAttribute(k,v);}
+  for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(String(c)));}
+  return e;
+}
+const store={
+  get(k,d){try{const v=localStorage.getItem(KONFIG.kode+"-"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem(KONFIG.kode+"-"+k,JSON.stringify(v));}catch(e){}}
+};
+function getData(id){return JSON.parse(document.getElementById(id).textContent);}
+let uid=0;const nextId=p=>p+"-"+(++uid);
+function mmss(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+
+/* QUIZ */
+const W={};
+W.quiz=el=>{
+  const d=getData(el.dataset.src);
+  const key="quiz-"+(el.dataset.role||el.dataset.src);
+  const saved=store.get(key,{jawab:{}});
+  const jawab=saved.jawab||{};
+  const skorEl=h("p",{class:"skor","aria-live":"polite"});
+  const items=[];
+  function hitung(){let b=0;for(const i in jawab)if(jawab[i]===d.soal[i].benar)b++;const n=Object.keys(jawab).length;
+    skorEl.textContent="Skor: "+b+" / "+d.soal.length+(n<d.soal.length?"  (terjawab "+n+")":"");
+    store.set(key,{jawab,skor:b,total:d.soal.length,selesai:n===d.soal.length});
+    document.dispatchEvent(new CustomEvent("krs:skor"));}
+  function tampil(i,pilih){const it=items[i],s=d.soal[i];
+    it.labels.forEach((l,j)=>{l.classList.toggle("benar",j===s.benar);l.classList.toggle("salah",j===pilih&&j!==s.benar);});
+    it.fb.textContent=(pilih===s.benar?"Benar. ":"Belum tepat. ")+(s.jelas||"");}
+  d.soal.forEach((s,i)=>{
+    const name=nextId("q"),fb=h("p",{class:"fb","aria-live":"polite"});
+    const labels=s.opsi.map((o,j)=>{
+      const inp=h("input",{type:"radio",name,value:j,onchange:()=>{jawab[i]=j;tampil(i,j);hitung();}});
+      if(jawab[i]===j)inp.checked=true;
+      return h("label",{},inp," ",o);});
+    items.push({labels,fb});
+    el.append(h("fieldset",{},h("legend",{},(i+1)+". "+s.q),labels,fb));
+    if(jawab[i]!==undefined)tampil(i,jawab[i]);});
+  el.append(skorEl,h("button",{class:"btn sec",type:"button",onclick:()=>{
+    for(const k in jawab)delete jawab[k];
+    $$("input",el).forEach(x=>x.checked=false);
+    items.forEach(it=>{it.labels.forEach(l=>l.classList.remove("benar","salah"));it.fb.textContent="";});
+    hitung();}
+  },"Ulangi"));hitung();};
+
+W.banding=el=>{
+  function baris(role,nama,cls){const track=h("i"),val=h("span",{},"–");
+    el.append(h("div",{class:"row "+cls},h("span",{},nama),h("div",{class:"track"},track),val));
+    return()=>{const s=store.get("quiz-"+role,null);if(!s||!s.selesai){track.style.width="0";val.textContent="–";return;}
+      const p=Math.round(s.skor/s.total*100);track.style.width=p+"%";val.textContent=p+"%";};}
+  el.classList.add("banding");const a=baris("pre","Pre-test","pre"),b=baris("post","Post-test","post");
+  const up=()=>{a();b();};document.addEventListener("krs:skor",up);up();};
+
+/* ANATOMI SURAT */
+function initAnatomi(){
+  const info=document.getElementById("label-info-box");
+  const data=getData("anatomi-data");
+  $$(".label-num").forEach(btn=>{
+    const act=()=>{
+      const d=data[btn.dataset.bag];if(!d)return;
+      $$(".label-num").forEach(b=>b.setAttribute("aria-pressed","false"));
+      btn.setAttribute("aria-pressed","true");
+      info.classList.add("aktif");
+      info.innerHTML="";
+      info.append(h("strong",{},d.judul+": "),document.createTextNode(d.teks));
+    };
+    btn.addEventListener("click",act);
+    btn.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();act();}});
+  });
+}
+
+/* FORMATTER */
+function initFormatter(){
+  const demo=document.getElementById("page-demo");
+  const margin=document.getElementById("fmt-margin");
+  const font=document.getElementById("fmt-font");
+  const size=document.getElementById("fmt-size");
+  const spacing=document.getElementById("fmt-spacing");
+  const outM=document.getElementById("out-margin");
+  const outS=document.getElementById("out-size");
+  const badge=document.getElementById("badge-standar");
+  function apply(){
+    const m=parseFloat(margin.value),f=font.value,s=parseInt(size.value),sp=parseFloat(spacing.value);
+    demo.style.padding=m*20+"px";// approx px for demo
+    demo.style.fontFamily=f;
+    demo.style.fontSize=s+"pt";
+    demo.style.lineHeight=sp;
+    outM.textContent=m+" cm";
+    outS.textContent=s+" pt";
+    // Check standard
+    const isStd=m===3&&f==='"Times New Roman",serif'&&s===12&&sp===1.5;
+    badge.textContent=isStd?"Sesuai Standar RS":"Belum Sesuai Standar";
+    badge.className="badge-standar "+(isStd?"ok":"no");
+  }
+  [margin,font,size,spacing].forEach(el=>el.addEventListener("input",apply));
+  margin.addEventListener("change",apply);
+  document.getElementById("btn-standar").addEventListener("click",()=>{
+    margin.value=3;font.value='"Times New Roman",serif';size.value=12;spacing.value=1.5;
+    demo.style.outline="3px solid var(--ok)";
+    setTimeout(()=>{demo.style.outline="";},1200);
+    apply();
+  });
+  apply();
+}
+
+/* KOP BUILDER */
+function initKop(){
+  const fields={nama:"kop-nama",tagline:"kop-tagline",alamat:"kop-alamat",kota:"kop-kota",telp:"kop-telp",email:"kop-email",web:"kop-web"};
+  function update(){
+    const n=document.getElementById("kop-nama").value;
+    const t=document.getElementById("kop-tagline").value;
+    const a=document.getElementById("kop-alamat").value;
+    const k=document.getElementById("kop-kota").value;
+    const tel=document.getElementById("kop-telp").value;
+    const em=document.getElementById("kop-email").value;
+    const w=document.getElementById("kop-web").value;
+    document.getElementById("kp-nama").textContent=n;
+    document.getElementById("kp-tagline").textContent=t;
+    const adr=document.getElementById("kp-alamat");
+    adr.textContent="";
+    const parts=[a,k].filter(Boolean).join(", ");
+    adr.append(document.createTextNode(parts));
+    if(tel||em||w){
+      adr.append(document.createElement("br"));
+      const kontakParts=[];
+      if(tel)kontakParts.push("Telp: "+tel);
+      if(em)kontakParts.push("Email: "+em);
+      if(w)kontakParts.push(w);
+      adr.append(document.createTextNode(kontakParts.join(" · ")));
+    }
+  }
+  Object.values(fields).forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener("input",update);
+  });
+  document.getElementById("btn-salin-kop").addEventListener("click",()=>{
+    const n=document.getElementById("kop-nama").value;
+    const t=document.getElementById("kop-tagline").value;
+    const a=document.getElementById("kop-alamat").value;
+    const k=document.getElementById("kop-kota").value;
+    const tel=document.getElementById("kop-telp").value;
+    const em=document.getElementById("kop-email").value;
+    const w=document.getElementById("kop-web").value;
+    const lines=[n,t,[a,k].filter(Boolean).join(", ")];
+    const kontak=["Telp: "+tel,em&&"Email: "+em,w].filter(Boolean).join(" | ");
+    if(kontak)lines.push(kontak);
+    const txt=lines.join("\n");
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(()=>{
+        const info=document.getElementById("salin-info");
+        info.textContent="Tersalin!";setTimeout(()=>{info.textContent="";},2000);
+      }).catch(()=>{fallbackCopy(txt);});
+    }else{fallbackCopy(txt);}
+  });
+  function fallbackCopy(txt){
+    const ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";
+    document.body.append(ta);ta.select();
+    try{document.execCommand("copy");const info=document.getElementById("salin-info");info.textContent="Tersalin!";setTimeout(()=>{info.textContent="";},2000);}catch(e){}
+    ta.remove();
+  }
+  update();
+}
+
+/* CHECKLIST INTI 4 */
+function initChecklist4(){
+  const allIds=["cek-a","cek-b","cek-c","cek-d","cek-e"];
+  let total=0;
+  allIds.forEach(id=>{
+    const ul=document.getElementById(id);
+    if(!ul)return;
+    const lis=$$("li",ul);
+    lis.forEach(li=>{
+      const txt=li.textContent;
+      const cb=h("input",{type:"checkbox",onchange:updateTotal});
+      li.textContent="";
+      li.append(h("label",{},cb,h("span",{},txt)));
+      total++;
+    });
+  });
+  function updateTotal(){
+    let checked=0;
+    allIds.forEach(id=>{
+      const ul=document.getElementById(id);
+      if(ul)$$("input",ul).forEach(cb=>{if(cb.checked)checked++;});
+    });
+    const bar=document.getElementById("prog-cek");
+    const txt=document.getElementById("prog-txt");
+    bar.style.width=(checked/total*100)+"%";
+    txt.textContent=checked+" / "+total+" item terpenuhi";
+  }
+  updateTotal();
+}
+
+/* BUG GAME */
+function initBugGame(){
+  const bugs={};let found=0;
+  const scoreEl=document.getElementById("bug-skor");
+  const popupArea=document.getElementById("bug-popup-area");
+  $$(".bug",document.getElementById("game-surat")).forEach(span=>{
+    span.setAttribute("role","button");span.setAttribute("tabindex","0");
+    span.setAttribute("aria-label","Klik untuk memeriksa area ini");
+    const act=()=>{
+      const bug=span.dataset.bug;
+      if(bugs[bug])return;
+      bugs[bug]=true;found++;
+      span.classList.add("found");
+      scoreEl.textContent=found+" / 8";
+      // Show popup
+      const box=h("div",{class:"bug-popup vis"},h("strong",{},span.dataset.judul+": "),document.createTextNode(span.dataset.cara));
+      popupArea.append(box);
+      setTimeout(()=>{box.style.opacity="0";box.style.transition="opacity 1s";setTimeout(()=>box.remove(),1000);},5000);
+      if(found===8){scoreEl.textContent="8 / 8 — Hebat! Semua kesalahan ditemukan!";}
+    };
+    span.addEventListener("click",act);
+    span.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();act();}});
+  });
+  document.getElementById("btn-reset-bug").addEventListener("click",()=>{
+    for(const k in bugs)delete bugs[k];found=0;
+    $$(".bug.found",document.getElementById("game-surat")).forEach(s=>s.classList.remove("found"));
+    scoreEl.textContent="0 / 8";popupArea.textContent="";
+  });
+}
+
+/* REFLEKSI */
+function initRefleksi(){
+  const ta=document.getElementById("refleksi-ta");
+  if(!ta)return;
+  ta.value=store.get("refleksi","");
+  ta.addEventListener("input",()=>store.set("refleksi",ta.value));
+}
+
+/* TIMER & AGENDA */
+function initSegmen(){
+  const segs=$$("section.seg"),agenda=document.getElementById("agenda");
+  const done=store.get("selesai",{});let mulai=0;const links=[];
+  segs.forEach((s,i)=>{
+    const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
+    const head=h("div",{class:"seg-head"},h("h3",{},judul),h("span",{class:"badge"},min+" menit"));
+    let sisa=min*60,tid=null;const tb=h("button",{class:"btn sec",type:"button"},"⏱ "+mmss(sisa));
+    const tw=h("span",{class:"seg-timer"},tb);
+    tb.addEventListener("click",()=>{
+      if(tid){clearInterval(tid);tid=null;tb.textContent="▶ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));return;}
+      tid=setInterval(()=>{sisa--;tw.classList.toggle("over",sisa<0);tb.textContent="⏸ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));},1000);});
+    head.append(tw);s.prepend(head);
+    const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
+    function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";
+      done[s.id]=v;store.set("selesai",done);progres();}
+    sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));
+    foot.append(sb);s.append(foot);
+    const a=h("a",{href:"#"+s.id},h("span",{class:"mnt"},mulai+"–"+(mulai+min)+"'"),h("span",{},judul),h("span",{class:"tick","aria-label":"selesai"},"✓"));
+    agenda.append(a);links.push({a,s});mulai+=min;tandai(!!done[s.id]);});
+  function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;document.getElementById("hdr-bar").style.width=(n/segs.length*100)+"%";}
+  if("IntersectionObserver"in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});
+    segs.forEach(s=>io.observe(s));}
+}
+function initJam(){
+  let t=0,id=null;const c=document.getElementById("clock"),b=document.getElementById("clock-btn");
+  b.addEventListener("click",()=>{if(id){clearInterval(id);id=null;b.textContent="Lanjut";}
+    else{id=setInterval(()=>{t++;c.textContent=mmss(t);},1000);b.textContent="Jeda";}});
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  document.title="Pertemuan "+KONFIG.nomor+" — "+KONFIG.judul+" | Komputer Rumah Sakit";
+  document.getElementById("hero-cpmk").textContent=KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t=>document.getElementById("hero-tujuan").append(h("li",{},t)));
+  $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal: "+e.message));}});
+  initAnatomi();initFormatter();initKop();initChecklist4();initBugGame();initRefleksi();
+  initSegmen();initJam();
+  window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>

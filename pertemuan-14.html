@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertemuan 14 — Cloud Storage &amp; Kolaborasi Dokumen Online | Komputer Rumah Sakit</title>
+<style>
+:root{
+  --bg:#f6faf9; --surface:#ffffff; --ink:#12303a; --muted:#5b7480; --line:#d5e3e6;
+  --primary:#0b7285; --primary-ink:#ffffff; --primary-soft:#d3f0f4;
+  --accent:#e8590c; --ok:#2b8a3e; --ok-soft:#dff3e3; --warn:#e67700; --bad:#c92a2a; --bad-soft:#fbe1e1;
+  --c1:#0b7285; --c2:#e8590c; --c3:#7048e8; --c4:#2b8a3e; --c5:#c2255c; --c6:#f08c00; --c7:#1971c2; --c8:#5c940d;
+  --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1b20; --surface:#15272e; --ink:#e6f1f3; --muted:#9bb2ba; --line:#27414a;
+    --primary:#3bc0d6; --primary-ink:#06222a; --primary-soft:#14414b;
+    --accent:#ff922b; --ok:#69db7c; --ok-soft:#173a22; --warn:#ffc078; --bad:#ff8787; --bad-soft:#4a1d1d;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.ok{background:var(--ok);color:#fff}
+.btn.bad{background:var(--bad);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
+.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
+.top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
+nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
+nav.agenda a:hover{background:var(--primary-soft)}
+nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+nav.agenda a.done .tick{visibility:visible}
+main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}
+.hero p{margin:6px 0;opacity:.95}
+.hero ul{margin:8px 0 0;padding-left:20px}
+@media (prefers-color-scheme: dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
+.seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
+.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.seg-timer{display:inline-flex;gap:6px;align-items:center}
+.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.seg-timer.over .btn{background:var(--bad);color:#fff}
+.seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.seg.done{border-left:6px solid var(--ok)}
+h4{margin:18px 0 6px;font-size:1.1rem}
+p{margin:8px 0}
+.cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
+.note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.warn-box{background:var(--bad-soft);border-radius:8px;padding:10px 14px;margin:12px 0;border-left:4px solid var(--bad)}
+.err{color:var(--bad);font-weight:700}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
+details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details[open] summary{border-bottom:1px solid var(--line)}
+details>div,details>p{padding:8px 14px}
+.tugas-lab{border:2px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-top:16px;background:var(--surface)}
+.tugas-lab h4{margin-top:0;color:var(--accent)}
+.kriteria{font-size:.92rem;color:var(--muted)}
+.quiz fieldset{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:10px 14px;background:var(--bg)}
+.quiz legend{font-weight:700;padding:0 6px}
+.quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
+.quiz label:hover{background:var(--primary-soft)}
+.quiz label.benar{background:var(--ok-soft)}
+.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}
+.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+.tablist{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--line)}
+.tablist button{border:0;background:none;padding:8px 16px;border-radius:8px 8px 0 0;font-weight:600;color:var(--muted)}
+.tablist button[aria-selected="true"]{background:var(--primary-soft);color:var(--ink);box-shadow:inset 0 -3px 0 var(--primary)}
+.tabpanel{padding:14px 4px}
+.tabpanel[hidden]{display:none}
+.checklist{list-style:none;padding:0;margin:8px 0}
+.checklist li{margin:4px 0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:6px}
+.checklist input{width:20px;height:20px;margin-top:4px;flex:none}
+.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+.banding{display:grid;gap:8px;max-width:520px}
+.banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
+.banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
+.banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
+.banding .row.post .track i{background:var(--ok)}
+/* Akses simulator */
+.akses-sim{border:1px solid var(--line);border-radius:var(--r);padding:16px;background:var(--bg)}
+.akses-form{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:600px){.akses-form{grid-template-columns:1fr}}
+.akses-form input,.akses-form select{border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--surface);width:100%}
+.akses-tabel{border-collapse:collapse;width:100%;font-size:.88rem}
+.akses-tabel th,.akses-tabel td{border:1px solid var(--line);padding:6px 10px}
+.akses-tabel th{background:var(--primary-soft)}
+.akses-tabel td.ok{background:var(--ok-soft);text-align:center}
+.akses-tabel td.no{background:var(--bad-soft);text-align:center}
+.akses-list{margin-top:14px}
+.akses-list .row{display:flex;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:8px;margin:4px 0;background:var(--surface);flex-wrap:wrap}
+.akses-list .email{flex:1;font-size:.92rem}
+.akses-list .peran{background:var(--primary-soft);border-radius:6px;padding:2px 10px;font-size:.82rem;font-weight:700}
+/* Pohon folder */
+.tree-wrap{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg);min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:.9rem}
+.tree-item{padding:2px 0;cursor:default}
+.tree-item .icon{margin-right:4px}
+.tree-item .act{background:none;border:none;color:var(--bad);cursor:pointer;font-size:.85rem;margin-left:6px;padding:0 4px}
+/* Kolaborasi */
+.kolab-doc{border:2px solid var(--line);border-radius:10px;padding:16px;background:var(--bg);min-height:100px;white-space:pre-wrap;font-family:inherit;font-size:.95rem}
+.kolab-log{max-height:180px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface);font-size:.85rem}
+.kolab-log .entry{padding:4px 8px;border-bottom:1px solid var(--line)}
+.kolab-log .entry:last-child{border-bottom:none}
+.kolab-log .ua{color:var(--c1);font-weight:700}
+.kolab-log .ub{color:var(--c2);font-weight:700}
+/* Skenario aman/berisiko */
+.skenario-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.skenario-card{border:2px solid var(--line);border-radius:var(--r);padding:18px;background:var(--bg);text-align:center;transition:border-color .2s}
+.skenario-card .ikon{font-size:2.4rem;display:block;margin-bottom:10px}
+.skenario-card p{margin:0 0 12px;font-size:.95rem}
+.skenario-card .aksi{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.skenario-card.aman-benar{border-color:var(--ok);background:var(--ok-soft)}
+.skenario-card.risiko-benar{border-color:var(--ok);background:var(--ok-soft)}
+.skenario-card.salah{border-color:var(--bad);background:var(--bad-soft)}
+.skenario-fb{font-size:.85rem;margin-top:8px;font-weight:600}
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr;padding:12px}
+  nav.agenda{position:static;max-height:none}
+  nav.agenda .list{display:flex;flex-wrap:wrap}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
+  body{font-size:12pt}
+  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}
+  .wrap{display:block;padding:0}
+  .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
+  .hero{background:#fff;color:#000}
+  .tabpanel[hidden]{display:block!important}
+}
+
+/* Tanpa sidebar agenda, dengan layar penuh */
+nav.agenda{display:none!important}
+.wrap{display:block!important;max-width:1200px}
+:fullscreen .wrap{max-width:1500px}
+:-webkit-full-screen .wrap{max-width:1500px}
+</style>
+</head>
+<body>
+<a class="skip" href="#konten">Lewati ke konten</a>
+
+<header class="top">
+  <h1><span id="hdr-judul">Cloud Storage &amp; Kolaborasi Dokumen Online</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 14</small></h1>
+  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
+  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
+  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
+  <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
+</header>
+
+<div class="wrap">
+  <nav class="agenda" aria-label="Agenda 90 menit">
+    <h2>Agenda 90 menit</h2>
+    <div class="list" id="agenda"></div>
+  </nav>
+
+  <main id="konten">
+    <div class="hero">
+      <span class="kode" id="hero-kode">Pertemuan 14 · CPMK-6</span>
+      <h2 id="hero-judul">Cloud Storage &amp; Kolaborasi Dokumen Online</h2>
+      <p id="hero-cpmk">CPMK-6: Mampu mengelola sistem penyimpanan awan dan kolaborasi dokumen online secara tim.</p>
+      <ul id="hero-tujuan">
+        <li>Memahami konsep dan manfaat cloud storage untuk RS</li>
+        <li>Mengatur hak akses dokumen dengan benar</li>
+        <li>Berkolaborasi real-time pada dokumen bersama</li>
+      </ul>
+    </div>
+
+    <!-- PEMBUKA -->
+    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
+      <p class="cerita">Senin pagi, Mira Dewanti — koordinator laporan RS Ananda Husada (fiktif) — panik. Laporan bulanan yang sudah ia kerjakan selama tiga hari tiba-tiba tidak bisa dibuka. Ternyata flashdisk tempat ia menyimpan file itu mengalami kerusakan fisik. Tidak ada backup. Laporan harus diserahkan ke Direktur pukul 10.00. Ia harus memulai dari nol dalam waktu dua jam. Seandainya ia menyimpan file di cloud...</p>
+      <p>Hari ini kita belajar cara menyimpan dokumen di cloud secara aman, mengatur siapa yang boleh melihat dan mengedit, serta berkolaborasi dalam tim tanpa saling menimpa pekerjaan satu sama lain.</p>
+      <div class="note">☁️ <strong>Cloud storage bukan sekadar backup:</strong> Ini adalah cara kerja modern yang memungkinkan tim RS berkolaborasi dari mana saja dengan data yang selalu sinkron dan terlindungi.</div>
+    </section>
+
+    <!-- PRE-TEST -->
+    <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
+      <p>Jawab dulu tanpa takut salah.</p>
+      <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
+      <script type="application/json" id="quiz-pre">
+      {"judul":"Pre-test","soal":[
+        {"q":"Apa perbedaan utama antara penyimpanan lokal dan cloud storage?","opsi":["Lokal lebih murah, cloud lebih cepat","Lokal tersimpan di perangkat sendiri, cloud tersimpan di server internet","Cloud tidak bisa diakses offline","Lokal tidak bisa dibagikan"],"benar":1,"jelas":"Penyimpanan lokal ada di perangkat/USB/HDD. Cloud storage ada di server jarak jauh yang diakses via internet — bisa dibagikan dan diakses dari mana saja."},
+        {"q":"Hak akses 'Viewer' pada Google Drive berarti...","opsi":["Bisa melihat, mengedit, dan berbagi","Hanya bisa melihat dokumen, tidak bisa mengedit","Bisa melihat dan memberi komentar","Bisa mengunduh dan mencetak saja"],"benar":1,"jelas":"Viewer hanya bisa melihat (baca saja). Untuk komentar perlu Commenter, untuk edit perlu Editor."},
+        {"q":"Apa risiko menyimpan data pasien di folder Google Drive yang linknya 'Siapa saja dengan link bisa melihat'?","opsi":["Tidak ada risiko, link hanya diketahui yang diberi","Data bisa diakses publik jika link tersebar, melanggar privasi pasien","Dokumen otomatis terenkripsi","Hanya bisa diakses dari dalam RS"],"benar":1,"jelas":"Link 'siapa saja' artinya siapapun yang memegang link bisa membuka file — ini berbahaya untuk data pasien rahasia."},
+        {"q":"Format penamaan file yang baik untuk dokumen RS adalah...","opsi":["laporan baru v2 FINAL(2)","2026-03_Laporan-Keuangan_Farmasi_v1.pdf","laporan","laporan.docx"],"benar":1,"jelas":"Format [Tahun-Bulan]_[JenisDoc]_[Unit]_[versi] memudahkan sorting, pencarian, dan manajemen versi."}
+      ]}
+      </script>
+    </section>
+
+    <!-- INTI 1: Cloud Storage -->
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Mengenal Cloud Storage" data-min="10">
+      <div class="tabs">
+        <div class="tablist" role="tablist">
+          <button type="button" role="tab">Lokal vs Cloud</button>
+          <button type="button" role="tab">Google Drive</button>
+          <button type="button" role="tab">OneDrive</button>
+          <button type="button" role="tab">Keamanan Data</button>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <table class="data">
+            <thead><tr><th>Aspek</th><th>Penyimpanan Lokal (HDD/USB)</th><th>Cloud Storage</th></tr></thead>
+            <tbody>
+              <tr><td>Aksesibilitas</td><td>Hanya dari perangkat/lokasi itu</td><td>Dari mana saja via internet</td></tr>
+              <tr><td>Risiko kehilangan data</td><td>Tinggi (rusak, hilang, kebanjiran)</td><td>Rendah (backup otomatis, redundansi)</td></tr>
+              <tr><td>Kolaborasi tim</td><td>Perlu copy-paste fisik / email</td><td>Real-time, bisa bersama-sama</td></tr>
+              <tr><td>Riwayat versi</td><td>Manual (harus rename sendiri)</td><td>Otomatis, bisa pulihkan versi lama</td></tr>
+              <tr><td>Keamanan</td><td>Tergantung keamanan fisik perangkat</td><td>Tergantung konfigurasi akses & enkripsi</td></tr>
+              <tr><td>Biaya</td><td>Biaya perangkat keras (awal besar)</td><td>Langganan bulanan/tahunan atau gratis</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <h4>Google Drive untuk Lingkungan RS</h4>
+          <ul>
+            <li><strong>Kuota:</strong> 15 GB gratis (akun personal); Google Workspace for Education/Business bisa ratusan GB s.d. unlimited</li>
+            <li><strong>Google Docs, Sheets, Slides:</strong> format native yang bisa diedit bersama real-time tanpa mengunduh</li>
+            <li><strong>Shared Drive:</strong> folder bersama yang tetap ada meski pemilik akun keluar dari organisasi</li>
+            <li><strong>Pencarian canggih:</strong> cari berdasarkan isi file, bukan hanya nama</li>
+            <li><strong>Integrasi email:</strong> attachment Gmail bisa langsung disimpan ke Drive</li>
+          </ul>
+          <div class="note">Untuk RS: gunakan akun Google Workspace institusi, bukan akun Gmail pribadi, agar data tetap di bawah kendali RS saat staf keluar.</div>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <h4>OneDrive untuk Lingkungan RS</h4>
+          <ul>
+            <li><strong>Kuota:</strong> 5 GB gratis; Microsoft 365 (Office 365) hingga 1 TB per pengguna</li>
+            <li><strong>Integrasi Office:</strong> Word, Excel, PowerPoint bisa disimpan dan dibuka langsung dari OneDrive tanpa konflik versi</li>
+            <li><strong>SharePoint:</strong> platform kolaborasi dokumen tingkat enterprise untuk RS besar</li>
+            <li><strong>Personal Vault:</strong> lapisan keamanan tambahan (verifikasi dua langkah) untuk file sangat sensitif</li>
+            <li><strong>AutoSave:</strong> perubahan tersimpan otomatis setiap beberapa detik</li>
+          </ul>
+          <div class="note">Rekomendasi: RS yang sudah menggunakan Microsoft 365 sebaiknya memanfaatkan OneDrive + SharePoint untuk konsistensi ekosistem.</div>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <h4>Pertimbangan Keamanan Data Pasien di Cloud</h4>
+          <div class="warn-box">
+            <strong>⚠ Regulasi:</strong> Data kesehatan pasien di Indonesia dilindungi UU No. 17/2023 dan regulasi BPJS. Menyimpan data identitas pasien di cloud publik tanpa enkripsi dan tanpa kebijakan akses yang ketat adalah pelanggaran.
+          </div>
+          <ul>
+            <li><strong>Enkripsi:</strong> Pilih provider yang mengenkripsi data saat transit (in-transit) dan saat diam (at-rest)</li>
+            <li><strong>Lokasi data center:</strong> Preferensi data pasien Indonesia disimpan di server dalam negeri</li>
+            <li><strong>Audit log:</strong> Aktifkan pencatatan siapa mengakses file kapan</li>
+            <li><strong>Hak akses minimal:</strong> Berikan akses hanya sesuai kebutuhan (principle of least privilege)</li>
+            <li><strong>Two-Factor Authentication (2FA):</strong> WAJIB untuk semua akun cloud RS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTI 2: Hak Akses -->
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Simulator Hak Akses Dokumen" data-min="10">
+      <p>Gunakan simulator di bawah untuk mensimulasikan berbagi dokumen. Tambahkan orang dan lihat tabel "Siapa Bisa Apa" berubah secara langsung.</p>
+
+      <div class="akses-sim">
+        <div class="akses-form">
+          <div>
+            <label style="font-weight:600;font-size:.88rem;color:var(--muted);display:block;margin-bottom:4px">Email tujuan (fiktif):</label>
+            <input type="text" id="akses-email" placeholder="nama@rsfiktif.id">
+          </div>
+          <div>
+            <label style="font-weight:600;font-size:.88rem;color:var(--muted);display:block;margin-bottom:4px">Peran:</label>
+            <select id="akses-peran">
+              <option value="Viewer">Viewer (Lihat saja)</option>
+              <option value="Commenter">Commenter (Lihat + Komentar)</option>
+              <option value="Editor">Editor (Lihat + Edit + Share)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-weight:600;font-size:.88rem;color:var(--muted);display:block;margin-bottom:4px">Siapa punya link:</label>
+            <select id="akses-link">
+              <option value="Tidak ada akses">Tidak ada akses (hanya undangan)</option>
+              <option value="Viewer (link)">Siapa saja dengan link: Viewer</option>
+              <option value="Editor (link)">Siapa saja dengan link: Editor</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn" type="button" onclick="tambahAkses()">Tambah / Perbarui</button>
+
+        <h4>Tabel Siapa Bisa Apa</h4>
+        <div style="overflow-x:auto">
+          <table class="akses-tabel">
+            <thead><tr><th>Peran</th><th>Lihat</th><th>Komentar</th><th>Edit</th><th>Bagikan</th><th>Hapus</th></tr></thead>
+            <tbody id="akses-tbody"></tbody>
+          </table>
+        </div>
+
+        <h4>Daftar Akses Saat Ini</h4>
+        <div class="akses-list" id="akses-list"></div>
+        <p id="akses-link-info" style="font-size:.88rem;margin-top:8px"></p>
+      </div>
+
+      <h4>Skenario Keamanan RS</h4>
+      <div class="grid2">
+        <div class="card">
+          <strong>❌ Berisiko:</strong> Direktur membagikan laporan keuangan RS ke seluruh staf dengan link "siapa saja bisa edit".
+          <br><span style="font-size:.88rem;color:var(--bad)">Risiko: staf bisa mengubah angka laporan tanpa jejak yang jelas.</span>
+        </div>
+        <div class="card">
+          <strong>✅ Aman:</strong> Dokumen SOP dibagikan ke tim dengan peran Commenter. Setelah finalisasi, diubah ke Viewer.
+          <br><span style="font-size:.88rem;color:var(--ok)">Aman: anggota bisa memberi masukan tapi tidak mengubah isi tanpa izin.</span>
+        </div>
+        <div class="card">
+          <strong>❌ Berisiko:</strong> Rekam medis pasien (fiktif) diunggah ke folder Drive yang bisa diakses siapa saja dengan link.
+          <br><span style="font-size:.88rem;color:var(--bad)">Risiko: melanggar privasi pasien dan regulasi data kesehatan.</span>
+        </div>
+        <div class="card">
+          <strong>✅ Aman:</strong> Data tagihan BPJS disimpan di Shared Drive hanya untuk tim billing, dengan 2FA wajib diaktifkan.
+          <br><span style="font-size:.88rem;color:var(--ok)">Aman: akses terbatas, terenkripsi, dan ada autentikasi berlapis.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTI 3: Struktur Folder & Penamaan -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Struktur Folder &amp; Penamaan File" data-min="10">
+      <p>Struktur folder yang rapi memudahkan pencarian, audit, dan kolaborasi tim. Coba buat pohon folder di bawah ini.</p>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:center">
+        <input type="text" id="folder-nama" placeholder="Nama folder baru…" style="flex:1;min-width:180px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--surface)">
+        <select id="folder-parent" style="border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--surface)">
+          <option value="">Root (level 1)</option>
+        </select>
+        <button class="btn" type="button" onclick="tambahFolder()">Tambah Folder</button>
+        <button class="btn sec" type="button" onclick="resetFolder()">Reset</button>
+      </div>
+      <div class="tree-wrap" id="tree-display">
+        <em style="color:var(--muted)">Belum ada folder. Tambahkan folder pertama di atas.</em>
+      </div>
+
+      <h4>Aturan Penamaan File Standar RS</h4>
+      <div class="note">Format: <strong>[Tahun-Bulan]_[JenisDoc]_[Unit]_[versi].[ekstensi]</strong><br>
+        Contoh: <code>2026-03_Laporan-Keuangan_Farmasi_v1.pdf</code>, <code>2026-01_SOP-Pendaftaran_IGD_v2.docx</code>
+      </div>
+
+      <div data-widget="quiz" data-src="quiz-nama" data-role="nama" class="quiz"></div>
+      <script type="application/json" id="quiz-nama">
+      {"judul":"Quiz: Nama File yang Tepat","soal":[
+        {"q":"Dokumen laporan bulanan Poli Anak bulan April 2026, versi pertama. Mana nama file yang benar?","opsi":["laporan anak april final(2).pdf","2026-04_Laporan-Bulanan_Poli-Anak_v1.pdf","Laporan BARU.pdf","laporan-poli.pdf"],"benar":1,"jelas":"Format [Tahun-Bulan]_[JenisDoc]_[Unit]_[versi] memudahkan sorting otomatis dan pencarian."},
+        {"q":"Mana nama file yang BURUK?","opsi":["2026-02_SOP-Triase_IGD_v3.docx","SOP baru FINAL FINAL revisi pak dir (3).docx","2026-01_Data-Rawat-Inap_Bedah_v1.xlsx","2025-12_Laporan-Akhir-Tahun_RS_v2.pdf"],"benar":1,"jelas":"Kata 'FINAL FINAL revisi' dan spasi tidak konsisten menandakan tidak ada sistem penamaan — sulit dikelola."},
+        {"q":"File rekap data BPJS bulan Maret 2026 versi kedua dari unit Keuangan. Nama yang paling tepat?","opsi":["BPJS-Maret.xlsx","2026-03_Rekap-BPJS_Keuangan_v2.xlsx","rekap bpjs v2 maret 2026.xlsx","2026_Keuangan_BPJS.xlsx"],"benar":1,"jelas":"Format lengkap dengan tahun-bulan di depan memastikan urutan kronologis yang benar saat diurutkan."}
+      ]}
+      </script>
+    </section>
+
+    <!-- INTI 4: Kolaborasi & Riwayat Versi -->
+    <section class="seg" id="seg-inti4" data-judul="Inti 4: Kolaborasi &amp; Riwayat Versi" data-min="10">
+      <p>Simulasi berikut mensimulasikan dua pengguna mengedit dokumen bersama. Klik tombol edit masing-masing pengguna secara bergantian dan lihat riwayat perubahannya.</p>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+        <button class="btn" type="button" onclick="editDokumen('A')" style="background:var(--c1)">✏️ Edit sebagai Mahasiswa A (Rini Lestari)</button>
+        <button class="btn" type="button" onclick="editDokumen('B')" style="background:var(--c2)">✏️ Edit sebagai Mahasiswa B (Doni Pratama)</button>
+        <button class="btn sec" type="button" onclick="pulihkanVersi()" id="btn-pulihkan" disabled>↩ Pulihkan Versi Lama</button>
+      </div>
+
+      <div class="kolab-doc" id="kolab-doc" aria-label="Konten dokumen bersama">Laporan Mingguan — Instalasi Rawat Inap
+RS Husada Prima (Fiktif)
+
+Periode: Minggu ke-1 Maret 2026
+Jumlah pasien masuk: 45
+Jumlah pasien keluar: 42
+BOR (Bed Occupancy Rate): 78%
+
+Catatan: Tidak ada kejadian luar biasa minggu ini.</div>
+
+      <h4>Riwayat Perubahan</h4>
+      <div class="kolab-log" id="kolab-log"><p style="color:var(--muted);padding:6px">Belum ada perubahan.</p></div>
+
+      <details><summary>Kapan menggunakan riwayat versi?</summary>
+        <div>
+          <ul>
+            <li>Saat isi dokumen diubah secara tidak sengaja dan perlu dikembalikan</li>
+            <li>Saat ingin melihat siapa yang membuat perubahan tertentu dan kapan</li>
+            <li>Saat dokumen melewati beberapa siklus revisi dan perlu dibandingkan</li>
+            <li>Saat ada konflik antara dua versi yang diedit bersamaan</li>
+          </ul>
+          <p>Google Drive menyimpan riwayat versi hingga 30 hari (akun personal) atau unlimited (Workspace). OneDrive menyimpan hingga 500 versi per file.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- PRAKTIK: Skenario Aman/Berisiko -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Aman atau Berisiko?" data-min="25">
+      <p>Nilai setiap skenario: apakah tindakan tersebut <strong>Aman</strong> atau <strong>Berisiko</strong> dari sudut pandang keamanan data RS? Klik pilihan Anda untuk setiap skenario.</p>
+
+      <div class="skenario-grid" id="skenario-container"></div>
+      <div style="margin-top:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <button class="btn" type="button" onclick="cekSkenario()">Periksa Semua</button>
+        <button class="btn sec" type="button" onclick="resetSkenario()">Ulangi</button>
+        <span id="skenario-skor" style="font-weight:700;font-size:1.05rem"></span>
+      </div>
+
+      <div class="tugas-lab">
+        <h4>Tugas Lab</h4>
+        <ol>
+          <li>Buat folder bersama di Google Drive (atau OneDrive) dengan nama: <code>2026-03_Tugas-Lab-P14_[NamaKelompok]</code></li>
+          <li>Undang 2–3 anggota kelompok dengan peran <strong>Editor</strong></li>
+          <li>Buat satu dokumen Google Docs / Word Online berisi rekap operasional harian fiktif selama 3 hari</li>
+          <li>Setiap anggota melakukan minimal satu edit dan lihat riwayat versi</li>
+          <li>Screenshot riwayat versi dan simpan di folder yang sama</li>
+        </ol>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Folder terstruktur dengan nama sesuai konvensi 2) Hak akses diatur dengan benar (bukan "siapa saja") 3) Ada bukti kolaborasi (min. 2 pengeditan berbeda pengguna) 4) Riwayat versi terdokumentasi</p>
+      </div>
+    </section>
+
+    <!-- POST-TEST -->
+    <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
+      <script type="application/json" id="quiz-post">
+      {"judul":"Post-test","soal":[
+        {"q":"Tim RS ingin mengelola dokumen SOP bersama. Saat finalisasi, staf lain tidak boleh mengubah lagi. Alur hak akses yang benar?","opsi":["Dari awal Viewer, saat proses Editor","Editor saat draft, ubah ke Viewer setelah final","BCC semua staf","Tidak perlu atur akses, gunakan email saja"],"benar":1,"jelas":"Alur terbaik: Editor selama proses revisi, lalu turunkan ke Viewer setelah finalisasi untuk mencegah perubahan tidak sah."},
+        {"q":"Mengapa data rekam medis pasien TIDAK boleh disimpan di folder Drive dengan link publik?","opsi":["Karena ukuran file terlalu besar","Karena melanggar privasi pasien dan regulasi data kesehatan","Karena Drive tidak bisa menyimpan PDF","Karena tidak ada riwayat versi di Drive"],"benar":1,"jelas":"Data rekam medis adalah data sensitif yang dilindungi hukum. Link publik bisa diakses siapapun yang mengetahui URL-nya."},
+        {"q":"Format nama file yang paling tepat untuk laporan keuangan RS bulan Mei 2026 versi pertama?","opsi":["laporan keuangan.xlsx","2026-05_Laporan-Keuangan_RS_v1.xlsx","LK-final-2026.xlsx","keuangan baru v1.xlsx"],"benar":1,"jelas":"Format [Tahun-Bulan]_[JenisDoc]_[Unit]_[versi] memastikan sorting kronologis yang benar dan mudah dikelola."},
+        {"q":"Apa fungsi utama 'riwayat versi' di cloud storage?","opsi":["Memperbesar kapasitas penyimpanan","Memungkinkan pemulihan versi dokumen sebelumnya","Mengenkripsi dokumen otomatis","Mengirim notifikasi ke email"],"benar":1,"jelas":"Riwayat versi memungkinkan pengguna melihat perubahan historis dan memulihkan versi sebelumnya jika ada kesalahan edit."}
+      ]}
+      </script>
+      <h4>Pre-test vs Post-test</h4>
+      <div data-widget="banding"></div>
+    </section>
+
+    <!-- PENUTUP -->
+    <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
+      <h4>Ringkasan Pertemuan 14</h4>
+      <ol>
+        <li><strong>Cloud storage</strong> lebih aman dari lokal: backup otomatis, aksesible dari mana saja</li>
+        <li><strong>Hak akses</strong>: Viewer (lihat) → Commenter (lihat+komentar) → Editor (lihat+edit+bagikan)</li>
+        <li>Data pasien di cloud WAJIB akses terbatas, enkripsi, dan 2FA</li>
+        <li><strong>Penamaan file</strong>: [Tahun-Bulan]_[JenisDoc]_[Unit]_[versi] untuk konsistensi</li>
+        <li><strong>Riwayat versi</strong>: alat penting untuk audit dan pemulihan kesalahan</li>
+      </ol>
+      <h4>Refleksi</h4>
+      <div data-widget="reflect" data-key="refleksi-p14" data-prompt="Satu kebiasaan penyimpanan file yang akan kamu ubah setelah pertemuan ini:"></div>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 15 — Mini Project Terpadu: Laporan Akhir Tahun Administrasi RS. Mulai kumpulkan data dan tentukan pembagian peran kelompok.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+"use strict";
+const KONFIG = {
+  kode: "krs-p14",
+  nomor: "14",
+  judul: "Cloud Storage & Kolaborasi Dokumen Online",
+  cpmk: "CPMK-6: Mampu mengelola sistem penyimpanan awan dan kolaborasi dokumen online secara tim.",
+  tujuan: ["Memahami konsep dan manfaat cloud storage untuk RS","Mengatur hak akses dokumen dengan benar","Berkolaborasi real-time pada dokumen bersama"],
+  totalMenit: 90
+};
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, props, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in (props || {})) {
+    const v = props[k];
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (v === true) e.setAttribute(k, "");
+    else if (v !== false && v != null) e.setAttribute(k, v);
+  }
+  for (const c of kids.flat()) {
+    if (c == null || c === false) continue;
+    e.append(c.nodeType ? c : document.createTextNode(String(c)));
+  }
+  return e;
+}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(KONFIG.kode + "-" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(KONFIG.kode + "-" + k, JSON.stringify(v)); } catch (e) {} }
+};
+function getData(id) { return JSON.parse(document.getElementById(id).textContent); }
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+function mmss(s) { s = Math.max(0, Math.round(s)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+let uid = 0; const nextId = p => p + "-" + (++uid);
+
+/* ===== Akses Simulator ===== */
+let aksesData = [];
+function renderAkses() {
+  const tbody = document.getElementById("akses-tbody");
+  const list = document.getElementById("akses-list");
+  const linkInfo = document.getElementById("akses-link-info");
+  tbody.textContent = ""; list.textContent = "";
+  const peranInfo = {
+    "Viewer":    [true, false, false, false, false],
+    "Commenter": [true, true,  false, false, false],
+    "Editor":    [true, true,  true,  true,  false]
+  };
+  const sel = ["Lihat","Komentar","Edit","Bagikan","Hapus"];
+  const peranSet = new Set(aksesData.map(x => x.peran));
+  if (peranSet.size === 0) {
+    const tr = h("tr"); tr.append(h("td", { colspan: "6", style: "text-align:center;color:var(--muted)" }, "Belum ada yang diberi akses")); tbody.append(tr);
+  } else {
+    ["Viewer","Commenter","Editor"].forEach(p => {
+      if (!peranSet.has(p)) return;
+      const caps = peranInfo[p];
+      const tr = h("tr", {}, h("td", {}, p), ...caps.map(c => h("td", { class: c ? "ok" : "no" }, c ? "✔" : "✗")));
+      tbody.append(tr);
+    });
+  }
+  aksesData.forEach(a => {
+    const row = h("div", { class: "row" },
+      h("span", { class: "email" }, a.email),
+      h("span", { class: "peran" }, a.peran),
+      h("button", { style: "background:none;border:none;color:var(--bad);cursor:pointer;font-weight:700;padding:0 6px", onclick: () => { aksesData = aksesData.filter(x => x !== a); renderAkses(); } }, "Hapus")
+    );
+    list.append(row);
+  });
+  const linkSel = document.getElementById("akses-link").value;
+  linkInfo.textContent = "Pengaturan link: " + linkSel;
+  linkInfo.style.color = linkSel === "Tidak ada akses" ? "var(--ok)" : linkSel === "Viewer (link)" ? "var(--warn)" : "var(--bad)";
+}
+function tambahAkses() {
+  const email = document.getElementById("akses-email").value.trim();
+  const peran = document.getElementById("akses-peran").value;
+  if (!email || !email.includes("@")) { alert("Masukkan alamat email yang valid (fiktif)."); return; }
+  const idx = aksesData.findIndex(a => a.email === email);
+  if (idx >= 0) aksesData[idx].peran = peran;
+  else aksesData.push({ email, peran });
+  document.getElementById("akses-email").value = "";
+  renderAkses();
+}
+
+/* ===== Pohon Folder ===== */
+let folders = [];
+function tambahFolder() {
+  const nama = document.getElementById("folder-nama").value.trim();
+  const parent = document.getElementById("folder-parent").value;
+  if (!nama) return;
+  const depth = parent ? (folders.find(f => f.id === parent)?.depth || 0) + 1 : 0;
+  if (depth >= 3) { alert("Maksimal 3 level kedalaman folder."); return; }
+  const id = "f" + Date.now();
+  folders.push({ id, nama, parent, depth });
+  document.getElementById("folder-nama").value = "";
+  renderTree();
+}
+function resetFolder() { folders = []; renderTree(); }
+function renderTree() {
+  const display = document.getElementById("tree-display");
+  const sel = document.getElementById("folder-parent");
+  display.textContent = "";
+  const cur = sel.value;
+  sel.textContent = "";
+  sel.append(h("option", { value: "" }, "Root (level 1)"));
+  if (folders.length === 0) { display.append(h("em", { style: "color:var(--muted)" }, "Belum ada folder.")); return; }
+  function renderLevel(parentId, indent) {
+    folders.filter(f => f.parent === parentId).forEach(f => {
+      const prefix = "  ".repeat(indent);
+      const icon = "📁";
+      const item = h("div", { class: "tree-item" },
+        document.createTextNode(prefix + icon + " " + f.nama),
+        h("button", { class: "act", type: "button", onclick: () => { folders = folders.filter(x => x.id !== f.id && x.parent !== f.id); renderTree(); } }, "✕")
+      );
+      display.append(item);
+      if (f.depth < 2) sel.append(h("option", { value: f.id }, "  ".repeat(f.depth + 1) + "📁 " + f.nama));
+      renderLevel(f.id, indent + 1);
+    });
+  }
+  renderLevel("", 0);
+  if (cur && folders.find(f => f.id === cur)) sel.value = cur;
+}
+
+/* ===== Kolaborasi Dokumen ===== */
+const EDIT_A = [
+  "Laporan Mingguan — Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 42\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.",
+  "Laporan Mingguan — Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 44\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.\nDitambahkan: data IGD dirujuk sebanyak 3 kasus."
+];
+const EDIT_B = [
+  "Laporan Mingguan — Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 42\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.\nDireview oleh: Doni Pratama, 02-03-2026.",
+  "Laporan Mingguan — Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 44\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.\nDitambahkan: data IGD dirujuk sebanyak 3 kasus.\nDireview oleh: Doni Pratama, 03-03-2026. FINAL."
+];
+let kolabLog = [], editIdxA = 0, editIdxB = 0, versiLama = null;
+function editDokumen(user) {
+  const doc = document.getElementById("kolab-doc");
+  versiLama = doc.textContent;
+  let teks;
+  if (user === "A") { teks = EDIT_A[editIdxA % EDIT_A.length]; editIdxA++; }
+  else { teks = EDIT_B[editIdxB % EDIT_B.length]; editIdxB++; }
+  doc.textContent = teks;
+  const ts = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  const nama = user === "A" ? "Rini Lestari (A)" : "Doni Pratama (B)";
+  kolabLog.unshift({ ts, nama, user });
+  renderKolabLog();
+  document.getElementById("btn-pulihkan").disabled = false;
+}
+function pulihkanVersi() {
+  if (!versiLama) return;
+  document.getElementById("kolab-doc").textContent = versiLama;
+  const ts = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  kolabLog.unshift({ ts, nama: "Sistem (Pulihkan)", user: "S" });
+  renderKolabLog();
+  document.getElementById("btn-pulihkan").disabled = true;
+}
+function renderKolabLog() {
+  const log = document.getElementById("kolab-log"); log.textContent = "";
+  if (kolabLog.length === 0) { log.append(h("p", { style: "color:var(--muted);padding:6px" }, "Belum ada perubahan.")); return; }
+  kolabLog.forEach(e => {
+    const cls = e.user === "A" ? "ua" : e.user === "B" ? "ub" : "";
+    log.append(h("div", { class: "entry" }, h("span", { class: cls }, e.nama), " mengubah dokumen pada " + e.ts));
+  });
+}
+
+/* ===== Skenario Aman/Berisiko ===== */
+const SKENARIO = [
+  { ikon: "🔗", teks: "Berbagi laporan data pasien (fiktif) ke link publik 'siapa saja bisa lihat'", jawab: "berisiko", jelas: "Link publik bisa diakses siapapun — melanggar privasi data pasien." },
+  { ikon: "📁", teks: "Menyimpan data rekap BPJS di folder Google Drive yang hanya bisa diakses tim billing (undangan saja)", jawab: "aman", jelas: "Benar! Akses terbatas hanya untuk yang relevan adalah praktik terbaik." },
+  { ikon: "🔐", teks: "Mengaktifkan 2FA (Two-Factor Authentication) untuk semua akun cloud RS", jawab: "aman", jelas: "2FA adalah lapisan keamanan penting yang wajib diterapkan." },
+  { ikon: "📤", teks: "Mengirim rekap data pasien via email ke rekan tanpa enkripsi dari akun Drive publik", jawab: "berisiko", jelas: "Data pasien tanpa enkripsi rentan bocor saat transit di jaringan." },
+  { ikon: "👁️", teks: "Memberikan akses Editor ke semua staf RS untuk dokumen SOP yang sudah finalisasi", jawab: "berisiko", jelas: "Dokumen final seharusnya turun ke Viewer agar tidak diubah sembarangan." },
+  { ikon: "📎", teks: "Berbagi laporan keuangan RS dengan link internal (hanya anggota organisasi) kepada tim keuangan", jawab: "aman", jelas: "Link internal membatasi akses hanya ke anggota organisasi yang login — lebih aman." },
+  { ikon: "💾", teks: "Menyimpan seluruh data rekam medis RS hanya di satu flashdisk tanpa backup cloud", jawab: "berisiko", jelas: "Flashdisk bisa rusak atau hilang. Data kritis harus ada backup di lokasi berbeda." },
+  { ikon: "🗂️", teks: "Membuat Shared Drive khusus untuk setiap unit RS dengan admin yang bertanggung jawab", jawab: "aman", jelas: "Shared Drive terorganisir per unit adalah praktik manajemen dokumen yang baik." },
+  { ikon: "🔓", teks: "Membagikan password akun cloud pribadi ke rekan kerja agar bisa mengedit file bersama", jawab: "berisiko", jelas: "Berbagi password melanggar kebijakan keamanan dan menghilangkan jejak audit siapa yang mengedit." },
+  { ikon: "✅", teks: "Menggunakan fitur 'Bagikan' Drive dengan menambahkan email rekan secara spesifik sebagai Editor", jawab: "aman", jelas: "Berbagi ke email spesifik memastikan hanya orang yang dituju yang mendapat akses." }
+];
+let pilihan = {};
+function renderSkenario() {
+  const box = document.getElementById("skenario-container"); box.textContent = "";
+  SKENARIO.forEach((s, i) => {
+    const card = h("div", { class: "skenario-card", id: "sk-" + i });
+    card.append(h("span", { class: "ikon" }, s.ikon), h("p", {}, s.teks));
+    const aksi = h("div", { class: "aksi" });
+    const ba = h("button", { class: "btn ok", type: "button", onclick: () => { pilihan[i] = "aman"; highlightPilihan(i, "aman"); } }, "✅ Aman");
+    const bb = h("button", { class: "btn bad", type: "button", onclick: () => { pilihan[i] = "berisiko"; highlightPilihan(i, "berisiko"); } }, "⚠️ Berisiko");
+    aksi.append(ba, bb);
+    const fb = h("p", { class: "skenario-fb", id: "sk-fb-" + i });
+    card.append(aksi, fb);
+    box.append(card);
+  });
+  document.getElementById("skenario-skor").textContent = "";
+}
+function highlightPilihan(i, val) {
+  const ba = document.getElementById("sk-" + i).querySelectorAll("button")[0];
+  const bb = document.getElementById("sk-" + i).querySelectorAll("button")[1];
+  ba.style.opacity = val === "aman" ? "1" : ".4";
+  bb.style.opacity = val === "berisiko" ? "1" : ".4";
+}
+function cekSkenario() {
+  let skor = 0;
+  SKENARIO.forEach((s, i) => {
+    const card = document.getElementById("sk-" + i);
+    const fb = document.getElementById("sk-fb-" + i);
+    const p = pilihan[i];
+    if (!p) { fb.textContent = "Belum dijawab."; fb.style.color = "var(--warn)"; return; }
+    const benar = p === s.jawab;
+    if (benar) skor++;
+    card.className = "skenario-card " + (benar ? (s.jawab + "-benar") : "salah");
+    fb.textContent = (benar ? "✔ Benar! " : "✗ Kurang tepat. ") + s.jelas;
+    fb.style.color = benar ? "var(--ok)" : "var(--bad)";
+  });
+  const answered = Object.keys(pilihan).length;
+  document.getElementById("skenario-skor").textContent = "Skor: " + skor + " / " + answered + " (dari " + SKENARIO.length + " skenario)";
+}
+function resetSkenario() { pilihan = {}; renderSkenario(); }
+
+/* ======= Widget engine ======= */
+const W = {};
+W.quiz = el => {
+  const d = getData(el.dataset.src);
+  const key = "quiz-" + (el.dataset.role || el.dataset.src);
+  const saved = store.get(key, { jawab: {} });
+  const jawab = saved.jawab || {};
+  const skorEl = h("p", { class: "skor", "aria-live": "polite" });
+  const items = [];
+  function hitung() {
+    let b = 0; for (const i in jawab) if (jawab[i] === d.soal[i].benar) b++;
+    const n = Object.keys(jawab).length;
+    skorEl.textContent = "Skor: " + b + " / " + d.soal.length + (n < d.soal.length ? "  (terjawab " + n + ")" : "");
+    store.set(key, { jawab, skor: b, total: d.soal.length, selesai: n === d.soal.length });
+    document.dispatchEvent(new CustomEvent("krs:skor"));
+  }
+  function tampil(i, pilih) {
+    const it = items[i], s = d.soal[i];
+    it.labels.forEach((l, j) => { l.classList.toggle("benar", j === s.benar); l.classList.toggle("salah", j === pilih && j !== s.benar); });
+    it.fb.textContent = (pilih === s.benar ? "Benar. " : "Belum tepat. ") + (s.jelas || "");
+  }
+  d.soal.forEach((s, i) => {
+    const name = nextId("q");
+    const fb = h("p", { class: "fb", "aria-live": "polite" });
+    const labels = s.opsi.map((o, j) => {
+      const inp = h("input", { type: "radio", name, value: j, onchange: () => { jawab[i] = j; tampil(i, j); hitung(); } });
+      if (jawab[i] === j) inp.checked = true;
+      return h("label", {}, inp, " ", o);
+    });
+    items.push({ labels, fb });
+    el.append(h("fieldset", {}, h("legend", {}, (i + 1) + ". " + s.q), labels, fb));
+    if (jawab[i] !== undefined) tampil(i, jawab[i]);
+  });
+  el.append(skorEl, h("button", { class: "btn sec", type: "button", onclick: () => {
+    for (const k in jawab) delete jawab[k];
+    $$("input", el).forEach(x => x.checked = false);
+    items.forEach(it => { it.labels.forEach(l => l.classList.remove("benar", "salah")); it.fb.textContent = ""; });
+    hitung();
+  } }, "Ulangi"));
+  hitung();
+};
+W.banding = el => {
+  function baris(role, nama, cls) {
+    const track = h("i"), val = h("span", {}, "–");
+    el.append(h("div", { class: "row " + cls }, h("span", {}, nama), h("div", { class: "track" }, track), val));
+    return () => {
+      const s = store.get("quiz-" + role, null);
+      if (!s || !s.selesai) { track.style.width = "0"; val.textContent = "–"; return; }
+      const p = Math.round(s.skor / s.total * 100);
+      track.style.width = p + "%"; val.textContent = p + "%";
+    };
+  }
+  el.classList.add("banding");
+  const a = baris("pre", "Pre-test", "pre"), b = baris("post", "Post-test", "post");
+  const up = () => { a(); b(); };
+  document.addEventListener("krs:skor", up); up();
+};
+W.checklist = el => {
+  const key = "cek-" + (el.dataset.key || nextId("c"));
+  const saved = store.get(key, []);
+  const lis = $$(":scope > li", el);
+  const bar = h("i"), txt = h("span", { class: "kriteria" });
+  function up() {
+    const n = lis.filter(l => $("input", l).checked).length;
+    bar.style.width = (n / lis.length * 100) + "%"; txt.textContent = n + " / " + lis.length + " selesai";
+    store.set(key, lis.map(l => $("input", l).checked));
+  }
+  lis.forEach((li, i) => {
+    const t = li.textContent, cb = h("input", { type: "checkbox", onchange: up });
+    cb.checked = !!saved[i];
+    li.textContent = ""; li.append(h("label", {}, cb, h("span", {}, t)));
+  });
+  el.after(h("div", { class: "prog", "aria-hidden": "true" }, bar), txt); up();
+};
+W.reflect = el => {
+  const key = "ref-" + (el.dataset.key || "x");
+  const ta = h("textarea", { class: "reflect", "aria-label": el.dataset.prompt || "Refleksi" });
+  ta.value = store.get(key, "");
+  ta.addEventListener("input", () => store.set(key, ta.value));
+  el.append(h("p", {}, el.dataset.prompt || "Tuliskan refleksi singkat:"), ta);
+};
+function initTabs() {
+  $$(".tabs").forEach(box => {
+    const tabs = $$(".tablist button", box), panels = $$(":scope > .tabpanel", box);
+    function pilih(i) { tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; }); panels.forEach((p, k) => { p.hidden = k !== i; }); }
+    tabs.forEach((t, i) => t.addEventListener("click", () => pilih(i)));
+    pilih(0);
+  });
+}
+function initSegmen() {
+  const segs = $$("section.seg"), agenda = $("#agenda");
+  const done = store.get("selesai", {});
+  let mulai = 0;
+  const links = [];
+  segs.forEach((s, i) => {
+    const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
+    const head = h("div", { class: "seg-head" }, h("h3", {}, judul), h("span", { class: "badge" }, min + " menit"));
+    let sisa = min * 60, tid = null; const tb = h("button", { class: "btn sec", type: "button" }, "⏱ " + mmss(sisa));
+    const tw = h("span", { class: "seg-timer" }, tb);
+    tb.addEventListener("click", () => {
+      if (tid) { clearInterval(tid); tid = null; tb.textContent = "▶ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); return; }
+      tid = setInterval(() => { sisa--; tw.classList.toggle("over", sisa < 0); tb.textContent = "⏸ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); }, 1000);
+    });
+    head.append(tw); s.prepend(head);
+    const foot = h("div", { class: "seg-foot" });
+    const sb = h("button", { class: "btn sec", type: "button" });
+    function tandai(v) {
+      s.classList.toggle("done", v); a.classList.toggle("done", v); sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
+      done[s.id] = v; store.set("selesai", done); progres();
+    }
+    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
+    foot.append(sb); s.append(foot);
+    const a = h("a", { href: "#" + s.id }, h("span", { class: "mnt" }, mulai + "–" + (mulai + min) + "'"), h("span", {}, judul), h("span", { class: "tick", "aria-label": "selesai" }, "✓"));
+    agenda.append(a); links.push({ a, s }); mulai += min;
+    tandai(!!done[s.id]);
+  });
+  function progres() { const n = segs.filter(x => x.classList.contains("done")).length; $("#hdr-bar").style.width = (n / segs.length * 100) + "%"; }
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target))); }), { rootMargin: "-20% 0px -70% 0px" });
+    segs.forEach(s => io.observe(s));
+  }
+}
+function initJam() {
+  let t = 0, id = null; const c = $("#clock"), b = $("#clock-btn");
+  b.addEventListener("click", () => {
+    if (id) { clearInterval(id); id = null; b.textContent = "Lanjut"; }
+    else { id = setInterval(() => { t++; c.textContent = mmss(t); }, 1000); b.textContent = "Jeda"; }
+  });
+}
+document.addEventListener("DOMContentLoaded", () => {
+  $$("[data-widget]").forEach(el => {
+    const fn = W[el.dataset.widget];
+    if (!fn) return;
+    try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal dimuat: " + e.message)); }
+  });
+  initTabs(); initSegmen(); initJam();
+  renderAkses(); renderTree(); renderSkenario(); renderKolabLog();
+  document.getElementById("akses-link").addEventListener("change", renderAkses);
+  window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));
+});
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("btn-layar-penuh"),d=document.documentElement;
+  if(!b)return;
+  if(!(d.requestFullscreen||d.webkitRequestFullscreen)){b.hidden=true;return;}
+  function aktif(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function ui(){var a=aktif();b.textContent=a?"Keluar layar penuh":"Layar penuh";b.setAttribute("aria-pressed",String(a));}
+  b.addEventListener("click",function(){
+    if(aktif()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+    else{var p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(p&&p.catch)p.catch(function(){});}
+  });
+  document.addEventListener("fullscreenchange",ui);
+  document.addEventListener("webkitfullscreenchange",ui);
+  ui();
+})();
+</script>
+</body>
+</html>
