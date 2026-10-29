@@ -192,10 +192,10 @@ input.teks,select.pilih{width:100%}
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test","soal":[
-        {"q":"Margin standar surat dinas yang dipakai di mata kuliah ini (atas, kiri, kanan, bawah) adalah:","opsi":["2, 2, 2, 2 cm","3, 3, 2,5, 2,5 cm","4, 4, 3, 3 cm","2,5, 3, 2,5, 3 cm"],"benar":1,"jelas":"Atas 3 cm, kiri 3 cm, kanan 2,5 cm, bawah 2,5 cm. Instansi bisa punya pedoman tata naskah dinas sendiri, jadi selalu ikuti pedoman di tempat kerja."},
-        {"q":"Font yang umum dipakai pada surat dinas resmi adalah:","opsi":["Comic Sans MS","Times New Roman","Wingdings","Impact"],"benar":1,"jelas":"Times New Roman 12 pt banyak dipakai pada surat dinas. Sebagian instansi memakai Arial 12, ikuti pedoman instansi."},
-        {"q":"Spasi baris standar untuk isi surat dinas adalah:","opsi":["Single (1)","1,5","Double (2)","At least"],"benar":1,"jelas":"Spasi 1,5 menjaga keterbacaan tanpa membuang terlalu banyak halaman."},
-        {"q":"Ukuran font standar untuk isi surat dinas adalah:","opsi":["10 pt","11 pt","12 pt","14 pt"],"benar":2,"jelas":"12 pt adalah ukuran yang umum dipakai untuk isi surat dinas."},
+        {"q":"Margin standar penulisan dokumen di prodi ini (atas, kiri, bawah, kanan) adalah:","opsi":["2, 2, 2, 2 cm","3, 3, 2,5, 2,5 cm","4, 4, 3, 3 cm","2,5, 3, 2,5, 3 cm"],"benar":2,"jelas":"Atas 4 cm, kiri 4 cm, bawah 3 cm, kanan 3 cm, sesuai Panduan Tugas Akhir KTI Prodi D-III Administrasi Rumah Sakit Politeknik Nusantara Balikpapan. Instansi lain bisa punya pedoman sendiri, jadi selalu ikuti pedoman yang berlaku."},
+        {"q":"Font yang umum dipakai pada surat dinas resmi adalah:","opsi":["Comic Sans MS","Times New Roman","Wingdings","Impact"],"benar":1,"jelas":"Panduan prodi menetapkan Times New Roman 12 pt. Sebagian instansi lain memakai Arial 12, ikuti pedoman yang berlaku."},
+        {"q":"Spasi baris standar untuk teks isi dokumen di prodi ini adalah:","opsi":["Single (1)","1,5","Double (2)","At least"],"benar":2,"jelas":"Panduan prodi mewajibkan spasi 2 (double) untuk teks isi. Tabel, kutipan langsung, dan abstrak memakai spasi 1."},
+        {"q":"Ukuran font standar untuk teks isi dokumen di prodi ini adalah:","opsi":["10 pt","11 pt","12 pt","14 pt"],"benar":2,"jelas":"Panduan prodi menetapkan Times New Roman 12 pt untuk teks isi."},
         {"q":"Bagian pertama pada kop surat RS adalah:","opsi":["Nomor surat","Logo dan nama RS","Alamat tujuan surat","Tanggal surat"],"benar":1,"jelas":"Kop surat dimulai dengan identitas instansi: logo (jika ada), nama RS, alamat, dan kontak."}
       ]}
       </script>
@@ -312,19 +312,21 @@ input.teks,select.pilih{width:100%}
       <h4>Bawaan Word belum sama dengan standar surat dinas</h4>
       <p>Dokumen baru di Word memakai pengaturan umum, bukan pengaturan surat dinas. Karena itu kita harus mengatur sendiri sebelum mengetik.</p>
       <table class="data">
-        <thead><tr><th>Pengaturan</th><th>Bawaan Word (kira-kira)</th><th>Standar di mata kuliah ini</th></tr></thead>
+        <thead><tr><th>Pengaturan</th><th>Bawaan Word (kira-kira)</th><th>Standar prodi (Panduan KTI)</th></tr></thead>
         <tbody>
           <tr><td>Ukuran kertas</td><td>Letter atau A4 (tergantung wilayah)</td><td>A4 (21 x 29,7 cm)</td></tr>
-          <tr><td>Margin</td><td>2,54 cm di keempat sisi</td><td>Atas 3, kiri 3, kanan 2,5, bawah 2,5 cm</td></tr>
+          <tr><td>Margin</td><td>2,54 cm di keempat sisi</td><td>Atas 4, kiri 4, bawah 3, kanan 3 cm</td></tr>
           <tr><td>Font dan ukuran</td><td>Calibri atau Aptos, sekitar 11 pt</td><td>Times New Roman, 12 pt</td></tr>
-          <tr><td>Spasi baris</td><td>Sekitar 1,08 sampai 1,15</td><td>1,5</td></tr>
-          <tr><td>Jarak setelah paragraf</td><td>8 pt</td><td>0 pt (atur sesuai pedoman)</td></tr>
+          <tr><td>Spasi baris</td><td>Sekitar 1,08 sampai 1,15</td><td>2 (double) untuk teks isi</td></tr>
+          <tr><td>Awal paragraf</td><td>Rata kiri, tanpa menjorok</td><td>Menjorok ke dalam 1 tab (5 ketukan)</td></tr>
+          <tr><td>Tabel dan kutipan langsung</td><td>Mengikuti teks</td><td>Spasi 1, font tabel 8 sampai 11 pt</td></tr>
+          <tr><td>Jarak setelah paragraf</td><td>8 pt</td><td>0 pt</td></tr>
         </tbody>
       </table>
-      <p class="note">Angka bawaan Word bisa berbeda antar versi. Periksa di komputer kalian: tab Layout untuk margin, tab Home untuk font dan spasi.</p>
+      <p class="note">Angka standar di atas diambil dari Panduan Tugas Akhir KTI Prodi D-III Administrasi Rumah Sakit Politeknik Nusantara Balikpapan (Bab V, Ketentuan Umum). Dokumen ini nanti kalian pakai untuk menulis KTI. Untuk surat dinas di tempat kerja, ikuti pedoman tata naskah instansinya. Angka bawaan Word bisa berbeda antar versi, periksa di komputer kalian: tab Layout untuk margin, tab Home untuk font dan spasi.</p>
 
       <h4>Formatter langsung: ubah, lalu lihat hasilnya</h4>
-      <p>Ubah pengaturan di bawah. Pratinjau berubah secara langsung, dan penanda di bawahnya memberi tahu apa yang belum sesuai standar.</p>
+      <p>Ubah pengaturan di bawah. Pratinjau berubah secara langsung, dan penanda di bawahnya memberi tahu apa yang belum sesuai standar prodi.</p>
       <div class="grid2">
         <div>
           <div class="ss" id="fmt-controls">
@@ -351,7 +353,7 @@ input.teks,select.pilih{width:100%}
             </label>
           </div>
           <p style="margin-top:12px">
-            <button class="btn accent" id="btn-standar" type="button">Terapkan Standar RS</button>
+            <button class="btn accent" id="btn-standar" type="button">Terapkan Standar Prodi</button>
           </p>
           <div id="badge-standar" class="badge-standar no">Belum sesuai standar</div>
           <p id="kurang-standar" style="font-size:.92rem;color:var(--muted)" aria-live="polite"></p>
@@ -361,8 +363,8 @@ input.teks,select.pilih{width:100%}
             <p style="margin:0 0 6px;font-weight:700">RS Sehat Citra</p>
             <p style="margin:0">Nomor: 045/RS-SC/XI/2026<br>Perihal: Rujukan Pasien</p>
             <p style="margin:8px 0 0">Dengan hormat,</p>
-            <p>Bersama surat ini kami merujuk pasien atas nama Budi Santoso (No. RM: 2024-0815-F) untuk mendapatkan penanganan lebih lanjut di RS Bhakti Medika.</p>
-            <p>Demikian surat ini dibuat. Atas perhatian dan kerja samanya kami ucapkan terima kasih.</p>
+            <p style="text-indent:1.27cm">Bersama surat ini kami merujuk pasien atas nama Budi Santoso (No. RM: 2024-0815-F) untuk mendapatkan penanganan lebih lanjut di RS Bhakti Medika.</p>
+            <p style="text-indent:1.27cm">Demikian surat ini dibuat. Atas perhatian dan kerja samanya kami ucapkan terima kasih.</p>
             <p>Hormat kami,<br>Kepala Tata Usaha<br><br><br>dr. Sri Wahyuni, M.Kes</p>
           </div>
         </div>
@@ -381,16 +383,16 @@ input.teks,select.pilih{width:100%}
       </div>
       <figure class="gambar">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Line_spacing_comparison.svg?width=960" alt="Perbandingan spasi baris tunggal, 1,5, dan ganda" loading="lazy">
-        <figcaption>Perbandingan spasi baris. Spasi 1,5 memberi ruang bernapas antar baris tanpa memboroskan halaman.<span class="kredit">Gambar: Любослов Езыкин · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Line_spacing_comparison.svg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        <figcaption>Perbandingan spasi baris. Panduan prodi memakai spasi 2 (double) untuk teks isi, sehingga dosen punya ruang untuk memberi coretan revisi.<span class="kredit">Gambar: Любослов Езыкин · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Line_spacing_comparison.svg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
       </figure>
 
       <h4>Cara mengatur halaman di Word</h4>
       <ul class="checklist" data-widget="checklist" data-key="cek-halaman">
         <li>Buka dokumen baru, lalu klik tab <strong>Layout</strong></li>
         <li>Klik <strong>Size</strong> dan pilih <strong>A4</strong></li>
-        <li>Klik <strong>Margins &rarr; Custom Margins</strong>, isi Top 3 cm, Left 3 cm, Right 2,5 cm, Bottom 2,5 cm</li>
+        <li>Klik <strong>Margins &rarr; Custom Margins</strong>, isi Top 4 cm, Left 4 cm, Bottom 3 cm, Right 3 cm</li>
         <li>Tekan <strong>Ctrl+A</strong> untuk memilih semua teks, lalu pada tab <strong>Home</strong> pilih font <strong>Times New Roman</strong> dan ukuran <strong>12</strong></li>
-        <li>Pada tab Home, klik tombol kecil di pojok kelompok <strong>Paragraph</strong>. Atur <strong>Line spacing = 1.5</strong> dan <strong>Spacing After = 0 pt</strong></li>
+        <li>Pada tab Home, klik tombol kecil di pojok kelompok <strong>Paragraph</strong>. Atur <strong>Line spacing = Double</strong> (2), <strong>Spacing After = 0 pt</strong>, dan <strong>Special = First line</strong> 1,27 cm (1 tab) agar awal paragraf menjorok</li>
         <li>Aktifkan tampilan penggaris di tab <strong>View &rarr; Ruler</strong> untuk memeriksa hasilnya</li>
       </ul>
 
@@ -401,7 +403,7 @@ input.teks,select.pilih{width:100%}
           <tr><td>Ctrl+A</td><td>Pilih semua teks</td></tr>
           <tr><td>Ctrl+B / Ctrl+I / Ctrl+U</td><td>Tebal / miring / garis bawah</td></tr>
           <tr><td>Ctrl+E / Ctrl+L / Ctrl+J</td><td>Rata tengah / rata kiri / rata kiri-kanan</td></tr>
-          <tr><td>Ctrl+1 / Ctrl+5 / Ctrl+2</td><td>Spasi 1 / 1,5 / 2</td></tr>
+          <tr><td>Ctrl+1 / Ctrl+5 / Ctrl+2</td><td>Spasi 1 / 1,5 / 2 (teks isi memakai 2)</td></tr>
           <tr><td>Ctrl+S</td><td>Simpan</td></tr>
           <tr><td>Ctrl+Z / Ctrl+Y</td><td>Batalkan / ulangi</td></tr>
           <tr><td>Ctrl+P</td><td>Cetak atau pratinjau cetak</td></tr>
@@ -593,7 +595,7 @@ input.teks,select.pilih{width:100%}
         </div>
 
         <div style="margin-left:-20px">
-          <span class="bug" data-bug="1" data-judul="Kesalahan 1: Margin kiri tidak konsisten" data-cara="Bagian ini menjorok keluar dari margin. Seluruh isi harus sejajar di dalam margin yang sama. Di Word: Layout, lalu Margins, lalu Custom Margins, dan isi Left 3 cm.">Lampiran: 1 berkas<br>Perihal: Rujukan Pasien</span>
+          <span class="bug" data-bug="1" data-judul="Kesalahan 1: Margin kiri tidak konsisten" data-cara="Bagian ini menjorok keluar dari margin. Seluruh isi harus sejajar di dalam margin yang sama. Di Word: Layout, lalu Margins, lalu Custom Margins, dan isi Left 4 cm.">Lampiran: 1 berkas<br>Perihal: Rujukan Pasien</span>
         </div>
 
         <div style="text-align:right;margin:6px 0">
@@ -609,7 +611,7 @@ input.teks,select.pilih{width:100%}
           <span class="bug" data-bug="3" data-judul="Kesalahan 3: Ukuran font berbeda-beda" data-cara="Paragraf ini jauh lebih besar dari paragraf lain. Semua isi harus berukuran sama, yaitu 12 pt. Pilih semua teks dengan Ctrl+A lalu atur ukurannya.">Bersama surat ini kami merujuk pasien atas nama Budi Santoso (No. RM: 2024-0815-F) untuk mendapatkan penanganan lebih lanjut.</span>
         </p>
         <p style="text-indent:2em;line-height:3;margin:6px 0">
-          <span class="bug" data-bug="4" data-judul="Kesalahan 4: Spasi baris tidak konsisten" data-cara="Spasi di paragraf ini terlalu renggang dibanding paragraf lain. Spasi baris standar 1,5. Di Word: pilih semua teks, lalu Line Spacing 1.5 atau tekan Ctrl+5.">Demikian surat ini dibuat untuk dapat dipergunakan sebagaimana mestinya.</span>
+          <span class="bug" data-bug="4" data-judul="Kesalahan 4: Spasi baris tidak konsisten" data-cara="Spasi di paragraf ini terlalu renggang dibanding paragraf lain. Spasi baris standar 2. Di Word: pilih semua teks, lalu Line Spacing Double atau tekan Ctrl+2.">Demikian surat ini dibuat untuk dapat dipergunakan sebagaimana mestinya.</span>
         </p>
 
         <div style="margin-top:16px">
@@ -623,9 +625,9 @@ input.teks,select.pilih{width:100%}
         <h4>Tugas Lab</h4>
         <p>Buat surat rujukan pasien <strong>Budi Santoso</strong> ke <strong>RS Bhakti Medika</strong> di MS Word dengan ketentuan:</p>
         <ol>
-          <li>Margin: atas 3 cm, kiri 3 cm, kanan 2,5 cm, bawah 2,5 cm</li>
+          <li>Margin: atas 4 cm, kiri 4 cm, bawah 3 cm, kanan 3 cm</li>
           <li>Font: Times New Roman 12 pt di seluruh isi surat</li>
-          <li>Spasi baris: 1,5 untuk isi surat</li>
+          <li>Spasi baris: 2 (double) untuk isi surat, awal paragraf menjorok 1 tab</li>
           <li>Kop surat lengkap RS Sehat Citra (nama, alamat, kontak, garis pemisah)</li>
           <li>Nomor surat dengan format: XXX/RS-SC/bulan-Romawi/tahun</li>
           <li>Tanggal surat format baku (kota, tanggal, bulan huruf, tahun)</li>
@@ -644,7 +646,7 @@ input.teks,select.pilih{width:100%}
       {"judul":"Post-test","soal":[
         {"q":"Garis pemisah pada kop surat RS berfungsi untuk:","opsi":["Sekadar dekorasi visual","Memisahkan kop dari isi surat secara formal","Menandai awal halaman baru","Mempercantik tampilan surat"],"benar":1,"jelas":"Garis pemisah memisahkan identitas instansi (kop) dari isi surat."},
         {"q":"Pada nomor surat 045/RS-SC/X/2026, angka Romawi X menandakan:","opsi":["Nomor urutan surat","Bulan Oktober","Tahun 2026","Kode unit kerja"],"benar":1,"jelas":"Angka Romawi pada nomor surat menunjukkan bulan. X adalah Oktober."},
-        {"q":"Pintasan keyboard di MS Word untuk spasi baris 1,5 adalah:","opsi":["Ctrl+1","Ctrl+2","Ctrl+5","Ctrl+3"],"benar":2,"jelas":"Ctrl+5 sama dengan spasi 1,5. Ctrl+1 single, Ctrl+2 double. Ingat: 5 berada di antara 1 dan 2."},
+        {"q":"Pintasan keyboard di MS Word untuk spasi baris 2 (double) adalah:","opsi":["Ctrl+1","Ctrl+2","Ctrl+5","Ctrl+3"],"benar":1,"jelas":"Ctrl+2 sama dengan spasi 2. Ctrl+1 single, Ctrl+5 spasi 1,5."},
         {"q":"Kolom Lampiran pada surat dinas diisi apabila:","opsi":["Harus selalu diisi","Ada dokumen yang dilampirkan bersama surat","Tidak perlu pernah diisi","Hanya untuk surat ke instansi lain"],"benar":1,"jelas":"Lampiran diisi jika ada berkas yang ikut dikirim. Jika tidak ada, hilangkan barisnya atau beri tanda strip."},
         {"q":"Surat dinas resmi harus disertai:","opsi":["Foto penandatangan","Cap jempol","Nama terang dan jabatan penandatangan","Stempel instansi saja"],"benar":2,"jelas":"Nama terang dan jabatan membuat penandatangan jelas dan dapat dipertanggungjawabkan."},
         {"q":"Pengaturan bawaan Word yang paling perlu diubah sebelum mengetik surat dinas adalah:","opsi":["Hanya warna halaman","Ukuran kertas, margin, font, dan spasi baris","Hanya bahasa antarmuka","Tidak ada, bawaan Word sudah standar surat dinas"],"benar":1,"jelas":"Bawaan Word berbeda dari standar surat dinas, jadi ukuran kertas, margin, font, dan spasi harus diatur sendiri."},
@@ -661,7 +663,7 @@ input.teks,select.pilih{width:100%}
       <h4>Ringkasan Pertemuan 04</h4>
       <ol>
         <li>Word adalah pengolah kata untuk dokumen resmi. Kenali ribbon, penggaris, dan area dokumen.</li>
-        <li>Pengaturan bawaan Word belum standar surat dinas: atur A4, margin 3, 3, 2,5, 2,5 cm, font Times New Roman 12 pt, dan spasi 1,5.</li>
+        <li>Pengaturan bawaan Word belum standar surat dinas: atur A4, margin atas 4, kiri 4, bawah 3, kanan 3 cm, font Times New Roman 12 pt, spasi 2, dan awal paragraf menjorok 1 tab (standar prodi).</li>
         <li>Kop surat memuat nama RS, alamat, kontak, dan garis pemisah. Simpan sebagai template.</li>
         <li>Nomor surat memakai format urutan/kode RS/bulan Romawi/tahun, dan tanggal ditulis kota, tanggal, bulan huruf, tahun.</li>
         <li>Surat dinas memakai bahasa baku dan ejaan yang benar, dengan nama terang, jabatan, dan NIP penandatangan.</li>
@@ -823,7 +825,7 @@ function initAnatomi(){
 /* FORMATTER */
 function initFormatter(){
   const demo=document.getElementById("page-demo");
-  const sisi={top:3,bottom:2.5,left:3,right:2.5};
+  const sisi={top:4,bottom:3,left:4,right:3};
   const sl={};for(const k in sisi)sl[k]=document.getElementById("fmt-"+k);
   const font=document.getElementById("fmt-font"),size=document.getElementById("fmt-size"),spacing=document.getElementById("fmt-spacing");
   const badge=document.getElementById("badge-standar"),kurang=document.getElementById("kurang-standar");
@@ -839,15 +841,15 @@ function initFormatter(){
     for(const k of ["top","bottom","left","right"])if(m[k]!==sisi[k])salah.push("margin "+{top:"atas",bottom:"bawah",left:"kiri",right:"kanan"}[k]+" (standar "+sisi[k]+" cm)");
     if(f!==TNR)salah.push("font (standar Times New Roman)");
     if(s!==12)salah.push("ukuran font (standar 12 pt)");
-    if(sp!==1.5)salah.push("spasi baris (standar 1,5)");
-    badge.textContent=salah.length?"Belum sesuai standar":"Sesuai standar RS";
+    if(sp!==2)salah.push("spasi baris (standar 2)");
+    badge.textContent=salah.length?"Belum sesuai standar":"Sesuai standar prodi";
     badge.className="badge-standar "+(salah.length?"no":"ok");
     kurang.textContent=salah.length?"Yang belum sesuai: "+salah.join(", ")+".":"Semua pengaturan sudah sesuai standar.";
   }
   [...Object.values(sl),font,size,spacing].forEach(el=>el.addEventListener("input",apply));
   document.getElementById("btn-standar").addEventListener("click",()=>{
     for(const k in sisi)sl[k].value=sisi[k];
-    font.value=TNR;size.value=12;spacing.value=1.5;
+    font.value=TNR;size.value=12;spacing.value=2;
     demo.style.outline="3px solid var(--ok)";
     setTimeout(()=>{demo.style.outline="";},1200);
     apply();
