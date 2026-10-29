@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 14 — Cloud Storage &amp; Kolaborasi Dokumen Online | Komputer Rumah Sakit</title>
+<title>Pertemuan 14: Cloud Storage &amp; Kolaborasi Dokumen Online | Komputer Rumah Sakit</title>
 <style>
 :root{
   --bg:#f6faf9; --surface:#ffffff; --ink:#12303a; --muted:#5b7480; --line:#d5e3e6;
@@ -39,7 +39,6 @@ button{cursor:pointer}
   padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
 .top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
 .top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
-.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
 .top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
 .top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
 .wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
@@ -62,10 +61,9 @@ main{min-width:0}
 .seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
 .seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
-.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
-.seg-timer{display:inline-flex;gap:6px;align-items:center}
-.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
-.seg-timer.over .btn{background:var(--bad);color:#fff}
+
+
+
 .seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
 .seg.done{border-left:6px solid var(--ok)}
 h4{margin:18px 0 6px;font-size:1.1rem}
@@ -157,7 +155,7 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 @media print{
   :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
   body{font-size:12pt}
-  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}
+  .top,nav.agenda,
   .wrap{display:block;padding:0}
   .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
   .hero{background:#fff;color:#000}
@@ -177,8 +175,6 @@ nav.agenda{display:none!important}
 <header class="top">
   <h1><span id="hdr-judul">Cloud Storage &amp; Kolaborasi Dokumen Online</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 14</small></h1>
   <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
-  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
-  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 
@@ -202,7 +198,7 @@ nav.agenda{display:none!important}
 
     <!-- PEMBUKA -->
     <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">Senin pagi, Mira Dewanti — koordinator laporan RS Ananda Husada (fiktif) — panik. Laporan bulanan yang sudah ia kerjakan selama tiga hari tiba-tiba tidak bisa dibuka. Ternyata flashdisk tempat ia menyimpan file itu mengalami kerusakan fisik. Tidak ada backup. Laporan harus diserahkan ke Direktur pukul 10.00. Ia harus memulai dari nol dalam waktu dua jam. Seandainya ia menyimpan file di cloud...</p>
+      <p class="cerita">Senin pagi, Mira Dewanti, koordinator laporan RS Ananda Husada (fiktif), panik. Laporan bulanan yang sudah ia kerjakan selama tiga hari tiba-tiba tidak bisa dibuka. Ternyata flashdisk tempat ia menyimpan file itu mengalami kerusakan fisik. Tidak ada backup. Laporan harus diserahkan ke Direktur pukul 10.00. Ia harus memulai dari nol dalam waktu dua jam. Seandainya ia menyimpan file di cloud...</p>
       <p>Hari ini kita belajar cara menyimpan dokumen di cloud secara aman, mengatur siapa yang boleh melihat dan mengedit, serta berkolaborasi dalam tim tanpa saling menimpa pekerjaan satu sama lain.</p>
       <div class="note">☁️ <strong>Cloud storage bukan sekadar backup:</strong> Ini adalah cara kerja modern yang memungkinkan tim RS berkolaborasi dari mana saja dengan data yang selalu sinkron dan terlindungi.</div>
     </section>
@@ -213,9 +209,9 @@ nav.agenda{display:none!important}
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test","soal":[
-        {"q":"Apa perbedaan utama antara penyimpanan lokal dan cloud storage?","opsi":["Lokal lebih murah, cloud lebih cepat","Lokal tersimpan di perangkat sendiri, cloud tersimpan di server internet","Cloud tidak bisa diakses offline","Lokal tidak bisa dibagikan"],"benar":1,"jelas":"Penyimpanan lokal ada di perangkat/USB/HDD. Cloud storage ada di server jarak jauh yang diakses via internet — bisa dibagikan dan diakses dari mana saja."},
+        {"q":"Apa perbedaan utama antara penyimpanan lokal dan cloud storage?","opsi":["Lokal lebih murah, cloud lebih cepat","Lokal tersimpan di perangkat sendiri, cloud tersimpan di server internet","Cloud tidak bisa diakses offline","Lokal tidak bisa dibagikan"],"benar":1,"jelas":"Penyimpanan lokal ada di perangkat/USB/HDD. Cloud storage ada di server jarak jauh yang diakses via internet, bisa dibagikan dan diakses dari mana saja."},
         {"q":"Hak akses 'Viewer' pada Google Drive berarti...","opsi":["Bisa melihat, mengedit, dan berbagi","Hanya bisa melihat dokumen, tidak bisa mengedit","Bisa melihat dan memberi komentar","Bisa mengunduh dan mencetak saja"],"benar":1,"jelas":"Viewer hanya bisa melihat (baca saja). Untuk komentar perlu Commenter, untuk edit perlu Editor."},
-        {"q":"Apa risiko menyimpan data pasien di folder Google Drive yang linknya 'Siapa saja dengan link bisa melihat'?","opsi":["Tidak ada risiko, link hanya diketahui yang diberi","Data bisa diakses publik jika link tersebar, melanggar privasi pasien","Dokumen otomatis terenkripsi","Hanya bisa diakses dari dalam RS"],"benar":1,"jelas":"Link 'siapa saja' artinya siapapun yang memegang link bisa membuka file — ini berbahaya untuk data pasien rahasia."},
+        {"q":"Apa risiko menyimpan data pasien di folder Google Drive yang linknya 'Siapa saja dengan link bisa melihat'?","opsi":["Tidak ada risiko, link hanya diketahui yang diberi","Data bisa diakses publik jika link tersebar, melanggar privasi pasien","Dokumen otomatis terenkripsi","Hanya bisa diakses dari dalam RS"],"benar":1,"jelas":"Link 'siapa saja' artinya siapapun yang memegang link bisa membuka file, ini berbahaya untuk data pasien rahasia."},
         {"q":"Format penamaan file yang baik untuk dokumen RS adalah...","opsi":["laporan baru v2 FINAL(2)","2026-03_Laporan-Keuangan_Farmasi_v1.pdf","laporan","laporan.docx"],"benar":1,"jelas":"Format [Tahun-Bulan]_[JenisDoc]_[Unit]_[versi] memudahkan sorting, pencarian, dan manajemen versi."}
       ]}
       </script>
@@ -246,7 +242,7 @@ nav.agenda{display:none!important}
         <div class="tabpanel" role="tabpanel">
           <h4>Google Drive untuk Lingkungan RS</h4>
           <ul>
-            <li><strong>Kuota:</strong> 15 GB gratis (akun personal); Google Workspace for Education/Business bisa ratusan GB s.d. unlimited</li>
+            <li><strong>Kuota:</strong> 15 GB gratis (akun personal), Google Workspace for Education/Business bisa ratusan GB s.d. unlimited</li>
             <li><strong>Google Docs, Sheets, Slides:</strong> format native yang bisa diedit bersama real-time tanpa mengunduh</li>
             <li><strong>Shared Drive:</strong> folder bersama yang tetap ada meski pemilik akun keluar dari organisasi</li>
             <li><strong>Pencarian canggih:</strong> cari berdasarkan isi file, bukan hanya nama</li>
@@ -257,7 +253,7 @@ nav.agenda{display:none!important}
         <div class="tabpanel" role="tabpanel">
           <h4>OneDrive untuk Lingkungan RS</h4>
           <ul>
-            <li><strong>Kuota:</strong> 5 GB gratis; Microsoft 365 (Office 365) hingga 1 TB per pengguna</li>
+            <li><strong>Kuota:</strong> 5 GB gratis, Microsoft 365 (Office 365) hingga 1 TB per pengguna</li>
             <li><strong>Integrasi Office:</strong> Word, Excel, PowerPoint bisa disimpan dan dibuka langsung dari OneDrive tanpa konflik versi</li>
             <li><strong>SharePoint:</strong> platform kolaborasi dokumen tingkat enterprise untuk RS besar</li>
             <li><strong>Personal Vault:</strong> lapisan keamanan tambahan (verifikasi dua langkah) untuk file sangat sensitif</li>
@@ -369,7 +365,7 @@ nav.agenda{display:none!important}
       <script type="application/json" id="quiz-nama">
       {"judul":"Quiz: Nama File yang Tepat","soal":[
         {"q":"Dokumen laporan bulanan Poli Anak bulan April 2026, versi pertama. Mana nama file yang benar?","opsi":["laporan anak april final(2).pdf","2026-04_Laporan-Bulanan_Poli-Anak_v1.pdf","Laporan BARU.pdf","laporan-poli.pdf"],"benar":1,"jelas":"Format [Tahun-Bulan]_[JenisDoc]_[Unit]_[versi] memudahkan sorting otomatis dan pencarian."},
-        {"q":"Mana nama file yang BURUK?","opsi":["2026-02_SOP-Triase_IGD_v3.docx","SOP baru FINAL FINAL revisi pak dir (3).docx","2026-01_Data-Rawat-Inap_Bedah_v1.xlsx","2025-12_Laporan-Akhir-Tahun_RS_v2.pdf"],"benar":1,"jelas":"Kata 'FINAL FINAL revisi' dan spasi tidak konsisten menandakan tidak ada sistem penamaan — sulit dikelola."},
+        {"q":"Mana nama file yang BURUK?","opsi":["2026-02_SOP-Triase_IGD_v3.docx","SOP baru FINAL FINAL revisi pak dir (3).docx","2026-01_Data-Rawat-Inap_Bedah_v1.xlsx","2025-12_Laporan-Akhir-Tahun_RS_v2.pdf"],"benar":1,"jelas":"Kata 'FINAL FINAL revisi' dan spasi tidak konsisten menandakan tidak ada sistem penamaan, sulit dikelola."},
         {"q":"File rekap data BPJS bulan Maret 2026 versi kedua dari unit Keuangan. Nama yang paling tepat?","opsi":["BPJS-Maret.xlsx","2026-03_Rekap-BPJS_Keuangan_v2.xlsx","rekap bpjs v2 maret 2026.xlsx","2026_Keuangan_BPJS.xlsx"],"benar":1,"jelas":"Format lengkap dengan tahun-bulan di depan memastikan urutan kronologis yang benar saat diurutkan."}
       ]}
       </script>
@@ -385,7 +381,7 @@ nav.agenda{display:none!important}
         <button class="btn sec" type="button" onclick="pulihkanVersi()" id="btn-pulihkan" disabled>↩ Pulihkan Versi Lama</button>
       </div>
 
-      <div class="kolab-doc" id="kolab-doc" aria-label="Konten dokumen bersama">Laporan Mingguan — Instalasi Rawat Inap
+      <div class="kolab-doc" id="kolab-doc" aria-label="Konten dokumen bersama">Laporan Mingguan: Instalasi Rawat Inap
 RS Husada Prima (Fiktif)
 
 Periode: Minggu ke-1 Maret 2026
@@ -462,7 +458,7 @@ Catatan: Tidak ada kejadian luar biasa minggu ini.</div>
       </ol>
       <h4>Refleksi</h4>
       <div data-widget="reflect" data-key="refleksi-p14" data-prompt="Satu kebiasaan penyimpanan file yang akan kamu ubah setelah pertemuan ini:"></div>
-      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 15 — Mini Project Terpadu: Laporan Akhir Tahun Administrasi RS. Mulai kumpulkan data dan tentukan pembagian peran kelompok.</p>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 15: Mini Project Terpadu: Laporan Akhir Tahun Administrasi RS. Mulai kumpulkan data dan tentukan pembagian peran kelompok.</p>
     </section>
   </main>
 </div>
@@ -501,7 +497,6 @@ const store = {
 };
 function getData(id) { return JSON.parse(document.getElementById(id).textContent); }
 function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
-function mmss(s) { s = Math.max(0, Math.round(s)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
 let uid = 0; const nextId = p => p + "-" + (++uid);
 
 /* ===== Akses Simulator ===== */
@@ -592,12 +587,12 @@ function renderTree() {
 
 /* ===== Kolaborasi Dokumen ===== */
 const EDIT_A = [
-  "Laporan Mingguan — Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 42\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.",
-  "Laporan Mingguan — Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 44\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.\nDitambahkan: data IGD dirujuk sebanyak 3 kasus."
+  "Laporan Mingguan: Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 42\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.",
+  "Laporan Mingguan: Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 44\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.\nDitambahkan: data IGD dirujuk sebanyak 3 kasus."
 ];
 const EDIT_B = [
-  "Laporan Mingguan — Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 42\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.\nDireview oleh: Doni Pratama, 02-03-2026.",
-  "Laporan Mingguan — Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 44\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.\nDitambahkan: data IGD dirujuk sebanyak 3 kasus.\nDireview oleh: Doni Pratama, 03-03-2026. FINAL."
+  "Laporan Mingguan: Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 42\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.\nDireview oleh: Doni Pratama, 02-03-2026.",
+  "Laporan Mingguan: Instalasi Rawat Inap\nRS Husada Prima (Fiktif)\n\nPeriode: Minggu ke-1 Maret 2026\nJumlah pasien masuk: 48\nJumlah pasien keluar: 44\nBOR (Bed Occupancy Rate): 82%\n\nCatatan: Peningkatan pasien akibat musim hujan.\nDitambahkan: data IGD dirujuk sebanyak 3 kasus.\nDireview oleh: Doni Pratama, 03-03-2026. FINAL."
 ];
 let kolabLog = [], editIdxA = 0, editIdxB = 0, versiLama = null;
 function editDokumen(user) {
@@ -632,12 +627,12 @@ function renderKolabLog() {
 
 /* ===== Skenario Aman/Berisiko ===== */
 const SKENARIO = [
-  { ikon: "🔗", teks: "Berbagi laporan data pasien (fiktif) ke link publik 'siapa saja bisa lihat'", jawab: "berisiko", jelas: "Link publik bisa diakses siapapun — melanggar privasi data pasien." },
+  { ikon: "🔗", teks: "Berbagi laporan data pasien (fiktif) ke link publik 'siapa saja bisa lihat'", jawab: "berisiko", jelas: "Link publik bisa diakses siapapun, melanggar privasi data pasien." },
   { ikon: "📁", teks: "Menyimpan data rekap BPJS di folder Google Drive yang hanya bisa diakses tim billing (undangan saja)", jawab: "aman", jelas: "Benar! Akses terbatas hanya untuk yang relevan adalah praktik terbaik." },
   { ikon: "🔐", teks: "Mengaktifkan 2FA (Two-Factor Authentication) untuk semua akun cloud RS", jawab: "aman", jelas: "2FA adalah lapisan keamanan penting yang wajib diterapkan." },
   { ikon: "📤", teks: "Mengirim rekap data pasien via email ke rekan tanpa enkripsi dari akun Drive publik", jawab: "berisiko", jelas: "Data pasien tanpa enkripsi rentan bocor saat transit di jaringan." },
   { ikon: "👁️", teks: "Memberikan akses Editor ke semua staf RS untuk dokumen SOP yang sudah finalisasi", jawab: "berisiko", jelas: "Dokumen final seharusnya turun ke Viewer agar tidak diubah sembarangan." },
-  { ikon: "📎", teks: "Berbagi laporan keuangan RS dengan link internal (hanya anggota organisasi) kepada tim keuangan", jawab: "aman", jelas: "Link internal membatasi akses hanya ke anggota organisasi yang login — lebih aman." },
+  { ikon: "📎", teks: "Berbagi laporan keuangan RS dengan link internal (hanya anggota organisasi) kepada tim keuangan", jawab: "aman", jelas: "Link internal membatasi akses hanya ke anggota organisasi yang login, lebih aman." },
   { ikon: "💾", teks: "Menyimpan seluruh data rekam medis RS hanya di satu flashdisk tanpa backup cloud", jawab: "berisiko", jelas: "Flashdisk bisa rusak atau hilang. Data kritis harus ada backup di lokasi berbeda." },
   { ikon: "🗂️", teks: "Membuat Shared Drive khusus untuk setiap unit RS dengan admin yang bertanggung jawab", jawab: "aman", jelas: "Shared Drive terorganisir per unit adalah praktik manajemen dokumen yang baik." },
   { ikon: "🔓", teks: "Membagikan password akun cloud pribadi ke rekan kerja agar bisa mengedit file bersama", jawab: "berisiko", jelas: "Berbagi password melanggar kebijakan keamanan dan menghilangkan jejak audit siapa yang mengedit." },
@@ -779,14 +774,8 @@ function initSegmen() {
   const links = [];
   segs.forEach((s, i) => {
     const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
-    const head = h("div", { class: "seg-head" }, h("h3", {}, judul), h("span", { class: "badge" }, min + " menit"));
-    let sisa = min * 60, tid = null; const tb = h("button", { class: "btn sec", type: "button" }, "⏱ " + mmss(sisa));
-    const tw = h("span", { class: "seg-timer" }, tb);
-    tb.addEventListener("click", () => {
-      if (tid) { clearInterval(tid); tid = null; tb.textContent = "▶ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); return; }
-      tid = setInterval(() => { sisa--; tw.classList.toggle("over", sisa < 0); tb.textContent = "⏸ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); }, 1000);
-    });
-    head.append(tw); s.prepend(head);
+    const head = h("div", { class: "seg-head" }, h("h3", {}, judul));
+     s.prepend(head);
     const foot = h("div", { class: "seg-foot" });
     const sb = h("button", { class: "btn sec", type: "button" });
     function tandai(v) {
@@ -805,20 +794,13 @@ function initSegmen() {
     segs.forEach(s => io.observe(s));
   }
 }
-function initJam() {
-  let t = 0, id = null; const c = $("#clock"), b = $("#clock-btn");
-  b.addEventListener("click", () => {
-    if (id) { clearInterval(id); id = null; b.textContent = "Lanjut"; }
-    else { id = setInterval(() => { t++; c.textContent = mmss(t); }, 1000); b.textContent = "Jeda"; }
-  });
-}
 document.addEventListener("DOMContentLoaded", () => {
   $$("[data-widget]").forEach(el => {
     const fn = W[el.dataset.widget];
     if (!fn) return;
     try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal dimuat: " + e.message)); }
   });
-  initTabs(); initSegmen(); initJam();
+  initTabs(); initSegmen();
   renderAkses(); renderTree(); renderSkenario(); renderKolabLog();
   document.getElementById("akses-link").addEventListener("change", renderAkses);
   window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));

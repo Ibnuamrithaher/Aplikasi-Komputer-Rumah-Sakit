@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 06 — Microsoft Excel Dasar | Komputer Rumah Sakit</title>
+<title>Pertemuan 06: Microsoft Excel Dasar | Komputer Rumah Sakit</title>
 <style>
 :root{
   --bg:#f6faf9;--surface:#ffffff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
@@ -35,7 +35,6 @@ button{cursor:pointer}
   padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
 .top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
 .top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
-.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
 .top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
 .top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
 .wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
@@ -58,10 +57,9 @@ main{min-width:0}
 .seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
 .seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
-.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
-.seg-timer{display:inline-flex;gap:6px;align-items:center}
-.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
-.seg-timer.over .btn{background:var(--bad);color:#fff}
+
+
+
 .seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
 .seg.done{border-left:6px solid var(--ok)}
 h4{margin:18px 0 6px;font-size:1.1rem}
@@ -140,7 +138,7 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 @media print{
   :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
   body{font-size:12pt}
-  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}
+  .top,nav.agenda,
   .wrap{display:block;padding:0}
   .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
   .hero{background:#fff;color:#000}
@@ -159,8 +157,6 @@ nav.agenda{display:none!important}
 <header class="top">
   <h1><span id="hdr-judul">Microsoft Excel Dasar</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 06</small></h1>
   <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
-  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
-  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 
@@ -180,13 +176,13 @@ nav.agenda{display:none!important}
 
     <!-- ===== PEMBUKA ===== -->
     <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">Pak Rudi, staf administrasi RS Harapan Bersama (fiktif), menerima email dari kepala bagian berisi tabel kunjungan pasien 100 baris. "Hitung total per poli dan rata-rata harian!" pinta atasan sebelum rapat pukul 09.00. Pak Rudi panik — ia belum pernah memakai rumus Excel, dan menghitung manual 100 baris berarti sejam lebih. Seandainya ia tahu tiga formula ajaib itu...</p>
+      <p class="cerita">Pak Rudi, staf administrasi RS Harapan Bersama (fiktif), menerima email dari kepala bagian berisi tabel kunjungan pasien 100 baris. "Hitung total per poli dan rata-rata harian!" pinta atasan sebelum rapat pukul 09.00. Pak Rudi panik, ia belum pernah memakai rumus Excel, dan menghitung manual 100 baris berarti sejam lebih. Seandainya ia tahu tiga formula ajaib itu...</p>
       <p>Hari ini kita belajar tiga hal: mengenal tampilan Excel, memahami tipe data agar tidak salah hitung, lalu menggunakan formula <strong>SUM</strong>, <strong>AVERAGE</strong>, dan <strong>COUNT</strong> untuk menyelesaikan pekerjaan seperti Pak Rudi dalam hitungan detik.</p>
     </section>
 
     <!-- ===== PRE-TEST ===== -->
     <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
-      <p>Jawab dulu tanpa takut salah — ini hanya untuk melihat titik awal kalian sebelum belajar.</p>
+      <p>Jawab dulu tanpa takut salah, ini hanya untuk melihat titik awal kalian sebelum belajar.</p>
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test","soal":[
@@ -208,7 +204,7 @@ nav.agenda{display:none!important}
           <svg viewBox="0 0 500 300" role="img" aria-label="Antarmuka Microsoft Excel yang disederhanakan">
             <!-- title bar -->
             <rect x="0" y="0" width="500" height="22" fill="#1a5276" rx="0"/>
-            <text x="250" y="15" text-anchor="middle" font-size="11" fill="#fff" font-family="sans-serif">Buku1 — Microsoft Excel</text>
+            <text x="250" y="15" text-anchor="middle" font-size="11" fill="#fff" font-family="sans-serif">Buku1: Microsoft Excel</text>
             <!-- ribbon tabs -->
             <rect x="0" y="22" width="500" height="22" fill="#d6e8f0"/>
             <text x="14" y="36" font-size="10" fill="#333" font-family="sans-serif">Beranda</text>
@@ -280,7 +276,7 @@ nav.agenda{display:none!important}
             <text x="91" y="254" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#666">Sheet2</text>
           </svg>
           <button type="button" class="hs-dot" style="--x:7%;--y:18%" data-judul="Name Box" data-teks="Name Box menampilkan alamat sel yang sedang aktif (mis. A1, B3, C12). Klik Name Box dan ketik alamat sel untuk melompat langsung ke sel tersebut.">1</button>
-          <button type="button" class="hs-dot" style="--x:57%;--y:18%" data-judul="Formula Bar" data-teks="Formula Bar menampilkan isi asli sel — nilai, teks, atau rumus (mis. =SUM(B2:B10)). Di sinilah Anda mengedit rumus yang sudah ada di sel.">2</button>
+          <button type="button" class="hs-dot" style="--x:57%;--y:18%" data-judul="Formula Bar" data-teks="Formula Bar menampilkan isi asli sel, nilai, teks, atau rumus (mis. =SUM(B2:B10)). Di sinilah Anda mengedit rumus yang sudah ada di sel.">2</button>
           <button type="button" class="hs-dot" style="--x:28%;--y:25%" data-judul="Header Kolom" data-teks="Header kolom bertanda huruf (A, B, C, ...). Klik header kolom untuk memilih seluruh kolom. Kolom maksimum Excel: XFD (16.384 kolom).">3</button>
           <button type="button" class="hs-dot" style="--x:3%;--y:35%" data-judul="Header Baris" data-teks="Header baris bertanda angka (1, 2, 3, ...). Klik header baris untuk memilih seluruh baris. Baris maksimum Excel: 1.048.576 baris.">4</button>
           <button type="button" class="hs-dot" style="--x:7%;--y:86%" data-judul="Tab Lembar (Sheet Tab)" data-teks="Tab di bagian bawah menunjukkan lembar kerja dalam satu buku kerja (workbook). Klik tab untuk berpindah lembar, klik kanan untuk mengubah nama atau menambah lembar baru.">5</button>
@@ -304,11 +300,11 @@ nav.agenda{display:none!important}
       <details><summary>Cara cepat navigasi sel</summary>
         <div>
           <ul>
-            <li><strong>Enter</strong> — turun satu baris</li>
-            <li><strong>Tab</strong> — geser ke kanan satu kolom</li>
-            <li><strong>Ctrl + End</strong> — lompat ke sel terakhir berisi data</li>
-            <li><strong>Ctrl + Home</strong> — kembali ke A1</li>
-            <li>Ketik alamat di <strong>Name Box</strong> lalu Enter — langsung ke sel tersebut</li>
+            <li><strong>Enter</strong>: turun satu baris</li>
+            <li><strong>Tab</strong>: geser ke kanan satu kolom</li>
+            <li><strong>Ctrl + End</strong>: lompat ke sel terakhir berisi data</li>
+            <li><strong>Ctrl + Home</strong>: kembali ke A1</li>
+            <li>Ketik alamat di <strong>Name Box</strong> lalu Enter, langsung ke sel tersebut</li>
           </ul>
         </div>
       </details>
@@ -335,7 +331,7 @@ nav.agenda{display:none!important}
         <tbody>
           <tr><td>"Siti Aminah"</td><td>Teks</td><td>Nama tidak bisa dijumlahkan. Rumus =SUM pada kolom nama menghasilkan 0.</td></tr>
           <tr><td>"Poli Umum"</td><td>Teks</td><td>Teks rata kiri secara default. Jika muncul angka rata kiri, kemungkinan tersimpan sebagai teks.</td></tr>
-          <tr><td>"Rp 50.000"</td><td>Teks</td><td>Meskipun terlihat seperti angka, simbol Rp dan titik pemisah ribuan membuatnya jadi teks — tidak bisa dihitung!</td></tr>
+          <tr><td>"Rp 50.000"</td><td>Teks</td><td>Meskipun terlihat seperti angka, simbol Rp dan titik pemisah ribuan membuatnya jadi teks, tidak bisa dihitung!</td></tr>
           <tr><td>125000</td><td>Angka</td><td>Angka murni, rata kanan, bisa dijumlahkan dengan SUM.</td></tr>
           <tr><td>0.75</td><td>Angka</td><td>Desimal. Format sebagai Persen (%) di Format Cells agar tampil 75%.</td></tr>
           <tr><td>2026-03-15</td><td>Tanggal</td><td>Disimpan sebagai angka serial (mis. 46291). Bisa dihitung: selisih dua tanggal = jumlah hari.</td></tr>
@@ -349,11 +345,11 @@ nav.agenda{display:none!important}
       <h4>Referensi Sel: Relatif vs Absolut</h4>
       <div class="grid2">
         <div class="card">
-          <strong>Relatif</strong> — <span class="kode-box">=B2*C2</span><br>
+          <strong>Relatif</strong>: <span class="kode-box">=B2*C2</span><br>
           <p style="font-size:.92rem">Saat disalin ke baris bawah, berubah jadi =B3*C3, =B4*C4, dst. Cocok untuk operasi berulang per baris.</p>
         </div>
         <div class="card">
-          <strong>Absolut</strong> — <span class="kode-box">=B2*$C$1</span><br>
+          <strong>Absolut</strong>: <span class="kode-box">=B2*$C$1</span><br>
           <p style="font-size:.92rem">Tanda $ mengunci kolom dan/atau baris. $C$1 tidak berubah saat disalin. Cocok untuk tarif/konstan yang sama untuk semua baris.</p>
         </div>
       </div>
@@ -464,7 +460,7 @@ nav.agenda{display:none!important}
       </script>
 
       <div class="tugas-lab">
-        <h4>Tugas Lab — Kerjakan di Excel Nyata</h4>
+        <h4>Tugas Lab: Kerjakan di Excel Nyata</h4>
         <ol>
           <li>Unduh CSV di bawah, buka di Excel atau LibreOffice Calc.</li>
           <li>Tambahkan kolom <strong>G "Total"</strong> dan isi dengan =SUM(B2:F2) untuk tiap poli.</li>
@@ -558,7 +554,6 @@ const store = {
 };
 function getData(id) { return JSON.parse(document.getElementById(id).textContent); }
 function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
-function mmss(s) { s = Math.max(0, Math.round(s)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
 let uid = 0; const nextId = p => p + "-" + (++uid);
 
 const W = {};
@@ -866,14 +861,8 @@ function initSegmen() {
   const links = [];
   segs.forEach((s, i) => {
     const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
-    const head = h("div", { class: "seg-head" }, h("h3", {}, judul), h("span", { class: "badge" }, min + " menit"));
-    let sisa = min * 60, tid = null; const tb = h("button", { class: "btn sec", type: "button" }, "⏱ " + mmss(sisa));
-    const tw = h("span", { class: "seg-timer" }, tb);
-    tb.addEventListener("click", () => {
-      if (tid) { clearInterval(tid); tid = null; tb.textContent = "▶ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); return; }
-      tid = setInterval(() => { sisa--; tw.classList.toggle("over", sisa < 0); tb.textContent = "⏸ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); }, 1000);
-    });
-    head.append(tw); s.prepend(head);
+    const head = h("div", { class: "seg-head" }, h("h3", {}, judul));
+     s.prepend(head);
     const foot = h("div", { class: "seg-foot" });
     const sb = h("button", { class: "btn sec", type: "button" });
     function tandai(v) {
@@ -892,16 +881,9 @@ function initSegmen() {
     segs.forEach(s => io.observe(s));
   }
 }
-function initJam() {
-  let t = 0, id = null; const c = $("#clock"), b = $("#clock-btn");
-  b.addEventListener("click", () => {
-    if (id) { clearInterval(id); id = null; b.textContent = "Lanjut"; }
-    else { id = setInterval(() => { t++; c.textContent = mmss(t); }, 1000); b.textContent = "Jeda"; }
-  });
-}
 
 function isiHero() {
-  document.title = "Pertemuan " + KONFIG.nomor + " — " + KONFIG.judul + " | Komputer Rumah Sakit";
+  document.title = "Pertemuan " + KONFIG.nomor + ": " + KONFIG.judul + " | Komputer Rumah Sakit";
   $("#hdr-judul").textContent = KONFIG.judul;
   $("#hdr-sub").textContent = "Komputer Rumah Sakit · Pertemuan " + KONFIG.nomor;
   $("#hero-kode").textContent = "Pertemuan " + KONFIG.nomor + " · " + KONFIG.cpmk.split(":")[0];
@@ -917,7 +899,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!fn) return;
     try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal dimuat (" + el.dataset.widget + "): " + e.message)); }
   });
-  initTabs(); initSegmen(); initJam();
+  initTabs(); initSegmen();
   window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));
 });
 </script>

@@ -163,12 +163,6 @@ figure.gambar.zoom img{width:auto;max-width:96vw;max-height:80vh;cursor:zoom-out
 figure.gambar.zoom figcaption,figure.gambar.zoom .kredit,figure.gambar.zoom a{color:#fff}
 .galeri{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:14px 0}
 .galeri figure.gambar{margin:0}
-/* Catatan pembicara */
-.catatan{display:none;border:2px dashed var(--accent);background:var(--bg);border-radius:10px;padding:8px 18px;margin:0 0 16px;font-size:.95rem}
-body.mode-dosen .catatan{display:block}
-.catatan h4{margin:6px 0;color:var(--accent)}
-.catatan ul{margin:6px 0;padding-left:20px}
-.catatan li{margin:4px 0}
 /* Lapisan, backup, input */
 .lapisan{display:grid;grid-template-columns:minmax(220px,320px) 1fr;gap:16px;align-items:start}
 @media(max-width:800px){.lapisan{grid-template-columns:1fr}}
@@ -190,7 +184,7 @@ input.teks,select.pilih{width:100%;border:1px solid var(--line);border-radius:8p
 @media print{
   :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
   body{font-size:12pt}
-  .top,nav.agenda,.seg-foot,.btn,.skip,.catatan{display:none!important}
+  .top,nav.agenda,.seg-foot,.btn,.skip{display:none!important}
   figure.gambar img{max-height:240px}
   .wrap{display:block;padding:0}
   .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
@@ -229,32 +223,12 @@ nav.agenda{display:none!important}
 
     <!-- 1. PEMBUKA -->
     <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Sapa dan hubungkan:</b> "Minggu lalu kita membahas hardware, benda yang bisa disentuh. Hari ini yang tidak terlihat tetapi menentukan segalanya: software."</li>
-          <li><b>Tanyakan:</b> "Siapa pernah komputer atau ponselnya jadi lemot setelah memasang aplikasi sembarangan? Ceritakan singkat." Dengarkan dua atau tiga cerita; ini membuat materi terasa dekat.</li>
-          <li><b>Bacakan cerita Rini pelan-pelan</b>, lalu berhenti: "Apa saja masalah Rini?" Tuliskan tiga jawaban di papan: memilih aplikasi, mengirim file besar, belum tahu alat bantu. Kita akan kembali ke ketiganya.</li>
-          <li><b>Peta hari ini:</b> sistem operasi, aplikasi, utilitas dan keamanan, kompresi ZIP, PDF, memilih aplikasi, studi kasus, lalu praktik.</li>
-          <li><b>Aturan main:</b> semua data pasien dalam contoh adalah fiktif. Dalam pekerjaan nyata, data pasien tidak boleh dibagikan sembarangan.</li>
-          <li><b>Tombol "Catatan pembicara"</b> di bagian atas halaman menampilkan atau menyembunyikan kotak ini; mahasiswa tidak melihatnya bila disembunyikan.</li>
-        </ul>
-      </aside>
       <p class="cerita">Rini baru diterima sebagai staf administrasi di RS Bhakti Medika. Di meja kerjanya ada komputer baru dengan puluhan ikon aplikasi. Ketika atasannya meminta rekap data kunjungan pasien bulan lalu, Rini bingung: apakah harus buka Word atau Excel? Saat mengirim file via email, file-nya 8 MB dan sering gagal terkirim. Temannya menyarankan WinRAR, tapi Rini tidak tahu cara pakainya. Hari ini kita bantu Rini memahami peta aplikasi di komputer RS.</p>
       <p>Setelah pertemuan ini, kalian mampu memilih aplikasi yang tepat untuk setiap tugas administrasi, mengompresi file, dan bekerja dengan PDF secara efisien.</p>
     </section>
 
     <!-- 2. PRE-TEST -->
     <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="5">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Ucapkan:</b> ini bukan ujian dan tidak dinilai. Tujuannya mengetahui titik awal kita, dan nanti kita bandingkan dengan post-test.</li>
-          <li><b>Minta kerja mandiri:</b> jangan berdiskusi dan jangan membacakan jawaban. Jawaban benar akan langsung tampil setelah memilih; minta mahasiswa tidak mengganti jawaban, agar skor awalnya jujur.</li>
-          <li><b>Setelah selesai:</b> tanyakan "Soal nomor berapa yang terasa paling sulit?" dan catat. Soal itu perlu penekanan ekstra pada materi berikutnya.</li>
-          <li><b>Jangan membahas jawaban sekarang.</b> Cukup katakan "kita akan temukan jawabannya bersama."</li>
-        </ul>
-      </aside>
       <p>Jawab berdasarkan pengetahuan awal kalian. Tidak ada nilai negatif.</p>
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
@@ -270,20 +244,6 @@ nav.agenda{display:none!important}
 
     <!-- 3. INTI 1: Software & Sistem Operasi -->
     <section class="seg" id="seg-inti1" data-judul="Inti 1: Software dan Sistem Operasi" data-min="15">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Ucapkan:</b> hardware adalah yang bisa disentuh, software adalah instruksi yang membuat hardware bekerja. Pakai analogi gedung RS (lihat kotak cerita), lalu minta mahasiswa menyebut analogi mereka sendiri.</li>
-          <li><b>Tunjukkan:</b> klik tiap lapisan pada diagram dari atas ke bawah. Minta mahasiswa menebak contoh di RS sebelum Anda membuka jawabannya.</li>
-          <li><b>Tekankan:</b> jika lapisan bawah bermasalah, semua lapisan di atasnya ikut terganggu. Aplikasi yang macet biasanya tidak menjatuhkan sistem operasi.</li>
-          <li><b>Tanyakan:</b> "PC loket mati saat pasien antre. Lapisan mana yang mungkin bermasalah dan bagaimana membedakannya?" Jawaban: tidak ada lampu atau suara berarti hardware; layar biru atau gagal masuk berarti OS; hanya SIMRS yang macet berarti aplikasi.</li>
-          <li><b>Jelaskan:</b> enam fungsi OS lewat panel buka-tutup. Minta satu contoh RS untuk setiap fungsi. Tekankan akun pribadi: setiap orang memakai akunnya sendiri agar ada jejak siapa melakukan apa.</li>
-          <li><b>Bahas jenis OS</b> lewat tab. Sebut bahwa dukungan Windows 10 berakhir 14 Oktober 2025, lalu tanyakan: apa dampaknya bagi RS yang masih memakainya (pembaruan keamanan, kecocokan dengan SIMRS, anggaran)?</li>
-          <li><b>Demo singkat:</b> buka Task Manager (Ctrl+Shift+Esc) dan Settings, bagian About, untuk menunjukkan versi Windows dan RAM di komputer Anda.</li>
-          <li><b>Latihan kategori:</b> beri tiga menit. Setelah "Periksa", bahas item yang paling sering salah dan minta alasan, bukan hanya jawaban.</li>
-          <li><b>Waspadai salah kaprah:</b> browser dianggap sama dengan internet, atau Word dianggap sama dengan komputer. Luruskan dengan lapisan di diagram.</li>
-        </ul>
-      </aside>
 
       <h4>Hardware dan software: dua sisi yang tidak bisa dipisah</h4>
       <p>Minggu lalu kita membahas <strong>hardware</strong>, yaitu bagian komputer yang bisa disentuh. Hari ini kita membahas <strong>software</strong> (perangkat lunak): kumpulan instruksi yang membuat hardware bekerja. Komputer tanpa software hanya seonggok logam dan plastik. Software tanpa hardware tidak punya tempat untuk berjalan.</p>
@@ -355,26 +315,13 @@ nav.agenda{display:none!important}
 
     <!-- 4. INTI 2: Aplikasi, lisensi, ekstensi -->
     <section class="seg" id="seg-inti2" data-judul="Inti 2: Aplikasi, Lisensi, dan Jenis File" data-min="10">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Ucapkan:</b> aplikasi dibagi dua kelompok: aplikasi umum (dipakai di mana saja) dan aplikasi khusus RS (SIMRS, rekam medis elektronik, laboratorium, radiologi). Mahasiswa administrasi RS akan lebih sering bersentuhan dengan kelompok kedua.</li>
-          <li><b>Tunjukkan:</b> galeri gambar. Klik satu gambar untuk memperbesar, lalu tanyakan: "Aplikasi ini cocok untuk dokumen apa di RS?"</li>
-          <li><b>Tanyakan:</b> "Siapa pernah melihat layar komputer di loket pendaftaran RS atau puskesmas? Aplikasi apa yang tampil?" Kaitkan jawabannya dengan tabel aplikasi khusus RS.</li>
-          <li><b>Sampaikan dengan hati-hati:</b> nama aplikasi dan fitur dapat berubah. Tabel hanya gambaran. Minta mahasiswa memeriksa sistem yang dipakai RS tempat mereka magang atau bekerja.</li>
-          <li><b>Konteks regulasi (singkat):</b> Permenkes Nomor 24 Tahun 2022 tentang Rekam Medis mewajibkan fasilitas pelayanan kesehatan menyelenggarakan rekam medis elektronik. Platform integrasi data kesehatan nasional bernama SATUSEHAT. Anjurkan mahasiswa membaca sendiri aturan aslinya.</li>
-          <li><b>Lisensi:</b> tekankan bahwa gratis tidak selalu berarti boleh dipakai bebas, dan bajakan bukan hanya soal hukum tetapi juga risiko malware. Tanyakan: "Siapa yang bertanggung jawab jika komputer RS terkena virus dari Office bajakan?"</li>
-          <li><b>Ekstensi file:</b> tunjukkan cara menampilkan ekstensi di File Explorer (tab View, centang File name extensions). Bahas contoh <code>Faktur.pdf.exe</code> sebagai taktik penipuan.</li>
-          <li><b>Kerjakan kuis ekstensi</b> bersama-sama; minta mahasiswa menjelaskan jawabannya sebelum Anda membuka umpan balik.</li>
-        </ul>
-      </aside>
 
       <h4>Aplikasi umum: alat sehari-hari</h4>
       <p>Aplikasi adalah perangkat lunak yang dipakai langsung untuk menyelesaikan pekerjaan. Beberapa kelompok yang paling sering kalian pakai:</p>
       <table class="data">
         <thead><tr><th>Kelompok</th><th>Contoh</th><th>Dipakai untuk</th></tr></thead>
         <tbody>
-          <tr><td>Perkantoran</td><td>Microsoft Word, Excel, PowerPoint; LibreOffice</td><td>Surat, rekap, presentasi</td></tr>
+          <tr><td>Perkantoran</td><td>Microsoft Word, Excel, PowerPoint, LibreOffice</td><td>Surat, rekap, presentasi</td></tr>
           <tr><td>Peramban (browser)</td><td>Google Chrome, Microsoft Edge, Firefox</td><td>Membuka situs dan aplikasi berbasis web</td></tr>
           <tr><td>Pembaca PDF</td><td>Microsoft Edge, Adobe Acrobat Reader</td><td>Membaca dokumen final</td></tr>
           <tr><td>Media</td><td>VLC Media Player</td><td>Memutar video penyuluhan atau rekaman pelatihan</td></tr>
@@ -440,9 +387,9 @@ nav.agenda{display:none!important}
       <table class="data">
         <thead><tr><th>Jenis</th><th>Cara pakai</th><th>Kelebihan</th><th>Perlu diperhatikan</th></tr></thead>
         <tbody>
-          <tr><td>Desktop</td><td>Diinstal di komputer</td><td>Bisa dipakai tanpa internet; cepat</td><td>Harus diinstal dan diperbarui di tiap komputer</td></tr>
-          <tr><td>Web</td><td>Dibuka lewat browser</td><td>Tanpa instalasi; pembaruan otomatis</td><td>Perlu internet atau jaringan intranet RS</td></tr>
-          <tr><td>Mobile</td><td>Aplikasi di ponsel atau tablet</td><td>Praktis dibawa keliling</td><td>Layar kecil; keamanan perangkat pribadi</td></tr>
+          <tr><td>Desktop</td><td>Diinstal di komputer</td><td>Bisa dipakai tanpa internet, cepat</td><td>Harus diinstal dan diperbarui di tiap komputer</td></tr>
+          <tr><td>Web</td><td>Dibuka lewat browser</td><td>Tanpa instalasi, pembaruan otomatis</td><td>Perlu internet atau jaringan intranet RS</td></tr>
+          <tr><td>Mobile</td><td>Aplikasi di ponsel atau tablet</td><td>Praktis dibawa keliling</td><td>Layar kecil, keamanan perangkat pribadi</td></tr>
         </tbody>
       </table>
 
@@ -450,11 +397,11 @@ nav.agenda{display:none!important}
       <table class="data">
         <thead><tr><th>Jenis</th><th>Artinya</th><th>Contoh</th><th>Catatan untuk RS</th></tr></thead>
         <tbody>
-          <tr><td>Berbayar</td><td>Dibeli atau berlangganan; kode tertutup</td><td>Windows, Microsoft 365</td><td>Perlu anggaran lisensi; ada dukungan resmi</td></tr>
+          <tr><td>Berbayar</td><td>Dibeli atau berlangganan, kode tertutup</td><td>Windows, Microsoft 365</td><td>Perlu anggaran lisensi, ada dukungan resmi</td></tr>
           <tr><td>Freeware</td><td>Gratis dipakai, kode tertutup</td><td>Adobe Acrobat Reader</td><td>Baca syarat pemakaiannya</td></tr>
-          <tr><td>Open source</td><td>Kode terbuka; boleh dipakai sesuai lisensinya</td><td>LibreOffice, 7-Zip, VLC, Ubuntu</td><td>Hemat biaya; butuh orang yang mampu merawat</td></tr>
+          <tr><td>Open source</td><td>Kode terbuka, boleh dipakai sesuai lisensinya</td><td>LibreOffice, 7-Zip, VLC, Ubuntu</td><td>Hemat biaya, butuh orang yang mampu merawat</td></tr>
           <tr><td>Shareware / trial</td><td>Gratis dicoba, lalu perlu membeli</td><td>WinRAR</td><td>Setelah masa percobaan, pemakaian lanjutan perlu lisensi</td></tr>
-          <tr><td>Langganan cloud</td><td>Bayar berkala, berjalan lewat internet</td><td>Microsoft 365, Google Workspace</td><td>Data tersimpan di cloud; periksa kebijakan data</td></tr>
+          <tr><td>Langganan cloud</td><td>Bayar berkala, berjalan lewat internet</td><td>Microsoft 365, Google Workspace</td><td>Data tersimpan di cloud, periksa kebijakan data</td></tr>
           <tr><td class="err">Bajakan / crack</td><td>Dipakai tanpa izin</td><td>-</td><td>Melanggar UU Hak Cipta (UU No. 28 Tahun 2014) dan sering disisipi malware</td></tr>
         </tbody>
       </table>
@@ -488,29 +435,16 @@ nav.agenda{display:none!important}
 
     <!-- 5. INTI 3: Utilitas & Keamanan -->
     <section class="seg" id="seg-inti3" data-judul="Inti 3: Utilitas dan Keamanan Komputer" data-min="10">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Ucapkan:</b> utilitas adalah perawat komputer. Tidak dipakai untuk pekerjaan utama, tetapi tanpanya komputer cepat lambat, kotor, dan rawan. Hubungkan dengan peran petugas kebersihan dan teknisi di RS.</li>
-          <li><b>Tunjukkan:</b> buka Windows Security di komputer Anda, lalu Task Manager untuk memperlihatkan program yang memakai CPU dan RAM terbanyak.</li>
-          <li><b>Ceritakan konteks nyata:</b> serangan ransomware terhadap rumah sakit dan layanan publik terjadi di banyak negara. Pada Juni 2024, Pusat Data Nasional Sementara (PDNS) Indonesia dilaporkan terkena ransomware yang mengganggu banyak layanan publik. Gunakan sebagai pemantik, bukan untuk menakut-nakuti.</li>
-          <li><b>Jelaskan tiga ancaman:</b> virus atau malware, ransomware, dan phishing. Tekankan bahwa pintu masuk paling sering adalah manusia: lampiran email, tautan, dan flash disk.</li>
-          <li><b>Kaitkan dengan hukum:</b> data kesehatan termasuk data pribadi yang bersifat spesifik dalam UU Pelindungan Data Pribadi (UU No. 27 Tahun 2022). Kebocoran data pasien membawa tanggung jawab bagi lembaga dan petugas.</li>
-          <li><b>Praktik cadangan:</b> minta mahasiswa mencentang salinan di simulator, lalu pilih setiap kejadian. Tanyakan mengapa flash disk di laci yang sama tidak menyelamatkan data saat pencurian atau kebakaran.</li>
-          <li><b>Luruskan mitos:</b> "defrag" hanya berguna untuk hard disk mekanik (HDD). Pada SSD, defrag manual tidak diperlukan; Windows memakai perintah TRIM untuk SSD.</li>
-          <li><b>Tutup dengan daftar kebiasaan aman.</b> Minta tiap mahasiswa memilih satu kebiasaan yang akan mereka mulai minggu ini.</li>
-        </ul>
-      </aside>
 
       <h4>Utilitas: perawat komputer</h4>
       <p>Utilitas adalah perangkat lunak pendukung yang menjaga komputer tetap aman, bersih, dan terawat. Ia bukan alat kerja utama, tetapi sangat menentukan apakah komputer bisa terus dipakai.</p>
       <table class="data">
         <thead><tr><th>Fungsi</th><th>Contoh</th><th>Kapan dipakai</th></tr></thead>
         <tbody>
-          <tr><td>Keamanan</td><td>Windows Security (antivirus bawaan)</td><td>Selalu aktif; pindai file dari flash disk dan unduhan</td></tr>
+          <tr><td>Keamanan</td><td>Windows Security (antivirus bawaan)</td><td>Selalu aktif, pindai file dari flash disk dan unduhan</td></tr>
           <tr><td>Kompresi</td><td>7-Zip, WinRAR, folder terkompresi bawaan Windows</td><td>Mengirim banyak file, membuat arsip</td></tr>
           <tr><td>Pembersihan</td><td>Disk Cleanup, Storage Sense</td><td>Ruang penyimpanan hampir penuh</td></tr>
-          <tr><td>Optimasi disk</td><td>Optimize Drives</td><td>Perawatan berkala; defrag hanya untuk hard disk mekanik</td></tr>
+          <tr><td>Optimasi disk</td><td>Optimize Drives</td><td>Perawatan berkala, defrag hanya untuk hard disk mekanik</td></tr>
           <tr><td>Pencadangan</td><td>File History, Windows Backup, OneDrive</td><td>Menyalin file penting secara berkala</td></tr>
           <tr><td>Pemantauan</td><td>Task Manager (Ctrl+Shift+Esc)</td><td>Komputer lambat atau program tidak merespons</td></tr>
         </tbody>
@@ -522,7 +456,7 @@ nav.agenda{display:none!important}
         </figure>
         <figure class="gambar">
           <img src="https://commons.wikimedia.org/wiki/Special:FilePath/20231112_14_28_05-Datentr%C3%A4gerbereinigung.png?width=900" alt="Jendela Disk Cleanup Windows berbahasa Jerman" loading="lazy">
-          <figcaption>Disk Cleanup (tampilan berbahasa Jerman; di Windows berbahasa Indonesia atau Inggris namanya "Disk Cleanup"): memilih jenis file sementara yang aman dihapus.<span class="kredit">Gambar: Microsoft Corporation · domain publik · <a href="https://commons.wikimedia.org/wiki/File:20231112_14_28_05-Datentr%C3%A4gerbereinigung.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          <figcaption>Disk Cleanup (tampilan berbahasa Jerman, di Windows berbahasa Indonesia atau Inggris namanya "Disk Cleanup"): memilih jenis file sementara yang aman dihapus.<span class="kredit">Gambar: Microsoft Corporation · domain publik · <a href="https://commons.wikimedia.org/wiki/File:20231112_14_28_05-Datentr%C3%A4gerbereinigung.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
         </figure>
       </div>
 
@@ -556,18 +490,6 @@ nav.agenda{display:none!important}
 
     <!-- 6. INTI 4: Kompresi ZIP -->
     <section class="seg" id="seg-inti4" data-judul="Inti 4: Kompresi File (ZIP)" data-min="8">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Ucapkan:</b> kompresi ada dua jenis. Lossless (ZIP) menghasilkan file yang sama persis setelah diekstrak. Lossy (misalnya JPEG) membuang sebagian detail untuk mengecilkan ukuran. Dokumen RS harus lossless.</li>
-          <li><b>Demo interaktif:</b> ketik teks berulang di kotak "cara kerja kompresi", lalu ketik teks acak. Mahasiswa melihat sendiri bahwa pola berulang mudah dikecilkan dan teks acak tidak. Katakan bahwa ZIP sebenarnya memakai metode yang lebih canggih (Deflate), ini hanya gambaran ide.</li>
-          <li><b>Luruskan:</b> ZIP tidak ajaib. File yang sudah terkompresi (JPEG, docx, xlsx, pptx, PDF hasil scan) hampir tidak mengecil. Karena itu manfaat ZIP untuk kumpulan scan adalah menggabungkan menjadi satu paket, bukan mengecilkan.</li>
-          <li><b>Kembali ke cerita Rini:</b> file 8 MB gagal terkirim. Lampiran email dikodekan sehingga membesar sekitar sepertiga, jadi 8 MB menjadi sekitar 10,7 MB dan melewati batas 10 MB. Geser slider ke 8.000 KB untuk menunjukkannya.</li>
-          <li><b>Tunjukkan di komputer:</b> klik kanan, Send to, Compressed (zipped) folder; lalu ekstrak dengan Extract All. Lanjutkan dengan 7-Zip untuk membuat arsip berkata sandi.</li>
-          <li><b>Keamanan:</b> folder terkompresi bawaan Windows tidak bisa diberi kata sandi. Gunakan 7-Zip dengan enkripsi AES-256 bila mengirim data sensitif, dan kirim kata sandi lewat jalur lain, misalnya telepon, bukan email yang sama.</li>
-          <li><b>Tanyakan:</b> "Kapan kalian tidak perlu ZIP?" Arahkan ke tabel panduan di bawah.</li>
-        </ul>
-      </aside>
 
       <h4>Mengapa Staf RS Perlu Kompresi File?</h4>
       <p>Email RS umumnya membatasi lampiran sekitar 10 MB, sedangkan scan rekam medis satu pasien bisa 5 sampai 15 MB. Kompresi membantu dalam tiga hal: menggabungkan banyak file menjadi satu paket, menghemat ruang pada file yang memang bisa dikecilkan, dan menambah kata sandi bila diperlukan.</p>
@@ -579,11 +501,11 @@ nav.agenda{display:none!important}
       </div>
 
       <h4>Cara kerja paling sederhana</h4>
-      <p class="note">Ketik teks di bawah. Kompresi mencari pola berulang dan menggantinya dengan ringkasan. Ini hanya gambaran ide; ZIP memakai metode yang lebih canggih.</p>
+      <p class="note">Ketik teks di bawah. Kompresi mencari pola berulang dan menggantinya dengan ringkasan. Ini hanya gambaran ide, ZIP memakai metode yang lebih canggih.</p>
       <div data-widget="rle"></div>
 
       <h4>Simulator Kompresi ZIP</h4>
-      <p class="note">Atur ukuran file dan pilih jenisnya. Angka rasio hanyalah perkiraan; hasil nyata bergantung pada isi file.</p>
+      <p class="note">Atur ukuran file dan pilih jenisnya. Angka rasio hanyalah perkiraan, hasil nyata bergantung pada isi file.</p>
       <div data-widget="zipsim"></div>
 
       <figure class="gambar">
@@ -607,7 +529,7 @@ nav.agenda{display:none!important}
         <tbody>
           <tr><td>Kirim 1 foto lewat WhatsApp</td><td>Tidak perlu</td><td>JPEG sudah terkompresi</td></tr>
           <tr><td>Kirim 50 scan dokumen ke asuransi</td><td>Ya, untuk menggabungkan</td><td>Ukuran hampir tidak berkurang karena scan sudah terkompresi. Kecilkan resolusi scan lebih dulu.</td></tr>
-          <tr><td>Backup rekap bulanan (CSV, Word, Excel) ke USB</td><td>Disarankan</td><td>CSV dan teks mengecil banyak; docx dan xlsx mengecil sedikit</td></tr>
+          <tr><td>Backup rekap bulanan (CSV, Word, Excel) ke USB</td><td>Disarankan</td><td>CSV dan teks mengecil banyak, docx dan xlsx mengecil sedikit</td></tr>
           <tr><td>Kirim laporan Word 300 KB lewat email</td><td>Tidak perlu</td><td>Sudah kecil, dan docx sendiri sudah terkompresi</td></tr>
           <tr><td>Arsip tahunan dokumen administrasi</td><td>Sangat disarankan</td><td>Satu paket yang rapi dan mudah disalin</td></tr>
           <tr><td>Kirim dokumen yang memuat data pasien</td><td>Ya, dengan kata sandi</td><td>Pakai 7-Zip (AES-256) dan kirim kata sandi lewat jalur terpisah</td></tr>
@@ -617,18 +539,6 @@ nav.agenda{display:none!important}
 
     <!-- 7. INTI 5: PDF -->
     <section class="seg" id="seg-inti5" data-judul="Inti 5: Mengelola PDF" data-min="8">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Ucapkan:</b> PDF dibuat agar dokumen tampil sama di perangkat mana pun. Itu sebabnya cocok untuk dokumen final, bukan dokumen yang masih direvisi.</li>
-          <li><b>Tanyakan:</b> "Surat rujukan yang masih menunggu tanda tangan dokter, kirim dalam format apa?" Diskusikan: Word saat masih revisi, PDF setelah final.</li>
-          <li><b>Bahas jenis PDF:</b> PDF biasa, PDF/A untuk arsip jangka panjang, dan PDF bertanda tangan digital. Sebutkan bahwa tanda tangan digital berbeda dengan gambar tanda tangan yang ditempel.</li>
-          <li><b>Tekankan privasi:</b> situs gabung PDF online mengharuskan file diunggah ke server pihak lain. Jangan dipakai untuk dokumen yang memuat data pasien atau data kepegawaian. Pakai aplikasi offline.</li>
-          <li><b>Peringatan redaksi:</b> menutup teks dengan kotak hitam biasa tidak menghapus teks di bawahnya. Gunakan fitur Redact yang benar-benar menghapus. Ini kesalahan yang sering terjadi saat menyamarkan data.</li>
-          <li><b>Tunjukkan:</b> Word &rarr; Save As &rarr; PDF; lalu buka PDF-nya di browser dan coba menekan Ctrl+F untuk mencari teks. Jelaskan bahwa PDF hasil scan tidak bisa dicari tanpa OCR.</li>
-          <li><b>Latihan:</b> urutan langkah gabung PDF dikerjakan berpasangan. Minta satu pasangan menjelaskan alasan urutannya.</li>
-        </ul>
-      </aside>
 
       <div class="tabs">
         <div class="tablist" role="tablist">
@@ -655,7 +565,7 @@ nav.agenda{display:none!important}
             <thead><tr><th>Jenis</th><th>Ciri</th><th>Contoh pemakaian</th></tr></thead>
             <tbody>
               <tr><td>PDF biasa</td><td>Teks dan gambar yang tampil tetap</td><td>Surat, laporan</td></tr>
-              <tr><td>PDF hasil scan</td><td>Berupa gambar halaman; teks tidak bisa dicari tanpa OCR</td><td>Scan formulir lama</td></tr>
+              <tr><td>PDF hasil scan</td><td>Berupa gambar halaman, teks tidak bisa dicari tanpa OCR</td><td>Scan formulir lama</td></tr>
               <tr><td>PDF/A</td><td>Standar untuk arsip jangka panjang</td><td>Arsip dokumen administrasi</td></tr>
               <tr><td>PDF bertanda tangan digital</td><td>Tanda tangan elektronik yang dapat diverifikasi dan menandai bila dokumen berubah</td><td>Surat keputusan, kontrak</td></tr>
             </tbody>
@@ -688,7 +598,7 @@ nav.agenda{display:none!important}
             <li>Pilih <strong>Save As</strong> (atau Simpan Sebagai)</li>
             <li>Klik kotak dropdown <strong>"Save as type"</strong>, pilih <strong>PDF (*.pdf)</strong></li>
             <li>Beri nama file yang jelas, misalnya: Surat-Rujukan-PasienA-20261105.pdf</li>
-            <li>Klik <strong>Save</strong> / Simpan; file PDF tersimpan di folder yang sama</li>
+            <li>Klik <strong>Save</strong> / Simpan, file PDF tersimpan di folder yang sama</li>
           </ul>
           <p class="note">Alternatif lebih cepat: <strong>File &rarr; Export &rarr; Create PDF/XPS</strong> langsung menghasilkan PDF tanpa dialog Save As.</p>
           <p class="note"><strong>Mengecilkan PDF hasil scan:</strong> turunkan resolusi scan ke sekitar 150 sampai 200 dpi dan pakai mode hitam-putih untuk halaman yang hanya berisi teks.</p>
@@ -698,15 +608,6 @@ nav.agenda{display:none!important}
 
     <!-- 8. INTI 6: Matriks Word / Excel / PPT -->
     <section class="seg" id="seg-inti6" data-judul="Inti 6: Word, Excel, atau PPT?" data-min="5">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Ucapkan:</b> pertanyaan penuntunnya sederhana. Naratif dan perlu format rapi: Word. Berisi angka, daftar berulang, atau perhitungan: Excel. Akan ditayangkan di layar besar: PowerPoint.</li>
-          <li><b>Mintalah mahasiswa memilih lebih dulu</b>, baru tekan "Periksa". Bahas baris yang paling banyak salah.</li>
-          <li><b>Beri kasus abu-abu:</b> "Surat tagihan berisi tabel biaya". Jawaban: suratnya di Word, hitungan biayanya di Excel, lalu tabelnya ditempel ke Word. Ini jembatan ke pertemuan integrasi Office.</li>
-          <li><b>Ingatkan:</b> pilihan yang tepat menghemat waktu revisi dan membuat dokumen tampak profesional.</li>
-        </ul>
-      </aside>
       <h4>Matriks Pemilihan Aplikasi Kantor RS</h4>
       <p>Untuk setiap jenis dokumen RS berikut, pilih aplikasi yang paling tepat. Klik pilihan, lalu tekan <strong>Periksa</strong>.</p>
       <div data-widget="matriksapp"></div>
@@ -724,21 +625,12 @@ nav.agenda{display:none!important}
 
     <!-- 9. STUDI KASUS -->
     <section class="seg" id="seg-kasus" data-judul="Studi Kasus: Audit Komputer Loket Pendaftaran" data-min="7">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Ucapkan:</b> ini rangkuman. Mahasiswa berperan sebagai staf yang baru ditugaskan memeriksa satu komputer loket. Setiap temuan menuntut keputusan yang tepat.</li>
-          <li><b>Jalankan sebagai diskusi:</b> bacakan satu temuan, beri waktu 30 detik berdiskusi dengan teman sebelah, baru minta jawaban. Setelah itu buka penjelasan.</li>
-          <li><b>Tekankan alasan:</b> jawaban benar bukan sekadar "hapus". Misalnya, pembaruan Windows dijadwalkan di luar jam pelayanan, bukan dimatikan.</li>
-          <li><b>Kaitkan dengan peran:</b> tidak semua keputusan di tangan staf administrasi. Tahu kapan harus melapor ke bagian IT juga merupakan keterampilan.</li>
-        </ul>
-      </aside>
       <p class="cerita">Rini mendapat tugas pertama: memeriksa komputer di loket pendaftaran RS Sehat Citra. Ia menemukan beberapa hal yang janggal. Pada tiap temuan, pilih tindakan yang paling tepat.</p>
       <div data-widget="quiz" data-src="quiz-kasus" class="quiz"></div>
       <script type="application/json" id="quiz-kasus">
       {"judul":"Audit Komputer Loket","soal":[
         {"q":"Windows di komputer loket tidak pernah diperbarui selama dua tahun. Tindakan paling tepat?","opsi":["Membiarkannya karena komputer masih berjalan","Mematikan pembaruan agar tidak mengganggu antrean","Menjadwalkan pembaruan di luar jam pelayanan dan melapor ke IT","Memasang antivirus tambahan lalu selesai"],"benar":2,"jelas":"Pembaruan menutup celah keamanan. Jadwalkan di luar jam sibuk agar pelayanan tidak terganggu, dan koordinasikan dengan IT."},
-        {"q":"Staf memasang Microsoft Office hasil crack yang diunduh dari internet. Tindakan paling tepat?","opsi":["Dibiarkan selama berfungsi","Dihapus; pakai lisensi resmi atau alternatif gratis seperti LibreOffice, lalu laporkan","Disembunyikan agar tidak ketahuan","Dipindahkan ke komputer lain"],"benar":1,"jelas":"Software bajakan melanggar hak cipta dan sering membawa malware. Gunakan lisensi resmi atau alternatif sah seperti LibreOffice."},
+        {"q":"Staf memasang Microsoft Office hasil crack yang diunduh dari internet. Tindakan paling tepat?","opsi":["Dibiarkan selama berfungsi","Dihapus, pakai lisensi resmi atau alternatif gratis seperti LibreOffice, lalu laporkan","Disembunyikan agar tidak ketahuan","Dipindahkan ke komputer lain"],"benar":1,"jelas":"Software bajakan melanggar hak cipta dan sering membawa malware. Gunakan lisensi resmi atau alternatif sah seperti LibreOffice."},
         {"q":"Data pasien disimpan di flash disk pribadi milik petugas. Tindakan paling tepat?","opsi":["Dibiarkan karena praktis","Dipindahkan ke penyimpanan resmi RS dan dilarang menyimpan data pasien di perangkat pribadi","Diberi nama file yang disamarkan","Dikirim ke email pribadi sebagai cadangan"],"benar":1,"jelas":"Perangkat pribadi mudah hilang atau terinfeksi. Data pasien harus disimpan di penyimpanan resmi dengan pengendalian akses."},
         {"q":"Satu-satunya salinan rekap bulanan hanya ada di Desktop komputer loket. Tindakan paling tepat?","opsi":["Tidak perlu apa-apa karena komputernya baru","Menerapkan aturan 3-2-1: tambahkan salinan di media lain dan satu di luar lokasi","Menyalinnya ke folder lain di komputer yang sama","Menghapus file lama agar ringan"],"benar":1,"jelas":"Salinan di komputer yang sama ikut hilang bila hard disk rusak, komputer dicuri, atau terkena ransomware. Butuh salinan di media dan lokasi berbeda."},
         {"q":"Masuk email berlampiran 'Tagihan_BPJS.zip' dari pengirim tak dikenal yang meminta dibuka segera. Tindakan paling tepat?","opsi":["Dibuka segera agar tidak terlambat","Diteruskan ke seluruh rekan kerja untuk dicek","Tidak dibuka, dilaporkan ke IT sebagai dugaan phishing","Dibuka di komputer lain"],"benar":2,"jelas":"Desakan untuk segera membuka lampiran dari pengirim tak dikenal adalah ciri phishing. Jangan dibuka dan laporkan ke IT."},
@@ -749,15 +641,6 @@ nav.agenda{display:none!important}
 
     <!-- 7. PRAKTIK -->
     <section class="seg" id="seg-praktik" data-judul="Praktik: Game Pilih Aplikasi RS" data-min="10">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Ucapkan:</b> game ini mengulang keputusan "Word, Excel, atau PPT" sebanyak 15 kali agar menjadi refleks. Setelah itu, Tugas Lab dikerjakan di komputer.</li>
-          <li><b>Jalankan sebagai kompetisi ringan:</b> beri waktu lima menit dan lihat siapa yang skornya tertinggi, lalu bahas kartu yang paling sering salah.</li>
-          <li><b>Pada Tugas Lab:</b> bacakan tiga tugas dan kriterianya (40%, 30%, 30%). Ingatkan bahwa tabel 10 aplikasi harus dikategorikan, bukan hanya dicatat.</li>
-          <li><b>Sambil berkeliling:</b> periksa apakah mahasiswa membuat PDF dengan Save As, menamai folder Backup_[NIM], dan memilih tiga file yang berbeda. Tantangan opsional: buat arsip 7-Zip dengan kata sandi.</li>
-        </ul>
-      </aside>
       <p>Kamu adalah staf administrasi baru di <strong>RS Sehat Citra</strong>. Untuk setiap kartu tugas berikut, pilih aplikasi yang paling tepat: <em>Word</em>, <em>Excel</em>, atau <em>PPT</em>.</p>
       <div data-widget="appgame"></div>
       <div class="tugas-lab">
@@ -773,14 +656,6 @@ nav.agenda{display:none!important}
 
     <!-- 8. POST-TEST -->
     <section class="seg" id="seg-post" data-judul="Post-test" data-min="5">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Ucapkan:</b> post-test memakai soal yang berbeda dari pre-test, dengan cakupan lebih luas (8 soal). Kerjakan mandiri.</li>
-          <li><b>Setelah selesai:</b> tunjukkan grafik perbandingan, lalu tanyakan "Bagian apa yang paling membantu?" Soal tambahan tentang cadangan 3-2-1, ZIP untuk JPEG, dan privasi PDF mengukur materi baru pada pertemuan ini.</li>
-          <li><b>Bahas soal yang masih sering salah</b> secara singkat dan jujur; ini masukan untuk memperbaiki cara Anda mengajar minggu depan.</li>
-        </ul>
-      </aside>
       <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
       <script type="application/json" id="quiz-post">
       {"judul":"Post-test","soal":[
@@ -800,23 +675,14 @@ nav.agenda{display:none!important}
 
     <!-- 9. PENUTUP -->
     <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="2">
-      <aside class="catatan" aria-label="Catatan pembicara">
-        <h4>Catatan pembicara</h4>
-        <ul>
-          <li><b>Kembali ke Rini:</b> tanyakan "Tiga masalah Rini di awal tadi, sudah terjawab semua?" Tunjukkan catatan di papan dan centang satu per satu.</li>
-          <li><b>Rangkum dengan kata mahasiswa:</b> minta tiga orang menyebut satu hal yang mereka ingat, lalu lengkapi dengan ringkasan di layar.</li>
-          <li><b>Refleksi:</b> beri satu menit hening untuk menulis. Katakan bahwa tulisan ini hanya untuk diri sendiri dan tersimpan di browser.</li>
-          <li><b>Tindak lanjut:</b> pastikan MS Word terpasang di komputer mereka sebelum pertemuan 04. Ingatkan tugas lab yang dinilai.</li>
-        </ul>
-      </aside>
       <h4>Ringkasan Pertemuan 03</h4>
       <ol>
         <li><strong>Tiga jenis software:</strong> OS (fondasi sistem), Aplikasi (tugas spesifik), Utilitas (perawatan, keamanan, dan manajemen sistem).</li>
-        <li><strong>Lisensi dan ekstensi:</strong> pilih software berlisensi sah; baca ekstensi file sebelum membukanya, dan waspadai file berekstensi .exe yang menyamar.</li>
+        <li><strong>Lisensi dan ekstensi:</strong> pilih software berlisensi sah, baca ekstensi file sebelum membukanya, dan waspadai file berekstensi .exe yang menyamar.</li>
         <li><strong>Keamanan dan cadangan:</strong> aktifkan antivirus, perbarui sistem, dan terapkan aturan 3-2-1 untuk data penting.</li>
         <li><strong>Kompresi ZIP</strong> paling berguna untuk menggabungkan file dan mengecilkan teks, CSV, atau dokumen lama. JPEG dan scan nyaris tidak mengecil. Pakai 7-Zip dengan kata sandi untuk data sensitif.</li>
         <li><strong>PDF</strong> adalah format dokumen final. Gabungkan dan ubah PDF memakai aplikasi offline, dan jangan unggah dokumen pasien ke situs online.</li>
-        <li><strong>Word</strong> untuk teks naratif; <strong>Excel</strong> untuk data tabular dan angka; <strong>PowerPoint</strong> untuk presentasi visual.</li>
+        <li><strong>Word</strong> untuk teks naratif, <strong>Excel</strong> untuk data tabular dan angka, <strong>PowerPoint</strong> untuk presentasi visual.</li>
         <li>Memilih aplikasi yang tepat sejak awal menghemat waktu revisi dan menghasilkan dokumen yang lebih profesional.</li>
       </ol>
       <h4>Refleksi</h4>
@@ -1078,7 +944,7 @@ W.zipsim = el => {
     outHem.textContent = fmt(ukuranKB - zip);
     outRas.textContent = hemat + "%";
     const email = zip * 4 / 3; // lampiran email dikodekan (base64), membesar sekitar sepertiga
-    info.textContent = (hemat < 10 ? "ZIP hampir tidak mengecilkan jenis file ini; gunakan ZIP hanya untuk menggabungkan file. " : "")
+    info.textContent = (hemat < 10 ? "ZIP hampir tidak mengecilkan jenis file ini. Gunakan ZIP hanya untuk menggabungkan file. " : "")
       + "Perkiraan ukuran di email: " + fmt(email) + " (lampiran membesar sekitar sepertiga). "
       + (email <= BATAS_KB ? "Muat dalam batas 10 MB." : "Melebihi batas 10 MB, gunakan tautan cloud atau bagi file.");
   }

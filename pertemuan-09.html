@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 09 — Microsoft PowerPoint Dasar | Komputer Rumah Sakit</title>
+<title>Pertemuan 09: Microsoft PowerPoint Dasar | Komputer Rumah Sakit</title>
 <style>
 :root{
   --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
@@ -31,7 +31,6 @@ button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
   padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
 .top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
 .top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
-.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
 .top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
 .top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
 .wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
@@ -50,10 +49,9 @@ nav.agenda a.done .tick{visibility:visible}main{min-width:0}
 .seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
 .seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
-.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
-.seg-timer{display:inline-flex;gap:6px;align-items:center}
-.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
-.seg-timer.over .btn{background:var(--bad);color:#fff}
+
+
+
 .seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
 .seg.done{border-left:6px solid var(--ok)}
 h4{margin:18px 0 6px;font-size:1.1rem}p{margin:8px 0}
@@ -128,7 +126,7 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 @media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}
-  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}
+  .top,nav.agenda,
   .wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
   .hero{background:#fff;color:#000}}
 
@@ -144,8 +142,6 @@ nav.agenda{display:none!important}
 <header class="top">
   <h1><span id="hdr-judul">Microsoft PowerPoint Dasar</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 09</small></h1>
   <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
-  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
-  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 <div class="wrap">
@@ -169,7 +165,7 @@ nav.agenda{display:none!important}
 
     <!-- PRE-TEST -->
     <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
-      <p>Jawab dulu — tidak ada yang salah. Ini untuk melihat titik awalmu.</p>
+      <p>Jawab dulu, tidak ada yang salah. Ini untuk melihat titik awalmu.</p>
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test","soal":[
@@ -212,7 +208,7 @@ nav.agenda{display:none!important}
         <div id="panel-baik">
           <div class="slide-panel-label">Versi: Baik</div>
           <div class="slide-16-9 slide-baik">
-            <div class="judul">Kunjungan Pasien — November 2026</div>
+            <div class="judul">Kunjungan Pasien: November 2026</div>
             <ul class="poin">
               <li>Total: <strong>1.254 pasien</strong></li>
               <li>Poli Umum tertinggi: <strong>312 kunjungan</strong></li>
@@ -252,7 +248,7 @@ nav.agenda{display:none!important}
         <div class="contrast-result">Rasio kontras: <span id="rasio-val">21:1</span></div>
         <span class="contrast-badge pass" id="badge-wcag">✓ AA Lulus (≥4,5:1)</span>
         <div class="contrast-preview" id="contrast-preview" style="background:#ffffff;color:#000000">
-          Contoh Teks RS Sehat Citra — apakah ini terbaca dengan jelas?
+          Contoh Teks RS Sehat Citra, apakah ini terbaca dengan jelas?
         </div>
       </div>
     </section>
@@ -288,7 +284,7 @@ nav.agenda{display:none!important}
       </div>
       <h4>Tiga Aturan Emas Teks Slide</h4>
       <details><summary>1. Satu Slide, Satu Pesan</summary>
-        <div><p>Setiap slide harus menyampaikan <strong>satu ide utama</strong>. Penonton tidak bisa membaca teks panjang dan mendengarkan pembicara sekaligus. Jika ada 3 topik berbeda, buat 3 slide terpisah.</p><p><em>Contoh baik:</em> "Kunjungan Poli Umum Naik 12% November" — bukan "Ringkasan Kunjungan Semua Poli November-Desember 2026".</p></div>
+        <div><p>Setiap slide harus menyampaikan <strong>satu ide utama</strong>. Penonton tidak bisa membaca teks panjang dan mendengarkan pembicara sekaligus. Jika ada 3 topik berbeda, buat 3 slide terpisah.</p><p><em>Contoh baik:</em> "Kunjungan Poli Umum Naik 12% November". bukan "Ringkasan Kunjungan Semua Poli November-Desember 2026".</p></div>
       </details>
       <details><summary>2. Maksimal 6 Poin per Slide</summary>
         <div><p>Jika slide membutuhkan lebih dari 6 bullet point, pisahkan menjadi beberapa slide atau gunakan tabel ringkas. Terlalu banyak poin = tidak ada yang penting.</p><p>Aturan tambahan: setiap poin maksimal <strong>6–8 kata</strong>. Gunakan kata kunci, bukan kalimat lengkap.</p></div>
@@ -353,7 +349,7 @@ nav.agenda{display:none!important}
         {"q":"Untuk presentasi di ruang besar, ukuran font judul sebaiknya minimal:","opsi":["18 pt","24 pt","36 pt","48 pt"],"benar":2,"jelas":"Judul slide minimal 36 pt agar terbaca dari jarak 3–5 meter. Isi minimal 24 pt. Terapkan aturan '3 meter test' sebelum presentasi."},
         {"q":"Warna merah cerah (#FF0000) pada latar putih memiliki rasio kontras sekitar:","opsi":["Sangat tinggi, di atas 7:1","Sekitar 4:1, tidak memenuhi WCAG AA","Tepat 4,5:1","Di atas 7:1 (AA Enhanced)"],"benar":1,"jelas":"Merah (#FF0000) vs putih (#FFFFFF) memiliki rasio kontras sekitar 4:1, tidak memenuhi WCAG AA (4,5:1). Gunakan teks hitam di atas latar merah."},
         {"q":"Layout 'Judul + 2 Kolom' paling cocok untuk:","opsi":["Perbandingan dua hal berdampingan","Satu narasi panjang yang mengalir","Daftar 10 poin sekaligus","Foto latar penuh layar"],"benar":0,"jelas":"2-kolom ideal untuk before/after, pro/cons, data dua departemen, atau dua konsep yang dibandingkan."},
-        {"q":"Animasi 'muncul per poin saat diklik' termasuk animasi yang:","opsi":["Mengganggu konsentrasi audience","Dekoratif semata","Fungsional — membantu fokus pada poin yang dibahas","Tidak perlu karena memperlambat"],"benar":2,"jelas":"Animasi Appear/Fade per poin (on-click) membantu pembicara mengontrol alur — audience fokus pada poin yang sedang dibahas, bukan membaca semua sekaligus."},
+        {"q":"Animasi 'muncul per poin saat diklik' termasuk animasi yang:","opsi":["Mengganggu konsentrasi audience","Dekoratif semata","Fungsional, membantu fokus pada poin yang dibahas","Tidak perlu karena memperlambat"],"benar":2,"jelas":"Animasi Appear/Fade per poin (on-click) membantu pembicara mengontrol alur, audience fokus pada poin yang sedang dibahas, bukan membaca semua sekaligus."},
         {"q":"File PowerPoint yang disimpan untuk presentasi standar menggunakan ekstensi:","opsi":[".docx",".xlsx",".pptx",".ppsx"],"benar":2,"jelas":".pptx adalah format standar PowerPoint (bisa diedit). .ppsx adalah format slideshow yang langsung berjalan tanpa bisa diedit dengan mudah."}
       ]}
       </script>
@@ -366,15 +362,15 @@ nav.agenda{display:none!important}
       <h4>Ringkasan Pertemuan 09</h4>
       <ol>
         <li>Font minimum untuk presentasi di ruang besar: 36 pt (judul) dan 24 pt (isi).</li>
-        <li>Rasio kontras WCAG AA minimal 4,5:1 — uji setiap kombinasi warna sebelum presentasi.</li>
+        <li>Rasio kontras WCAG AA minimal 4,5:1, uji setiap kombinasi warna sebelum presentasi.</li>
         <li>Satu slide = satu pesan. Maksimal 6 poin per slide dengan 6–8 kata per poin.</li>
-        <li>Gunakan animasi fungsional (muncul per poin); hindari animasi dekoratif berlebihan.</li>
+        <li>Gunakan animasi fungsional (muncul per poin), hindari animasi dekoratif berlebihan.</li>
         <li>Format file standar PowerPoint: .pptx. Rasio aspek modern: 16:9.</li>
       </ol>
       <h4>Refleksi</h4>
       <p>Tuliskan satu hal yang paling berguna hari ini dan satu hal yang masih membingungkan:</p>
       <textarea class="reflect" id="refleksi-ta" aria-label="Refleksi pertemuan 09"></textarea>
-      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 10 — PowerPoint Lanjutan: animasi fungsional, transisi slide, dan desain template RS yang konsisten.</p>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 10: PowerPoint Lanjutan: animasi fungsional, transisi slide, dan desain template RS yang konsisten.</p>
     </section>
   </main>
 </div>
@@ -400,7 +396,6 @@ const store={
 };
 function getData(id){return JSON.parse(document.getElementById(id).textContent);}
 let uid=0;const nextId=p=>p+"-"+(++uid);
-function mmss(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
 
 /* QUIZ */
 const W={};
@@ -487,7 +482,7 @@ function updateSlideTeks(){
 /* INTI 4: QUIZ ANIMASI */
 function initQuizAnim(){
   const soal=[
-    {q:"Fly-in setiap huruf satu per satu untuk teks judul slide",benar:"Mengganggu",jelas:"Animasi per huruf sangat lambat dan mengganggu — audience menunggu terlalu lama sebelum bisa membaca isi."},
+    {q:"Fly-in setiap huruf satu per satu untuk teks judul slide",benar:"Mengganggu",jelas:"Animasi per huruf sangat lambat dan mengganggu, audience menunggu terlalu lama sebelum bisa membaca isi."},
     {q:"Fade-in halus saat berpindah ke section baru presentasi",benar:"Membantu",jelas:"Transisi ringan seperti Fade membantu audience menyadari perpindahan topik tanpa mengalihkan perhatian."},
     {q:"Objek 'bounce' terus-menerus saat slide sedang diam",benar:"Mengganggu",jelas:"Gerakan konstan saat slide diam mengalihkan perhatian dari penjelasan pembicara."},
     {q:"Bullet point muncul satu per satu saat pembicara mengklik",benar:"Membantu",jelas:"Animasi Appear/Fade per poin fungsional: audience fokus pada poin yang sedang dibahas, bukan membaca semuanya sekaligus."},
@@ -518,7 +513,7 @@ function initQuizAnim(){
   document.getElementById("btn-cek-anim").addEventListener("click",()=>{
     const b=jawab.filter((j,i)=>j===soal[i].benar).length;
     const sk=document.getElementById("quiz-anim-skor");
-    sk.style.display="";sk.textContent="Skor: "+b+" / "+soal.length+" — "+(b===soal.length?"Sempurna!":b>=3?"Bagus!":"Pelajari lagi.");
+    sk.style.display="";sk.textContent="Skor: "+b+" / "+soal.length+": "+(b===soal.length?"Sempurna!":b>=3?"Bagus!":"Pelajari lagi.");
   });
 }
 
@@ -587,7 +582,7 @@ function nilaiPenilaian(){
   if(panjangOk)ok++;
   // Kriteria 3: kontras
   const r=kontrasRasio(slideWarna.teks,slideWarna.bg);const kontrasOk=r>=4.5;
-  penilai.append(h("div",{class:"penilai-baris"},h("span",{},"Kontras warna ≥4,5:1"),h("span",{class:"penilai-badge "+(kontrasOk?"ok":"no")},kontrasOk?"✓ "+r.toFixed(1)+":1":"✗ "+r.toFixed(1)+":1 — terlalu rendah")));
+  penilai.append(h("div",{class:"penilai-baris"},h("span",{},"Kontras warna ≥4,5:1"),h("span",{class:"penilai-badge "+(kontrasOk?"ok":"no")},kontrasOk?"✓ "+r.toFixed(1)+":1":"✗ "+r.toFixed(1)+":1, terlalu rendah")));
   if(kontrasOk)ok++;
   skor.textContent="Total skor: "+ok+" / "+total+" kriteria terpenuhi";
 }
@@ -627,12 +622,8 @@ function initSegmen(){
   const done=store.get("selesai",{});let mulai=0;const links=[];
   segs.forEach((s,i)=>{
     const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
-    const head=h("div",{class:"seg-head"},h("h3",{},judul),h("span",{class:"badge"},min+" menit"));
-    let sisa=min*60,tid=null;const tb=h("button",{class:"btn sec",type:"button"},"⏱ "+mmss(sisa));
-    const tw=h("span",{class:"seg-timer"},tb);
-    tb.addEventListener("click",()=>{if(tid){clearInterval(tid);tid=null;tb.textContent="▶ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));return;}
-      tid=setInterval(()=>{sisa--;tw.classList.toggle("over",sisa<0);tb.textContent="⏸ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));},1000);});
-    head.append(tw);s.prepend(head);
+    const head=h("div",{class:"seg-head"},h("h3",{},judul));
+    s.prepend(head);
     const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
     function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";done[s.id]=v;store.set("selesai",done);progres();}
     sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));foot.append(sb);s.append(foot);
@@ -641,18 +632,14 @@ function initSegmen(){
   function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;document.getElementById("hdr-bar").style.width=(n/segs.length*100)+"%";}
   if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
 }
-function initJam(){
-  let t=0,id=null;const c=document.getElementById("clock"),b=document.getElementById("clock-btn");
-  b.addEventListener("click",()=>{if(id){clearInterval(id);id=null;b.textContent="Lanjut";}else{id=setInterval(()=>{t++;c.textContent=mmss(t);},1000);b.textContent="Jeda";}});
-}
 
 document.addEventListener("DOMContentLoaded",()=>{
-  document.title="Pertemuan "+KONFIG.nomor+" — "+KONFIG.judul+" | Komputer Rumah Sakit";
+  document.title="Pertemuan "+KONFIG.nomor+": "+KONFIG.judul+" | Komputer Rumah Sakit";
   document.getElementById("hero-cpmk").textContent=KONFIG.cpmk;
   KONFIG.tujuan.forEach(t=>document.getElementById("hero-tujuan").append(h("li",{},t)));
   $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal: "+e.message));}});
   hitungKontras();updateSlideTeks();initQuizAnim();initEditorSlide();initRefleksi();
-  initSegmen();initJam();
+  initSegmen();
   window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
 });
 </script>

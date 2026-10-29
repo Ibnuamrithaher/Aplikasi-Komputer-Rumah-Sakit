@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 11 — Integrasi Office Bagian 1: OLE | Komputer Rumah Sakit</title>
+<title>Pertemuan 11: Integrasi Office Bagian 1: OLE | Komputer Rumah Sakit</title>
 <style>
 :root{
   --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
@@ -35,7 +35,6 @@ button{cursor:pointer}
   padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
 .top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
 .top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
-.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
 .top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
 .top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
 .wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
@@ -58,10 +57,9 @@ main{min-width:0}
 .seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
 .seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
-.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
-.seg-timer{display:inline-flex;gap:6px;align-items:center}
-.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
-.seg-timer.over .btn{background:var(--bad);color:#fff}
+
+
+
 .seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
 .seg.done{border-left:6px solid var(--ok)}
 h4{margin:18px 0 6px;font-size:1.1rem}
@@ -145,7 +143,7 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 .praktik-docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:14px 0}
 @media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}.top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}.wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}.hero{background:#fff;color:#000}}
+@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}.top,nav.agenda,.wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}.hero{background:#fff;color:#000}}
 
 /* Tanpa sidebar agenda, dengan layar penuh */
 nav.agenda{display:none!important}
@@ -159,8 +157,6 @@ nav.agenda{display:none!important}
 <header class="top">
   <h1><span id="hdr-judul">Integrasi Office Bagian 1: OLE</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 11</small></h1>
   <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
-  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
-  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 <div class="wrap">
@@ -178,9 +174,9 @@ nav.agenda{display:none!important}
 
     <!-- ============ PEMBUKA ============ -->
     <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">Wahyu Nugroho, staf administrasi RS Bhakti Medika, setiap bulan harus menyiapkan lima dokumen Word berbeda: laporan direktur, laporan keuangan, laporan mutu, laporan poli, dan surat ke dinas. Semuanya memuat tabel kunjungan pasien yang sama — ia selalu <em>copy-paste</em> dari Excel ke setiap dokumen. Minggu ini data kunjungan bulan Januari dikoreksi oleh HIS. Wahyu harus membuka kelima dokumen satu per satu dan memperbarui tabelnya secara manual. Dua jam waktu terbuang hanya untuk update data yang sama.</p>
-      <p>Solusinya ada di fitur yang sudah lama tersedia di Microsoft Office: <strong>OLE — Object Linking and Embedding</strong>. Jika Wahyu menggunakan <em>Paste Link</em> dari awal, cukup satu kali ubah data di Excel, kelima dokumen Word langsung sinkron otomatis.</p>
-      <p class="note"><strong>Tujuan hari ini:</strong> Memahami perbedaan Paste Biasa, Embed, dan Link — serta kapan menggunakan masing-masing di lingkungan RS.</p>
+      <p class="cerita">Wahyu Nugroho, staf administrasi RS Bhakti Medika, setiap bulan harus menyiapkan lima dokumen Word berbeda: laporan direktur, laporan keuangan, laporan mutu, laporan poli, dan surat ke dinas. Semuanya memuat tabel kunjungan pasien yang sama, ia selalu <em>copy-paste</em> dari Excel ke setiap dokumen. Minggu ini data kunjungan bulan Januari dikoreksi oleh HIS. Wahyu harus membuka kelima dokumen satu per satu dan memperbarui tabelnya secara manual. Dua jam waktu terbuang hanya untuk update data yang sama.</p>
+      <p>Solusinya ada di fitur yang sudah lama tersedia di Microsoft Office: <strong>OLE: Object Linking and Embedding</strong>. Jika Wahyu menggunakan <em>Paste Link</em> dari awal, cukup satu kali ubah data di Excel, kelima dokumen Word langsung sinkron otomatis.</p>
+      <p class="note"><strong>Tujuan hari ini:</strong> Memahami perbedaan Paste Biasa, Embed, dan Link, serta kapan menggunakan masing-masing di lingkungan RS.</p>
     </section>
 
     <!-- ============ PRE-TEST ============ -->
@@ -190,9 +186,9 @@ nav.agenda{display:none!important}
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test","soal":[
         {"q":"OLE adalah singkatan dari …","opsi":["Object Layout Edit","Object Linking and Embedding","Output Link Execution","Open Link Extension"],"benar":1,"jelas":"OLE = Object Linking and Embedding, teknologi Microsoft untuk integrasi antar-aplikasi."},
-        {"q":"Paste Link berbeda dari Paste biasa karena …","opsi":["Lebih cepat dieksekusi","Data terhubung ke sumber asli","Mengubah format teks","Menghapus data asli"],"benar":1,"jelas":"Paste Link menciptakan tautan ke file sumber; perubahan di sumber otomatis tercermin di dokumen tujuan."},
+        {"q":"Paste Link berbeda dari Paste biasa karena …","opsi":["Lebih cepat dieksekusi","Data terhubung ke sumber asli","Mengubah format teks","Menghapus data asli"],"benar":1,"jelas":"Paste Link menciptakan tautan ke file sumber. Perubahan di sumber otomatis tercermin di dokumen tujuan."},
         {"q":"Jika file Excel sumber dipindah ke folder lain setelah Paste Link dibuat, link akan …","opsi":["Tetap berfungsi normal","Putus / broken link","Otomatis update sendiri","Terhapus dari Word"],"benar":1,"jelas":"Link menyimpan path absolut ke file sumber. Jika lokasi berubah, link tidak lagi menemukan file tersebut."},
-        {"q":"Embed berbeda dari Link karena …","opsi":["Data tidak disalin ke file tujuan","Data disalin mandiri ke dalam file tujuan","Ukuran file lebih kecil","Hanya bisa untuk gambar"],"benar":1,"jelas":"Embed menyisipkan salinan objek ke dalam file tujuan; tidak terhubung ke file sumber."},
+        {"q":"Embed berbeda dari Link karena …","opsi":["Data tidak disalin ke file tujuan","Data disalin mandiri ke dalam file tujuan","Ukuran file lebih kecil","Hanya bisa untuk gambar"],"benar":1,"jelas":"Embed menyisipkan salinan objek ke dalam file tujuan. Tidak terhubung ke file sumber."},
         {"q":"Tab di Microsoft Word untuk mengakses Paste Special adalah …","opsi":["Tab Home","Tab Insert","Tab Mailings","Tab File"],"benar":0,"jelas":"Paste Special ada di tab Home → grup Clipboard → tanda panah di bawah tombol Paste → Paste Special."}
       ]}
       </script>
@@ -205,11 +201,11 @@ nav.agenda{display:none!important}
         <summary>📷 Paste Biasa = Foto Cetak</summary>
         <div>
           <p>Saat Anda mencetak foto dari HP, foto itu berdiri sendiri. Jika foto asli di HP diedit atau dihapus, foto cetakan tidak berubah sama sekali.</p>
-          <p><strong>Di RS:</strong> Anda meng-<em>copy</em> tabel kunjungan dari Excel dan mem-<em>paste</em> biasa ke Word. Hasilnya adalah <strong>salinan statis</strong> — data di Word tidak pernah berubah meski Excel diperbarui.</p>
+          <p><strong>Di RS:</strong> Anda meng-<em>copy</em> tabel kunjungan dari Excel dan mem-<em>paste</em> biasa ke Word. Hasilnya adalah <strong>salinan statis</strong>: data di Word tidak pernah berubah meski Excel diperbarui.</p>
           <table class="data" style="margin-top:8px">
             <tr><th>Kelebihan</th><td>Cepat, mudah, tidak bergantung file lain</td></tr>
             <tr><th>Kekurangan</th><td>Harus update manual di setiap dokumen</td></tr>
-            <tr><th>Kapan pakai</th><td>Dokumen final/arsip yang tidak akan diubah lagi; data "snapshot" bulan tertentu</td></tr>
+            <tr><th>Kapan pakai</th><td>Dokumen final/arsip yang tidak akan diubah lagi. Data "snapshot" bulan tertentu</td></tr>
           </table>
         </div>
       </details>
@@ -219,9 +215,9 @@ nav.agenda{display:none!important}
           <p>Foto di HP Anda bisa diedit langsung di dalam HP. Jika Anda mengirim foto itu ke HP orang lain, mereka bisa melihat dan mengeditnya di sana tanpa perlu HP Anda.</p>
           <p><strong>Di RS:</strong> Embed menyisipkan <strong>objek Excel lengkap</strong> ke dalam file Word. Anda bisa double-click objek di Word untuk mengeditnya in-place dengan antarmuka Excel. File Word bisa dibuka di komputer mana pun tanpa memerlukan file Excel asli.</p>
           <table class="data" style="margin-top:8px">
-            <tr><th>Kelebihan</th><td>Portable; file Word mandiri; bisa diedit in-place</td></tr>
-            <tr><th>Kekurangan</th><td>Ukuran file Word jauh lebih besar; tidak sinkron dengan sumber</td></tr>
-            <tr><th>Kapan pakai</th><td>Dokumen yang akan dikirim ke pihak lain tanpa menyertakan file Excel; presentasi offline</td></tr>
+            <tr><th>Kelebihan</th><td>Portable, file Word mandiri, bisa diedit in-place</td></tr>
+            <tr><th>Kekurangan</th><td>Ukuran file Word jauh lebih besar, tidak sinkron dengan sumber</td></tr>
+            <tr><th>Kapan pakai</th><td>Dokumen yang akan dikirim ke pihak lain tanpa menyertakan file Excel, presentasi offline</td></tr>
           </table>
         </div>
       </details>
@@ -231,8 +227,8 @@ nav.agenda{display:none!important}
           <p>Shortcut di desktop hanya menyimpan <em>alamat</em> program, bukan program itu sendiri. Klik shortcut → program aslinya berjalan. Pindahkan program → shortcut tidak bisa menemukan program lagi.</p>
           <p><strong>Di RS:</strong> Paste Link menyisipkan <strong>tautan hidup</strong> ke file Excel. Setiap kali Word dibuka (atau klik kanan → Update Link), data terbaru dari Excel langsung ditampilkan.</p>
           <table class="data" style="margin-top:8px">
-            <tr><th>Kelebihan</th><td>Selalu sinkron; satu update Excel = semua Word terperbarui</td></tr>
-            <tr><th>Kekurangan</th><td>File Excel harus ada dan di lokasi yang sama; link bisa putus</td></tr>
+            <tr><th>Kelebihan</th><td>Selalu sinkron, satu update Excel = semua Word terperbarui</td></tr>
+            <tr><th>Kekurangan</th><td>File Excel harus ada dan di lokasi yang sama, link bisa putus</td></tr>
             <tr><th>Kapan pakai</th><td>Laporan rutin (harian, mingguan, bulanan) yang sering diperbarui datanya</td></tr>
           </table>
           <p class="note">⚠ Simpan file Word dan Excel dalam <strong>satu folder yang sama</strong> agar link tidak putus saat dipindah ke komputer lain.</p>
@@ -273,7 +269,7 @@ nav.agenda{display:none!important}
         "Klik Home → Paste → Paste Special",
         "Pilih \"Microsoft Excel Worksheet Object\"",
         "Centang opsi \"Paste Link\"",
-        "Klik OK — tabel tertaut muncul di Word",
+        "Klik OK, tabel tertaut muncul di Word",
         "Simpan kedua file di folder yang sama agar link tidak putus"
       ]}
       </script>
@@ -307,7 +303,7 @@ nav.agenda{display:none!important}
         </table>
       </div>
       <p><button class="btn accent" type="button" id="btn-update-gigi">Update Data Poli Gigi (Simulasi Koreksi HIS)</button></p>
-      <h4>Tiga Dokumen Word — Amati Perbedaannya</h4>
+      <h4>Tiga Dokumen Word: Amati Perbedaannya</h4>
       <div class="praktik-docs">
         <div class="word-doc">
           <h5>📄 Laporan Direktur (Linked)</h5>
@@ -337,7 +333,7 @@ nav.agenda{display:none!important}
       ]}
       </script>
       <div class="tugas-lab">
-        <h4>Tugas Lab — Word + Excel Nyata</h4>
+        <h4>Tugas Lab: Word + Excel Nyata</h4>
         <ol>
           <li>Buat file Excel baru: <code>Kunjungan_RS.xlsx</code>. Isi tabel 3 poli × 3 bulan (data fiktif).</li>
           <li>Buka Word baru: <code>Laporan_Bulanan.docx</code>. Gunakan <strong>Paste Special → Paste Link → Microsoft Excel Worksheet Object</strong>.</li>
@@ -345,7 +341,7 @@ nav.agenda{display:none!important}
           <li>Ubah satu angka di Excel, lalu buka Word dan klik kanan → <em>Update Link</em>. Verifikasi perubahan.</li>
           <li>Buat dokumen kedua: <code>Laporan_Arsip.docx</code>. Gunakan <strong>Paste Special → Embed</strong>. Bandingkan ukuran kedua file.</li>
         </ol>
-        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Link berfungsi dan ter-update; 2) Embed mandiri dapat dibuka tanpa Excel; 3) Kedua file tersimpan satu folder; 4) Laporan menggunakan data fiktif RS.</p>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Link berfungsi dan ter-update, 2) Embed mandiri dapat dibuka tanpa Excel, 3) Kedua file tersimpan satu folder, 4) Laporan menggunakan data fiktif RS.</p>
       </div>
     </section>
 
@@ -355,9 +351,9 @@ nav.agenda{display:none!important}
       <script type="application/json" id="quiz-post">
       {"judul":"Post-test","soal":[
         {"q":"Cara memperbarui link yang putus di Microsoft Word adalah …","opsi":["Hapus lalu paste ulang dari Excel","File → Info → Edit Links to Files","Insert → Object","Print Preview → Refresh"],"benar":1,"jelas":"Word menyediakan dialog Edit Links melalui File → Info → Edit Links to Files untuk mengubah lokasi sumber."},
-        {"q":"Embed paling cocok untuk …","opsi":["Laporan harian yang datanya sering berubah","Dokumen final yang akan dikirim tanpa menyertakan Excel","Presentasi online real-time","Basis data besar"],"benar":1,"jelas":"Embed membuat dokumen mandiri — penerima tidak perlu memiliki file Excel asli."},
+        {"q":"Embed paling cocok untuk …","opsi":["Laporan harian yang datanya sering berubah","Dokumen final yang akan dikirim tanpa menyertakan Excel","Presentasi online real-time","Basis data besar"],"benar":1,"jelas":"Embed membuat dokumen mandiri, penerima tidak perlu memiliki file Excel asli."},
         {"q":"Ukuran file Word yang berisi objek Embed dibandingkan dengan yang berisi Link adalah …","opsi":["Lebih kecil","Sama besar","Lebih besar","Tidak tentu"],"benar":2,"jelas":"Embed menyisipkan seluruh data objek ke dalam file Word, sehingga ukurannya lebih besar."},
-        {"q":"Saat Anda double-click objek Embed di Word, yang terjadi adalah …","opsi":["Excel terbuka sebagai jendela terpisah","Mode edit objek in-place aktif di dalam Word","Objek terhapus dari dokumen","Objek tersalin ke clipboard"],"benar":1,"jelas":"OLE Embedding memungkinkan edit in-place — antarmuka Excel muncul di dalam Word tanpa membuka jendela baru."},
+        {"q":"Saat Anda double-click objek Embed di Word, yang terjadi adalah …","opsi":["Excel terbuka sebagai jendela terpisah","Mode edit objek in-place aktif di dalam Word","Objek terhapus dari dokumen","Objek tersalin ke clipboard"],"benar":1,"jelas":"OLE Embedding memungkinkan edit in-place, antarmuka Excel muncul di dalam Word tanpa membuka jendela baru."},
         {"q":"Kelemahan utama Paste Link dibandingkan Paste biasa adalah …","opsi":["Data tidak dapat diedit","Bergantung pada keberadaan dan lokasi file sumber","Tidak mendukung tabel","Hanya berjalan di Windows"],"benar":1,"jelas":"Link akan putus jika file Excel sumber dipindah, diganti nama, atau dihapus."}
       ]}
       </script>
@@ -369,15 +365,15 @@ nav.agenda{display:none!important}
     <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
       <h4>Ringkasan Pertemuan 11</h4>
       <ol>
-        <li><strong>Paste Biasa</strong> menghasilkan salinan statis — cocok untuk arsip final yang tidak perlu diperbarui.</li>
-        <li><strong>Embed</strong> menyisipkan objek mandiri ke dalam Word — file tujuan bisa dibuka tanpa Excel, tetapi ukurannya lebih besar.</li>
-        <li><strong>Paste Link</strong> menciptakan tautan hidup — perubahan di Excel langsung tercermin di Word, ideal untuk laporan rutin.</li>
-        <li>Link putus jika file sumber berpindah lokasi, berganti nama, atau terhapus — selalu simpan kedua file dalam satu folder.</li>
+        <li><strong>Paste Biasa</strong> menghasilkan salinan statis, cocok untuk arsip final yang tidak perlu diperbarui.</li>
+        <li><strong>Embed</strong> menyisipkan objek mandiri ke dalam Word, file tujuan bisa dibuka tanpa Excel, tetapi ukurannya lebih besar.</li>
+        <li><strong>Paste Link</strong> menciptakan tautan hidup, perubahan di Excel langsung tercermin di Word, ideal untuk laporan rutin.</li>
+        <li>Link putus jika file sumber berpindah lokasi, berganti nama, atau terhapus, selalu simpan kedua file dalam satu folder.</li>
         <li>Gunakan <strong>File → Info → Edit Links to Files</strong> di Word untuk memperbaiki link yang putus.</li>
       </ol>
       <h4>Refleksi</h4>
       <div data-widget="reflect" data-key="krs-p11-refleksi" data-prompt="Situasi di RS mana yang akan kamu perbaiki dengan OLE? Dan apa yang masih membingungkan dari materi hari ini?"></div>
-      <p class="note"><strong>Tindak lanjut (Pertemuan 12):</strong> Integrasi Excel ke PowerPoint — grafik dinamis untuk presentasi rapat koordinasi RS.</p>
+      <p class="note"><strong>Tindak lanjut (Pertemuan 12):</strong> Integrasi Excel ke PowerPoint, grafik dinamis untuk presentasi rapat koordinasi RS.</p>
     </section>
 
   </main>
@@ -393,7 +389,6 @@ function h(tag,props,...kids){const e=document.createElement(tag);for(const k in
 const store={get(k,d){try{const v=localStorage.getItem(KONFIG.kode+"-"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem(KONFIG.kode+"-"+k,JSON.stringify(v));}catch(e){}}};
 function getData(id){return JSON.parse(document.getElementById(id).textContent);}
 function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
-function mmss(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
 let uid=0;const nextId=p=>p+"-"+(++uid);
 
 const W={};
@@ -447,7 +442,7 @@ W.reflect=el=>{
 };
 
 /* ============================================================
-   OLE Simulator — Inti 2
+   OLE Simulator: Inti 2
    ============================================================ */
 (function initOLESim(){
   const LABELS=["Poli Umum","Poli Gigi","Poli Anak"];
@@ -530,7 +525,7 @@ W.reflect=el=>{
 })();
 
 /* ============================================================
-   Diagnosa Link Putus — Inti 4
+   Diagnosa Link Putus: Inti 4
    ============================================================ */
 (function initDiagnosa(){
   const skenario=[
@@ -576,7 +571,7 @@ W.reflect=el=>{
 })();
 
 /* ============================================================
-   Praktik OLE — spreadsheet + dokumen Word
+   Praktik OLE, spreadsheet + dokumen Word
    ============================================================ */
 (function initPraktik(){
   const POLI=["Poli Umum","Poli Gigi","Poli Anak","Kandungan","Poli THT"];
@@ -639,11 +634,8 @@ function initSegmen(){
   let mulai=0;const links=[];
   segs.forEach((s,i)=>{
     const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
-    const head=h("div",{class:"seg-head"},h("h3",{},judul),h("span",{class:"badge"},min+" menit"));
-    let sisa=min*60,tid=null;const tb=h("button",{class:"btn sec",type:"button"},"⏱ "+mmss(sisa));
-    const tw=h("span",{class:"seg-timer"},tb);
-    tb.addEventListener("click",()=>{if(tid){clearInterval(tid);tid=null;tb.textContent="▶ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));return;}tid=setInterval(()=>{sisa--;tw.classList.toggle("over",sisa<0);tb.textContent="⏸ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));},1000);});
-    head.append(tw);s.prepend(head);
+    const head=h("div",{class:"seg-head"},h("h3",{},judul));
+    s.prepend(head);
     const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
     function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";done[s.id]=v;store.set("selesai",done);progres();}
     sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));
@@ -654,10 +646,9 @@ function initSegmen(){
   function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;$("#hdr-bar").style.width=(n/segs.length*100)+"%";}
   if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
 }
-function initJam(){let t=0,id=null;const c=$("#clock"),b=$("#clock-btn");b.addEventListener("click",()=>{if(id){clearInterval(id);id=null;b.textContent="Lanjut";}else{id=setInterval(()=>{t++;c.textContent=mmss(t);},1000);b.textContent="Jeda";}});}
 
 function isiHero(){
-  document.title="Pertemuan "+KONFIG.nomor+" — "+KONFIG.judul+" | Komputer Rumah Sakit";
+  document.title="Pertemuan "+KONFIG.nomor+": "+KONFIG.judul+" | Komputer Rumah Sakit";
   $("#hdr-judul").textContent=KONFIG.judul;
   $("#hdr-sub").textContent="Komputer Rumah Sakit · Pertemuan "+KONFIG.nomor;
   $("#hero-kode").textContent="Pertemuan "+KONFIG.nomor+" · "+KONFIG.cpmk.split(":")[0];
@@ -668,7 +659,7 @@ function isiHero(){
 document.addEventListener("DOMContentLoaded",()=>{
   isiHero();
   $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal ("+el.dataset.widget+"): "+e.message));}});
-  initSegmen();initJam();
+  initSegmen();
   window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
 });
 </script>

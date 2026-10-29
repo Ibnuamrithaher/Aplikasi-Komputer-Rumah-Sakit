@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 10 — PowerPoint Lanjutan: Data Storytelling | Komputer Rumah Sakit</title>
+<title>Pertemuan 10: PowerPoint Lanjutan: Data Storytelling | Komputer Rumah Sakit</title>
 <style>
 :root{
   --bg:#f6faf9; --surface:#ffffff; --ink:#12303a; --muted:#5b7480; --line:#d5e3e6;
@@ -38,7 +38,6 @@ button{cursor:pointer}
   padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
 .top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
 .top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
-.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
 .top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
 .top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
 .wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
@@ -61,10 +60,9 @@ main{min-width:0}
 .seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
 .seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
-.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
-.seg-timer{display:inline-flex;gap:6px;align-items:center}
-.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
-.seg-timer.over .btn{background:var(--bad);color:#fff}
+
+
+
 .seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
 .seg.done{border-left:6px solid var(--ok)}
 h4{margin:18px 0 6px;font-size:1.1rem}
@@ -170,7 +168,7 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 @media print{
   :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
   body{font-size:12pt}
-  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}
+  .top,nav.agenda,
   .wrap{display:block;padding:0}
   .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
   .hero{background:#fff;color:#000}
@@ -189,8 +187,6 @@ nav.agenda{display:none!important}
 <header class="top">
   <h1><span id="hdr-judul">Memuat…</span><small id="hdr-sub">Komputer Rumah Sakit</small></h1>
   <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
-  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
-  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 <div class="wrap">
@@ -207,12 +203,12 @@ nav.agenda{display:none!important}
     </div>
 
     <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">Dr. Hendra, Kepala Bidang Mutu RS Harapan Medika (fiktif), diminta direktur presentasi kinerja Oktober. BOR turun dari 82% ke 71%, LOS naik, ada masalah nyata — tapi semua ada di tabel angka biasa. Direktur melihat tabel dan berkata, <strong>"Data ini tidak bilang apa-apa."</strong> Dr. Hendra tersadar: data ada, tapi tidak <em>bercerita</em>. Padahal sebuah cerita yang didukung data adalah alat perubahan paling ampuh di manajemen RS.</p>
+      <p class="cerita">Dr. Hendra, Kepala Bidang Mutu RS Harapan Medika (fiktif), diminta direktur presentasi kinerja Oktober. BOR turun dari 82% ke 71%, LOS naik, ada masalah nyata, tapi semua ada di tabel angka biasa. Direktur melihat tabel dan berkata, <strong>"Data ini tidak bilang apa-apa."</strong> Dr. Hendra tersadar: data ada, tapi tidak <em>bercerita</em>. Padahal sebuah cerita yang didukung data adalah alat perubahan paling ampuh di manajemen RS.</p>
       <p>Hari ini kita belajar mengubah angka menjadi narasi yang meyakinkan, menghitung indikator mutu RS secara akurat, dan merancang dasbor presentasi interaktif di PowerPoint.</p>
     </section>
 
     <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
-      <p>Jawab 5 soal ini jujur — tidak ada penalti. Ini hanya melihat titik awal kalian.</p>
+      <p>Jawab 5 soal ini jujur, tidak ada penalti. Ini hanya melihat titik awal kalian.</p>
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test Pertemuan 10","soal":[
@@ -233,7 +229,7 @@ nav.agenda{display:none!important}
       </div>
       <div class="story-panels">
         <div class="story-panel raw" id="panel-raw">
-          <h5>Angka Mentah — Data BOR/LOS Triwulan III (Fiktif)</h5>
+          <h5>Angka Mentah: Data BOR/LOS Triwulan III (Fiktif)</h5>
           <table class="data">
             <thead><tr><th>Indikator</th><th>Jul</th><th>Agt</th><th>Sep</th></tr></thead>
             <tbody>
@@ -245,16 +241,16 @@ nav.agenda{display:none!important}
           </table>
         </div>
         <div class="story-panel narasi" id="panel-narasi" hidden>
-          <h5>Narasi Cerita — Data yang Sama, Konteks Berbeda</h5>
-          <p>Selama Triwulan III, RS Harapan Medika mengalami <span class="hilite bad">tekanan kapasitas yang memburuk</span>: BOR turun dari <strong>81%</strong> di Juli menjadi <span class="hilite bad">71%</span> di September — di bawah ambang batas optimal 60-85%.</p>
-          <p>Lebih mengkhawatirkan, LOS melonjak dari <span class="hilite ok">6,2 hari</span> (normal) ke <span class="hilite bad">8,1 hari</span> — pasien dirawat lebih lama, mengindikasikan kemungkinan komplikasi atau hambatan discharge.</p>
+          <h5>Narasi Cerita: Data yang Sama, Konteks Berbeda</h5>
+          <p>Selama Triwulan III, RS Harapan Medika mengalami <span class="hilite bad">tekanan kapasitas yang memburuk</span>: BOR turun dari <strong>81%</strong> di Juli menjadi <span class="hilite bad">71%</span> di September, di bawah ambang batas optimal 60-85%.</p>
+          <p>Lebih mengkhawatirkan, LOS melonjak dari <span class="hilite ok">6,2 hari</span> (normal) ke <span class="hilite bad">8,1 hari</span>, pasien dirawat lebih lama, mengindikasikan kemungkinan komplikasi atau hambatan discharge.</p>
           <p>TOI yang menyempit ke <span class="hilite bad">1,1 hari</span> berarti TT hampir tidak sempat "bernapas" antara pasien. Tren ini perlu tindakan segera di bulan Oktober.</p>
         </div>
       </div>
       <h4>5 Prinsip Data Storytelling</h4>
       <ol class="principles">
         <li><strong>Konteks:</strong> Selalu tampilkan data dalam konteks (bandingkan dengan target, periode lalu, atau standar).</li>
-        <li><strong>Fokus:</strong> Satu pesan utama per slide — jangan semuanya sekaligus.</li>
+        <li><strong>Fokus:</strong> Satu pesan utama per slide, jangan semuanya sekaligus.</li>
         <li><strong>Visual:</strong> Pilih grafik yang sesuai dengan pesan, bukan sekadar "keren".</li>
         <li><strong>Narasi:</strong> Rangkai data menjadi alur cerita: situasi → masalah → rekomendasi.</li>
         <li><strong>Relevansi:</strong> Sesuaikan kedalaman data dengan kebutuhan audiens (direktur vs staf klinis).</li>
@@ -262,7 +258,7 @@ nav.agenda{display:none!important}
     </section>
 
     <section class="seg" id="seg-inti2" data-judul="Inti 2: Kalkulator Indikator Mutu RS" data-min="10">
-      <p>Ubah angka input di bawah — hasil, rumus, dan status normal tampil otomatis.</p>
+      <p>Ubah angka input di bawah, hasil, rumus, dan status normal tampil otomatis.</p>
       <div class="calc-inputs">
         <div class="calc-field"><label for="inp-tt">Tempat Tidur (TT)</label><input type="number" id="inp-tt" min="1" max="1000" value="100"></div>
         <div class="calc-field"><label for="inp-hp">Hari Perawatan (HP)</label><input type="number" id="inp-hp" min="0" max="400000" value="22500"></div>
@@ -274,7 +270,7 @@ nav.agenda{display:none!important}
     </section>
 
     <section class="seg" id="seg-inti3" data-judul="Inti 3: Hyperlink & Navigasi Non-Linear" data-min="10">
-      <p>Presentasi PPT tidak harus linear. Klik tombol nomor slide untuk lompat langsung — ini meniru fitur <strong>Hyperlink</strong> dan <strong>Action Button</strong> di PPT nyata.</p>
+      <p>Presentasi PPT tidak harus linear. Klik tombol nomor slide untuk lompat langsung, ini meniru fitur <strong>Hyperlink</strong> dan <strong>Action Button</strong> di PPT nyata.</p>
       <div class="minideck" id="minideck-p10"></div>
       <h4>Kapan pakai navigasi non-linear?</h4>
       <div class="grid2">
@@ -313,7 +309,7 @@ nav.agenda{display:none!important}
       {"judul":"Post-test Pertemuan 10","soal":[
         {"q":"RS dengan BOR 90% selama 3 bulan berturut-turut mengindikasikan …","opsi":["Kinerja sempurna, tidak perlu tindakan","Kelebihan beban, risiko mutu dan infeksi meningkat","Kekurangan pasien, perlu promosi","TT terlalu banyak"],"benar":1,"jelas":"BOR >85% terus-menerus mengindikasikan overkapasitas, risiko infeksi nosokomial meningkat."},
         {"q":"Manakah contoh penerapan prinsip 'fokus' dalam data storytelling?","opsi":["Memasukkan semua tabel data di satu slide","Membuat satu kalimat headline yang meringkas pesan utama slide","Menggunakan 10 warna berbeda untuk tiap grafik","Menghapus semua grafik dan hanya menampilkan tabel"],"benar":1,"jelas":"Prinsip fokus = satu pesan utama per slide, diperkuat headline yang kuat."},
-        {"q":"TOI = 0,5 hari artinya …","opsi":["TT kosong setengah hari antara dua pasien — sangat efisien","TT hampir tidak sempat dibersihkan/disiapkan ulang — berisiko INOS","LOS terlalu pendek","BOR terlalu rendah"],"benar":1,"jelas":"TOI ideal 1–3 hari. TOI 0,5 hari berarti TT hampir langsung terisi — risiko kebersihan dan infeksi."},
+        {"q":"TOI = 0,5 hari artinya …","opsi":["TT kosong setengah hari antara dua pasien, sangat efisien","TT hampir tidak sempat dibersihkan/disiapkan ulang, berisiko INOS","LOS terlalu pendek","BOR terlalu rendah"],"benar":1,"jelas":"TOI ideal 1–3 hari. TOI 0,5 hari berarti TT hampir langsung terisi, risiko kebersihan dan infeksi."},
         {"q":"Rumus BTO yang benar adalah …","opsi":["Pasien Keluar × Tempat Tidur","Hari Perawatan ÷ Pasien Keluar","Pasien Keluar ÷ Tempat Tidur","(TT × Periode − HP) ÷ PK"],"benar":2,"jelas":"BTO = Pasien Keluar ÷ Tempat Tidur, menunjukkan berapa kali rata-rata TT dipakai dalam setahun."},
         {"q":"Fitur 'Rehearse Timings' di PowerPoint berguna untuk …","opsi":["Menambah animasi otomatis","Merekam berapa lama tiap slide ditampilkan saat latihan","Membuat hyperlink antar slide","Mengubah ukuran font secara otomatis"],"benar":1,"jelas":"Rehearse Timings merekam durasi tiap slide agar slide berpindah otomatis sesuai ritme latihan."}
       ]}
@@ -326,14 +322,14 @@ nav.agenda{display:none!important}
       <h4>5 Poin Ringkasan</h4>
       <ol>
         <li><strong>Data Storytelling</strong> mengubah angka menjadi narasi berstruktur: situasi → masalah → rekomendasi.</li>
-        <li><strong>BOR, LOS, TOI, BTO</strong> adalah empat indikator efisiensi utama RS — masing-masing punya rentang normal berbeda.</li>
-        <li><strong>BOR ideal 60–85%</strong>; di bawah itu underutilized, di atas itu overloaded.</li>
-        <li><strong>Hyperlink & Action Button</strong> memungkinkan navigasi non-linear di PPT — ideal untuk laporan berbasis pertanyaan audiens.</li>
+        <li><strong>BOR, LOS, TOI, BTO</strong> adalah empat indikator efisiensi utama RS, masing-masing punya rentang normal berbeda.</li>
+        <li><strong>BOR ideal 60–85%</strong>, di bawah itu underutilized, di atas itu overloaded.</li>
+        <li><strong>Hyperlink & Action Button</strong> memungkinkan navigasi non-linear di PPT, ideal untuk laporan berbasis pertanyaan audiens.</li>
         <li><strong>Rehearse Timings</strong> membantu presenter melatih ritme tanpa melebihi batas waktu rapat.</li>
       </ol>
       <h4>Refleksi</h4>
       <div data-widget="reflect" data-key="refleksi-p10" data-prompt="Satu hal yang paling berguna hari ini, dan satu hal tentang data storytelling yang masih ingin kamu perjelas:"></div>
-      <p class="note"><strong>Tindak lanjut:</strong> Sebelum pertemuan 11 — pastikan terinstal Microsoft Word dan Excel. Kita akan menghubungkan kedua aplikasi secara dinamis menggunakan OLE (Object Linking &amp; Embedding).</p>
+      <p class="note"><strong>Tindak lanjut:</strong> Sebelum pertemuan 11, pastikan terinstal Microsoft Word dan Excel. Kita akan menghubungkan kedua aplikasi secara dinamis menggunakan OLE (Object Linking &amp; Embedding).</p>
     </section>
   </main>
 </div>
@@ -543,8 +539,8 @@ function initMiniDeck() {
   if (!wrap) return;
   const slides = [
     { judul: "Ringkasan Kinerja Oktober", isi: "BOR Oktober: 71% (turun dari 82%). LOS: 8,1 hari (di atas normal). Tren memburuk selama 3 bulan terakhir. [→ Klik slide 2 untuk detail BOR, slide 3 untuk LOS, slide 4 untuk rekomendasi]" },
-    { judul: "Detail BOR — Trend Turun", isi: "Juli: 81% ✓ | Agustus: 78% ✓ | September: 71% ⚠. Penyebab: refurbishment bangsal Anggrek (20 TT tidak aktif). Proyeksi Oktober setelah renovasi selesai: kembali ke 78–80%." },
-    { judul: "Analisis LOS — Mengapa Naik?", isi: "LOS naik ke 8,1 hari (normal: 6–9). Faktor: 1) Kasus DM dengan komplikasi meningkat 18%. 2) Hambatan discharge pasien BPJS (verifikasi berkas 2 hari). Rekomendasi: percepat proses discharge planning." },
+    { judul: "Detail BOR: Trend Turun", isi: "Juli: 81% ✓ | Agustus: 78% ✓ | September: 71% ⚠. Penyebab: refurbishment bangsal Anggrek (20 TT tidak aktif). Proyeksi Oktober setelah renovasi selesai: kembali ke 78–80%." },
+    { judul: "Analisis LOS: Mengapa Naik?", isi: "LOS naik ke 8,1 hari (normal: 6–9). Faktor: 1) Kasus DM dengan komplikasi meningkat 18%. 2) Hambatan discharge pasien BPJS (verifikasi berkas 2 hari). Rekomendasi: percepat proses discharge planning." },
     { judul: "Rekomendasi & Tindak Lanjut", isi: "1. Aktifkan kembali 20 TT bangsal Anggrek paling lambat 15 Nov. 2. Buat SOP discharge planning ≤ 24 jam untuk pasien BPJS. 3. Monitor BOR mingguan, target kembali ke 80% pada Desember." }
   ];
   let cur = 0;
@@ -743,7 +739,7 @@ function initDashBuilder() {
         panel.append(makeBarSVG(num, num * 1.5));
         panel.append(h("div", { style: "font-size:.85rem;color:var(--muted)" }, ind.val));
       }
-      panel.append(h("div", { class: "panel-label" }, ind.nama + " — " + ind.desc));
+      panel.append(h("div", { class: "panel-label" }, ind.nama + ": " + ind.desc));
       grid.append(panel);
     });
   }
@@ -776,15 +772,8 @@ function initSegmen() {
   const links = [];
   segs.forEach((s, i) => {
     const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
-    const head = h("div", { class: "seg-head" }, h("h3", {}, judul), h("span", { class: "badge" }, min + " menit"));
-    let sisa = min * 60, tid = null;
-    const tb = h("button", { class: "btn sec", type: "button" }, "⏱ " + mmss(sisa));
-    const tw = h("span", { class: "seg-timer" }, tb);
-    tb.addEventListener("click", () => {
-      if (tid) { clearInterval(tid); tid = null; tb.textContent = "▶ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); return; }
-      tid = setInterval(() => { sisa--; tw.classList.toggle("over", sisa < 0); tb.textContent = "⏸ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); }, 1000);
-    });
-    head.append(tw); s.prepend(head);
+    const head = h("div", { class: "seg-head" }, h("h3", {}, judul));
+     s.prepend(head);
     const foot = h("div", { class: "seg-foot" });
     const sb = h("button", { class: "btn sec", type: "button" });
     function tandai(v) {
@@ -803,16 +792,8 @@ function initSegmen() {
     segs.forEach(s => io.observe(s));
   }
 }
-function initJam() {
-  let t = 0, id = null;
-  const c = $("#clock"), b = $("#clock-btn");
-  b.addEventListener("click", () => {
-    if (id) { clearInterval(id); id = null; b.textContent = "Lanjut"; }
-    else { id = setInterval(() => { t++; c.textContent = mmss(t); }, 1000); b.textContent = "Jeda"; }
-  });
-}
 function isiHero() {
-  document.title = "Pertemuan " + KONFIG.nomor + " — " + KONFIG.judul + " | Komputer Rumah Sakit";
+  document.title = "Pertemuan " + KONFIG.nomor + ": " + KONFIG.judul + " | Komputer Rumah Sakit";
   $("#hdr-judul").textContent = KONFIG.judul;
   $("#hdr-sub").textContent = "Komputer Rumah Sakit · Pertemuan " + KONFIG.nomor;
   $("#hero-kode").textContent = "Pertemuan " + KONFIG.nomor + " · " + KONFIG.cpmk.split(":")[0];
@@ -827,7 +808,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!fn) return;
     try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal (" + el.dataset.widget + "): " + e.message)); }
   });
-  initTabs(); initSegmen(); initJam();
+  initTabs(); initSegmen();
   initStoryToggle(); initKalkulator(); initMiniDeck(); initRehearsal(); initDashBuilder();
   window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));
 });

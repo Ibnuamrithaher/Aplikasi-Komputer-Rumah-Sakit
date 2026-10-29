@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 13 — Internet &amp; Komunikasi Email Resmi RS | Komputer Rumah Sakit</title>
+<title>Pertemuan 13: Internet &amp; Komunikasi Email Resmi RS | Komputer Rumah Sakit</title>
 <style>
 :root{
   --bg:#f6faf9; --surface:#ffffff; --ink:#12303a; --muted:#5b7480; --line:#d5e3e6;
@@ -38,7 +38,6 @@ button{cursor:pointer}
   padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
 .top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
 .top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
-.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
 .top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
 .top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
 .wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
@@ -61,10 +60,9 @@ main{min-width:0}
 .seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
 .seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
-.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
-.seg-timer{display:inline-flex;gap:6px;align-items:center}
-.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
-.seg-timer.over .btn{background:var(--bad);color:#fff}
+
+
+
 .seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
 .seg.done{border-left:6px solid var(--ok)}
 h4{margin:18px 0 6px;font-size:1.1rem}
@@ -152,7 +150,7 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 @media print{
   :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
   body{font-size:12pt}
-  .top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip,.modal-bg{display:none!important}
+  .top,nav.agenda,
   .wrap{display:block;padding:0}
   .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
   .hero{background:#fff;color:#000}
@@ -171,8 +169,6 @@ nav.agenda{display:none!important}
 <header class="top">
   <h1><span id="hdr-judul">Internet &amp; Komunikasi Email Resmi RS</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 13</small></h1>
   <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
-  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
-  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 
@@ -196,7 +192,7 @@ nav.agenda{display:none!important}
 
     <!-- PEMBUKA -->
     <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">Pagi itu, Dian Rahayu — staf administrasi baru RS Harapan Medika (fiktif) — buru-buru mengirim email ke dr. Bambang Santoso, Kepala Instalasi Rawat Inap. Subjeknya hanya "halo". Isi emailnya: "Pak dokter, file-nya saya kirim ya, tolong dilihat". Tidak ada file terlampir, tidak ada salam resmi, dan tidak ada keterangan file apa yang dimaksud. Dr. Bambang bingung dan harus membalas untuk bertanya. Rapat koordinasi pun molor 30 menit menunggu data yang harusnya sudah ada.</p>
+      <p class="cerita">Pagi itu, Dian Rahayu, staf administrasi baru RS Harapan Medika (fiktif), buru-buru mengirim email ke dr. Bambang Santoso, Kepala Instalasi Rawat Inap. Subjeknya hanya "halo". Isi emailnya: "Pak dokter, file-nya saya kirim ya, tolong dilihat". Tidak ada file terlampir, tidak ada salam resmi, dan tidak ada keterangan file apa yang dimaksud. Dr. Bambang bingung dan harus membalas untuk bertanya. Rapat koordinasi pun molor 30 menit menunggu data yang harusnya sudah ada.</p>
       <p>Hari ini kita akan belajar cara menulis email dinas yang profesional: format yang benar, penggunaan To/CC/BCC, subjek yang efektif, dan etika pengiriman dokumen rumah sakit.</p>
       <div class="note">📧 <strong>Ingat:</strong> Email resmi adalah representasi institusi. Satu email yang tidak profesional bisa mencoreng citra RS dan menghambat pelayanan pasien.</div>
     </section>
@@ -208,7 +204,7 @@ nav.agenda{display:none!important}
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test","soal":[
         {"q":"Apa fungsi kolom BCC dalam email?","opsi":["Mengirim salinan ke penerima yang namanya terlihat semua orang","Mengirim salinan tersembunyi sehingga penerima lain tidak tahu","Meneruskan email secara otomatis ke server","Menandai email sebagai prioritas tinggi"],"benar":1,"jelas":"BCC (Blind Carbon Copy) menyembunyikan identitas penerima dari penerima lain."},
-        {"q":"Mana subjek email yang paling efektif untuk email dinas RS?","opsi":["halo","ada info penting","Laporan Kunjungan Poli Umum Februari 2026 — Mohon Ditindaklanjuti","FWD: RE:"],"benar":2,"jelas":"Subjek yang baik spesifik, jelas, dan mencantumkan konteks (jenis dokumen, periode, tindakan yang diharapkan)."},
+        {"q":"Mana subjek email yang paling efektif untuk email dinas RS?","opsi":["halo","ada info penting","Laporan Kunjungan Poli Umum Februari 2026: Mohon Ditindaklanjuti","FWD: RE:"],"benar":2,"jelas":"Subjek yang baik spesifik, jelas, dan mencantumkan konteks (jenis dokumen, periode, tindakan yang diharapkan)."},
         {"q":"Apa yang WAJIB ada dalam signature block email dinas RS?","opsi":["Foto profil","Nama, jabatan, dan kontak resmi","Kutipan motivasi","Link media sosial pribadi"],"benar":1,"jelas":"Signature block minimal berisi: nama lengkap, jabatan, unit/instalasi, nomor kontak resmi."},
         {"q":"Kapan sebaiknya menggunakan CC (Carbon Copy)?","opsi":["Untuk semua penerima agar hemat waktu","Untuk atasan yang perlu mengetahui tanpa harus menindaklanjuti","Untuk menyembunyikan penerima","Hanya saat file sangat besar"],"benar":1,"jelas":"CC digunakan untuk penerima yang perlu tahu (tembusan) tetapi bukan penanggung jawab tindak lanjut."}
       ]}
@@ -243,7 +239,7 @@ nav.agenda{display:none!important}
         </div>
         <div class="ep-row">
           <span class="label">Subjek</span>
-          <span>Laporan Kunjungan Poli Umum — Januari 2026 [Mohon Review]</span>
+          <span>Laporan Kunjungan Poli Umum: Januari 2026 [Mohon Review]</span>
           <button class="ep-btn" onclick="showModal('subject')">ℹ</button>
         </div>
         <div class="ep-row">
@@ -260,7 +256,7 @@ nav.agenda{display:none!important}
           Hormat saya,<br><br>
           <strong>Dian Rahayu, A.Md.RMIK</strong><br>
           Staf Rekam Medis<br>
-          Instalasi Rekam Medis — RS Harapan Medika<br>
+          Instalasi Rekam Medis: RS Harapan Medika<br>
           Telp: (021) 555-0142 Ext. 301 (fiktif)<br>
           Email: dian.rahayu@rsharapanmedika.id (fiktif)</p>
         </div>
@@ -325,14 +321,14 @@ nav.agenda{display:none!important}
       <div data-widget="quiz" data-src="quiz-subjek" data-role="subjek" class="quiz"></div>
       <script type="application/json" id="quiz-subjek">
       {"judul":"Quiz: Perbaiki Subjek Email","soal":[
-        {"q":"Subjek email: \"FWD: RE: halo\" → Mana subjek yang lebih baik?","opsi":["Permohonan Data Kunjungan Poli — Januari 2026 [URGENT]","Email baru","FWD: halo v2","Re: halo (2)"],"benar":0,"jelas":"Subjek yang baik menyebutkan jenis permintaan, periode, dan urgensi jika ada. Hindari FWD/RE berulang tanpa konteks."},
-        {"q":"Subjek email: \"ada masalah\" → Mana subjek yang lebih baik?","opsi":["ada masalah penting","Kendala Input Data RM Pasien No. 2024-001 — Mohon Bantuan IT","masalah sistem","error"],"benar":1,"jelas":"Sertakan identifikasi masalah spesifik (nomor rekam medis), jenis kendala, dan siapa yang perlu ditindaklanjuti."},
-        {"q":"Subjek email: \"meeting\" → Mana subjek yang lebih baik?","opsi":["Undangan Rapat Koordinasi Bulanan — Kamis 15 Januari 2026, 09.00","rapat bulan ini","meeting penting segera","tolong hadir"],"benar":0,"jelas":"Undangan rapat harus menyebutkan jenis rapat, tanggal, dan jam agar mudah dicari di kotak masuk."},
-        {"q":"Subjek email: \"data pasien\" → Mana subjek yang lebih baik?","opsi":["data pasien ada","Rekap Data Rawat Inap Desember 2025 — Instalasi Bedah [Untuk Review Bulanan]","info pasien terbaru","update data"],"benar":2,"jelas":"Sertakan unit, periode, jenis dokumen, dan tujuan pengiriman agar penerima dapat memprioritaskan dengan tepat."}
+        {"q":"Subjek email: \"FWD: RE: halo\" → Mana subjek yang lebih baik?","opsi":["Permohonan Data Kunjungan Poli: Januari 2026 [URGENT]","Email baru","FWD: halo v2","Re: halo (2)"],"benar":0,"jelas":"Subjek yang baik menyebutkan jenis permintaan, periode, dan urgensi jika ada. Hindari FWD/RE berulang tanpa konteks."},
+        {"q":"Subjek email: \"ada masalah\" → Mana subjek yang lebih baik?","opsi":["ada masalah penting","Kendala Input Data RM Pasien No. 2024-001: Mohon Bantuan IT","masalah sistem","error"],"benar":1,"jelas":"Sertakan identifikasi masalah spesifik (nomor rekam medis), jenis kendala, dan siapa yang perlu ditindaklanjuti."},
+        {"q":"Subjek email: \"meeting\" → Mana subjek yang lebih baik?","opsi":["Undangan Rapat Koordinasi Bulanan: Kamis 15 Januari 2026, 09.00","rapat bulan ini","meeting penting segera","tolong hadir"],"benar":0,"jelas":"Undangan rapat harus menyebutkan jenis rapat, tanggal, dan jam agar mudah dicari di kotak masuk."},
+        {"q":"Subjek email: \"data pasien\" → Mana subjek yang lebih baik?","opsi":["data pasien ada","Rekap Data Rawat Inap Desember 2025: Instalasi Bedah [Untuk Review Bulanan]","info pasien terbaru","update data"],"benar":2,"jelas":"Sertakan unit, periode, jenis dokumen, dan tujuan pengiriman agar penerima dapat memprioritaskan dengan tepat."}
       ]}
       </script>
 
-      <h4>Simulasi Kotak Masuk — Coba Fitur Pencarian</h4>
+      <h4>Simulasi Kotak Masuk: Coba Fitur Pencarian</h4>
       <div id="inbox-sim">
         <div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap">
           <input type="text" id="inbox-search" placeholder="Cari subjek email…" style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--surface)" aria-label="Cari email">
@@ -414,7 +410,7 @@ nav.agenda{display:none!important}
     <!-- PRAKTIK -->
     <section class="seg" id="seg-praktik" data-judul="Praktik: Penyusun Email Simulasi" data-min="25">
       <p>Susun email dinas berikut. Setelah selesai, klik <strong>Periksa &amp; Kirim</strong> untuk mendapat skor dan umpan balik otomatis.</p>
-      <p class="note"><strong>Skenario:</strong> Anda (Agus Setiawan, Staf Rekam Medis RS Husada Prima — fiktif) perlu mengirim rekap data rawat jalan bulan Maret 2026 kepada dr. Yanti Kusuma (Kepala Poli), dengan tembusan ke Manajer Kualitas. File rekap sudah disiapkan.</p>
+      <p class="note"><strong>Skenario:</strong> Anda (Agus Setiawan, Staf Rekam Medis RS Husada Prima, fiktif) perlu mengirim rekap data rawat jalan bulan Maret 2026 kepada dr. Yanti Kusuma (Kepala Poli), dengan tembusan ke Manajer Kualitas. File rekap sudah disiapkan.</p>
 
       <div class="form-email" id="form-praktik13">
         <div>
@@ -474,9 +470,9 @@ nav.agenda{display:none!important}
       <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
       <script type="application/json" id="quiz-post">
       {"judul":"Post-test","soal":[
-        {"q":"Budi ingin mengirim undangan rapat ke 50 mitra eksternal RS tanpa mereka saling mengetahui alamat email satu sama lain. Kolom mana yang digunakan?","opsi":["To (semua dimasukkan)","CC","BCC","Reply All"],"benar":2,"jelas":"BCC menyembunyikan daftar penerima satu dari yang lain — sangat penting untuk privasi email massal ke pihak luar."},
+        {"q":"Budi ingin mengirim undangan rapat ke 50 mitra eksternal RS tanpa mereka saling mengetahui alamat email satu sama lain. Kolom mana yang digunakan?","opsi":["To (semua dimasukkan)","CC","BCC","Reply All"],"benar":2,"jelas":"BCC menyembunyikan daftar penerima satu dari yang lain, sangat penting untuk privasi email massal ke pihak luar."},
         {"q":"Dokumen apa yang TIDAK sebaiknya dilampirkan tanpa enkripsi?","opsi":["Jadwal rapat bulanan","Rekap data rekam medis pasien","Denah lokasi RS","Daftar menu kantin"],"benar":1,"jelas":"Data rekam medis adalah data sensitif pasien yang wajib dienkripsi sebelum dikirim via email."},
-        {"q":"Subjek email mana yang paling tepat untuk mengirim laporan keuangan triwulanan?","opsi":["laporan","Laporan Keuangan Q1 2026 — Instalasi Farmasi [Untuk Persetujuan Direktur]","Q1","FWD: laporan lama"],"benar":1,"jelas":"Sertakan jenis dokumen, periode, unit, dan tindakan yang diharapkan agar mudah diprioritaskan penerima."},
+        {"q":"Subjek email mana yang paling tepat untuk mengirim laporan keuangan triwulanan?","opsi":["laporan","Laporan Keuangan Q1 2026: Instalasi Farmasi [Untuk Persetujuan Direktur]","Q1","FWD: laporan lama"],"benar":1,"jelas":"Sertakan jenis dokumen, periode, unit, dan tindakan yang diharapkan agar mudah diprioritaskan penerima."},
         {"q":"Mana yang BUKAN elemen wajib dalam signature block email dinas RS?","opsi":["Nama lengkap dan gelar","Jabatan dan unit/instalasi","Nomor kontak resmi","Foto selfie profil"],"benar":3,"jelas":"Signature block resmi terdiri dari nama, jabatan, unit, dan kontak resmi. Foto profil bersifat opsional dan tidak wajib."}
       ]}
       </script>
@@ -489,14 +485,14 @@ nav.agenda{display:none!important}
       <h4>Ringkasan Pertemuan 13</h4>
       <ol>
         <li><strong>Anatomi email dinas</strong> mencakup 8 elemen: From, To, CC, BCC, Subject, Salam, Body, Signature</li>
-        <li><strong>To</strong> = penanggung jawab; <strong>CC</strong> = tembusan terbuka; <strong>BCC</strong> = tembusan tersembunyi</li>
+        <li><strong>To</strong> = penanggung jawab, <strong>CC</strong> = tembusan terbuka, <strong>BCC</strong> = tembusan tersembunyi</li>
         <li><strong>Subjek efektif</strong>: spesifik, ada konteks (jenis dokumen, periode, tindakan)</li>
         <li><strong>Lampiran</strong>: format standar (PDF/XLSX/DOCX), enkripsi data pasien, konfirmasi penerimaan</li>
         <li>Selalu gunakan <strong>checklist sebelum kirim</strong> agar tidak ada yang terlewat</li>
       </ol>
       <h4>Refleksi</h4>
       <div data-widget="reflect" data-key="refleksi-p13" data-prompt="Satu kebiasaan email yang akan kamu ubah setelah pertemuan ini, dan satu hal yang masih membingungkan:"></div>
-      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 14 — Cloud Storage &amp; Kolaborasi Dokumen Online. Baca kebijakan penggunaan cloud di institusi RS masing-masing.</p>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 14: Cloud Storage &amp; Kolaborasi Dokumen Online. Baca kebijakan penggunaan cloud di institusi RS masing-masing.</p>
     </section>
   </main>
 </div>
@@ -535,16 +531,15 @@ const store = {
 };
 function getData(id) { return JSON.parse(document.getElementById(id).textContent); }
 function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
-function mmss(s) { s = Math.max(0, Math.round(s)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
 let uid = 0; const nextId = p => p + "-" + (++uid);
 
 /* Modal info email */
 const MODAL_DATA = {
-  from: { title: "From — Pengirim", body: "Alamat email pengirim HARUS menggunakan domain resmi instansi (contoh: @rsharapanmedika.id). Jangan menggunakan email pribadi (Gmail, Yahoo) untuk urusan dinas resmi karena tidak terlacak dalam sistem dan tidak profesional." },
-  to: { title: "To — Penerima Utama", body: "Masukkan alamat email orang yang HARUS menindaklanjuti email ini. Penerima di kolom To memiliki tanggung jawab untuk merespons atau bertindak. Untuk email kepada satu orang, cukup To saja." },
-  cc: { title: "CC — Carbon Copy (Tembusan Terbuka)", body: "CC digunakan untuk mengirim salinan email kepada orang yang perlu tahu tetapi tidak wajib menindaklanjuti. Semua penerima (To dan CC) bisa saling melihat alamat email masing-masing." },
-  bcc: { title: "BCC — Blind Carbon Copy (Tembusan Tersembunyi)", body: "Penerima BCC mendapat salinan email, tetapi alamatnya tidak terlihat oleh penerima To dan CC. Gunakan BCC untuk pengiriman massal ke daftar kontak atau saat privasi penerima perlu dijaga." },
-  subject: { title: "Subject — Subjek Email", body: "Subjek yang efektif memuat: (1) Jenis dokumen/permintaan, (2) Periode atau nomor referensi, (3) Tindakan yang diharapkan, dan (4) Tag urgensi jika perlu [URGENT]/[INFO]/[ACTION]. Hindari subjek generik seperti 'halo' atau 'ada info'." },
+  from: { title: "From: Pengirim", body: "Alamat email pengirim HARUS menggunakan domain resmi instansi (contoh: @rsharapanmedika.id). Jangan menggunakan email pribadi (Gmail, Yahoo) untuk urusan dinas resmi karena tidak terlacak dalam sistem dan tidak profesional." },
+  to: { title: "To: Penerima Utama", body: "Masukkan alamat email orang yang HARUS menindaklanjuti email ini. Penerima di kolom To memiliki tanggung jawab untuk merespons atau bertindak. Untuk email kepada satu orang, cukup To saja." },
+  cc: { title: "CC: Carbon Copy (Tembusan Terbuka)", body: "CC digunakan untuk mengirim salinan email kepada orang yang perlu tahu tetapi tidak wajib menindaklanjuti. Semua penerima (To dan CC) bisa saling melihat alamat email masing-masing." },
+  bcc: { title: "BCC: Blind Carbon Copy (Tembusan Tersembunyi)", body: "Penerima BCC mendapat salinan email, tetapi alamatnya tidak terlihat oleh penerima To dan CC. Gunakan BCC untuk pengiriman massal ke daftar kontak atau saat privasi penerima perlu dijaga." },
+  subject: { title: "Subject: Subjek Email", body: "Subjek yang efektif memuat: (1) Jenis dokumen/permintaan, (2) Periode atau nomor referensi, (3) Tindakan yang diharapkan, dan (4) Tag urgensi jika perlu [URGENT]/[INFO]/[ACTION]. Hindari subjek generik seperti 'halo' atau 'ada info'." },
   attachment: { title: "Lampiran (Attachment)", body: "Format standar RS: PDF untuk dokumen final, XLSX untuk data, DOCX untuk draf. Ukuran maksimal umumnya 10–25 MB. WAJIB enkripsi jika berisi data pasien. Selalu konfirmasi penerimaan lampiran kepada penerima." },
   salam: { title: "Salam Pembuka", body: "Gunakan salam resmi: 'Yth. [Nama], [Jabatan]' untuk awal email dinas. Diikuti kalimat pembuka sopan seperti 'Dengan hormat,' atau 'Sehubungan dengan...'." },
   body: { title: "Tubuh Email (Body)", body: "Struktur body email yang baik: (1) PEMBUKA: konteks dan tujuan email, (2) ISI: informasi detail, data, atau permintaan, (3) PENUTUP: tindakan yang diharapkan, tenggat waktu, dan ucapan terima kasih." },
@@ -561,12 +556,12 @@ function hideModal(e) { if (e.target === document.getElementById("modal-bg")) do
 /* Inbox simulasi */
 const INBOX = [
   { from: "dr.purnomo@rsmedikasentral.id (fiktif)", subj: "FWD: RE: halo", preview: "Hei, ada info..." },
-  { from: "admin.farmasi@rsmedikasentral.id (fiktif)", subj: "Permohonan Data Kunjungan Poli — Januari 2026 [URGENT]", preview: "Mohon data kunjungan..." },
+  { from: "admin.farmasi@rsmedikasentral.id (fiktif)", subj: "Permohonan Data Kunjungan Poli: Januari 2026 [URGENT]", preview: "Mohon data kunjungan..." },
   { from: "rini.lestari@rsmedikasentral.id (fiktif)", subj: "ada masalah", preview: "Sistem error lagi..." },
-  { from: "it.support@rsmedikasentral.id (fiktif)", subj: "Kendala Input Data RM Pasien No. 2024-001 — Mohon Bantuan IT", preview: "Kami temukan error pada..." },
+  { from: "it.support@rsmedikasentral.id (fiktif)", subj: "Kendala Input Data RM Pasien No. 2024-001: Mohon Bantuan IT", preview: "Kami temukan error pada..." },
   { from: "kepala.bagian@rsmedikasentral.id (fiktif)", subj: "meeting", preview: "Harap hadir besok..." },
-  { from: "sekretariat@rsmedikasentral.id (fiktif)", subj: "Undangan Rapat Koordinasi Bulanan — Kamis 15 Januari 2026, 09.00", preview: "Bersama ini disampaikan..." },
-  { from: "dr.santi@rsmedikasentral.id (fiktif)", subj: "Laporan Kunjungan Poli Umum Februari 2026 — Rekap Bulanan", preview: "Terlampir rekap data..." },
+  { from: "sekretariat@rsmedikasentral.id (fiktif)", subj: "Undangan Rapat Koordinasi Bulanan: Kamis 15 Januari 2026, 09.00", preview: "Bersama ini disampaikan..." },
+  { from: "dr.santi@rsmedikasentral.id (fiktif)", subj: "Laporan Kunjungan Poli Umum Februari 2026: Rekap Bulanan", preview: "Terlampir rekap data..." },
   { from: "budi.hartono@rsmedikasentral.id (fiktif)", subj: "data pasien", preview: "Ini datanya pak..." }
 ];
 function renderInbox(query) {
@@ -758,14 +753,8 @@ function initSegmen() {
   const links = [];
   segs.forEach((s, i) => {
     const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
-    const head = h("div", { class: "seg-head" }, h("h3", {}, judul), h("span", { class: "badge" }, min + " menit"));
-    let sisa = min * 60, tid = null; const tb = h("button", { class: "btn sec", type: "button" }, "⏱ " + mmss(sisa));
-    const tw = h("span", { class: "seg-timer" }, tb);
-    tb.addEventListener("click", () => {
-      if (tid) { clearInterval(tid); tid = null; tb.textContent = "▶ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); return; }
-      tid = setInterval(() => { sisa--; tw.classList.toggle("over", sisa < 0); tb.textContent = "⏸ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); }, 1000);
-    });
-    head.append(tw); s.prepend(head);
+    const head = h("div", { class: "seg-head" }, h("h3", {}, judul));
+     s.prepend(head);
     const foot = h("div", { class: "seg-foot" });
     const sb = h("button", { class: "btn sec", type: "button" });
     function tandai(v) {
@@ -784,20 +773,13 @@ function initSegmen() {
     segs.forEach(s => io.observe(s));
   }
 }
-function initJam() {
-  let t = 0, id = null; const c = $("#clock"), b = $("#clock-btn");
-  b.addEventListener("click", () => {
-    if (id) { clearInterval(id); id = null; b.textContent = "Lanjut"; }
-    else { id = setInterval(() => { t++; c.textContent = mmss(t); }, 1000); b.textContent = "Jeda"; }
-  });
-}
 document.addEventListener("DOMContentLoaded", () => {
   $$("[data-widget]").forEach(el => {
     const fn = W[el.dataset.widget];
     if (!fn) return;
     try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal dimuat: " + e.message)); }
   });
-  initTabs(); initSegmen(); initJam();
+  initTabs(); initSegmen();
   renderInbox("");
   window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));
 });

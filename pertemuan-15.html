@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 15 — Mini Project Terpadu | Komputer Rumah Sakit</title>
+<title>Pertemuan 15: Mini Project Terpadu | Komputer Rumah Sakit</title>
 <style>
 :root{
   --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
@@ -29,7 +29,6 @@ button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
 .btn:hover{filter:brightness(1.08)}.btn.sec{background:var(--primary-soft);color:var(--ink)}.btn.accent{background:var(--accent);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
 .top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
 .top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
-.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
 .top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
 .top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
 .wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
@@ -47,8 +46,7 @@ main{min-width:0}
 .seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
 .seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
-.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
-.seg-timer{display:inline-flex;gap:6px;align-items:center}.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}.seg-timer.over .btn{background:var(--bad);color:#fff}
+
 .seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
 .seg.done{border-left:6px solid var(--ok)}
 h4{margin:18px 0 6px;font-size:1.1rem}p{margin:8px 0}
@@ -119,7 +117,7 @@ textarea.reflect{width:100%;min-height:120px;border:1px solid var(--line);border
 .peran-card .tugas-list{font-size:.78rem;color:var(--muted);margin-top:6px}
 @media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}.top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}.wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}.hero{background:#fff;color:#000}details{break-inside:avoid}}
+@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}.top,nav.agenda,.wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}.hero{background:#fff;color:#000}details{break-inside:avoid}}
 
 /* Tanpa sidebar agenda, dengan layar penuh */
 nav.agenda{display:none!important}
@@ -133,8 +131,6 @@ nav.agenda{display:none!important}
 <header class="top">
   <h1><span id="hdr-judul">Mini Project Terpadu</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 15</small></h1>
   <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
-  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
-  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 <div class="wrap">
@@ -152,22 +148,22 @@ nav.agenda{display:none!important}
 
     <!-- PEMBUKA -->
     <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">dr. Kusuma Wardani, Direktur RS Sehat Citra, memanggil kepala bagian administrasi. "Saya butuh laporan akhir tahun lengkap: dokumen Word untuk arsip, data Excel dengan grafik tren, dan presentasi PowerPoint untuk rapat dengan dewan pengawas — semua dalam satu paket terpadu, dua minggu dari sekarang." Tim administrasi terdiri dari tiga orang: Siti Aminah (Word), Budi Santoso (Excel), dan Rina Wulandari (PowerPoint). Dengan koordinasi yang baik dan keterampilan yang sudah dipelajari, dua minggu lebih dari cukup.</p>
-      <p class="note"><strong>Pertemuan ini:</strong> 45 menit pertama = teori &amp; perencanaan bersama; 45 menit kedua = kerja mandiri kelompok. Tidak ada post-test — pre-test 10 soal hari ini berfungsi sekaligus sebagai kuis komprehensif akhir semester.</p>
+      <p class="cerita">dr. Kusuma Wardani, Direktur RS Sehat Citra, memanggil kepala bagian administrasi. "Saya butuh laporan akhir tahun lengkap: dokumen Word untuk arsip, data Excel dengan grafik tren, dan presentasi PowerPoint untuk rapat dengan dewan pengawas, semua dalam satu paket terpadu, dua minggu dari sekarang." Tim administrasi terdiri dari tiga orang: Siti Aminah (Word), Budi Santoso (Excel), dan Rina Wulandari (PowerPoint). Dengan koordinasi yang baik dan keterampilan yang sudah dipelajari, dua minggu lebih dari cukup.</p>
+      <p class="note"><strong>Pertemuan ini:</strong> 45 menit pertama = teori &amp; perencanaan bersama. 45 menit kedua = kerja mandiri kelompok. Tidak ada post-test, pre-test 10 soal hari ini berfungsi sekaligus sebagai kuis komprehensif akhir semester.</p>
     </section>
 
     <!-- PRE-TEST KOMPREHENSIF -->
     <section class="seg" id="seg-pre" data-judul="Pre-test Komprehensif (Lintas Pertemuan)" data-min="10">
-      <p>10 soal dari seluruh materi P01–P14. Ini adalah kuis komprehensif akhir semester — kerjakan sendiri.</p>
+      <p>10 soal dari seluruh materi P01–P14. Ini adalah kuis komprehensif akhir semester, kerjakan sendiri.</p>
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Kuis Komprehensif Akhir Semester","soal":[
         {"q":"Mail Merge menggabungkan master dokumen dengan …","opsi":["File gambar atau foto","Data source (Excel/CSV)","File font tambahan","Macro Visual Basic"],"benar":1,"jelas":"Mail Merge menggabungkan template dokumen Word dengan data source berformat tabel (Excel, CSV, atau Access)."},
         {"q":"Fungsi Excel =MAX(A1:A12) mengembalikan …","opsi":["Nilai rata-rata rentang","Nilai terbesar dalam rentang","Jumlah semua nilai","Nilai terkecil dalam rentang"],"benar":1,"jelas":"MAX() mengembalikan nilai terbesar dari rentang yang ditentukan."},
         {"q":"Prinsip desain slide '1 slide 1 pesan' berarti …","opsi":["Hanya 1 kata per slide","Fokus pada 1 ide utama yang ingin disampaikan","Hanya 1 warna per slide","Hanya 1 gambar per slide"],"benar":1,"jelas":"Setiap slide harus mengkomunikasikan satu pesan utama yang jelas agar mudah dipahami audiens."},
-        {"q":"Paste Link di Word/PPT berbeda dari Paste biasa karena …","opsi":["Lebih cepat dieksekusi","Data terhubung ke file sumber dan otomatis update","Ukuran file lebih kecil","Hanya bekerja untuk teks"],"benar":1,"jelas":"Paste Link menciptakan tautan ke file sumber; perubahan di sumber tercermin di dokumen tujuan."},
+        {"q":"Paste Link di Word/PPT berbeda dari Paste biasa karena …","opsi":["Lebih cepat dieksekusi","Data terhubung ke file sumber dan otomatis update","Ukuran file lebih kecil","Hanya bekerja untuk teks"],"benar":1,"jelas":"Paste Link menciptakan tautan ke file sumber. Perubahan di sumber tercermin di dokumen tujuan."},
         {"q":"BOR 72% di RS berarti …","opsi":["72% staf RS hadir pada hari itu","72% tempat tidur terisi oleh pasien","72% pasien berhasil sembuh","72% obat sudah tersedia di farmasi"],"benar":1,"jelas":"BOR (Bed Occupancy Rate) = persentase tempat tidur yang terisi. BOR 72% berarti 72% dari kapasitas tempat tidur RS digunakan."},
-        {"q":"Format file lampiran email dinas RS yang paling standar adalah …","opsi":["Format RAR/ZIP","Format TXT","Format PDF","Format BMP"],"benar":2,"jelas":"PDF adalah format dokumen yang paling universal, portabel, dan tidak mudah diedit — ideal untuk korespondensi resmi."},
+        {"q":"Format file lampiran email dinas RS yang paling standar adalah …","opsi":["Format RAR/ZIP","Format TXT","Format PDF","Format BMP"],"benar":2,"jelas":"PDF adalah format dokumen yang paling universal, portabel, dan tidak mudah diedit, ideal untuk korespondensi resmi."},
         {"q":"Cloud storage cocok untuk RS karena …","opsi":["Biaya langganan murah saja","Akses dari mana saja dan backup otomatis","Tidak memerlukan koneksi internet","Data tidak bisa dihapus oleh siapa pun"],"benar":1,"jelas":"Cloud memungkinkan akses dari berbagai perangkat/lokasi dan menyediakan backup otomatis yang mencegah kehilangan data."},
         {"q":"Rasio kontras WCAG AA minimum untuk teks normal adalah …","opsi":["2:1","3:1","4,5:1","7:1"],"benar":2,"jelas":"WCAG AA mewajibkan kontras minimal 4,5:1 untuk teks normal agar dapat dibaca oleh pengguna dengan gangguan penglihatan."},
         {"q":"Kolom BCC di email digunakan untuk …","opsi":["Mencantumkan penerima utama email","Tembusan terbuka yang bisa dilihat semua penerima","Tembusan tersembunyi yang hanya diketahui pengirim","Nama pengirim alternatif"],"benar":2,"jelas":"BCC (Blind Carbon Copy) mengirim salinan email tanpa memberitahu penerima lain tentang keberadaan BCC."},
@@ -198,29 +194,29 @@ nav.agenda{display:none!important}
       </div>
 
       <div class="proj-detail" id="detail-word">
-        <strong>📝 Dokumen Word — Laporan Teks Akhir Tahun</strong>
+        <strong>📝 Dokumen Word: Laporan Teks Akhir Tahun</strong>
         <table class="data" style="margin-top:8px">
           <tr><th>Konten</th><td>Cover, Daftar Isi, Pendahuluan, Bab I–III (Pelayanan, Keuangan, SDM), Penutup, Lampiran</td></tr>
           <tr><th>Format</th><td>Kertas A4, Margin 3-2,5-2,5-2,5 cm, Font Times New Roman 12pt, Spasi 1,5</td></tr>
-          <tr><th>Integrasi</th><td>Tabel kunjungan 12 bulan di-Paste Link dari Excel; foto/grafik di-Embed</td></tr>
+          <tr><th>Integrasi</th><td>Tabel kunjungan 12 bulan di-Paste Link dari Excel, foto/grafik di-Embed</td></tr>
           <tr><th>Bobot Nilai</th><td>40% dari total proyek</td></tr>
         </table>
       </div>
       <div class="proj-detail" id="detail-excel">
-        <strong>📊 Spreadsheet Excel — Database &amp; Grafik</strong>
+        <strong>📊 Spreadsheet Excel: Database &amp; Grafik</strong>
         <table class="data" style="margin-top:8px">
           <tr><th>Konten</th><td>Sheet "Data Kunjungan" (12 bulan × 5 poli), Sheet "Keuangan" (pendapatan bulanan), Sheet "Grafik" (bar tren + line perbandingan)</td></tr>
-          <tr><th>Formula</th><td>SUM, AVERAGE, MAX, MIN per kolom; persentase pertumbuhan; conditional formatting</td></tr>
+          <tr><th>Formula</th><td>SUM, AVERAGE, MAX, MIN per kolom, persentase pertumbuhan, conditional formatting</td></tr>
           <tr><th>Grafik</th><td>Bar chart kunjungan, Line chart tren pendapatan, Pie chart proporsi poli</td></tr>
           <tr><th>Bobot Nilai</th><td>30% dari total proyek</td></tr>
         </table>
       </div>
       <div class="proj-detail" id="detail-ppt">
-        <strong>🎯 Presentasi PPT — Presentasi Eksekutif</strong>
+        <strong>🎯 Presentasi PPT: Presentasi Eksekutif</strong>
         <table class="data" style="margin-top:8px">
           <tr><th>Konten</th><td>Min. 10 slide: Judul+Agenda, Ringkasan Kinerja, Data Kunjungan, Data Keuangan, Capaian Mutu, Masalah &amp; Analisis, Rekomendasi, Tindak Lanjut, Penutup</td></tr>
           <tr><th>Format</th><td>Rasio 16:9, Font min. 24pt untuk judul, Grafik linked dari Excel, Warna konsisten</td></tr>
-          <tr><th>Integrasi</th><td>Grafik tren Linked dari Excel (auto-update); tabel kinerja Embedded</td></tr>
+          <tr><th>Integrasi</th><td>Grafik tren Linked dari Excel (auto-update), tabel kinerja Embedded</td></tr>
           <tr><th>Bobot Nilai</th><td>30% dari total proyek</td></tr>
         </table>
       </div>
@@ -233,12 +229,12 @@ nav.agenda{display:none!important}
         <div class="panah">+</div>
         <div class="panah-box">🎯 PPT<br><span style="font-size:.72rem;color:var(--muted)">Grafik (Link)</span></div>
       </div>
-      <p class="note">Excel adalah <strong>sumber kebenaran tunggal</strong>. Word dan PPT tidak menyimpan data sendiri — semuanya mengambil dari Excel melalui Link. Ubah satu kali di Excel → semua dokumen sinkron.</p>
+      <p class="note">Excel adalah <strong>sumber kebenaran tunggal</strong>. Word dan PPT tidak menyimpan data sendiri, semuanya mengambil dari Excel melalui Link. Ubah satu kali di Excel → semua dokumen sinkron.</p>
     </section>
 
     <!-- INTI 2: FAQ KENDALA -->
     <section class="seg" id="seg-inti2" data-judul="Inti 2: FAQ Kendala Umum" data-min="10">
-      <p>12 masalah paling sering terjadi saat mengerjakan proyek administrasi RS terpadu — beserta solusinya.</p>
+      <p>12 masalah paling sering terjadi saat mengerjakan proyek administrasi RS terpadu, beserta solusinya.</p>
       <details><summary>Word: format hilang setelah copy-paste dari email</summary><div><p><strong>Solusi:</strong> Gunakan <strong>Paste Special → Keep Text Only</strong> (Ctrl+Shift+V), lalu format ulang menggunakan Style di Word. Hindari paste langsung dari browser/email karena membawa format HTML yang merusak tampilan.</p></div></details>
       <details><summary>Excel: #VALUE! error di formula</summary><div><p><strong>Solusi:</strong> Periksa apakah ada teks atau spasi tersembunyi di sel yang seharusnya berisi angka. Gunakan fungsi <code>=ISNUMBER(A1)</code> untuk mengecek. Konversi teks ke angka dengan <code>=VALUE(A1)</code> atau klik Data → Text to Columns.</p></div></details>
       <details><summary>Excel: #DIV/0! error</summary><div><p><strong>Solusi:</strong> Pembagi bernilai nol atau kosong. Gunakan: <code>=IF(B2=0,"",A2/B2)</code> untuk mencegah error ditampilkan. Atau gunakan <code>=IFERROR(A2/B2,0)</code> untuk menampilkan 0 jika terjadi error.</p></div></details>
@@ -271,13 +267,13 @@ nav.agenda{display:none!important}
       <details>
         <summary>❓ "Mengapa tidak menggunakan format PDF saja untuk seluruh dokumen?"</summary>
         <div>
-          <p><strong>Tips Jawaban:</strong> PDF adalah format final untuk distribusi dan arsip — tidak bisa diedit, ukuran terkontrol, tampilan konsisten di semua perangkat. Namun Word tetap diperlukan untuk kolaborasi, revisi, dan pembaruan konten di masa depan. Keduanya punya peran berbeda dan saling melengkapi. Dalam proyek ini, kami menghasilkan keduanya: Word sebagai source file yang bisa diedit, PDF sebagai versi final untuk distribusi.</p>
+          <p><strong>Tips Jawaban:</strong> PDF adalah format final untuk distribusi dan arsip, tidak bisa diedit, ukuran terkontrol, tampilan konsisten di semua perangkat. Namun Word tetap diperlukan untuk kolaborasi, revisi, dan pembaruan konten di masa depan. Keduanya punya peran berbeda dan saling melengkapi. Dalam proyek ini, kami menghasilkan keduanya: Word sebagai source file yang bisa diedit, PDF sebagai versi final untuk distribusi.</p>
         </div>
       </details>
       <details>
         <summary>❓ "Jika data Excel berubah mendadak, bagaimana memperbarui seluruh paket dokumen?"</summary>
         <div>
-          <p><strong>Tips Jawaban:</strong> Karena kami menggunakan Paste Link, cukup satu langkah: (1) Perbarui data di Excel dan simpan. (2) Buka Word → klik kanan tabel tertaut → Update Link. (3) Buka PPT → klik kanan grafik → Update Link. Seluruh proses bisa selesai dalam 5 menit — inilah keunggulan integrasi OLE dibandingkan copy-paste biasa.</p>
+          <p><strong>Tips Jawaban:</strong> Karena kami menggunakan Paste Link, cukup satu langkah: (1) Perbarui data di Excel dan simpan. (2) Buka Word → klik kanan tabel tertaut → Update Link. (3) Buka PPT → klik kanan grafik → Update Link. Seluruh proses bisa selesai dalam 5 menit, inilah keunggulan integrasi OLE dibandingkan copy-paste biasa.</p>
         </div>
       </details>
       <details>
@@ -366,15 +362,15 @@ nav.agenda{display:none!important}
       </p>
     </section>
 
-    <!-- PENUTUP (10 menit — extended) -->
+    <!-- PENUTUP (10 menit, extended) -->
     <section class="seg" id="seg-penutup" data-judul="Penutup &amp; Ringkasan Semester" data-min="10">
       <h4>Ringkasan 7 Kompetensi Selama 1 Semester (P01–P15)</h4>
       <ol>
         <li><strong>Penguasaan Perangkat (P01–P03):</strong> Memahami ekosistem hardware, software, dan aplikasi yang digunakan di lingkungan RS.</li>
         <li><strong>Word untuk Administrasi (P04–P05):</strong> Dokumen resmi berformat baku, Mail Merge untuk surat massal efisien.</li>
         <li><strong>Excel untuk Data (P06–P07):</strong> Pengolahan data operasional RS dengan formula, grafik, dan analisis statistik dasar.</li>
-        <li><strong>PowerPoint untuk Komunikasi (P09–P10):</strong> Data storytelling — menyajikan data kompleks menjadi visual yang mudah dipahami eksekutif.</li>
-        <li><strong>Integrasi Office (P11–P12):</strong> OLE Linking &amp; Embedding — satu sumber data, banyak dokumen yang selalu sinkron.</li>
+        <li><strong>PowerPoint untuk Komunikasi (P09–P10):</strong> Data storytelling, menyajikan data kompleks menjadi visual yang mudah dipahami eksekutif.</li>
+        <li><strong>Integrasi Office (P11–P12):</strong> OLE Linking &amp; Embedding, satu sumber data, banyak dokumen yang selalu sinkron.</li>
         <li><strong>Komunikasi Digital (P13–P14):</strong> Email resmi RS yang profesional dan pengelolaan file di cloud storage institusi.</li>
         <li><strong>Proyek Terpadu (P15):</strong> Mengintegrasikan semua kompetensi dalam satu paket laporan akhir tahun yang siap disajikan ke pimpinan RS.</li>
       </ol>
@@ -403,7 +399,6 @@ const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 function h(tag,props,...kids){const e=document.createElement(tag);for(const k in(props||{})){const v=props[k];if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,"");else if(v!==false&&v!=null)e.setAttribute(k,v);}for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(String(c)));}return e;}
 const store={get(k,d){try{const v=localStorage.getItem(KONFIG.kode+"-"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem(KONFIG.kode+"-"+k,JSON.stringify(v));}catch(e){}}};
 function getData(id){return JSON.parse(document.getElementById(id).textContent);}
-function mmss(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
 let uid=0;const nextId=p=>p+"-"+(++uid);
 
 const W={};
@@ -522,7 +517,7 @@ W.reflect=el=>{
 })();
 
 /* ============================================================
-   Peran kelompok — simpan ke localStorage
+   Peran kelompok, simpan ke localStorage
    ============================================================ */
 (function initPeran(){
   const KEY="peran-data";const saved=store.get(KEY,{});
@@ -576,11 +571,8 @@ function initSegmen(){
   let mulai=0;const links=[];
   segs.forEach((s,i)=>{
     const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
-    const head=h("div",{class:"seg-head"},h("h3",{},judul),h("span",{class:"badge"},min+" menit"));
-    let sisa=min*60,tid=null;const tb=h("button",{class:"btn sec",type:"button"},"⏱ "+mmss(sisa));
-    const tw=h("span",{class:"seg-timer"},tb);
-    tb.addEventListener("click",()=>{if(tid){clearInterval(tid);tid=null;tb.textContent="▶ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));return;}tid=setInterval(()=>{sisa--;tw.classList.toggle("over",sisa<0);tb.textContent="⏸ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));},1000);});
-    head.append(tw);s.prepend(head);
+    const head=h("div",{class:"seg-head"},h("h3",{},judul));
+    s.prepend(head);
     const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
     function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";done[s.id]=v;store.set("selesai",done);progres();}
     sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));
@@ -591,10 +583,9 @@ function initSegmen(){
   function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;$("#hdr-bar").style.width=(n/segs.length*100)+"%";}
   if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
 }
-function initJam(){let t=0,id=null;const c=$("#clock"),b=$("#clock-btn");b.addEventListener("click",()=>{if(id){clearInterval(id);id=null;b.textContent="Lanjut";}else{id=setInterval(()=>{t++;c.textContent=mmss(t);},1000);b.textContent="Jeda";}});}
 
 function isiHero(){
-  document.title="Pertemuan "+KONFIG.nomor+" — "+KONFIG.judul+" | Komputer Rumah Sakit";
+  document.title="Pertemuan "+KONFIG.nomor+": "+KONFIG.judul+" | Komputer Rumah Sakit";
   $("#hdr-judul").textContent=KONFIG.judul;$("#hdr-sub").textContent="Komputer Rumah Sakit · Pertemuan "+KONFIG.nomor;
   $("#hero-kode").textContent="Pertemuan "+KONFIG.nomor+" · CPMK-1 s.d. CPMK-6";
   $("#hero-judul").textContent=KONFIG.judul;$("#hero-cpmk").textContent=KONFIG.cpmk;
@@ -603,7 +594,7 @@ function isiHero(){
 document.addEventListener("DOMContentLoaded",()=>{
   isiHero();
   $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{style:"color:var(--bad)"},"Widget gagal ("+el.dataset.widget+"): "+e.message));}});
-  initSegmen();initJam();
+  initSegmen();
   window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
 });
 </script>

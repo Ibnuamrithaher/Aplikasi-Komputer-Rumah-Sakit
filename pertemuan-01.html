@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 00 — Judul Pertemuan | Komputer Rumah Sakit</title>
+<title>Pertemuan 00: Judul Pertemuan | Komputer Rumah Sakit</title>
 <!--
   PETUNJUK UNTUK PENGISI (baca sebelum mengedit)
   1. Salin file ini menjadi pertemuan-NN.html. Jangan edit _template.html.
@@ -615,7 +615,7 @@ nav.agenda{display:none!important}
       </div></details>
       <details><summary>📌 Etika dan Tata Tertib Kelas</summary><div>
         <p><strong>Tepat waktu:</strong> Mulai perkuliahan tepat pada waktu yang dijadwalkan. Dosen juga harus menghormati waktu akhir kelas.</p>
-        <p><strong>Penggunaan gadget:</strong> Diperbolehkan untuk pembelajaran; dilarang untuk game, media sosial, atau aktivitas tidak relevan.</p>
+        <p><strong>Penggunaan gadget:</strong> Diperbolehkan untuk pembelajaran, dilarang untuk game, media sosial, atau aktivitas tidak relevan.</p>
         <p><strong>Suara dalam lab:</strong> Bicaralah dengan volume normal. Hindari kebisingan yang mengganggu konsentrasi teman sekelas.</p>
         <p><strong>Kebersihan lab:</strong> Setiap selesai praktik, rapikan tempat kerja dan keluar dengan ruang yang bersih.</p>
       </div></details>
@@ -631,7 +631,7 @@ nav.agenda{display:none!important}
       <details><summary>📌 Komunikasi dengan Dosen</summary><div>
         <p><strong>Email:</strong> Gunakan email institusional jika ada, tanya kepada dosen jam kerja kantor untuk balasan tercepat.</p>
         <p><strong>Pertanyaan di kelas:</strong> Semua pertanyaan selamat datang, tidak ada pertanyaan yang "bodoh" dalam pembelajaran.</p>
-        <p><strong>Konsultasi:</strong> Atur jadwal khusus jika perlu penjelasan mendalam; jangan datang tanpa pemberitahuan dulu.</p>
+        <p><strong>Konsultasi:</strong> Atur jadwal khusus jika perlu penjelasan mendalam. Jangan datang tanpa pemberitahuan dulu.</p>
       </div></details>
 
       <div class="aktiv">
@@ -886,12 +886,12 @@ nav.agenda{display:none!important}
         {"depan":"Urutan blok materi semester","belakang":"Perangkat, Word, Excel, PowerPoint, integrasi, lalu komunikasi (email dan cloud)."},
         {"depan":"Tiga pilar aturan main","belakang":"Disiplin waktu, integritas akademik, dan kerahasiaan data."},
         {"depan":"Mengapa data di kelas ini fiktif?","belakang":"Agar latihan aman dan kita terbiasa menjaga kerahasiaan data pasien sejak sekarang."},
-        {"depan":"Alur pelayanan rawat jalan di RS Sehat Citra","belakang":"Pendaftaran, poli, lab/radiologi, farmasi, kasir; semua data terarsip di rekam medis digital."}
+        {"depan":"Alur pelayanan rawat jalan di RS Sehat Citra","belakang":"Pendaftaran, poli, lab/radiologi, farmasi, kasir, semua data terarsip di rekam medis digital."}
       ]}
       </script>
       <h4>Refleksi diri</h4>
       <div data-widget="reflect" data-key="ref-p01" data-prompt="Satu kekhawatiran atau hambatan yang kalian rasakan saat ini, dan satu hal yang membuat kalian antusias untuk belajar:"></div>
-      <p class="note"><strong>Tindak lanjut (Pertemuan 2):</strong> Persiapkan diri untuk mempelajari perangkat keras (hardware) komputer dan infrastruktur IT di RS. Tidak perlu membawa apa-apa; lab computer akan disiapkan dosen.</p>
+      <p class="note"><strong>Tindak lanjut (Pertemuan 2):</strong> Persiapkan diri untuk mempelajari perangkat keras (hardware) komputer dan infrastruktur IT di RS. Tidak perlu membawa apa-apa, lab computer akan disiapkan dosen.</p>
     </section>
   </main>
 </div>
@@ -899,7 +899,7 @@ nav.agenda{display:none!important}
 <script>
 "use strict";
 /* =====================================================================
-   KONFIG — ubah di sini
+   KONFIG, ubah di sini
    ===================================================================== */
 const KONFIG = {
   kode: "krs-p01",
@@ -1152,7 +1152,7 @@ W.csv = el => {
 };
 
 /* =====================================================================
-   Widget: minisheet — parser rumus manual (tanpa eval/Function)
+   Widget: minisheet, parser rumus manual (tanpa eval/Function)
    ===================================================================== */
 /* === PARSER-AWAL === */
 function kolHuruf(n) { return String.fromCharCode(65 + n); }
@@ -1327,7 +1327,7 @@ function gambarGrafik(tipe, label, nilai, judul) {
     v.forEach((x, i) => {
       const y = 70 + i * 24;
       svg.append(sv("rect", { x: 360, y: y - 12, width: 14, height: 14, fill: warna(i) }));
-      svg.append(sv("text", { x: 382, y }, label[i] + " — " + (Math.round(x / tot * 1000) / 10) + "% (" + x + ")"));
+      svg.append(sv("text", { x: 382, y }, label[i] + ": " + (Math.round(x / tot * 1000) / 10) + "% (" + x + ")"));
     });
     return svg;
   }
@@ -1413,7 +1413,7 @@ function initSegmen() {
    Start
    ===================================================================== */
 function isiHero() {
-  document.title = "Pertemuan " + KONFIG.nomor + " — " + KONFIG.judul + " | Komputer Rumah Sakit";
+  document.title = "Pertemuan " + KONFIG.nomor + ": " + KONFIG.judul + " | Komputer Rumah Sakit";
   $("#hdr-judul").textContent = KONFIG.judul;
   $("#hdr-sub").textContent = "Komputer Rumah Sakit · Pertemuan " + KONFIG.nomor;
   $("#hero-kode").textContent = "Pertemuan " + KONFIG.nomor + " · " + KONFIG.cpmk.split(":")[0];
@@ -1434,7 +1434,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 <script>
 /* =====================================================================
-   Pengayaan Pertemuan 01 — gambar SVG interaktif dan aktivitas tambahan.
+   Pengayaan Pertemuan 01, gambar SVG interaktif dan aktivitas tambahan.
    Seluruh kode dibungkus IIFE; tidak ada nama global baru.
    Memakai h(), store, $, $$, getData, sv dari skrip utama di atas.
    ===================================================================== */
@@ -1725,10 +1725,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!host) return;
     const P = [
       { judul: ["Disiplin", "Waktu"], ikon: "kalender", warna: "var(--c1)",
-        aturan: ["Hadir dan memulai kuliah tepat pada jadwal; dosen juga menghormati waktu akhir kelas.", "Toleransi keterlambatan: ATUR OLEH DOSEN menit.", "Izin disampaikan minimal 1 hari sebelumnya dengan surat keterangan sah."],
+        aturan: ["Hadir dan memulai kuliah tepat pada jadwal. Dosen juga menghormati waktu akhir kelas.", "Toleransi keterlambatan: ATUR OLEH DOSEN menit.", "Izin disampaikan minimal 1 hari sebelumnya dengan surat keterangan sah."],
         rs: "Di RS: pergantian jaga yang terlambat membuat pasien menunggu lebih lama untuk ditangani." },
       { judul: ["Integritas", "Akademik"], ikon: "perisai", warna: "var(--c2)",
-        aturan: ["Tugas harus original; sumber lain dikutip dengan benar.", "Berdiskusi boleh, tetapi jawaban tugas individu tetap pribadi.", "Tugas kelompok: setiap anggota berkontribusi aktif."],
+        aturan: ["Tugas harus original, sumber lain dikutip dengan benar.", "Berdiskusi boleh, tetapi jawaban tugas individu tetap pribadi.", "Tugas kelompok: setiap anggota berkontribusi aktif."],
         rs: "Di RS: laporan yang disalin tanpa diperiksa dapat menyesatkan keputusan pimpinan." },
       { judul: ["Kerahasiaan", "Data"], ikon: "gembok", warna: "var(--c5)",
         aturan: ["Semua data dalam kuliah ini fiktif.", "Dilarang memakai data pasien nyata untuk latihan.", "Kebiasaan menjaga rahasia dilatih mulai sekarang."],

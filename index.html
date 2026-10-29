@@ -192,14 +192,12 @@ function lsDel(prefix){try{const ks=[];for(let i=0;i<localStorage.length;i++){co
 
 function selesaiKey(n){return "krs-p"+String(n).padStart(2,"0")+"-selesai";}
 function cekSelesai(n){
-  // Check the "selesai" object stored inside each pertemuan's localStorage key
+  // Selesai = semua segmen pertemuan itu sudah ditandai selesai
   try{
-    const k="krs-p"+String(n).padStart(2,"0")+"-selesai";
-    const v=localStorage.getItem(k);
-    if(v!==null)return JSON.parse(v);
-    // also check the segment done state
-    const d=localStorage.getItem("krs-p"+String(n).padStart(2,"0")+"-selesai");
-    return !!d;
+    const v=localStorage.getItem(selesaiKey(n));
+    const segmen=v===null?{}:JSON.parse(v);
+    const nilai=Object.values(segmen);
+    return nilai.length>0&&nilai.every(Boolean);
   }catch(e){return false;}
 }
 

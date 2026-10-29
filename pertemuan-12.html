@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 12 — Integrasi Office Bagian 2: Excel ke PowerPoint | Komputer Rumah Sakit</title>
+<title>Pertemuan 12: Integrasi Office Bagian 2: Excel ke PowerPoint | Komputer Rumah Sakit</title>
 <style>
 :root{
   --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
@@ -29,7 +29,6 @@ button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
 .btn:hover{filter:brightness(1.08)}.btn.sec{background:var(--primary-soft);color:var(--ink)}.btn.accent{background:var(--accent);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
 .top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
 .top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}.top h1 small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
-.top .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary)}
 .top .bar{flex:1 1 140px;min-width:100px;height:10px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
 .top .bar i{display:block;height:100%;width:0;background:var(--primary);transition:width .3s}
 .wrap{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
@@ -47,8 +46,7 @@ main{min-width:0}
 .seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
 .seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .seg-head h3{margin:0;font-size:1.3rem;flex:1 1 240px;line-height:1.3}
-.badge{background:var(--primary-soft);color:var(--ink);border-radius:99px;padding:2px 12px;font-size:.82rem;font-weight:700;white-space:nowrap}
-.seg-timer{display:inline-flex;gap:6px;align-items:center}.seg-timer .btn{padding:4px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}.seg-timer.over .btn{background:var(--bad);color:#fff}
+
 .seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
 .seg.done{border-left:6px solid var(--ok)}
 h4{margin:18px 0 6px;font-size:1.1rem}p{margin:8px 0}
@@ -127,7 +125,7 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 .chart-opt-card .lbl{font-size:.78rem;font-weight:600}
 @media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}.top,nav.agenda,.seg-timer,.seg-foot,.btn,.skip{display:none!important}.wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}.hero{background:#fff;color:#000}.tabpanel[hidden]{display:block!important}}
+@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}.top,nav.agenda,.wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}.hero{background:#fff;color:#000}.tabpanel[hidden]{display:block!important}}
 
 /* Tanpa sidebar agenda, dengan layar penuh */
 nav.agenda{display:none!important}
@@ -141,8 +139,6 @@ nav.agenda{display:none!important}
 <header class="top">
   <h1><span id="hdr-judul">Integrasi Office Bagian 2: Excel ke PowerPoint</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 12</small></h1>
   <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
-  <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
-  <button class="btn sec" id="clock-btn" type="button">Mulai</button>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 <div class="wrap">
@@ -160,7 +156,7 @@ nav.agenda{display:none!important}
 
     <!-- PEMBUKA -->
     <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">dr. Irwan Saputra, Kepala Bidang Pelayanan RS Bhakti Medika, harus presentasi di rapat koordinasi bulanan. Slide-nya menampilkan grafik kunjungan poli — yang ternyata masih data bulan lalu karena di-copy-paste biasa dari Excel ke PowerPoint tiga bulan yang lalu. Saat ditanya oleh direktur mengapa angka di slide berbeda dengan laporan HIS, dr. Irwan tidak bisa menjawab. Hari itu ia memutuskan untuk belajar cara membuat grafik yang selalu terkini otomatis.</p>
+      <p class="cerita">dr. Irwan Saputra, Kepala Bidang Pelayanan RS Bhakti Medika, harus presentasi di rapat koordinasi bulanan. Slide-nya menampilkan grafik kunjungan poli, yang ternyata masih data bulan lalu karena di-copy-paste biasa dari Excel ke PowerPoint tiga bulan yang lalu. Saat ditanya oleh direktur mengapa angka di slide berbeda dengan laporan HIS, dr. Irwan tidak bisa menjawab. Hari itu ia memutuskan untuk belajar cara membuat grafik yang selalu terkini otomatis.</p>
       <p class="note"><strong>Tujuan hari ini:</strong> Menyisipkan grafik Excel ke PowerPoint dengan teknik linked dan embedded, serta mensimulasikan pembaruan data di tengah rapat.</p>
     </section>
 
@@ -170,10 +166,10 @@ nav.agenda{display:none!important}
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test","soal":[
-        {"q":"Grafik Excel di PPT yang bersifat 'Linked' artinya …","opsi":["Grafik hanya dekorasi tanpa data","Grafik terhubung ke file Excel asli","Grafik tidak dapat diedit","Ukuran file PPT lebih kecil"],"benar":1,"jelas":"Linked chart menyimpan tautan ke file Excel; perubahan di Excel tercermin di PPT setelah di-update."},
+        {"q":"Grafik Excel di PPT yang bersifat 'Linked' artinya …","opsi":["Grafik hanya dekorasi tanpa data","Grafik terhubung ke file Excel asli","Grafik tidak dapat diedit","Ukuran file PPT lebih kecil"],"benar":1,"jelas":"Linked chart menyimpan tautan ke file Excel. Perubahan di Excel tercermin di PPT setelah di-update."},
         {"q":"Fungsi 'Update Link' di PowerPoint dilakukan agar …","opsi":["Warna grafik berubah secara otomatis","Data grafik sinkron dengan file Excel terbaru","Slide berpindah otomatis saat presentasi","Animasi grafik berjalan"],"benar":1,"jelas":"Update Link memerintahkan PPT untuk membaca ulang data dari file Excel yang tertaut."},
         {"q":"Grafik untuk menampilkan data proporsi persentase paling tepat menggunakan jenis …","opsi":["Bar chart","Line chart","Pie chart","Scatter plot"],"benar":2,"jelas":"Pie chart menampilkan proporsi bagian dari keseluruhan (misalnya: 65% BPJS, 35% Umum)."},
-        {"q":"Embedded chart di PPT cocok digunakan untuk …","opsi":["Laporan real-time yang data selalu berubah","Dokumen final yang portable tanpa perlu file Excel","Dashboard langsung dari HIS","Data streaming pasien masuk"],"benar":1,"jelas":"Embedded chart mandiri di dalam PPT — tidak membutuhkan file Excel sumber saat dibuka."},
+        {"q":"Embedded chart di PPT cocok digunakan untuk …","opsi":["Laporan real-time yang data selalu berubah","Dokumen final yang portable tanpa perlu file Excel","Dashboard langsung dari HIS","Data streaming pasien masuk"],"benar":1,"jelas":"Embedded chart mandiri di dalam PPT, tidak membutuhkan file Excel sumber saat dibuka."},
         {"q":"Untuk memilih beberapa sel yang tidak berurutan di Excel sebelum membuat grafik, gunakan …","opsi":["Shift + klik","Ctrl + klik","Alt + klik","Tombol F4"],"benar":1,"jelas":"Ctrl + klik memungkinkan pemilihan sel / range tidak berurutan di Excel."}
       ]}
       </script>
@@ -218,7 +214,7 @@ nav.agenda{display:none!important}
 
     <!-- INTI 3: SIMULASI UPDATE SAAT RAPAT -->
     <section class="seg" id="seg-inti3" data-judul="Inti 3: Simulasi Update Data Saat Rapat" data-min="10">
-      <p>"Presentasi sedang berjalan" — navigasikan slide, dan lihat apa yang terjadi saat koreksi data masuk dari HIS di tengah rapat.</p>
+      <p>"Presentasi sedang berjalan". navigasikan slide, dan lihat apa yang terjadi saat koreksi data masuk dari HIS di tengah rapat.</p>
       <div class="slide-container">
         <div class="slide-nav">
           <button class="btn sec" type="button" id="slide-prev">◀ Sebelumnya</button>
@@ -262,21 +258,21 @@ nav.agenda{display:none!important}
           <h4>Template Struktur 5 Slide Rapat Kerja RS</h4>
           <div class="grid2">
             <div class="card"><strong>Slide 1: Judul + Agenda</strong><br><span style="font-size:.88rem;color:var(--muted)">Nama rapat, tanggal, peserta, 3–5 poin agenda</span></div>
-            <div class="card"><strong>Slide 2: Data Kinerja</strong><br><span style="font-size:.88rem;color:var(--muted)">Grafik bar/line dari Excel; BOR, kunjungan, pendapatan</span></div>
+            <div class="card"><strong>Slide 2: Data Kinerja</strong><br><span style="font-size:.88rem;color:var(--muted)">Grafik bar/line dari Excel, BOR, kunjungan, pendapatan</span></div>
             <div class="card"><strong>Slide 3: Analisis Masalah</strong><br><span style="font-size:.88rem;color:var(--muted)">Identifikasi gap, akar masalah, komparasi target vs realisasi</span></div>
             <div class="card"><strong>Slide 4: Rekomendasi</strong><br><span style="font-size:.88rem;color:var(--muted)">3–5 rekomendasi konkret, prioritas, penanggungjawab</span></div>
             <div class="card"><strong>Slide 5: Tindak Lanjut</strong><br><span style="font-size:.88rem;color:var(--muted)">Action items, deadline, penanggung jawab, jadwal follow-up</span></div>
           </div>
-          <p class="note">💡 Prinsip "1 slide 1 pesan" — setiap slide harus menyampaikan satu ide utama yang jelas.</p>
+          <p class="note">💡 Prinsip "1 slide 1 pesan". setiap slide harus menyampaikan satu ide utama yang jelas.</p>
         </div>
         <div class="tabpanel" role="tabpanel">
           <h4>5 Etika Live Demo Data di Rapat</h4>
           <ol style="padding-left:20px">
-            <li><strong>Siapkan backup plan</strong> — jika link grafik putus, print-out atau PDF cadangan harus tersedia.</li>
-            <li><strong>Jangan edit data live tanpa konfirmasi</strong> — perubahan angka di depan peserta harus disetujui lebih dulu.</li>
-            <li><strong>Simpan semua file sebelum presentasi</strong> — Ctrl+S pada Excel dan PPT, lalu tutup Excel agar tidak ada konflik akses.</li>
-            <li><strong>Gunakan mode read-only jika memungkinkan</strong> — buka Excel dalam Protected View untuk mencegah edit tidak sengaja.</li>
-            <li><strong>Siapkan print-out cadangan</strong> — minimal ringkasan data penting, berjaga jika proyektor atau laptop bermasalah.</li>
+            <li><strong>Siapkan backup plan</strong>: jika link grafik putus, print-out atau PDF cadangan harus tersedia.</li>
+            <li><strong>Jangan edit data live tanpa konfirmasi</strong>: perubahan angka di depan peserta harus disetujui lebih dulu.</li>
+            <li><strong>Simpan semua file sebelum presentasi</strong>: Ctrl+S pada Excel dan PPT, lalu tutup Excel agar tidak ada konflik akses.</li>
+            <li><strong>Gunakan mode read-only jika memungkinkan</strong>: buka Excel dalam Protected View untuk mencegah edit tidak sengaja.</li>
+            <li><strong>Siapkan print-out cadangan</strong>: minimal ringkasan data penting, berjaga jika proyektor atau laptop bermasalah.</li>
           </ol>
         </div>
       </div>
@@ -291,7 +287,7 @@ nav.agenda{display:none!important}
         <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start">
           <div style="flex:1 1 240px">
             <label style="display:block;margin-bottom:4px;font-size:.9rem">Judul Presentasi:</label>
-            <input type="text" id="prak-judul" placeholder="cth: Laporan Kinerja Poli — Jan 2026"
+            <input type="text" id="prak-judul" placeholder="cth: Laporan Kinerja Poli: Jan 2026"
               style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface)">
           </div>
           <div style="flex:1 1 200px">
@@ -367,7 +363,7 @@ nav.agenda{display:none!important}
       </div>
 
       <div class="tugas-lab">
-        <h4>Tugas Lab — PPT + Excel Nyata</h4>
+        <h4>Tugas Lab: PPT + Excel Nyata</h4>
         <ol>
           <li>Buat file Excel <code>Data_Rapat_Kinerja.xlsx</code>: sheet "Kunjungan" (5 poli, 3 bulan) dan sheet "Keuangan" (pendapatan per poli).</li>
           <li>Buat grafik bar dari sheet Kunjungan. <em>Copy</em> grafik tersebut.</li>
@@ -375,7 +371,7 @@ nav.agenda{display:none!important}
           <li>Buat juga versi <strong>Embed</strong> di slide berikutnya. Bandingkan ukuran file PPT sebelum dan sesudah.</li>
           <li>Ubah satu angka di Excel, kembali ke PPT, klik kanan grafik linked → <em>Update Link</em>. Verifikasi perubahan.</li>
         </ol>
-        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Linked chart berfungsi dan dapat di-update; 2) Embedded chart mandiri; 3) Grafik jenis sesuai data; 4) Slide rapi dan terbaca dari jarak 3 meter.</p>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Linked chart berfungsi dan dapat di-update, 2) Embedded chart mandiri, 3) Grafik jenis sesuai data, 4) Slide rapi dan terbaca dari jarak 3 meter.</p>
       </div>
     </section>
 
@@ -399,15 +395,15 @@ nav.agenda{display:none!important}
     <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
       <h4>Ringkasan Pertemuan 12</h4>
       <ol>
-        <li><strong>Linked chart</strong> di PPT selalu sinkron dengan Excel — ideal untuk laporan rutin rapat koordinasi.</li>
-        <li><strong>Embedded chart</strong> mandiri di dalam PPT — ideal untuk dokumen final yang dikirim ke pihak lain.</li>
+        <li><strong>Linked chart</strong> di PPT selalu sinkron dengan Excel, ideal untuk laporan rutin rapat koordinasi.</li>
+        <li><strong>Embedded chart</strong> mandiri di dalam PPT, ideal untuk dokumen final yang dikirim ke pihak lain.</li>
         <li>Pilih jenis grafik sesuai pesan: <em>bar</em> untuk perbandingan, <em>line</em> untuk tren, <em>pie</em> untuk proporsi.</li>
         <li>Siapkan backup (print-out/PDF) untuk antisipasi link putus saat rapat berlangsung.</li>
         <li>Perbarui link (<em>Update Link</em>) segera sebelum rapat dimulai, bukan saat rapat berjalan.</li>
       </ol>
       <h4>Refleksi</h4>
       <div data-widget="reflect" data-key="krs-p12-refleksi" data-prompt="Rapat apa di RS yang akan kamu perbaiki dengan teknik ini? Apa kendala teknis yang paling mungkin terjadi?"></div>
-      <p class="note"><strong>Tindak lanjut (Pertemuan 13):</strong> Email Resmi RS — korespondensi elektronik profesional dalam lingkungan rumah sakit.</p>
+      <p class="note"><strong>Tindak lanjut (Pertemuan 13):</strong> Email Resmi RS, korespondensi elektronik profesional dalam lingkungan rumah sakit.</p>
     </section>
   </main>
 </div>
@@ -422,7 +418,6 @@ function h(tag,props,...kids){const e=document.createElement(tag);for(const k in
 const store={get(k,d){try{const v=localStorage.getItem(KONFIG.kode+"-"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem(KONFIG.kode+"-"+k,JSON.stringify(v));}catch(e){}}};
 function getData(id){return JSON.parse(document.getElementById(id).textContent);}
 function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
-function mmss(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
 let uid=0;const nextId=p=>p+"-"+(++uid);
 
 const W={};
@@ -533,7 +528,7 @@ function desenhoGaugeText(value,W_=160,H_=80){
     {q:"Tren kunjungan RS Sehat Citra selama 12 bulan terakhir",opsi:["bar","line","pie"],benar:1,jelas:"Line chart terbaik untuk menampilkan tren data deret waktu."},
     {q:"Proporsi pasien: BPJS (65%) vs Umum (35%)",opsi:["bar","pie","line"],benar:1,jelas:"Pie chart ideal untuk data proporsi bagian dari keseluruhan."},
     {q:"Perbandingan kunjungan 5 poli dalam 1 bulan",opsi:["line","pie","bar"],benar:2,jelas:"Bar chart terbaik untuk membandingkan nilai antar-kategori diskrit."},
-    {q:"BOR bulan ini: 78% — tampilkan sebagai angka besar yang mencolok",opsi:["bar","angka-besar","pie"],benar:1,jelas:"Angka besar / KPI tile paling efektif untuk satu nilai kunci yang perlu segera terlihat."},
+    {q:"BOR bulan ini: 78%, tampilkan sebagai angka besar yang mencolok",opsi:["bar","angka-besar","pie"],benar:1,jelas:"Angka besar / KPI tile paling efektif untuk satu nilai kunci yang perlu segera terlihat."},
     {q:"Kunjungan IGD per jam dalam sehari (00:00 – 23:00)",opsi:["pie","bar","line"],benar:2,jelas:"Line chart sesuai untuk data kontinu yang berubah seiring waktu."}
   ];
   const area=document.getElementById("chart-strategy-quiz");if(!area)return;
@@ -722,11 +717,8 @@ function initSegmen(){
   let mulai=0;const links=[];
   segs.forEach((s,i)=>{
     const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
-    const head=h("div",{class:"seg-head"},h("h3",{},judul),h("span",{class:"badge"},min+" menit"));
-    let sisa=min*60,tid=null;const tb=h("button",{class:"btn sec",type:"button"},"⏱ "+mmss(sisa));
-    const tw=h("span",{class:"seg-timer"},tb);
-    tb.addEventListener("click",()=>{if(tid){clearInterval(tid);tid=null;tb.textContent="▶ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));return;}tid=setInterval(()=>{sisa--;tw.classList.toggle("over",sisa<0);tb.textContent="⏸ "+(sisa<0?"-":"")+mmss(Math.abs(sisa));},1000);});
-    head.append(tw);s.prepend(head);
+    const head=h("div",{class:"seg-head"},h("h3",{},judul));
+    s.prepend(head);
     const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
     function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";done[s.id]=v;store.set("selesai",done);progres();}
     sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));
@@ -737,10 +729,9 @@ function initSegmen(){
   function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;$("#hdr-bar").style.width=(n/segs.length*100)+"%";}
   if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
 }
-function initJam(){let t=0,id=null;const c=$("#clock"),b=$("#clock-btn");b.addEventListener("click",()=>{if(id){clearInterval(id);id=null;b.textContent="Lanjut";}else{id=setInterval(()=>{t++;c.textContent=mmss(t);},1000);b.textContent="Jeda";}});}
 
 function isiHero(){
-  document.title="Pertemuan "+KONFIG.nomor+" — "+KONFIG.judul+" | Komputer Rumah Sakit";
+  document.title="Pertemuan "+KONFIG.nomor+": "+KONFIG.judul+" | Komputer Rumah Sakit";
   $("#hdr-judul").textContent=KONFIG.judul;$("#hdr-sub").textContent="Komputer Rumah Sakit · Pertemuan "+KONFIG.nomor;
   $("#hero-kode").textContent="Pertemuan "+KONFIG.nomor+" · "+KONFIG.cpmk.split(":")[0];
   $("#hero-judul").textContent=KONFIG.judul;$("#hero-cpmk").textContent=KONFIG.cpmk;
@@ -749,7 +740,7 @@ function isiHero(){
 document.addEventListener("DOMContentLoaded",()=>{
   isiHero();
   $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal ("+el.dataset.widget+"): "+e.message));}});
-  initTabs();initSegmen();initJam();
+  initTabs();initSegmen();
   window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
 });
 </script>
