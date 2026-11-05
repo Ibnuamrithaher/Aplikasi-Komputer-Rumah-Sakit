@@ -85,17 +85,138 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 .banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
 .banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
 .banding .row.post .track i{background:var(--ok)}
-/* Table simulator */
+.err{color:var(--bad);font-weight:700}
+/* Tabs */
+.tablist{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--line)}
+.tablist button{border:0;background:none;padding:8px 16px;border-radius:8px 8px 0 0;font-weight:600;color:var(--muted)}
+.tablist button[aria-selected="true"]{background:var(--primary-soft);color:var(--ink);box-shadow:inset 0 -3px 0 var(--primary)}
+.tabpanel{padding:14px 4px}
+.tabpanel[hidden]{display:none}
+/* Checklist */
+.checklist{list-style:none;padding:0;margin:8px 0}
+.checklist li{margin:4px 0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:6px}
+.checklist input{width:20px;height:20px;margin-top:4px;flex:none}
+.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+/* Panel pilih-info */
+.lapisan{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:16px;align-items:start}
+.lapisan>*{min-width:0}
+@media(max-width:800px){.lapisan{grid-template-columns:minmax(0,1fr)}}
+.grid2>*{min-width:0}
+.lapisan-tumpuk{display:grid;gap:6px}
+.lapisan-tumpuk button,.toggle-grp button{padding:8px 12px;border:2px solid var(--primary);background:var(--surface);border-radius:8px;font-weight:700;text-align:left}
+.lapisan-tumpuk button[aria-pressed="true"],.toggle-grp button[aria-pressed="true"]{background:var(--primary);color:var(--primary-ink)}
+.lapisan-info{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 16px;min-height:120px;margin-top:10px}
+.toggle-grp{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+select.pilih{border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:var(--surface)}
+/* Kertas dan tabel bergaya Word */
+.kertas{background:#fff;color:#111;border:1px solid #bbb;border-radius:6px;padding:14px 18px;overflow:auto;box-shadow:var(--shadow);margin:8px 0}
+.kertas .cap{font-weight:700;margin:0 0 6px;font-size:.95rem}
+.kertas .sumber{font-size:.8rem;margin:6px 0 0;color:#333}
+.tw{border-collapse:collapse;background:#fff;color:#111;font-size:.92rem}
+.tw th,.tw td{border:1px solid #777;padding:5px 9px;text-align:left;vertical-align:top}
+.tw thead th,.tw th{background:#d3f0f4;font-weight:700}
+.tw .hl,.kertas .hl{background:#ffd8a8!important;outline:3px solid #e8590c;outline-offset:-3px}
+.tw.hl-garis th,.tw.hl-garis td{border:2px solid #e8590c}
+.tw.fit-isi{width:auto}.tw.fit-jendela{width:100%}.tw.fit-tetap{width:100%;table-layout:fixed}
+.tw.no-header thead th{background:transparent;font-weight:400}
+.tw.banded tbody tr:nth-child(even) td{background:#e7f5f7}
+.tw.tengah .pendek{text-align:center}
+.tw.garis-luar{border:1.5px solid #444}.tw.garis-luar th,.tw.garis-luar td{border:0}
+.tw.garis-tanpa th,.tw.garis-tanpa td{border:1px dashed #9ec5fe}
+.hal-isi{outline:1px dashed #999;outline-offset:6px}
+.badge-standar{display:inline-block;padding:3px 12px;border-radius:99px;font-size:.85rem;font-weight:700;margin:8px 0}
+.badge-standar.ok{background:var(--ok-soft);color:var(--ok)}.badge-standar.no{background:var(--bad-soft);color:var(--bad)}
+/* Simulator sisip tabel */
+.gp{display:inline-grid;grid-template-columns:repeat(10,22px);gap:3px;padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:8px;cursor:pointer}
+.gp span{width:22px;height:22px;border:1px solid var(--line);background:var(--bg);border-radius:2px}
+.gp span.on{background:var(--primary-soft);border-color:var(--primary)}
+.gp-label{font-weight:700;margin:4px 0}
 .tbl-sim{overflow:auto;border:1px solid var(--line);border-radius:8px;margin:12px 0}
 .tbl-sim table{border-collapse:collapse;min-width:100%}
-.tbl-sim td,.tbl-sim th{border:1px solid var(--line);padding:0}
+.tbl-sim td,.tbl-sim th{border:1px solid var(--line);padding:0;min-width:90px}
 .tbl-sim th{background:var(--primary-soft)}
 .tbl-sim td input,.tbl-sim th input{width:100%;border:0;background:transparent;padding:6px 8px;font-size:.95rem}
 .tbl-sim th input{font-weight:700}
-.tbl-sim td input:focus,.tbl-sim th input:focus{background:var(--primary-soft);outline:2px solid var(--primary);outline-offset:-2px}
+.tbl-sim .aktif input{background:var(--primary-soft)}
+.tbl-sim .baru input{background:var(--ok-soft)}
+.tbl-sim td input:focus,.tbl-sim th input:focus{outline:2px solid var(--primary);outline-offset:-2px}
+.tbl-tools{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.tbl-tools .btn{padding:6px 12px;font-size:.88rem}
 .tbl-ctl{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
 .tbl-ctl label{display:flex;align-items:center;gap:6px;font-size:.95rem}
-.tbl-ctl select{border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--surface)}
+/* Simulator merge */
+.ms td{padding:0;min-width:80px}
+.ms td.kepala{background:#d3f0f4;font-weight:700}
+.ms td.pilih{background:#a5d8ff!important;outline:2px solid #1971c2;outline-offset:-2px}
+.ms button{width:100%;min-height:38px;border:0;background:transparent;padding:5px 9px;text-align:left;color:#111;font:inherit;white-space:pre-line}
+.ms td.kosong button{color:#888;font-weight:400;font-style:italic}
+.tugas-ms{list-style:none;padding:0}.tugas-ms li{margin:4px 0}.tugas-ms li.ok{color:var(--ok);font-weight:700}
+/* Tiruan ribbon */
+.rb{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);margin:10px 0}
+.rb-tabs{display:flex;gap:2px;background:var(--bg);border-bottom:1px solid var(--line);padding:4px 6px 0}
+.rb-tabs button{border:0;background:none;padding:6px 14px;border-radius:6px 6px 0 0;font-weight:600;color:var(--muted)}
+.rb-tabs button[aria-pressed="true"]{background:var(--surface);color:var(--primary);box-shadow:inset 0 -3px 0 var(--primary)}
+.rb-body{display:flex;flex-wrap:wrap;padding:8px}
+.rb-grp{border-right:1px solid var(--line);padding:4px 10px;display:flex;flex-direction:column;justify-content:space-between}
+.rb-grp:last-child{border-right:0}
+.rb-btns{display:flex;flex-wrap:wrap;gap:4px;max-width:250px}
+.rb-btns button{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:4px 8px;font-size:.82rem}
+.rb-btns button[aria-pressed="true"]{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.rb-grp small{display:block;text-align:center;color:var(--muted);font-size:.75rem;margin-top:6px}
+.rb-info{border-top:1px solid var(--line);padding:10px 14px;background:var(--bg);min-height:90px}
+/* Studio tabel dan halaman mini */
+.studio-ctl{display:grid;gap:8px}
+.studio-ctl fieldset{border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin:0}
+.studio-ctl legend{font-weight:700;font-size:.9rem}
+.studio-ctl label{margin-right:12px;font-size:.92rem;white-space:nowrap}
+.dua-hal{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:10px 0}
+.mini-hal{background:#fff;color:#111;border:1px solid #bbb;border-radius:4px;padding:14px 14px 26px;min-height:220px;position:relative;box-shadow:var(--shadow)}
+.mini-hal .no-hal{position:absolute;bottom:6px;right:10px;color:#777;font-size:.72rem}
+.tw tr.ulang th{background:#b2f2bb}
+.tw tr.judul-nyasar td{background:#ffc9c9;font-weight:700}
+/* Game tabel */
+.bug{cursor:pointer}
+.bug:hover,.bug:hover td{background:rgba(255,200,0,.35)}
+.bug.found,.bug.found td{background:#ffe066!important}
+.bug-popup{background:var(--warn);color:#111;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:.92rem;line-height:1.45}
+.skor-game{font-weight:700;font-size:1.1rem;color:var(--primary)}
+input.angka{border:1px solid var(--line);border-radius:8px;padding:4px 8px;background:var(--surface)}
+/* Halaman mini */
+.hal-deret{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin:10px 0}
+.hal-deret p{margin:0}
+.mini-a4{background:#fff;color:#111;border:1px solid #bbb;box-shadow:var(--shadow);width:120px;height:170px;padding:6px 10px;display:flex;flex-direction:column}
+.mini-a4.land{width:170px;height:120px}
+.mini-a4 .slot{height:15px;font-size:11px;font-weight:700;line-height:15px}
+.mini-a4 .slot.kosong{color:transparent}
+.mini-a4 .isi{flex:1;display:flex;flex-direction:column;gap:5px;padding:5px 0;overflow:hidden}
+.mini-a4 .bar{display:block;height:5px;background:#ced4da;border-radius:2px}
+.mini-a4 .bar.pendek{width:60%}
+.mini-a4 .bar.judul{background:#495057;width:50%;height:7px}
+.mini-grid{flex:1;background-image:linear-gradient(#adb5bd 1px,transparent 1px),linear-gradient(90deg,#adb5bd 1px,transparent 1px);background-size:9px 9px;border:1px solid #adb5bd}
+.hal-label{font-size:.8rem;color:var(--muted);text-align:center;margin-top:4px!important}
+.pb-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.pb-hal{background:#fff;color:#111;border:1px solid #bbb;width:140px;height:178px;padding:6px 8px;font-size:10px;line-height:15px;box-shadow:var(--shadow);overflow:hidden}
+.pb-hal .ln{height:15px;white-space:nowrap}
+.pb-hal .ln.teks::before{content:"";display:block;height:5px;position:relative;top:5px;background:#ced4da;border-radius:2px}
+.pb-hal .ln.enter{color:#1971c2}
+.pb-hal .ln.judul{font-weight:700}
+.pb-hal .ln.break{color:#1971c2;font-size:8px;text-align:center;letter-spacing:.02em}
+/* Tugas Lab 2 */
+.kertas.word{font-family:"Times New Roman",serif}
+.lab2-tabel{width:100%;font-size:11pt}
+.lab2-tabel th{text-align:center;vertical-align:middle}
+.lab2-tabel td.kode,.lab2-tabel td.tengah{text-align:center}
+.lab2-tabel td.libur{background:#e9ecef}
+.lab2-surat{font-family:"Times New Roman",serif;font-size:12px;line-height:1.55;padding:20px 24px}
+.lab2-surat .kop{text-align:center;border-bottom:3px double #111;padding-bottom:6px;margin-bottom:10px}
+.lab2-surat .kop b{display:block;font-size:15px;text-transform:uppercase;letter-spacing:.04em}
+.lab2-surat .kop span{font-size:10.5px}
+.lab2-surat p{margin:6px 0}
+.lab2-surat .isi{text-indent:2em;text-align:justify}
+.lab2-surat td{padding:0 6px 0 0;vertical-align:top}
 /* Mail merge diagram */
 .mm-diagram{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:start;margin:16px 0}
 @media(max-width:700px){.mm-diagram{grid-template-columns:1fr}}
@@ -121,7 +242,8 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 @media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}
-  .top,nav.agenda,
+  .top,nav.agenda,.seg-foot,.btn,.skip{display:none!important}
+  .tabpanel[hidden]{display:block!important}
   .wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
   .hero{background:#fff;color:#000}}
 
@@ -154,8 +276,9 @@ nav.agenda{display:none!important}
 
     <!-- PEMBUKA -->
     <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">Doni Prakoso, staf administrasi RS Sehat Citra (fiktif), mendapat tugas besar: mengirimkan 200 surat undangan kontrol ke pasien yang terdaftar. Ia mulai mengetik satu per satu, nama pasien, poli tujuan, tanggal kontrol, nama dokter, di setiap surat. Setelah satu jam ia baru selesai 8 surat. Kepala Administrasi menegur: "Kamu tidak akan kelar minggu ini kalau begitu. Pakai Mail Merge!"</p>
-      <p>Mail Merge adalah fitur MS Word yang menggabungkan <strong>template surat</strong> dengan <strong>data dari file Excel/CSV</strong> untuk menghasilkan ratusan dokumen personal secara otomatis. Hari ini kita pelajari cara kerjanya dari awal.</p>
+      <p class="cerita">Doni Prakoso, staf administrasi RS Sehat Citra (fiktif), mendapat dua tugas sekaligus. Tugas pertama, membuat jadwal praktik dokter untuk ditempel di lobi. Doni meluruskan kolomnya dengan menekan spasi berkali-kali. Di layar terlihat lurus, tetapi setelah dicetak kolomnya miring dan berantakan. Tugas kedua, mengirim 200 surat undangan kontrol ke pasien. Doni mengetik nama pasien, poli, tanggal kontrol, dan nama dokter di setiap surat satu per satu. Setelah satu jam, ia baru selesai 8 surat. Kepala Administrasi geleng-geleng kepala: "Jadwal itu pakai tabel. Surat sebanyak itu pakai Mail Merge. Kalau begini caranya, kamu tidak akan kelar minggu ini!"</p>
+      <p>Hari ini kita belajar dua keterampilan yang saling berhubungan. Pertama, membuat <strong>tabel</strong> yang rapi di Word: mengenal bagian-bagiannya, membuat, mengubah, sampai merapikannya. Kedua, <strong>Mail Merge</strong>, yaitu fitur Word yang menggabungkan <strong>template surat</strong> dengan <strong>daftar data</strong> sehingga ratusan surat personal jadi dalam hitungan menit.</p>
+      <p class="note"><strong>Benang merahnya:</strong> Mail Merge hanya bekerja dengan baik jika datanya tersusun rapi dalam tabel. Jadi tabel adalah fondasi, dan kita mulai dari situ.</p>
     </section>
 
     <!-- PRE-TEST -->
@@ -164,6 +287,9 @@ nav.agenda{display:none!important}
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test","soal":[
+        {"q":"Pada tabel, deretan sel yang tersusun mendatar (dari kiri ke kanan) disebut:","opsi":["Kolom","Baris","Sel","Border"],"benar":1,"jelas":"Baris tersusun mendatar dari kiri ke kanan. Kolom tersusun tegak dari atas ke bawah. Kotak tempat baris dan kolom bertemu disebut sel."},
+        {"q":"Cara paling tepat membuat data berkolom yang lurus dan rapi di Word adalah:","opsi":["Menekan spasi berkali-kali","Memakai tabel","Menekan Enter di setiap data","Memperkecil ukuran huruf"],"benar":1,"jelas":"Lebar spasi tidak pasti, sehingga kolom bisa bergeser saat font atau printer berbeda. Tabel menjaga setiap data tetap di kotaknya."},
+        {"q":"Perintah di Word untuk menggabungkan dua sel atau lebih menjadi satu sel adalah:","opsi":["Split Cells","Merge Cells","AutoFit","Sort"],"benar":1,"jelas":"Merge Cells menggabungkan beberapa sel menjadi satu. Split Cells kebalikannya, yaitu memecah satu sel menjadi beberapa sel."},
         {"q":"Mail Merge menggabungkan antara:","opsi":["Dua file PDF","Master dokumen dan sumber data","Dua jenis font berbeda","Gambar dan teks"],"benar":1,"jelas":"Mail Merge = Master dokumen (template) + Data source (Excel/CSV). Hasilnya: dokumen personal sebanyak jumlah baris data."},
         {"q":"Format file datasource Mail Merge yang paling umum digunakan adalah:","opsi":["File musik MP3","Gambar PNG","File Excel XLSX atau CSV","File PDF"],"benar":2,"jelas":"Excel (.xlsx) dan CSV (.csv) adalah format data tabel yang didukung penuh oleh fitur Mail Merge di MS Word."},
         {"q":"Placeholder (bidang gabung) di master dokumen Mail Merge ditandai dengan:","opsi":["<< >>","{{ }}","« » (guillemet)","[ ]"],"benar":2,"jelas":"MS Word menggunakan tanda «NamaField» (guillemet/chevron) untuk menandai field yang akan diganti data. Contoh: «Nama»."},
@@ -174,33 +300,435 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- INTI 1 -->
-    <section class="seg" id="seg-inti1" data-judul="Inti 1: Tabel di Word" data-min="13">
-      <p>Simulator pembuat tabel Word. Atur jumlah baris dan kolom, lalu isi nama kolom header.</p>
-      <div class="tbl-ctl">
-        <label>Baris: <select id="tbl-rows" aria-label="Jumlah baris">
-          <option value="2">2</option><option value="3" selected>3</option><option value="4">4</option>
-          <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
-        </select></label>
-        <label>Kolom: <select id="tbl-cols" aria-label="Jumlah kolom">
-          <option value="2">2</option><option value="3">3</option><option value="4" selected>4</option>
-          <option value="5">5</option><option value="6">6</option>
-        </select></label>
-        <button class="btn sec" id="btn-build-tbl" type="button">Buat Tabel</button>
-      </div>
-      <div class="tbl-sim" id="tbl-preview"></div>
-      <p class="note" style="font-size:.9rem">Klik sel header (baris pertama) untuk mengganti nama kolom. Sel data lainnya juga bisa diedit sebagai latihan.</p>
-      <details><summary>Tips tabel di MS Word</summary>
-        <div>
-          <p><strong>Merge Cell:</strong> Pilih sel yang ingin digabung → klik kanan → Merge Cells. Berguna untuk header yang mencakup beberapa kolom.</p>
-          <p><strong>Lebar Kolom:</strong> Klik kanan pada kolom → Table Properties → Column → atur lebar. Atau seret batas kolom secara manual.</p>
-          <p><strong>Warna Header:</strong> Pilih baris header → Design (Table Design) → Shading → pilih warna. Gunakan warna yang kontras.</p>
-          <p><strong>Sort Data:</strong> Klik di dalam tabel → Layout → Sort → pilih kolom dan urutan (A→Z atau Z→A).</p>
+    <section class="seg" id="seg-inti1" data-judul="Inti 1: Mengenal Tabel">
+      <h4>Apa itu tabel?</h4>
+      <p>Tabel adalah cara menyusun data dalam kotak-kotak yang berjajar mendatar dan menurun. Bayangkan lemari loker di ruang ganti pegawai. Setiap loker punya tempat yang jelas: baris ke berapa dan kolom ke berapa. Data di tabel juga begitu. Setiap data punya kotaknya sendiri, sehingga mudah dibaca, dibandingkan, dan dicari.</p>
+      <p>Coba rasakan sendiri bedanya. Data di bawah ini sama persis, hanya cara menyajikannya yang berbeda.</p>
+      <div data-widget="paragraftabel"></div>
+
+      <h4>Bagian-bagian tabel (klik untuk melihat)</h4>
+      <p>Klik nama bagian di sebelah kiri. Bagian tabel yang dimaksud akan diberi warna oranye.</p>
+      <div data-widget="anatomitabel" data-src="data-anatomi-tabel">
+        <div class="kertas">
+          <p class="cap" data-part="judul">Tabel 1. Jadwal Praktik Dokter Poliklinik RS Sehat Citra</p>
+          <table class="tw">
+            <thead>
+              <tr><th rowspan="2">No</th><th rowspan="2">Nama Dokter</th><th rowspan="2" data-kol="3">Poli</th><th rowspan="2">Hari</th><th colspan="2" data-part="gabung">Jam Praktik</th></tr>
+              <tr><th>Mulai</th><th>Selesai</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>dr. Hendra Kusuma</td><td data-kol="3">Poli Umum</td><td>Senin</td><td>08.00</td><td>12.00</td></tr>
+              <tr data-part="baris"><td>2</td><td>drg. Lina Pratiwi</td><td data-kol="3">Poli Gigi</td><td>Selasa</td><td>09.00</td><td>13.00</td></tr>
+              <tr><td>3</td><td>dr. Ahmad Fauzi</td><td data-kol="3">Poli Anak</td><td>Rabu</td><td>08.00</td><td>11.00</td></tr>
+              <tr><td>4</td><td>dr. Sari Dewi</td><td data-kol="3">Poli THT</td><td data-part="sel">Kamis</td><td>13.00</td><td>16.00</td></tr>
+            </tbody>
+          </table>
+          <p class="sumber" data-part="sumber">Sumber: Bagian Pelayanan Medis RS Sehat Citra, November 2026 (data fiktif)</p>
         </div>
-      </details>
+      </div>
+      <script type="application/json" id="data-anatomi-tabel">
+      [
+        {"nama":"Judul tabel","sel":"[data-part=judul]","teks":"Kalimat singkat di atas tabel yang memberi tahu isi tabel. Di laporan dan karya tulis, judul tabel diberi nomor urut: Tabel 1, Tabel 2, dan seterusnya.","rs":"Pembaca langsung tahu bahwa tabel ini berisi jadwal praktik dokter, bukan daftar pasien."},
+        {"nama":"Baris judul kolom (header)","sel":"thead th","teks":"Baris paling atas yang berisi nama setiap kolom. Biasanya dibuat tebal dan diberi warna latar agar berbeda dari isi. Tabel ini memakai judul kolom dua tingkat: Jam Praktik dibagi lagi menjadi Mulai dan Selesai.","rs":"Pada sumber data Mail Merge, nama di baris judul kolom inilah yang nanti menjadi nama field, misalnya «Nama» dan «Poli»."},
+        {"nama":"Baris (row)","sel":"tr[data-part=baris] td","teks":"Deretan sel yang mendatar, dari kiri ke kanan. Satu baris berisi semua keterangan tentang satu hal. Cara mengingat: baris itu seperti barisan kursi di bioskop, berjajar ke samping.","rs":"Satu baris berisi satu jadwal dokter. Di daftar pasien, satu baris berisi data satu pasien."},
+        {"nama":"Kolom (column)","sel":"[data-kol='3']","teks":"Deretan sel yang tegak, dari atas ke bawah. Satu kolom hanya berisi satu jenis data. Cara mengingat: kolom pada bangunan adalah tiang yang berdiri tegak.","rs":"Kolom Poli hanya berisi nama poli. Jangan menyelipkan nama dokter atau jam di kolom ini."},
+        {"nama":"Sel (cell)","sel":"[data-part=sel]","teks":"Kotak kecil tempat baris dan kolom bertemu. Satu sel sebaiknya berisi satu data saja. Sel itu seperti satu loker: posisinya ditentukan oleh baris dan kolomnya.","rs":"Sel yang disorot ada di baris dr. Sari Dewi dan kolom Hari, isinya Kamis."},
+        {"nama":"Sel gabungan (merged cell)","sel":"[data-part=gabung]","teks":"Beberapa sel yang digabung menjadi satu sel besar. Di sini sel Jam Praktik menaungi dua kolom, yaitu Mulai dan Selesai. Di Word, sel seperti ini dibuat dengan perintah Merge Cells.","rs":"Cocok untuk judul kolom bertingkat di jadwal dan laporan. Hindari sel gabungan pada tabel yang akan dipakai untuk Mail Merge."},
+        {"nama":"Garis tabel (border)","sel":"table","teks":"Garis yang membatasi setiap sel. Garis bisa ditampilkan, ditebalkan, diberi warna, atau dihilangkan. Jika garis dihilangkan, Word kadang masih menampilkan garis putus-putus (gridlines) di layar. Garis putus-putus itu hanya penanda dan tidak ikut tercetak.","rs":"Jadwal yang ditempel di lobi lebih mudah dibaca dari jauh jika garisnya jelas."},
+        {"nama":"Sumber dan keterangan","sel":"[data-part=sumber]","teks":"Catatan kecil di bawah tabel yang menyebut asal data. Bila perlu, di sini juga dijelaskan singkatan atau tanda yang dipakai di tabel.","rs":"Jika data diambil dari unit lain, tulis sumbernya, misalnya Sumber: Bagian Pelayanan Medis RS Sehat Citra, November 2026."}
+      ]
+      </script>
+      <p class="note"><strong>Cara cepat menghitung sel:</strong> jumlah kolom dikali jumlah baris. Tabel 5 kolom dan 4 baris punya 5 x 4 = 20 sel.</p>
+
+      <h4>Kapan sebaiknya memakai tabel?</h4>
+      <div class="grid2">
+        <div class="card"><strong>Pakai tabel jika ...</strong>
+          <ul>
+            <li>Ada banyak hal yang punya keterangan sejenis. Contoh: banyak dokter, masing-masing punya poli, hari, dan jam.</li>
+            <li>Pembaca perlu membandingkan atau mencari data dengan cepat.</li>
+            <li>Kamu membuat daftar hadir, formulir isian, atau lampiran surat.</li>
+          </ul>
+        </div>
+        <div class="card"><strong>Tidak perlu tabel jika ...</strong>
+          <ul>
+            <li>Datanya hanya satu atau dua. Cukup ditulis dalam kalimat.</li>
+            <li>Isinya berupa penjelasan panjang atau cerita.</li>
+            <li>Datanya ratusan baris dan perlu dihitung. Untuk itu pakai Excel (Pertemuan 06).</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4>Tabel di Word atau di Excel?</h4>
+      <table class="data">
+        <thead><tr><th>Hal</th><th>Tabel di Word</th><th>Excel</th></tr></thead>
+        <tbody>
+          <tr><td>Tujuan utama</td><td>Menyajikan data di dalam surat, laporan, atau formulir</td><td>Mengolah dan menghitung data</td></tr>
+          <tr><td>Jumlah data</td><td>Sedikit, biasanya belasan sampai puluhan baris</td><td>Banyak, bisa ratusan sampai ribuan baris</td></tr>
+          <tr><td>Perhitungan</td><td>Hampir tidak ada</td><td>Banyak rumus, seperti SUM dan AVERAGE</td></tr>
+          <tr><td>Contoh di RS</td><td>Jadwal praktik untuk pengumuman, daftar hadir rapat, lampiran surat</td><td>Rekap kunjungan setahun, stok obat, jadwal jaga IGD sebulan</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Keduanya sering dipakai bersama. Angka dihitung di Excel, lalu tabel ringkasnya ditampilkan di laporan Word. Caranya dibahas di Pertemuan 11.</p>
+
+      <h4>Contoh tabel di dokumen RS (klik untuk penjelasan)</h4>
+      <div data-widget="infolist" data-src="data-contoh-tabel"></div>
+      <script type="application/json" id="data-contoh-tabel">
+      [
+        {"nama":"Jadwal praktik dokter","teks":"Kolom yang biasa ada: No, Nama Dokter, Poli, Hari, dan Jam Praktik.","rs":"Ditempel di lobi dan dibagikan ke loket pendaftaran agar petugas cepat menjawab pertanyaan pasien."},
+        {"nama":"Daftar hadir rapat","teks":"Kolom: No, Nama, Jabatan atau Unit, dan Tanda Tangan. Kolom tanda tangan dibuat lebar dan barisnya agak tinggi.","rs":"Dilampirkan pada notulen rapat komite sebagai bukti siapa saja yang hadir."},
+        {"nama":"Lampiran surat","teks":"Kolom menyesuaikan isi surat, misalnya No, Nama Barang, Jumlah, dan Satuan.","rs":"Surat permintaan alat dari IGD ke bagian logistik disertai tabel daftar barang yang diminta."},
+        {"nama":"Formulir isian","teks":"Tabel tanpa garis dipakai untuk menyusun label dan titik-titik isian agar lurus. Pembaca tidak melihat tabelnya, tetapi isiannya rapi.","rs":"Formulir permohonan cuti pegawai atau formulir peminjaman berkas rekam medis."},
+        {"nama":"Jadwal dinas perawat","teks":"Kolom: Nama, lalu tanggal-tanggal dalam satu bulan. Isinya kode dinas, misalnya P (pagi), S (siang), M (malam), dan L (libur).","rs":"Jadwal kecil satu ruangan bisa dibuat di Word. Jika pegawainya banyak dan jam kerjanya perlu dihitung, pakai Excel."},
+        {"nama":"Tabel tindak lanjut rapat","teks":"Kolom: No, Masalah, Tindak Lanjut, Penanggung Jawab, dan Batas Waktu.","rs":"Memudahkan pimpinan memantau siapa mengerjakan apa dan kapan harus selesai."},
+        {"nama":"Rekap ringkas di laporan","teks":"Tabel kecil berisi angka hasil rekap, misalnya jumlah kunjungan per poli dalam satu bulan.","rs":"Masuk ke laporan bulanan unit rawat jalan untuk dibahas di rapat direksi."}
+      ]
+      </script>
+
+      <h4>Cek pemahaman: baris, kolom, atau sel?</h4>
+      <div data-widget="quiz" data-src="quiz-anatomi" class="quiz"></div>
+      <script type="application/json" id="quiz-anatomi">
+      {"judul":"Cek pemahaman","soal":[
+        {"q":"Data Poli Umum, Poli Gigi, dan Poli Anak yang tersusun dari atas ke bawah berada dalam satu ...","opsi":["Baris","Kolom","Sel","Judul tabel"],"benar":1,"jelas":"Susunan tegak dari atas ke bawah adalah kolom. Satu kolom berisi satu jenis data, di sini nama poli."},
+        {"q":"Nama, poli, tanggal kontrol, dan dokter milik satu pasien sebaiknya diletakkan dalam satu ...","opsi":["Baris","Kolom","Sel","Sumber"],"benar":0,"jelas":"Satu baris berisi semua keterangan tentang satu hal, di sini satu pasien."},
+        {"q":"Tabel dengan 4 kolom dan 6 baris memiliki berapa sel?","opsi":["10 sel","20 sel","24 sel","46 sel"],"benar":2,"jelas":"Jumlah sel sama dengan kolom dikali baris: 4 x 6 = 24 sel."},
+        {"q":"Baris paling atas yang berisi nama setiap kolom disebut ...","opsi":["Baris judul kolom (header)","Sel gabungan","Sumber tabel","Baris kosong"],"benar":0,"jelas":"Baris judul kolom atau header berisi nama kolom, misalnya No, Nama Dokter, dan Poli. Biasanya dibuat tebal dan berwarna."}
+      ]}
+      </script>
     </section>
 
     <!-- INTI 2 -->
-    <section class="seg" id="seg-inti2" data-judul="Inti 2: Diagram Mail Merge" data-min="13">
+    <section class="seg" id="seg-inti2" data-judul="Inti 2: Membuat dan Mengubah Tabel di Word">
+      <p>Sekarang kita masuk ke Word. Membuat tabel selalu dimulai dari tab <strong>Insert</strong>. Setelah tabel jadi, ada dua tab khusus yang baru muncul ketika kursor berada di dalam tabel. Kita bahas satu per satu.</p>
+
+      <h4>Empat cara menyisipkan tabel</h4>
+      <div class="tabs">
+        <div class="tablist" role="tablist">
+          <button type="button" role="tab">1. Kotak-kotak</button>
+          <button type="button" role="tab">2. Insert Table</button>
+          <button type="button" role="tab">3. Ubah teks jadi tabel</button>
+          <button type="button" role="tab">4. Draw Table</button>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <ol>
+            <li>Letakkan kursor di tempat tabel akan dibuat.</li>
+            <li>Klik tab <strong>Insert → Table</strong>.</li>
+            <li>Gerakkan mouse di atas kotak-kotak kecil. Kotak yang menyala menunjukkan ukuran tabel.</li>
+            <li>Klik, dan tabel langsung muncul.</li>
+          </ol>
+          <p class="note">Cara paling cepat, tetapi kotak-kotaknya terbatas 10 kolom dan 8 baris. Tidak masalah, baris dan kolom bisa ditambah kapan saja.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <ol>
+            <li>Klik <strong>Insert → Table → Insert Table...</strong></li>
+            <li>Isi <strong>Number of columns</strong> (jumlah kolom) dan <strong>Number of rows</strong> (jumlah baris).</li>
+            <li>Pada <strong>AutoFit behavior</strong>, biarkan <strong>Fixed column width: Auto</strong> jika ragu.</li>
+            <li>Klik <strong>OK</strong>.</li>
+          </ol>
+          <p class="note">Cocok untuk tabel besar. Contoh: daftar hadir 40 peserta dengan kolom No, Nama, Unit, dan Tanda Tangan butuh 4 kolom dan 41 baris. Ingat, tambahkan 1 baris untuk judul kolom.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <p>Kadang datanya sudah diketik dalam bentuk daftar yang dipisah tanda Tab atau koma, misalnya data yang disalin dari email atau dari file CSV. Data itu tidak perlu diketik ulang.</p>
+          <div class="grid2">
+            <div><strong>Sebelum (teks biasa)</strong>
+              <pre class="kertas" style="font-size:.85rem;white-space:pre-wrap">Nama,Poli,Hari
+Siti Aminah,Poli Umum,Senin
+Budi Santoso,Poli Gigi,Selasa</pre></div>
+            <div><strong>Sesudah (tabel)</strong>
+              <div class="kertas"><table class="tw"><thead><tr><th>Nama</th><th>Poli</th><th>Hari</th></tr></thead><tbody><tr><td>Siti Aminah</td><td>Poli Umum</td><td>Senin</td></tr><tr><td>Budi Santoso</td><td>Poli Gigi</td><td>Selasa</td></tr></tbody></table></div></div>
+          </div>
+          <ol>
+            <li>Blok semua teks datanya.</li>
+            <li>Klik <strong>Insert → Table → Convert Text to Table</strong>.</li>
+            <li>Pada bagian <strong>Separate text at</strong>, pilih pemisah yang dipakai: <strong>Tabs</strong> atau <strong>Commas</strong> (koma).</li>
+            <li>Klik <strong>OK</strong>. Word menghitung jumlah kolomnya sendiri.</li>
+          </ol>
+          <p class="note">Kebalikannya juga bisa: <strong>Layout → Convert to Text</strong> mengubah tabel kembali menjadi teks biasa.</p>
+        </div>
+        <div class="tabpanel" role="tabpanel">
+          <p>Klik <strong>Insert → Table → Draw Table</strong>. Kursor berubah menjadi pensil. Seret untuk menggambar kotak luar, lalu gambar garis-garis di dalamnya. Untuk menghapus garis, pakai <strong>Eraser</strong> (penghapus) di tab Layout.</p>
+          <p class="note">Berguna untuk formulir yang bentuknya tidak beraturan. Untuk pemula, cara 1 dan 2 lebih mudah dan hasilnya lebih rapi.</p>
+        </div>
+      </div>
+
+      <h4>Simulator: sisipkan dan ubah tabel seperti di Word</h4>
+      <p>Arahkan mouse ke kotak-kotak di bawah, lalu klik untuk membuat tabel. Bisa juga dengan keyboard: tekan Tab sampai kotak-kotaknya terpilih, pakai tombol panah, lalu tekan Enter.</p>
+      <p class="note"><strong>Perhatikan cara Word menulis ukuran tabel:</strong> kolom dulu, baru baris. Tabel 4x3 artinya 4 kolom dan 3 baris, bukan sebaliknya.</p>
+      <div data-widget="gridtabel"></div>
+
+      <h4>Bergerak dan mengetik di dalam tabel</h4>
+      <table class="data">
+        <thead><tr><th>Tombol</th><th>Yang terjadi</th></tr></thead>
+        <tbody>
+          <tr><td>Tab</td><td>Pindah ke sel berikutnya (ke kanan, lalu ke baris bawah)</td></tr>
+          <tr><td>Shift+Tab</td><td>Kembali ke sel sebelumnya</td></tr>
+          <tr><td>Tombol panah</td><td>Bergerak ke atas, bawah, kiri, atau kanan</td></tr>
+          <tr><td>Tab di sel paling akhir</td><td>Menambah satu baris baru di bawah tabel</td></tr>
+          <tr><td>Enter</td><td>Membuat baris teks baru <strong>di dalam sel yang sama</strong>, bukan pindah sel</td></tr>
+          <tr><td>Ctrl+Tab</td><td>Memasukkan jarak tab di dalam sel (karena Tab biasa dipakai untuk pindah sel)</td></tr>
+        </tbody>
+      </table>
+      <p class="note"><strong>Kesalahan yang sering terjadi:</strong> menekan Enter untuk pindah sel. Akibatnya sel menjadi tinggi karena berisi baris kosong. Untuk pindah sel, pakai Tab atau tombol panah.</p>
+
+      <h4>Memilih bagian tabel</h4>
+      <p>Sebelum mengubah sesuatu (menebalkan, mewarnai, menghapus), bagian tabelnya harus dipilih dulu.</p>
+      <table class="data">
+        <thead><tr><th>Yang ingin dipilih</th><th>Caranya</th></tr></thead>
+        <tbody>
+          <tr><td>Beberapa sel</td><td>Klik di sel pertama, lalu seret mouse sampai sel terakhir</td></tr>
+          <tr><td>Satu baris</td><td>Arahkan mouse ke sebelah kiri baris, di luar tabel, sampai muncul panah putih miring, lalu klik</td></tr>
+          <tr><td>Satu kolom</td><td>Arahkan mouse ke garis paling atas kolom sampai muncul panah hitam kecil mengarah ke bawah, lalu klik</td></tr>
+          <tr><td>Seluruh tabel</td><td>Klik ikon kotak kecil bergambar panah empat arah di pojok kiri atas tabel. Ikon ini muncul saat mouse berada di atas tabel</td></tr>
+          <tr><td>Cara pasti untuk semuanya</td><td>Klik di dalam tabel, lalu <strong>Layout → Select</strong>, dan pilih Select Cell, Select Column, Select Row, atau Select Table</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Dua tab khusus tabel: Table Design dan Layout</h4>
+      <p>Saat kursor berada di dalam tabel, di ujung kanan ribbon muncul dua tab tambahan: <strong>Table Design</strong> (untuk tampilan) dan <strong>Layout</strong> (untuk struktur). Di Word versi baru, tab Layout ini bernama <strong>Table Layout</strong>. Hati-hati, ada juga tab Layout biasa untuk margin halaman yang kita pakai di Pertemuan 04. Klik tombol pada tiruan ribbon berikut untuk melihat fungsinya.</p>
+      <div data-widget="ribbon" data-src="data-ribbon"></div>
+      <script type="application/json" id="data-ribbon">
+      {"tab":[
+        {"nama":"Table Design","grup":[
+          {"nama":"Table Style Options","tombol":[
+            {"t":"Header Row","f":"Membuat baris pertama tampil beda (tebal dan berwarna) sesuai gaya tabel yang dipilih.","rs":"Selalu aktifkan untuk jadwal dan daftar pasien agar judul kolom jelas."},
+            {"t":"Banded Rows","f":"Memberi warna selang-seling pada baris: satu terang, satu agak gelap.","rs":"Membantu mata tidak salah baris saat membaca daftar panjang, misalnya daftar 40 pasien kontrol."},
+            {"t":"First Column","f":"Membuat kolom paling kiri tampil tebal.","rs":"Berguna jika kolom pertama menjadi patokan, misalnya nama ruangan."},
+            {"t":"Total Row","f":"Membuat baris paling bawah tampil beda, untuk baris jumlah atau total.","rs":"Baris Jumlah pada tabel rekap kunjungan di laporan bulanan."}]},
+          {"nama":"Table Styles","tombol":[
+            {"t":"Galeri gaya","f":"Kumpulan gaya tabel siap pakai. Arahkan mouse untuk melihat contoh, klik untuk memakai.","rs":"Pilih gaya yang sederhana dan tidak ramai warna agar tetap terlihat resmi."},
+            {"t":"Shading","f":"Memberi warna latar pada sel yang dipilih.","rs":"Warnai baris judul kolom dengan warna lembut, misalnya abu-abu muda atau biru muda."}]},
+          {"nama":"Borders","tombol":[
+            {"t":"Line Style / Weight","f":"Memilih jenis garis (lurus, putus-putus, ganda) dan ketebalannya.","rs":"Garis luar bisa dibuat sedikit lebih tebal agar tabel terlihat tegas."},
+            {"t":"Borders","f":"Memilih garis mana yang tampil: All Borders (semua garis), Outside Borders (hanya garis luar), No Border (tanpa garis), dan lainnya.","rs":"Formulir isian sering memakai No Border agar yang terlihat hanya teks dan titik-titik."},
+            {"t":"Border Painter","f":"Kuas untuk menggambar garis langsung di tabel dengan gaya garis yang sedang dipilih.","rs":"Cepat untuk menebalkan satu garis saja, misalnya garis di bawah baris judul kolom."}]}
+        ]},
+        {"nama":"Layout","grup":[
+          {"nama":"Table","tombol":[
+            {"t":"Select","f":"Memilih sel, kolom, baris, atau seluruh tabel tempat kursor berada.","rs":"Cara paling pasti memilih seluruh tabel sebelum mengganti font isinya."},
+            {"t":"View Gridlines","f":"Menampilkan garis putus-putus pada tabel tanpa garis. Garis ini hanya terlihat di layar dan tidak tercetak.","rs":"Membantu saat mengisi formulir tanpa garis agar tahu batas setiap sel."},
+            {"t":"Properties","f":"Membuka Table Properties untuk mengatur ukuran pasti dalam cm, posisi tabel, dan pengaturan baris.","rs":"Di tab Row, hilangkan centang Allow row to break across pages agar satu baris tidak terpotong ke halaman berikutnya."}]},
+          {"nama":"Rows & Columns","tombol":[
+            {"t":"Delete","f":"Menghapus sel, kolom, baris, atau seluruh tabel (Delete Table).","rs":"Menghapus baris pasien yang batal kontrol dari daftar."},
+            {"t":"Insert Above","f":"Menyisipkan baris baru di atas baris tempat kursor berada.","rs":"Menambah baris judul kolom yang terlupa."},
+            {"t":"Insert Below","f":"Menyisipkan baris baru di bawah baris tempat kursor berada.","rs":"Menambah pasien baru di tengah daftar."},
+            {"t":"Insert Left / Right","f":"Menyisipkan kolom baru di kiri atau kanan kolom tempat kursor berada.","rs":"Menambah kolom No di paling kiri atau kolom Keterangan di paling kanan."}]},
+          {"nama":"Merge","tombol":[
+            {"t":"Merge Cells","f":"Menggabungkan beberapa sel yang dipilih menjadi satu sel.","rs":"Membuat judul kolom Jam Praktik yang menaungi kolom Mulai dan Selesai."},
+            {"t":"Split Cells","f":"Memecah satu sel menjadi beberapa kolom atau baris. Word akan menanyakan jumlahnya.","rs":"Memecah kolom Jam menjadi dua kolom, yaitu Mulai dan Selesai."},
+            {"t":"Split Table","f":"Memotong satu tabel menjadi dua tabel, mulai dari baris tempat kursor berada.","rs":"Memisahkan jadwal Poli Umum dan Poli Gigi menjadi dua tabel."}]},
+          {"nama":"Cell Size","tombol":[
+            {"t":"AutoFit","f":"Mengatur lebar kolom otomatis: AutoFit Contents (mengikuti isi), AutoFit Window (selebar halaman), atau Fixed Column Width (lebar tetap).","rs":"AutoFit Window membuat tabel pas dari margin kiri sampai margin kanan."},
+            {"t":"Height / Width","f":"Mengisi tinggi baris atau lebar kolom dengan angka pasti dalam cm.","rs":"Kolom Tanda Tangan di daftar hadir dibuat 4 cm agar cukup untuk paraf."},
+            {"t":"Distribute Rows / Columns","f":"Menyamakan tinggi baris atau lebar kolom yang dipilih.","rs":"Membuat kolom-kolom tanggal di jadwal dinas sama lebar semua."}]},
+          {"nama":"Alignment","tombol":[
+            {"t":"Tombol perataan","f":"Sembilan tombol untuk meletakkan teks di dalam sel: kiri, tengah, atau kanan, sekaligus atas, tengah, atau bawah.","rs":"Kolom pendek seperti No dan Jam diratakan tengah. Teks panjang seperti nama rata kiri."},
+            {"t":"Text Direction","f":"Memutar arah tulisan di dalam sel menjadi tegak.","rs":"Judul kolom yang sempit, misalnya tanggal di jadwal dinas sebulan."},
+            {"t":"Cell Margins","f":"Mengatur jarak antara teks dan garis sel.","rs":"Memberi ruang agar teks tidak menempel pada garis."}]},
+          {"nama":"Data","tombol":[
+            {"t":"Sort","f":"Mengurutkan baris tabel berdasarkan kolom tertentu, A ke Z atau Z ke A.","rs":"Mengurutkan daftar pasien kontrol berdasarkan nama atau poli."},
+            {"t":"Repeat Header Rows","f":"Mengulang baris judul kolom di bagian atas setiap halaman jika tabelnya panjang.","rs":"Daftar pasien 3 halaman tetap punya judul kolom di setiap halaman."},
+            {"t":"Convert to Text","f":"Mengubah tabel kembali menjadi teks biasa, dengan pemisah Tab atau koma.","rs":"Menyalin daftar nama dari tabel ke badan email."},
+            {"t":"Formula","f":"Membuat rumus sederhana, misalnya =SUM(ABOVE) untuk menjumlah angka di atasnya. Hasilnya tidak berubah sendiri jika angka diganti, jadi harus diperbarui manual (klik kanan, lalu Update Field).","rs":"Untuk perhitungan yang banyak atau sering berubah, lebih aman memakai Excel."}]}
+        ]}
+      ]}
+      </script>
+
+      <h4>Menambah dan menghapus baris, kolom, atau tabel</h4>
+      <ul>
+        <li><strong>Tanda plus cepat:</strong> arahkan mouse ke tepi kiri tabel, tepat di garis antara dua baris. Muncul tanda ⊕ kecil. Klik untuk menyisipkan baris di situ. Hal yang sama berlaku di tepi atas tabel untuk menyisipkan kolom.</li>
+        <li><strong>Klik kanan:</strong> klik kanan di sel, pilih <strong>Insert</strong> atau <strong>Delete</strong>, lalu pilih yang dibutuhkan.</li>
+        <li><strong>Lewat ribbon:</strong> tab Layout, kelompok Rows &amp; Columns. Ingat, baris atau kolom baru selalu muncul di dekat posisi kursor.</li>
+      </ul>
+      <div class="grid2">
+        <div class="card"><strong>Tombol Delete</strong><p>Pilih seluruh tabel lalu tekan Delete: yang terhapus hanya <em>isinya</em>. Kotak-kotak tabelnya masih ada.</p></div>
+        <div class="card"><strong>Tombol Backspace</strong><p>Pilih seluruh tabel lalu tekan Backspace: tabel beserta isinya hilang. Cara lain: Layout → Delete → Delete Table.</p></div>
+      </div>
+
+      <h4>Menggabung dan memisah sel (Merge dan Split)</h4>
+      <p><strong>Merge Cells</strong> (gabungkan sel) menyatukan beberapa sel yang bersebelahan menjadi satu sel. Bayangkan sekat di antara dua loker dicopot sehingga menjadi satu loker besar. <strong>Split Cells</strong> (pisahkan sel) kebalikannya: satu sel dipecah menjadi beberapa kolom atau baris.</p>
+      <div class="grid2">
+        <div class="card"><strong>Cara menggabung</strong>
+          <ol><li>Blok sel-sel yang ingin digabung.</li><li>Klik kanan, pilih <strong>Merge Cells</strong>. Bisa juga lewat <strong>Layout → Merge Cells</strong>.</li></ol></div>
+        <div class="card"><strong>Cara memisah</strong>
+          <ol><li>Klik sel yang ingin dipecah.</li><li>Klik <strong>Layout → Split Cells</strong>, isi jumlah kolom dan baris, lalu OK.</li></ol></div>
+      </div>
+      <ul>
+        <li>Sel yang digabung harus bersebelahan dan membentuk kotak persegi panjang.</li>
+        <li>Jika sel-sel yang digabung sama-sama berisi teks, semua teksnya ikut masuk ke sel baru. Hapus teks yang dobel.</li>
+        <li>Pakai sel gabungan untuk judul kolom bertingkat. Hindari pada tabel yang akan diurutkan (Sort) atau dipakai sebagai sumber data Mail Merge, karena hasilnya bisa kacau.</li>
+      </ul>
+
+      <h4>Tantangan: buat judul kolom bertingkat</h4>
+      <p>Ini awal tabel jadwal Poli Anak. Judul kolomnya masih berantakan. Klik sel untuk memilihnya (sel terpilih berwarna biru), lalu tekan <strong>Merge Cells</strong>. Selesaikan 4 tugas di bawah agar judul kolomnya seperti Tabel 1 di Inti 1.</p>
+      <div data-widget="mergesim"></div>
+
+      <h4>Cek pemahaman</h4>
+      <div data-widget="quiz" data-src="quiz-buat" class="quiz"></div>
+      <script type="application/json" id="quiz-buat">
+      {"judul":"Cek pemahaman","soal":[
+        {"q":"Kamu ingin membuat daftar hadir 30 peserta dengan kolom No, Nama, Unit, dan Tanda Tangan. Ukuran tabel yang tepat adalah ...","opsi":["30 kolom x 4 baris","4 kolom x 30 baris","4 kolom x 31 baris","5 kolom x 31 baris"],"benar":2,"jelas":"Ada 4 kolom (No, Nama, Unit, Tanda Tangan) dan 31 baris: 30 baris untuk peserta ditambah 1 baris judul kolom."},
+        {"q":"Saat mengisi tabel, Doni menekan Enter untuk pindah ke sel berikutnya. Apa yang terjadi?","opsi":["Kursor pindah ke sel sebelah kanan","Sel menjadi lebih tinggi karena ada baris baru di dalam sel yang sama","Tabel terhapus","Muncul kolom baru"],"benar":1,"jelas":"Enter membuat baris teks baru di dalam sel yang sama. Untuk pindah sel, pakai Tab atau tombol panah."},
+        {"q":"Kursor berada di baris ke-3. Doni mengklik Insert Above. Di mana baris baru muncul?","opsi":["Di paling atas tabel","Di atas baris ke-3","Di bawah baris ke-3","Di paling bawah tabel"],"benar":1,"jelas":"Insert Above menyisipkan baris tepat di atas baris tempat kursor berada. Jadi klik dulu di baris yang tepat."},
+        {"q":"Judul kolom Jam Praktik harus menaungi kolom Mulai dan Selesai. Perintah yang tepat adalah ...","opsi":["Split Cells","Merge Cells pada dua sel di atas Mulai dan Selesai","Insert Right","Sort"],"benar":1,"jelas":"Merge Cells menyatukan dua sel di atas Mulai dan Selesai, lalu sel gabungan itu diisi Jam Praktik."},
+        {"q":"Doni memilih seluruh tabel lalu menekan Backspace. Hasilnya ...","opsi":["Hanya isi tabel yang terhapus","Tabel beserta isinya hilang","Baris pertama saja yang hilang","Tidak terjadi apa-apa"],"benar":1,"jelas":"Backspace menghapus tabel beserta isinya. Tombol Delete hanya menghapus isi dan meninggalkan kotak tabel."}
+      ]}
+      </script>
+    </section>
+
+    <!-- INTI 3 -->
+    <section class="seg" id="seg-inti3" data-judul="Inti 3: Merapikan Tabel agar Enak Dibaca">
+      <p>Tabel yang isinya benar belum tentu enak dibaca. Di bagian ini kita merapikan tabel: lebar kolom, tampilan, tabel yang panjang, urutan data, serta judul dan sumber tabel. Terakhir, kita uji dengan mencari kesalahan pada tabel buatan Doni.</p>
+
+      <h4>Lebar kolom: biarkan Word yang mengatur (AutoFit)</h4>
+      <table class="data">
+        <thead><tr><th>Pilihan AutoFit</th><th>Artinya</th><th>Kapan dipakai</th></tr></thead>
+        <tbody>
+          <tr><td>AutoFit Contents</td><td>Lebar kolom mengikuti panjang isinya. Kolom berisi teks pendek jadi sempit.</td><td>Tabel kecil yang tidak perlu selebar halaman</td></tr>
+          <tr><td>AutoFit Window</td><td>Tabel melebar pas dari margin kiri sampai margin kanan.</td><td>Sebagian besar tabel di surat dan laporan</td></tr>
+          <tr><td>Fixed Column Width</td><td>Lebar kolom tetap. Teks yang panjang turun ke baris berikutnya di dalam sel.</td><td>Formulir atau daftar hadir yang ukuran kolomnya harus pasti</td></tr>
+        </tbody>
+      </table>
+      <p>Caranya: klik di dalam tabel → <strong>Layout → AutoFit</strong> → pilih salah satu. Lebar kolom juga bisa diatur dengan menyeret garis batas kolom, atau mengisi angka di kotak <strong>Width</strong>. Untuk menyamakan lebar beberapa kolom, blok kolomnya lalu klik <strong>Distribute Columns</strong>.</p>
+
+      <h4>Tampilan: gaya, warna, garis, dan perataan</h4>
+      <ul>
+        <li><strong>Baris judul kolom harus beda.</strong> Buat tebal dan beri warna latar yang lembut lewat <strong>Table Design → Shading</strong>, atau centang <strong>Header Row</strong> lalu pilih gaya di galeri Table Styles.</li>
+        <li><strong>Warna secukupnya.</strong> Dokumen resmi RS tidak perlu warna mencolok. Satu warna lembut untuk baris judul sudah cukup.</li>
+        <li><strong>Perataan yang konsisten.</strong> Kolom pendek seperti No, Hari, dan Jam diratakan tengah. Teks panjang seperti nama dan alamat rata kiri. Angka yang akan dibandingkan, misalnya jumlah atau biaya, rata kanan.</li>
+        <li><strong>Spasi dan huruf.</strong> Panduan KTI prodi menetapkan isi tabel memakai spasi 1 dan ukuran huruf 8 sampai 11 pt. Hati-hati: jika seluruh dokumen diatur spasi 2 (Ctrl+A lalu Ctrl+2, seperti di Pertemuan 04), isi tabel ikut berspasi 2 dan barisnya menjadi sangat tinggi. Blok tabelnya, lalu kembalikan ke spasi 1 dengan Ctrl+1.</li>
+      </ul>
+
+      <h4>Studio tabel: atur, lalu lihat hasilnya</h4>
+      <p>Tabel di bawah dibuat dengan pengaturan seadanya. Ubah pengaturannya dan lihat perubahannya langsung. Garis putus-putus abu-abu menandai batas margin halaman.</p>
+      <div data-widget="studiotabel"></div>
+
+      <h4>Tabel panjang: ulangi baris judul di setiap halaman</h4>
+      <p>Daftar pasien atau daftar hadir sering lebih dari satu halaman. Tanpa pengaturan, baris judul kolom hanya ada di halaman pertama. Pembaca halaman berikutnya jadi bingung: kolom ketiga ini isinya apa?</p>
+      <p>Caranya: klik di baris judul kolom (blok semua jika judulnya lebih dari satu baris) → <strong>Layout → Repeat Header Rows</strong>. Jangan mengetik ulang judul kolom secara manual di setiap halaman, karena posisinya akan bergeser saat isi tabel berubah.</p>
+      <div data-widget="ulangjudul"></div>
+      <p class="note"><strong>Satu lagi:</strong> agar satu baris tidak terpotong setengah ke halaman berikutnya, buka <strong>Layout → Properties → tab Row</strong>, lalu hilangkan centang <strong>Allow row to break across pages</strong>.</p>
+
+      <h4>Mengurutkan isi tabel (Sort)</h4>
+      <p>Data di tabel bisa diurutkan tanpa mengetik ulang. Misalnya daftar pasien diurutkan menurut abjad nama, atau jadwal diurutkan menurut poli.</p>
+      <ol>
+        <li>Klik di dalam tabel.</li>
+        <li>Klik <strong>Layout → Sort</strong>.</li>
+        <li>Pada <strong>Sort by</strong>, pilih kolom patokan. Pada <strong>Type</strong>, pilih Text (teks), Number (angka), atau Date (tanggal).</li>
+        <li>Pilih <strong>Ascending</strong> (A ke Z, kecil ke besar) atau <strong>Descending</strong> (Z ke A, besar ke kecil).</li>
+        <li>Di bagian bawah, pada <strong>My list has</strong>, pilih <strong>Header row</strong> agar baris judul kolom tidak ikut diurutkan.</li>
+        <li>Klik <strong>OK</strong>.</li>
+      </ol>
+      <p>Coba di simulator berikut. Setelah itu, hilangkan centang <strong>Header row</strong> dan lihat apa yang terjadi.</p>
+      <div data-widget="sorttabel"></div>
+
+      <h4>Judul dan sumber tabel</h4>
+      <p>Di laporan dan karya tulis, setiap tabel diberi nomor dan judul <strong>di atas</strong> tabel, misalnya <em>Tabel 1. Jadwal Praktik Dokter Poliklinik RS Sehat Citra</em>. Jika datanya diambil dari pihak lain, tulis sumbernya <strong>di bawah</strong> tabel dengan huruf sedikit lebih kecil.</p>
+      <ol>
+        <li>Klik tabelnya, lalu klik tab <strong>References → Insert Caption</strong>.</li>
+        <li>Jika labelnya masih <em>Table</em> (Word berbahasa Inggris), klik <strong>New Label</strong>, ketik <strong>Tabel</strong>, lalu OK.</li>
+        <li>Pada <strong>Position</strong>, pilih <strong>Above selected item</strong> (di atas tabel).</li>
+        <li>Ketik judulnya setelah nomor, lalu klik OK.</li>
+      </ol>
+      <p class="note">Keuntungan Insert Caption: nomor tabel urut otomatis. Jika ada tabel baru di tengah dokumen, nomor tabel sesudahnya ikut menyesuaikan setelah diperbarui (Ctrl+A lalu F9). Daftar tabel untuk KTI juga bisa dibuat otomatis lewat <strong>References → Insert Table of Figures</strong>.</p>
+
+      <h4>Latihan: temukan 6 kesalahan pada tabel Doni</h4>
+      <p>Doni membuat tabel jadwal di bawah ini untuk lampiran pengumuman. Ada <strong>6 kesalahan</strong>. Klik bagian yang menurutmu salah, bisa satu sel, satu baris, atau teks di luar tabel. Skor: <span class="skor-game" id="tg-skor">0 / 6</span></p>
+      <details>
+        <summary>Petunjuk</summary>
+        <div>Periksa baris judul kolom, kolom No, format jam, baris yang kosong, isi setiap sel, dan letak judul tabel.</div>
+      </details>
+      <p><button class="btn sec" id="btn-reset-tg" type="button">Ulangi</button></p>
+      <div id="tg-popup" aria-live="polite"></div>
+      <div class="kertas" id="game-tabel">
+        <table class="tw" style="width:100%">
+          <tr class="bug" data-bug="1" data-judul="Kesalahan 1: Baris judul kolom tidak dibedakan" data-cara="Baris judul kolom terlihat sama seperti isi, sehingga pembaca sulit membedakan judul dan data. Buat tebal dan beri warna latar lembut (Table Design → Shading), atau aktifkan Header Row."><td>No</td><td>Nama Dokter</td><td>Poli</td><td>Hari</td><td>Jam</td></tr>
+          <tr><td>1</td><td>dr. Hendra Kusuma</td><td>Poli Umum</td><td>Senin</td><td>08.00-12.00</td></tr>
+          <tr><td>2</td><td>drg. Lina Pratiwi</td><td>Poli Gigi</td><td>Selasa</td><td class="bug" data-bug="3" data-judul="Kesalahan 3: Format jam tidak seragam" data-cara="Baris lain ditulis 08.00-12.00, tetapi sel ini ditulis jam 9 sampai jam 1 siang. Dalam satu kolom, format penulisan harus sama. Tulis 09.00-13.00.">jam 9 sampai jam 1 siang</td></tr>
+          <tr><td class="bug" data-bug="2" data-judul="Kesalahan 2: Nomor urut ganda" data-cara="Ada dua nomor 2 dan nomor 3 terlewat. Periksa ulang nomor setelah menambah atau menghapus baris. Tips: blok kolom No lalu klik Home → Numbering agar nomornya urut otomatis.">2</td><td>dr. Ahmad Fauzi</td><td>Poli Anak</td><td>Rabu</td><td>08.00-11.00</td></tr>
+          <tr class="bug" data-bug="4" data-judul="Kesalahan 4: Ada baris kosong di tengah tabel" data-cara="Baris kosong membuat tabel terlihat terputus. Jika tabel ini dipakai untuk Mail Merge, baris kosong akan menghasilkan surat kosong. Hapus barisnya: klik di baris itu, lalu Layout → Delete → Delete Rows."><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>4</td><td class="bug" data-bug="5" data-judul="Kesalahan 5: Satu sel berisi dua data" data-cara="Nama dokter dan poli ditulis di satu sel, sedangkan sel Poli dibiarkan kosong. Satu sel untuk satu data. Pindahkan Poli THT ke kolom Poli.">dr. Sari Dewi, Poli THT</td><td></td><td>Kamis</td><td>13.00-16.00</td></tr>
+          <tr><td>5</td><td>dr. Rina Hakim</td><td>Poli Kandungan</td><td>Jumat</td><td>08.00-11.30</td></tr>
+        </table>
+        <p class="bug" data-bug="6" data-judul="Kesalahan 6: Judul tabel salah tempat" data-cara="Judul diletakkan di bawah tabel, tanpa nomor, dan tidak jelas isinya. Pindahkan ke atas tabel dan tulis lengkap: Tabel 1. Jadwal Praktik Dokter Poliklinik RS Sehat Citra." style="font-size:.8rem;font-style:italic;margin:6px 0 0">jadwal dokter</p>
+      </div>
+
+      <h4>Checklist tabel rapi</h4>
+      <p>Pakai daftar ini setiap kali selesai membuat tabel, termasuk saat mengerjakan Tugas Lab nanti.</p>
+      <ul class="checklist" data-widget="checklist" data-key="cek-tabel-rapi">
+        <li>Judul tabel ada di atas tabel, lengkap dengan nomor (Tabel 1, Tabel 2, dan seterusnya)</li>
+        <li>Baris judul kolom dibedakan (tebal dan berwarna), dan diulang di setiap halaman jika tabelnya panjang</li>
+        <li>Satu sel berisi satu data, dan format penulisan dalam satu kolom seragam</li>
+        <li>Tidak ada baris kosong, dan sel yang memang tidak ada datanya diisi tanda -</li>
+        <li>Nomor urut benar, tidak ada yang ganda atau terlewat</li>
+        <li>Lebar tabel tidak melewati margin halaman (AutoFit Window)</li>
+        <li>Isi tabel memakai spasi 1 dan huruf 8 sampai 11 pt (Panduan KTI prodi)</li>
+        <li>Sumber data ditulis di bawah tabel jika datanya berasal dari unit lain</li>
+      </ul>
+    </section>
+
+    <!-- INTI 4: HALAMAN -->
+    <section class="seg" id="seg-halaman" data-judul="Inti 4: Mengatur Halaman: Nomor, Pindah Halaman, dan Orientasi">
+      <p>Tabel yang panjang dan surat hasil Mail Merge hampir selalu lebih dari satu halaman. Di Pertemuan 04 kita sudah mengatur ukuran kertas dan margin. Sekarang kita belajar tiga hal lain tentang halaman: <strong>nomor halaman</strong>, cara <strong>pindah ke halaman baru</strong> dengan benar, dan <strong>arah kertas</strong> (tegak atau mendatar).</p>
+
+      <h4>Nomor halaman</h4>
+      <p>Nomor halaman membantu pembaca dan petugas arsip memastikan tidak ada halaman yang hilang atau tertukar. Jangan mengetik nomor sendiri di bawah setiap halaman. Jika isi dokumen bertambah, nomor ketikan itu ikut bergeser ke tengah halaman dan urutannya kacau. Biarkan Word yang menomori secara otomatis.</p>
+      <ol>
+        <li>Klik tab <strong>Insert → Page Number</strong>.</li>
+        <li>Pilih letaknya: <strong>Top of Page</strong> (atas) atau <strong>Bottom of Page</strong> (bawah).</li>
+        <li>Pilih posisinya: <strong>Plain Number 1</strong> (kiri), <strong>Plain Number 2</strong> (tengah), atau <strong>Plain Number 3</strong> (kanan).</li>
+        <li>Nomor masuk ke area header (atas) atau footer (bawah). Klik <strong>Close Header and Footer</strong>, atau klik dua kali di area isi dokumen, untuk kembali mengetik.</li>
+      </ol>
+      <div class="grid2">
+        <div class="card"><strong>Mengganti jenis angka atau angka awal</strong>
+          <p>Klik <strong>Insert → Page Number → Format Page Numbers</strong>. Pada <strong>Number format</strong>, pilih 1, 2, 3 atau i, ii, iii. Pada <strong>Start at</strong>, isi angka awalnya.</p></div>
+        <div class="card"><strong>Halaman pertama tanpa nomor</strong>
+          <p>Klik dua kali di area header atau footer, lalu di tab <strong>Header &amp; Footer</strong> centang <strong>Different First Page</strong>. Halaman pertama tetap dihitung, hanya nomornya tidak tampil. Cocok untuk surat berkop atau halaman sampul.</p></div>
+      </div>
+      <p class="note">Untuk KTI nanti, letak dan jenis angka halaman (misalnya angka romawi kecil untuk bagian awal) ikuti Panduan KTI prodi.</p>
+      <h4>Simulator nomor halaman</h4>
+      <p>Ubah pengaturannya dan lihat letak nomor pada empat halaman di bawah.</p>
+      <div data-widget="nomorhal"></div>
+
+      <h4>Pindah ke halaman baru: pakai Page Break, bukan Enter</h4>
+      <p>Banyak orang menekan Enter berkali-kali agar judul berikutnya pindah ke halaman baru. Sekilas berhasil. Tetapi begitu ada baris yang ditambah di halaman sebelumnya, Enter-Enter kosong itu ikut terdorong, dan judul tidak lagi berada di awal halaman.</p>
+      <p>Cara yang benar: letakkan kursor tepat di depan judul, lalu tekan <strong>Ctrl+Enter</strong>. Bisa juga lewat <strong>Insert → Page Break</strong> atau <strong>Layout → Breaks → Page</strong>. Apa pun yang terjadi di halaman sebelumnya, judul itu selalu mulai di halaman baru.</p>
+      <p>Coba bandingkan di bawah. Klik tombolnya untuk menambah baris di halaman 1, lalu perhatikan letak judul <strong>LAMPIRAN</strong>. Tanda ¶ adalah tanda Enter.</p>
+      <div data-widget="pagebreak"></div>
+      <p class="note"><strong>Tips:</strong> tanda Enter (¶) dan Page Break biasanya tersembunyi. Klik tombol <strong>¶ (Show/Hide)</strong> di tab Home, kelompok Paragraph, untuk menampilkannya. Klik sekali lagi untuk menyembunyikan. Tanda ini tidak ikut tercetak.</p>
+
+      <h4>Halaman tegak atau mendatar (orientasi)</h4>
+      <div class="grid2">
+        <div class="card"><strong>Portrait (tegak)</strong><p>Untuk surat, laporan, dan sebagian besar dokumen.</p></div>
+        <div class="card"><strong>Landscape (mendatar)</strong><p>Untuk tabel yang kolomnya banyak, misalnya jadwal dinas sebulan dengan 31 kolom tanggal.</p></div>
+      </div>
+      <p>Untuk mengubah seluruh dokumen: <strong>Layout → Orientation → Portrait</strong> atau <strong>Landscape</strong>.</p>
+      <p>Bagaimana jika hanya halaman tabel yang perlu mendatar, sedangkan halaman lain tetap tegak? Dokumennya dibagi dulu menjadi beberapa bagian (section) dengan <strong>Section Break</strong>:</p>
+      <ol>
+        <li>Letakkan kursor tepat sebelum tabel, lalu klik <strong>Layout → Breaks → Next Page</strong>.</li>
+        <li>Letakkan kursor tepat setelah tabel, lalu ulangi <strong>Layout → Breaks → Next Page</strong>.</li>
+        <li>Klik di dalam tabel, lalu <strong>Layout → Orientation → Landscape</strong>. Hanya bagian tabel itu yang berubah mendatar.</li>
+      </ol>
+      <div class="hal-deret" aria-label="Contoh dokumen dengan tiga bagian: tegak, mendatar, tegak">
+        <div><div class="mini-a4"><div class="isi"><i class="bar judul"></i><i class="bar"></i><i class="bar"></i><i class="bar pendek"></i><i class="bar"></i><i class="bar"></i></div><div class="slot" style="text-align:center">1</div></div><p class="hal-label">Bagian 1: Portrait</p></div>
+        <div><div class="mini-a4 land"><div class="isi"><i class="bar judul"></i><div class="mini-grid"></div></div><div class="slot" style="text-align:center">2</div></div><p class="hal-label">Bagian 2: Landscape (tabel lebar)</p></div>
+        <div><div class="mini-a4"><div class="isi"><i class="bar judul"></i><i class="bar"></i><i class="bar pendek"></i><i class="bar"></i><i class="bar"></i></div><div class="slot" style="text-align:center">3</div></div><p class="hal-label">Bagian 3: Portrait</p></div>
+      </div>
+      <p class="note"><strong>Hubungannya dengan Mail Merge:</strong> saat Finish &amp; Merge → Edit Individual Documents, Word menaruh setiap surat di halaman sendiri dan memisahkannya dengan Section Break (Next Page). Itu sebabnya 10 baris data menghasilkan 10 halaman surat.</p>
+
+      <h4>Cek pemahaman</h4>
+      <div data-widget="quiz" data-src="quiz-halaman" class="quiz"></div>
+      <script type="application/json" id="quiz-halaman">
+      {"judul":"Cek pemahaman","soal":[
+        {"q":"Agar judul LAMPIRAN selalu berada di awal halaman baru, cara yang tepat adalah ...","opsi":["Menekan Enter berkali-kali sampai pindah halaman","Meletakkan kursor di depan judul lalu menekan Ctrl+Enter","Memperbesar ukuran huruf judul","Menambah spasi 2"],"benar":1,"jelas":"Ctrl+Enter (Page Break) memaksa judul mulai di halaman baru, berapa pun baris yang ditambah di halaman sebelumnya."},
+        {"q":"Cara memberi nomor halaman yang benar adalah ...","opsi":["Mengetik angka di bawah setiap halaman","Insert → Page Number","Membuat tabel kecil berisi angka","Menulis nomor dengan pulpen setelah dicetak"],"benar":1,"jelas":"Insert → Page Number membuat nomor otomatis yang selalu urut walaupun isi dokumen bertambah atau berkurang."},
+        {"q":"Surat berkop tidak ingin diberi nomor di halaman pertama. Pengaturan yang dipakai adalah ...","opsi":["Different First Page","Start at 0","Landscape","Page Break"],"benar":0,"jelas":"Different First Page menyembunyikan nomor di halaman pertama. Halaman berikutnya tetap bernomor 2, 3, dan seterusnya."},
+        {"q":"Jadwal dinas perawat dengan 31 kolom tanggal paling cocok dicetak di halaman ...","opsi":["Portrait","Landscape","Ukuran kertas lebih kecil","Dua kolom"],"benar":1,"jelas":"Landscape (mendatar) memberi ruang lebih lebar sehingga banyak kolom tetap terbaca."},
+        {"q":"Dalam satu laporan, hanya halaman tabel yang ingin dibuat mendatar. Yang perlu dipakai adalah ...","opsi":["Page Break biasa","Section Break (Next Page) sebelum dan sesudah tabel","Enter berkali-kali","Repeat Header Rows"],"benar":1,"jelas":"Section Break membagi dokumen menjadi beberapa bagian. Setiap bagian boleh punya orientasi sendiri."}
+      ]}
+      </script>
+    </section>
+
+    <!-- INTI 5 -->
+    <section class="seg" id="seg-inti4" data-judul="Inti 5: Konsep Mail Merge">
       <p>Animasi di bawah menunjukkan bagaimana Mail Merge bekerja. Klik tombol "Proses →" untuk melihat alurnya.</p>
       <div class="mm-diagram">
         <div class="mm-box">
@@ -241,10 +769,31 @@ nav.agenda{display:none!important}
         <li><strong>Preview Results:</strong> Cek hasil sebelum mencetak, pastikan semua field terisi dengan benar.</li>
         <li><strong>Finish &amp; Merge:</strong> Hasilkan semua dokumen sekaligus, cetak langsung atau simpan ke file baru.</li>
       </ol>
+
+      <h4>Sumber data Mail Merge juga sebuah tabel</h4>
+      <p>Daftar penerima Mail Merge selalu berbentuk tabel, baik di Excel, file CSV, maupun dokumen Word yang hanya berisi satu tabel. Word membaca tabel itu dengan aturan yang kaku: <strong>baris pertama dianggap nama kolom</strong>, dan <strong>setiap baris berikutnya dianggap satu penerima</strong>. Jadi tabelnya harus rapi menurut "mata mesin", bukan hanya enak dilihat.</p>
+      <div class="grid2">
+        <div class="card"><strong>Tabel untuk dibaca orang</strong>
+          <ul><li>Boleh punya judul besar dan sel gabungan</li><li>Boleh punya baris Jumlah di bawah</li><li>Boleh memakai warna dan garis untuk mempercantik</li></ul></div>
+        <div class="card"><strong>Tabel untuk Mail Merge</strong>
+          <ul><li>Baris pertama langsung berisi nama kolom, tanpa judul di atasnya</li><li>Satu baris untuk satu penerima, tanpa baris kosong dan tanpa baris Jumlah</li><li>Tanpa sel gabungan, dan satu kolom untuk satu jenis data</li><li>Nama kolom singkat dan tidak ada yang kembar, misalnya Nama, Poli, Tanggal</li></ul></div>
+      </div>
+      <h4>Latihan: tabel mana yang siap untuk Mail Merge?</h4>
+      <p>Periksa setiap tabel, lalu tentukan apakah tabel itu siap dipakai sebagai sumber data.</p>
+      <div data-widget="siapmm" data-src="data-siapmm"></div>
+      <script type="application/json" id="data-siapmm">
+      [
+        {"judul":"Tabel A","atas":true,"baris":[["DAFTAR PASIEN KONTROL NOVEMBER 2026"],["Nama","Poli","Tanggal"],["Siti Aminah","Poli Umum","3 November 2026"],["Budi Santoso","Poli Gigi","4 November 2026"]],"siap":false,"jelas":"Baris pertama berisi judul, bukan nama kolom. Word akan menganggap judul itu sebagai nama kolom sehingga field-nya kacau. Hapus baris judul, cukup tulis judulnya di nama file."},
+        {"judul":"Tabel B","baris":[["Nama","Poli","Tanggal"],["Siti Aminah","Poli Umum","3 November 2026"],["Budi Santoso","Poli Gigi","4 November 2026"],["Rina Wulandari","Poli Anak","5 November 2026"]],"siap":true,"jelas":"Baris pertama berisi nama kolom, setiap baris berikutnya berisi satu pasien, tanpa sel gabungan dan tanpa baris kosong."},
+        {"judul":"Tabel C","baris":[["Nama","Poli","Tanggal"],["Siti Aminah","Poli Umum","3 November 2026"],["","",""],["Budi Santoso","Poli Gigi","4 November 2026"]],"siap":false,"jelas":"Ada baris kosong di tengah. Mail Merge akan membuat satu surat tanpa nama untuk baris itu. Hapus baris kosongnya."},
+        {"judul":"Tabel D","baris":[["Nama dan Poli","Tanggal"],["Siti Aminah, Poli Umum","3 November 2026"],["Budi Santoso, Poli Gigi","4 November 2026"]],"siap":false,"jelas":"Nama dan poli digabung dalam satu kolom, padahal di surat keduanya ditaruh di tempat berbeda. Pisahkan menjadi kolom Nama dan kolom Poli."},
+        {"judul":"Tabel E","baris":[["Nama","Poli","Tanggal"],["Siti Aminah","Poli Umum","3 November 2026"],["Budi Santoso","Poli Gigi","4 November 2026"],["Jumlah: 2 pasien","",""]],"siap":false,"jelas":"Baris Jumlah di paling bawah akan dianggap sebagai penerima, sehingga muncul satu surat untuk Jumlah: 2 pasien. Hapus baris itu."}
+      ]
+      </script>
     </section>
 
-    <!-- INTI 3 -->
-    <section class="seg" id="seg-inti3" data-judul="Inti 3: Urutkan Langkah Mail Merge" data-min="14">
+    <!-- INTI 6 -->
+    <section class="seg" id="seg-inti5" data-judul="Inti 6: Urutkan Langkah Mail Merge" data-min="14">
       <p>Susun 6 langkah Mail Merge ke urutan yang benar menggunakan tombol ▲ ▼. Klik "Cek Urutan" setelah selesai.</p>
       <div id="sortlist-mm"></div>
       <div id="sort-hasil" aria-live="polite" style="font-weight:700;margin:8px 0"></div>
@@ -278,7 +827,50 @@ nav.agenda{display:none!important}
       </div>
 
       <div class="tugas-lab">
-        <h4>Tugas Lab</h4>
+        <h4>Tugas Lab 1</h4>
+        <p><strong>Bagian A: Tabel jadwal praktik dokter</strong></p>
+        <ol>
+          <li>Klik tombol <strong>Salin Data Jadwal</strong> di bawah, lalu tempel (Ctrl+V) di dokumen Word baru.</li>
+          <li>Blok teks tersebut, lalu ubah menjadi tabel: <strong>Insert → Table → Convert Text to Table</strong>, pilih pemisah <strong>Tabs</strong>.</li>
+          <li>Urutkan tabel berdasarkan kolom <strong>Poli</strong> dari A ke Z (Layout → Sort, pilih <strong>Header row</strong>).</li>
+          <li>Sisipkan kolom <strong>No</strong> di paling kiri (Layout → Insert Left), lalu isi nomor urut.</li>
+          <li><strong>Buat judul kolom dua tingkat.</strong> Tujuannya: judul <em>Jam Praktik</em> berada di atas dan menaungi kolom <em>Mulai</em> dan <em>Selesai</em>. Kerjakan pelan-pelan:
+            <ol type="a">
+              <li>Klik di sel mana saja pada baris judul, misalnya sel <em>No</em>. Lalu klik <strong>Layout → Insert Above</strong>. Sekarang ada satu baris kosong di paling atas tabel.</li>
+              <li>Di baris kosong itu, blok <strong>dua sel</strong> yang berada tepat di atas <em>Mulai</em> dan <em>Selesai</em>. Klik <strong>Layout → Merge Cells</strong>. Kedua sel menjadi satu. Ketik <strong>Jam Praktik</strong> di sel tersebut.</li>
+              <li>Blok sel kosong di atas <em>No</em> bersama sel <em>No</em> di bawahnya (dua sel bertumpuk), lalu klik <strong>Merge Cells</strong>. Sekarang judul <em>No</em> memanjang dua baris. Ulangi untuk <em>Nama Dokter</em>, <em>Poli</em>, dan <em>Hari</em>.</li>
+            </ol>
+            <div class="grid2" style="margin:8px 0">
+              <div><span class="kriteria">Awal (setelah langkah 4):</span>
+                <div class="kertas"><table class="tw" style="font-size:.78rem"><tr><th>No</th><th>Nama Dokter</th><th>Poli</th><th>Hari</th><th>Mulai</th><th>Selesai</th></tr><tr><td>1</td><td>dr. Ahmad Fauzi</td><td>Poli Anak</td><td>Rabu</td><td>08.00</td><td>11.00</td></tr></table></div></div>
+              <div><span class="kriteria">Setelah langkah a (baris kosong baru):</span>
+                <div class="kertas"><table class="tw" style="font-size:.78rem"><tr><td class="hl">&nbsp;</td><td class="hl"></td><td class="hl"></td><td class="hl"></td><td class="hl"></td><td class="hl"></td></tr><tr><th>No</th><th>Nama Dokter</th><th>Poli</th><th>Hari</th><th>Mulai</th><th>Selesai</th></tr><tr><td>1</td><td>dr. Ahmad Fauzi</td><td>Poli Anak</td><td>Rabu</td><td>08.00</td><td>11.00</td></tr></table></div></div>
+              <div><span class="kriteria">Hasil akhir (setelah langkah b dan c):</span>
+                <div class="kertas"><table class="tw" style="font-size:.78rem"><tr><th rowspan="2">No</th><th rowspan="2">Nama Dokter</th><th rowspan="2">Poli</th><th rowspan="2">Hari</th><th colspan="2" style="text-align:center">Jam Praktik</th></tr><tr><th>Mulai</th><th>Selesai</th></tr><tr><td>1</td><td>dr. Ahmad Fauzi</td><td>Poli Anak</td><td>Rabu</td><td>08.00</td><td>11.00</td></tr></table></div></div>
+            </div>
+            <p class="kriteria" style="margin:0">Belum yakin? Latih dulu di simulator <em>Tantangan: buat judul kolom bertingkat</em> pada Inti 2. Langkahnya sama.</p>
+          </li>
+          <li><strong>Rapikan tampilan tabel.</strong> Ada empat pengaturan:
+            <ol type="a">
+              <li><strong>Baris judul tebal dan berwarna:</strong> blok kedua baris judul, tekan <strong>Ctrl+B</strong>, lalu klik <strong>Table Design → Shading</strong> dan pilih warna lembut, misalnya biru muda atau abu-abu muda.</li>
+              <li><strong>Lebar pas halaman:</strong> klik di dalam tabel, lalu <strong>Layout → AutoFit → AutoFit Window</strong>. Tabel akan melebar pas dari margin kiri sampai margin kanan.</li>
+              <li><strong>Rata tengah untuk kolom pendek:</strong> blok kolom <em>No</em>, lalu tekan <strong>Ctrl+E</strong> (rata tengah). Ulangi untuk kolom <em>Hari</em>, <em>Mulai</em>, dan <em>Selesai</em>. Kolom nama dan poli tetap rata kiri.</li>
+              <li><strong>Spasi dan ukuran huruf:</strong> pilih seluruh tabel (<strong>Layout → Select → Select Table</strong>), tekan <strong>Ctrl+1</strong> agar spasinya 1, lalu di tab <strong>Home</strong> ubah ukuran huruf menjadi <strong>11</strong>.</li>
+            </ol>
+          </li>
+          <li>Blok kedua baris judul, lalu aktifkan <strong>Repeat Header Rows</strong>.
+            <p class="kriteria" style="margin:4px 0 0"><strong>Fungsinya:</strong> jika tabel panjang dan bersambung ke halaman berikutnya, judul kolom otomatis muncul lagi di atas setiap halaman. Pembaca halaman 2 dan seterusnya langsung tahu arti setiap kolom tanpa harus membalik ke halaman 1. Judul tidak perlu diketik ulang, dan posisinya tetap di atas walaupun ada baris yang ditambah atau dihapus. Kedua baris judul perlu diblok agar baris <em>Mulai</em> dan <em>Selesai</em> ikut muncul. Tabel jadwal ini pendek, jadi untuk melihat hasilnya, tekan Enter beberapa kali di atas tabel sampai sebagian tabel pindah ke halaman 2.</p>
+          </li>
+          <li>Beri judul <em>Tabel 1. Jadwal Praktik Dokter Poliklinik RS Sehat Citra</em> di atas tabel (References → Insert Caption), dan tulis sumber data di bawah tabel.</li>
+          <li>Periksa hasilnya dengan <strong>Checklist tabel rapi</strong> di Inti 3.</li>
+        </ol>
+        <p><button class="btn sec" id="btn-salin-jadwal" type="button">Salin Data Jadwal</button> <span id="salin-jadwal-info" aria-live="polite" style="color:var(--ok);font-size:.9rem"></span></p>
+        <details><summary>Lihat data jadwal (jika tombol salin tidak berfungsi, blok dan salin manual dari sini)</summary>
+          <pre id="pre-jadwal" style="margin:0;padding:10px 14px;overflow:auto;font-size:.85rem"></pre>
+        </details>
+        <p class="kriteria"><strong>Kriteria penilaian Bagian A:</strong> 1) Struktur tabel benar: judul kolom bertingkat dan satu kolom untuk satu jenis data. 2) Kerapian: judul kolom dibedakan, lebar pas halaman, perataan dan format seragam. 3) Fitur yang dipakai: Convert Text to Table, Sort, Merge Cells, Repeat Header Rows, dan Insert Caption.</p>
+
+        <p style="margin-top:18px"><strong>Bagian B: Mail Merge undangan kontrol</strong></p>
         <p>Lakukan Mail Merge nyata di MS Word menggunakan file CSV yang diunduh:</p>
         <ol>
           <li>Unduh file CSV datasource di bawah.</li>
@@ -289,7 +881,32 @@ nav.agenda{display:none!important}
           <li>Finish &amp; Merge → Print Documents (atau Edit Individual Documents).</li>
         </ol>
         <p><button class="btn sec" id="btn-csv" type="button">Unduh Datasource (.csv)</button></p>
-        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Master dokumen menggunakan placeholder yang benar. 2) Hasil merge menghasilkan 10 dokumen berbeda. 3) Semua field terisi sesuai data.</p>
+        <p class="kriteria"><strong>Kriteria penilaian Bagian B:</strong> 1) Master dokumen menggunakan placeholder yang benar. 2) Hasil merge menghasilkan 10 dokumen berbeda. 3) Semua field terisi sesuai data.</p>
+      </div>
+
+      <div class="tugas-lab" id="lab2">
+        <h4>Tugas Lab 2</h4>
+        <p><strong>Bagian A: Tabel</strong></p>
+        <div class="kertas word">
+          <p class="cap">Tabel 2. Jadwal Dinas Perawat Ruang Melati RS Sehat Citra, 9 sampai 13 November 2026</p>
+          <table class="tw lab2-tabel">
+            <thead>
+              <tr><th rowspan="2">No</th><th rowspan="2">Nama Perawat</th><th colspan="5">Tanggal</th><th rowspan="2">Jumlah Dinas</th></tr>
+              <tr><th>Sen<br>9</th><th>Sel<br>10</th><th>Rab<br>11</th><th>Kam<br>12</th><th>Jum<br>13</th></tr>
+            </thead>
+            <tbody id="lab2-tbody"></tbody>
+          </table>
+          <p class="sumber">Keterangan: P = Pagi (07.00-14.00), S = Siang (14.00-21.00), M = Malam (21.00-07.00), L = Libur<br>Sumber: Kepala Ruang Melati RS Sehat Citra, November 2026 (data fiktif)</p>
+        </div>
+
+        <p style="margin-top:18px"><strong>Bagian B: Mail Merge</strong></p>
+        <p class="kriteria" style="margin-bottom:0">Sumber data:</p>
+        <div class="kertas word">
+          <table class="tw" id="lab2-data"></table>
+        </div>
+        <p><button class="btn sec" id="btn-csv-lab2" type="button">Unduh Sumber Data Lab 2 (.csv)</button></p>
+        <p class="kriteria" style="margin-bottom:0">Hasil Mail Merge (<span id="lab2-jumlah">5</span> surat, satu untuk setiap baris data). Dua di antaranya:</p>
+        <div class="grid2" id="lab2-surat"></div>
       </div>
     </section>
 
@@ -298,11 +915,14 @@ nav.agenda{display:none!important}
       <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
       <script type="application/json" id="quiz-post">
       {"judul":"Post-test","soal":[
+        {"q":"Daftar pasien kontrol panjangnya 3 halaman. Agar baris judul kolom muncul di setiap halaman, perintah yang dipakai adalah:","opsi":["Merge Cells","Repeat Header Rows","Split Table","Banded Rows"],"benar":1,"jelas":"Repeat Header Rows (Layout → Repeat Header Rows) mengulang baris judul kolom di atas setiap halaman secara otomatis."},
+        {"q":"Doni memilih seluruh tabel lalu menekan tombol Delete. Hasilnya:","opsi":["Seluruh tabel hilang","Isi tabel terhapus, tetapi kotak tabelnya masih ada","Hanya baris pertama yang terhapus","Tabel berubah menjadi teks biasa"],"benar":1,"jelas":"Delete hanya menghapus isi. Untuk menghapus tabel beserta kotaknya, pilih seluruh tabel lalu tekan Backspace, atau Layout → Delete → Delete Table."},
+        {"q":"Tabel yang akan dipakai sebagai sumber data Mail Merge sebaiknya:","opsi":["Diberi judul besar di baris pertama","Memakai banyak sel gabungan agar rapi","Baris pertama berisi nama kolom dan setiap baris berikutnya satu penerima, tanpa sel gabungan","Diberi baris kosong sebagai pemisah antarpasien"],"benar":2,"jelas":"Word menganggap baris pertama sebagai nama kolom dan setiap baris berikutnya sebagai satu penerima. Judul, sel gabungan, dan baris kosong membuat hasil merge kacau."},
+        {"q":"Tabel di Word bisa diurutkan (sort) berdasarkan:","opsi":["Warna font sel","Kolom tertentu secara alfabetis atau numerik","Ukuran lebar sel","Posisi gambar di tabel"],"benar":1,"jelas":"Layout → Sort → pilih kolom dan urutan. Bisa A ke Z (teks) atau kecil ke besar (angka). Pilih Header row agar baris judul kolom tidak ikut diurutkan."},
         {"q":"Field «NamaPasien» di master dokumen Mail Merge datanya berasal dari:","opsi":["Ketikan manual per surat","Kolom 'NamaPasien' di file datasource","Font atau style khusus Word","Macro yang dijalankan manual"],"benar":1,"jelas":"Nama field di placeholder «...» harus persis sama dengan nama kolom (header) di file Excel/CSV yang menjadi datasource."},
         {"q":"Jika file datasource berisi 50 baris data, hasil Mail Merge akan menghasilkan:","opsi":["50 dokumen personal","1 dokumen saja","5 dokumen","Tergantung jumlah halaman template"],"benar":0,"jelas":"Setiap baris data = 1 dokumen. 50 baris = 50 surat personal yang berbeda-beda."},
         {"q":"Fitur 'Preview Results' pada Mail Merge berguna untuk:","opsi":["Langsung mencetak semua dokumen","Melihat tampilan surat sebelum difinalisasi","Menghapus data dari datasource","Menutup file datasource"],"benar":1,"jelas":"Preview Results menampilkan surat dengan data yang sudah diisi, sehingga bisa dipastikan tidak ada kesalahan sebelum mencetak massal."},
-        {"q":"Agar link antara file Word dan datasource tidak putus, kedua file sebaiknya disimpan:","opsi":["Di drive yang berbeda","Di folder yang sama","Di cloud storage saja","Di dua komputer terpisah"],"benar":1,"jelas":"Word menyimpan path relatif ke datasource. Jika keduanya di folder yang sama, link tidak akan putus meski folder dipindahkan."},
-        {"q":"Tabel di Word bisa diurutkan (sort) berdasarkan:","opsi":["Warna font sel","Kolom tertentu secara alfabetis atau numerik","Ukuran lebar sel","Posisi gambar di tabel"],"benar":1,"jelas":"Layout → Sort → pilih kolom dan urutan. Bisa sort A→Z (teks) atau kecil→besar (angka)."}
+        {"q":"Agar link antara file Word dan datasource tidak putus, kedua file sebaiknya disimpan:","opsi":["Di drive yang berbeda","Di folder yang sama","Di cloud storage saja","Di dua komputer terpisah"],"benar":1,"jelas":"Word menyimpan path relatif ke datasource. Jika keduanya di folder yang sama, link tidak akan putus meski folder dipindahkan."}
       ]}
       </script>
       <h4>Perbandingan Pre-test vs Post-test</h4>
@@ -313,8 +933,11 @@ nav.agenda{display:none!important}
     <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
       <h4>Ringkasan Pertemuan 05</h4>
       <ol>
-        <li>Tabel di Word dibuat dari Insert → Table. Header baris pertama harus diberi format bold dan warna berbeda.</li>
-        <li>Mail Merge menggabungkan master dokumen (template) dengan datasource (Excel/CSV) secara otomatis.</li>
+        <li>Tabel menyusun data dalam baris (mendatar) dan kolom (tegak). Tempat baris dan kolom bertemu disebut sel, dan baris paling atas adalah baris judul kolom.</li>
+        <li>Tabel dibuat dari Insert → Table. Pakai Tab untuk pindah sel, Layout untuk menambah atau menghapus baris dan kolom, serta Merge Cells untuk judul kolom bertingkat.</li>
+        <li>Tabel yang rapi punya judul di atas, baris judul kolom yang dibedakan dan diulang di setiap halaman, format isi yang seragam, dan lebar yang tidak melewati margin.</li>
+        <li>Nomor halaman dibuat lewat Insert → Page Number, bukan diketik sendiri. Untuk pindah ke halaman baru pakai Ctrl+Enter (Page Break), bukan Enter berkali-kali. Tabel yang lebar bisa dicetak Landscape, dan Section Break dipakai jika hanya sebagian halaman yang mendatar.</li>
+        <li>Mail Merge menggabungkan master dokumen (template) dengan sumber data berupa tabel (Excel, CSV, atau tabel Word) secara otomatis. Tabelnya harus bersih: tanpa judul di atas, tanpa sel gabungan, tanpa baris kosong.</li>
         <li>Placeholder di master dokumen ditulis dengan format «NamaKolom», harus cocok persis dengan header datasource.</li>
         <li>Jumlah dokumen hasil merge = jumlah baris data. 10 baris = 10 surat berbeda.</li>
         <li>Simpan file Word dan Excel di folder yang sama agar link datasource tidak terputus.</li>
@@ -331,7 +954,7 @@ nav.agenda{display:none!important}
 "use strict";
 const KONFIG={kode:"krs-p05",nomor:"05",judul:"Word Lanjutan & Mail Merge",
   cpmk:"CPMK-1: Mampu mengoptimalkan fitur lanjutan MS Word untuk manajemen dokumen massal RS.",
-  tujuan:["Membuat tabel data di MS Word","Memahami konsep dan langkah Mail Merge","Mensimulasikan Mail Merge untuk dokumen massal RS"],
+  tujuan:["Menjelaskan bagian-bagian tabel dan kapan tabel dipakai di dokumen RS","Membuat dan mengubah tabel di MS Word (sisip, tambah, hapus, gabung sel)","Merapikan tabel: lebar, tampilan, judul kolom berulang, urutan, judul dan sumber","Mengatur nomor halaman, pindah halaman (Page Break), dan orientasi halaman","Menyiapkan tabel yang siap dipakai sebagai sumber data Mail Merge","Memahami konsep dan langkah Mail Merge","Mensimulasikan Mail Merge untuk dokumen massal RS"],
   totalMenit:90};
 
 const $=(s,r=document)=>r.querySelector(s);
@@ -382,39 +1005,600 @@ W.banding=el=>{
   el.classList.add("banding");const a=baris("pre","Pre-test","pre"),b=baris("post","Post-test","post");
   const up=()=>{a();b();};document.addEventListener("krs:skor",up);up();};
 
-/* TABEL SIMULATOR */
-function initTabelSim(){
-  function build(){
-    const rows=parseInt(document.getElementById("tbl-rows").value)||3;
-    const cols=parseInt(document.getElementById("tbl-cols").value)||4;
-    const wrap=document.getElementById("tbl-preview");
-    wrap.textContent="";
-    const tbl=document.createElement("table");
-    // Header row
-    const thead=document.createElement("thead");
-    const hrow=document.createElement("tr");
-    for(let c=0;c<cols;c++){
-      const th=document.createElement("th");
-      const inp=document.createElement("input");
-      inp.type="text";inp.value="Kolom "+(c+1);inp.setAttribute("aria-label","Header kolom "+(c+1));
-      th.append(inp);hrow.append(th);
-    }
-    thead.append(hrow);tbl.append(thead);
-    const tbody=document.createElement("tbody");
-    for(let r=0;r<rows;r++){
-      const tr=document.createElement("tr");
-      for(let c=0;c<cols;c++){
-        const td=document.createElement("td");
-        const inp=document.createElement("input");
-        inp.type="text";inp.value="";inp.setAttribute("aria-label","Baris "+(r+1)+" Kolom "+(c+1));
-        td.append(inp);tr.append(td);
-      }
-      tbody.append(tr);
-    }
-    tbl.append(tbody);wrap.append(tbl);
+/* CHECKLIST (berbasis markup) */
+W.checklist=el=>{
+  const key="cek-"+(el.dataset.key||nextId("c"));
+  const saved=store.get(key,[]);
+  const lis=$$(":scope > li",el);
+  const bar=h("i"),txt=h("span",{class:"kriteria"});
+  function up(){
+    const n=lis.filter(l=>$("input",l).checked).length;
+    bar.style.width=(n/lis.length*100)+"%";
+    txt.textContent=n+" / "+lis.length+" selesai";
+    store.set(key,lis.map(l=>$("input",l).checked));
   }
-  document.getElementById("btn-build-tbl").addEventListener("click",build);
-  build();
+  lis.forEach((li,i)=>{
+    const node=Array.from(li.childNodes);
+    const cb=h("input",{type:"checkbox",onchange:up});
+    cb.checked=!!saved[i];
+    const span=h("span",{});node.forEach(n=>span.append(n));
+    li.textContent="";li.append(h("label",{},cb,span));
+  });
+  el.after(h("div",{class:"prog","aria-hidden":"true"},bar),txt);
+  up();
+};
+
+/* PANEL PILIH-INFO */
+W.infolist=el=>{
+  const d=getData(el.dataset.src);
+  const info=h("div",{class:"lapisan-info","aria-live":"polite",style:"margin-top:0"},h("p",{},"Klik salah satu pilihan di sebelah kiri."));
+  const btns=d.map((x,i)=>h("button",{type:"button","aria-pressed":"false",onclick:()=>{
+    btns.forEach((b,k)=>b.setAttribute("aria-pressed",String(k===i)));
+    info.textContent="";
+    info.append(h("h4",{style:"margin-top:0"},x.nama),h("p",{},x.teks),h("p",{},h("strong",{},"Di RS: "),x.rs));
+  }},x.nama));
+  el.append(h("div",{class:"lapisan"},h("div",{class:"lapisan-tumpuk"},btns),info));
+};
+
+/* TABS */
+function initTabs(){
+  $$(".tabs").forEach(box=>{
+    const tabs=$$(".tablist button",box),panels=$$(":scope > .tabpanel",box);
+    function pilih(i,fokus){
+      tabs.forEach((t,k)=>{t.setAttribute("aria-selected",String(k===i));t.tabIndex=k===i?0:-1;});
+      panels.forEach((p,k)=>{p.hidden=k!==i;});
+      if(fokus)tabs[i].focus();
+    }
+    tabs.forEach((t,i)=>{
+      t.addEventListener("click",()=>pilih(i));
+      t.addEventListener("keydown",e=>{
+        if(e.key==="ArrowRight"){e.preventDefault();pilih((i+1)%tabs.length,true);}
+        if(e.key==="ArrowLeft"){e.preventDefault();pilih((i-1+tabs.length)%tabs.length,true);}
+      });
+    });
+    pilih(0);
+  });
+}
+
+/* DATA JADWAL (dipakai beberapa widget dan Tugas Lab) */
+const JADWAL=[
+  ["dr. Hendra Kusuma","Poli Umum","Senin","08.00","12.00"],
+  ["drg. Lina Pratiwi","Poli Gigi","Selasa","09.00","13.00"],
+  ["dr. Ahmad Fauzi","Poli Anak","Rabu","08.00","11.00"],
+  ["dr. Sari Dewi","Poli THT","Kamis","13.00","16.00"],
+  ["dr. Rina Hakim","Poli Kandungan","Jumat","08.00","11.30"],
+  ["dr. Bima Wijaya","Poli Jantung","Senin","13.00","16.00"],
+  ["dr. Citra Lestari","Poli Mata","Sabtu","08.00","12.00"],
+  ["dr. Hendra Kusuma","Poli Umum","Rabu","13.00","16.00"],
+  ["drg. Lina Pratiwi","Poli Gigi","Kamis","09.00","13.00"],
+  ["dr. Ahmad Fauzi","Poli Anak","Jumat","13.00","16.00"]
+];
+
+/* PARAGRAF VS TABEL */
+W.paragraftabel=el=>{
+  const data=JADWAL.slice(0,6);
+  const para=h("div",{class:"kertas"},h("p",{style:"margin:0;line-height:1.7"},
+    "Jadwal praktik minggu ini: "+data.map(r=>r[0]+" praktik di "+r[1]+" hari "+r[2]+" pukul "+r[3]+" sampai "+r[4]).join(". ")+"."));
+  const tbl=h("div",{class:"kertas"},h("table",{class:"tw"},
+    h("thead",{},h("tr",{},["Nama Dokter","Poli","Hari","Jam Praktik"].map(x=>h("th",{},x)))),
+    h("tbody",{},data.map(r=>h("tr",{},h("td",{},r[0]),h("td",{},r[1]),h("td",{},r[2]),h("td",{},r[3]+"-"+r[4]))))));
+  const bP=h("button",{type:"button",onclick:()=>tampil(false)},"Bentuk paragraf");
+  const bT=h("button",{type:"button",onclick:()=>tampil(true)},"Bentuk tabel");
+  const isi=h("div");
+  function tampil(t){bP.setAttribute("aria-pressed",String(!t));bT.setAttribute("aria-pressed",String(t));isi.textContent="";isi.append(t?tbl:para);}
+  el.append(h("div",{class:"toggle-grp"},bP,bT),isi,
+    h("p",{},h("strong",{},"Tantangan: "),"siapa dokter yang praktik hari Kamis, di poli apa, dan jam berapa? Cari dulu di bentuk paragraf, lalu di bentuk tabel. Mana yang lebih cepat?"),
+    h("details",{},h("summary",{},"Lihat jawaban"),h("div",{},"dr. Sari Dewi, Poli THT, pukul 13.00 sampai 16.00. Di tabel, matamu cukup turun di kolom Hari sampai menemukan Kamis, lalu bergeser ke kanan. Di paragraf, kamu harus membaca kalimat demi kalimat.")));
+  tampil(false);
+};
+
+/* ANATOMI TABEL */
+W.anatomitabel=el=>{
+  const d=getData(el.dataset.src);
+  const kertas=$(".kertas",el),tabel=$("table",el);
+  const info=h("div",{class:"lapisan-info","aria-live":"polite"},h("p",{},"Klik salah satu bagian di sebelah kiri."));
+  const btns=d.map((x,i)=>h("button",{type:"button","aria-pressed":"false",onclick:()=>{
+    btns.forEach((b,k)=>b.setAttribute("aria-pressed",String(k===i)));
+    $$(".hl",kertas).forEach(n=>n.classList.remove("hl"));tabel.classList.remove("hl-garis");
+    if(x.sel==="table")tabel.classList.add("hl-garis");else $$(x.sel,kertas).forEach(n=>n.classList.add("hl"));
+    info.textContent="";
+    info.append(h("h4",{style:"margin-top:0"},(i+1)+". "+x.nama),h("p",{},x.teks),h("p",{},h("strong",{},"Di RS: "),x.rs));
+  }},(i+1)+". "+x.nama));
+  el.append(h("div",{class:"lapisan"},h("div",{class:"lapisan-tumpuk"},btns),h("div",{},kertas,info)));
+};
+
+/* SIMULATOR SISIP DAN UBAH TABEL */
+W.gridtabel=el=>{
+  const MAXK=10,MAXB=8,BATAS_B=15,BATAS_K=8;
+  let pk=4,pb=3,data=null,aktif={r:0,c:0},baru=null;
+  const label=h("p",{class:"gp-label","aria-live":"polite"});
+  const gp=h("div",{class:"gp",tabindex:"0",role:"group","aria-label":"Pilih ukuran tabel. Pakai tombol panah, lalu Enter untuk membuat tabel."});
+  const kotak=[];
+  for(let r=0;r<MAXB;r++)for(let c=0;c<MAXK;c++){
+    const s=h("span",{});
+    s.addEventListener("mouseenter",()=>{pk=c+1;pb=r+1;sorot();});
+    s.addEventListener("click",()=>{pk=c+1;pb=r+1;sorot();buat();});
+    kotak.push({s,r,c});gp.append(s);
+  }
+  function sorot(){kotak.forEach(k=>k.s.classList.toggle("on",k.c<pk&&k.r<pb));label.textContent="Tabel "+pk+"x"+pb+" ("+pk+" kolom, "+pb+" baris)";}
+  gp.addEventListener("keydown",e=>{
+    const g={ArrowRight:[1,0],ArrowLeft:[-1,0],ArrowDown:[0,1],ArrowUp:[0,-1]}[e.key];
+    if(g){e.preventDefault();pk=Math.min(MAXK,Math.max(1,pk+g[0]));pb=Math.min(MAXB,Math.max(1,pb+g[1]));sorot();}
+    else if(e.key==="Enter"||e.key===" "){e.preventDefault();buat();}
+  });
+  const wrap=h("div",{class:"tbl-sim"}),status=h("p",{class:"kriteria"}),pesan=h("p",{"aria-live":"polite",style:"font-weight:600;margin:4px 0"});
+  function buat(){
+    data=Array.from({length:pb},(_,r)=>Array.from({length:pk},(_,c)=>r===0?"Kolom "+(c+1):""));
+    aktif={r:0,c:0};baru=null;
+    pesan.textContent="Tabel "+pk+"x"+pb+" dibuat. Baris pertama menjadi baris judul kolom. Klik sel mana saja, lalu coba tombol di atas tabel.";
+    render(true);
+  }
+  function infoStatus(){
+    if(!data){status.textContent="";return;}
+    const k=data[0].length,b=data.length;
+    status.textContent="Tabel "+k+"x"+b+": "+k+" kolom, "+b+" baris, "+(k*b)+" sel. Kursor ada di baris "+(aktif.r+1)+", kolom "+(aktif.c+1)+".";
+  }
+  function render(fokus){
+    wrap.textContent="";
+    if(!data){wrap.append(h("p",{style:"padding:10px 12px;margin:0;color:var(--muted)"},"Belum ada tabel. Pilih ukuran pada kotak-kotak di atas."));infoStatus();return;}
+    const tbl=h("table");
+    data.forEach((baris,r)=>{
+      const tr=h("tr");
+      baris.forEach((isi,c)=>{
+        const inp=h("input",{type:"text",value:isi,"aria-label":"Baris "+(r+1)+" kolom "+(c+1)});
+        const cell=h(r===0?"th":"td",{},inp);
+        if(r===aktif.r&&c===aktif.c)cell.classList.add("aktif");
+        if(baru&&((baru.jenis==="baris"&&baru.i===r)||(baru.jenis==="kolom"&&baru.i===c)))cell.classList.add("baru");
+        inp.addEventListener("input",()=>{data[r][c]=inp.value;});
+        inp.addEventListener("focus",()=>{aktif={r,c};$$(".aktif",wrap).forEach(x=>x.classList.remove("aktif"));cell.classList.add("aktif");infoStatus();});
+        inp.addEventListener("keydown",e=>{
+          if(e.key!=="Tab"||e.shiftKey||r!==data.length-1||c!==baris.length-1)return;
+          // Seperti Word: Tab di sel terakhir menambah baris. Hanya jika baris terakhir sudah berisi, agar keyboard tidak terjebak.
+          if(data[r].some(v=>v.trim())&&data.length<BATAS_B){
+            e.preventDefault();data.push(baris.map(()=>""));aktif={r:r+1,c:0};baru={jenis:"baris",i:r+1};
+            pesan.textContent="Tab di sel terakhir menambah satu baris baru, persis seperti di Word.";render(true);
+          }
+        });
+        tr.append(cell);
+      });
+      tbl.append(tr);
+    });
+    wrap.append(tbl);infoStatus();
+    if(fokus){const t=$$("input",wrap)[aktif.r*data[0].length+aktif.c];if(t)t.focus();}
+  }
+  function aksi(fn){if(!data){pesan.textContent="Buat tabel dulu lewat kotak-kotak di atas.";return;}fn();render(false);}
+  function sisipBaris(i,teks){
+    if(data.length>=BATAS_B){pesan.textContent="Di simulator ini tabel dibatasi "+BATAS_B+" baris.";return;}
+    data.splice(i,0,data[0].map(()=>""));aktif={r:i,c:aktif.c};baru={jenis:"baris",i};pesan.textContent=teks;
+  }
+  function sisipKolom(i,teks){
+    if(data[0].length>=BATAS_K){pesan.textContent="Di simulator ini tabel dibatasi "+BATAS_K+" kolom.";return;}
+    data.forEach((b,r)=>b.splice(i,0,r===0?"Kolom baru":""));aktif={r:aktif.r,c:i};baru={jenis:"kolom",i};pesan.textContent=teks;
+  }
+  const tb=(t,fn)=>h("button",{class:"btn sec",type:"button",onclick:()=>aksi(fn)},t);
+  const alat=h("div",{class:"tbl-tools"},
+    tb("Insert Above",()=>sisipBaris(aktif.r,"Baris baru (hijau) muncul di atas baris tempat kursor berada.")),
+    tb("Insert Below",()=>sisipBaris(aktif.r+1,"Baris baru (hijau) muncul di bawah baris tempat kursor berada.")),
+    tb("Insert Left",()=>sisipKolom(aktif.c,"Kolom baru (hijau) muncul di kiri kolom tempat kursor berada.")),
+    tb("Insert Right",()=>sisipKolom(aktif.c+1,"Kolom baru (hijau) muncul di kanan kolom tempat kursor berada.")),
+    tb("Delete Rows",()=>{baru=null;
+      if(data.length<2){pesan.textContent="Tinggal 1 baris. Untuk menghapus semuanya, pakai Delete Table.";return;}
+      data.splice(aktif.r,1);pesan.textContent="Baris "+(aktif.r+1)+" dihapus.";aktif.r=Math.min(aktif.r,data.length-1);}),
+    tb("Delete Columns",()=>{baru=null;
+      if(data[0].length<2){pesan.textContent="Tinggal 1 kolom. Untuk menghapus semuanya, pakai Delete Table.";return;}
+      data.forEach(b=>b.splice(aktif.c,1));pesan.textContent="Kolom "+(aktif.c+1)+" dihapus.";aktif.c=Math.min(aktif.c,data[0].length-1);}),
+    tb("Delete Table",()=>{data=null;baru=null;pesan.textContent="Tabel dihapus. Di Word: pilih seluruh tabel lalu tekan Backspace, atau Layout → Delete → Delete Table.";}));
+  el.append(h("div",{style:"display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start"},h("div",{},gp,label)),
+    h("p",{class:"kriteria",style:"margin-bottom:0"},"Tombol di bawah bekerja seperti kelompok Rows & Columns di tab Layout. Klik dulu sebuah sel untuk menaruh kursor."),
+    alat,pesan,wrap,status,
+    h("p",{class:"kriteria"},"Coba juga: isi baris terakhir, lalu tekan Tab di sel paling kanan bawah."));
+  sorot();render(false);
+};
+
+/* TIRUAN RIBBON TABEL */
+W.ribbon=el=>{
+  const d=getData(el.dataset.src);
+  const tabs=h("div",{class:"rb-tabs"}),body=h("div",{class:"rb-body"});
+  const info=h("div",{class:"rb-info","aria-live":"polite"});
+  function kosong(){info.textContent="";info.append(h("p",{style:"margin:0;color:var(--muted)"},"Klik salah satu tombol di atas untuk melihat fungsinya."));}
+  const bTab=d.tab.map((t,i)=>h("button",{type:"button","aria-pressed":"false",onclick:()=>tampil(i)},t.nama));
+  function tampil(i){
+    bTab.forEach((b,k)=>b.setAttribute("aria-pressed",String(k===i)));
+    body.textContent="";
+    d.tab[i].grup.forEach(g=>{
+      const bs=h("div",{class:"rb-btns"});
+      g.tombol.forEach(t=>bs.append(h("button",{type:"button","aria-pressed":"false",onclick:e=>{
+        $$(".rb-btns button",el).forEach(x=>x.setAttribute("aria-pressed","false"));
+        e.currentTarget.setAttribute("aria-pressed","true");
+        info.textContent="";
+        info.append(h("strong",{},d.tab[i].nama+" → "+g.nama+" → "+t.t),h("p",{style:"margin:6px 0"},t.f),h("p",{style:"margin:0"},h("strong",{},"Di RS: "),t.rs));
+      }},t.t)));
+      body.append(h("div",{class:"rb-grp"},bs,h("small",{},g.nama)));
+    });
+    kosong();
+  }
+  tabs.append(...bTab);
+  el.append(h("div",{class:"rb"},tabs,body,info));
+  tampil(0);
+};
+
+/* SIMULATOR MERGE DAN SPLIT */
+W.mergesim=el=>{
+  const AWAL=[["Hari","Dokter","Ruang","Jam Praktik",""],["","","","Mulai","Selesai"],["Senin","dr. Ahmad Fauzi","Ruang 3","08.00","12.00"],["Rabu","dr. Ahmad Fauzi","Ruang 3","13.00","16.00"]];
+  const R=AWAL.length,C=AWAL[0].length;
+  const TUGAS=[
+    {teks:"Gabungkan Jam Praktik dengan sel kosong di sebelah kanannya",r:0,c:3,rs:1,cs:2},
+    {teks:"Gabungkan Hari dengan sel kosong di bawahnya",r:0,c:0,rs:2,cs:1},
+    {teks:"Gabungkan Dokter dengan sel kosong di bawahnya",r:0,c:1,rs:2,cs:1},
+    {teks:"Gabungkan Ruang dengan sel kosong di bawahnya",r:0,c:2,rs:2,cs:1}];
+  let reg=[],pilih=new Set(),fokus=null;
+  function awal(){reg=[];AWAL.forEach((b,r)=>b.forEach((isi,c)=>reg.push({r,c,rs:1,cs:1,isi})));pilih=new Set();}
+  const pemilik=(r,c)=>reg.find(g=>r>=g.r&&r<g.r+g.rs&&c>=g.c&&c<g.c+g.cs);
+  const wrap=h("div",{class:"kertas"}),pesan=h("p",{"aria-live":"polite",style:"font-weight:600"}),daftar=h("ul",{class:"tugas-ms"});
+  function render(){
+    wrap.textContent="";
+    const t=h("table",{class:"tw ms"});
+    for(let r=0;r<R;r++){
+      const tr=h("tr");
+      for(let c=0;c<C;c++){
+        const g=pemilik(r,c);if(g.r!==r||g.c!==c)continue;
+        const pos=r+","+c;
+        const b=h("button",{type:"button","data-pos":pos,"aria-pressed":String(pilih.has(g)),"aria-label":"Sel baris "+(r+1)+" kolom "+(c+1)+": "+(g.isi||"kosong"),
+          onclick:()=>{pilih.has(g)?pilih.delete(g):pilih.add(g);pesan.textContent="";fokus=pos;render();}},g.isi||"(kosong)");
+        tr.append(h("td",{rowspan:g.rs>1?String(g.rs):null,colspan:g.cs>1?String(g.cs):null,
+          class:[g.r<2?"kepala":"",pilih.has(g)?"pilih":"",g.isi?"":"kosong"].join(" ").trim()||null},b));
+      }
+      t.append(tr);
+    }
+    wrap.append(t);
+    daftar.textContent="";let n=0;
+    TUGAS.forEach(x=>{const ok=reg.some(g=>g.r===x.r&&g.c===x.c&&g.rs===x.rs&&g.cs===x.cs);if(ok)n++;daftar.append(h("li",{class:ok?"ok":null},(ok?"✔ ":"○ ")+x.teks));});
+    if(fokus){const b=$('[data-pos="'+fokus+'"]',wrap);if(b)b.focus();fokus=null;}
+    return n;
+  }
+  function gabung(){
+    const s=[...pilih];
+    if(s.length<2){pesan.textContent="Pilih minimal dua sel dulu.";return;}
+    const r0=Math.min(...s.map(g=>g.r)),c0=Math.min(...s.map(g=>g.c));
+    const r1=Math.max(...s.map(g=>g.r+g.rs)),c1=Math.max(...s.map(g=>g.c+g.cs));
+    for(let r=r0;r<r1;r++)for(let c=c0;c<c1;c++)if(!pilih.has(pemilik(r,c))){
+      pesan.textContent="Belum bisa digabung. Sel yang dipilih harus bersebelahan dan membentuk kotak persegi panjang.";return;}
+    const isi=s.sort((a,b)=>a.r-b.r||a.c-b.c).map(g=>g.isi).filter(Boolean);
+    reg=reg.filter(g=>!pilih.has(g));reg.push({r:r0,c:c0,rs:r1-r0,cs:c1-c0,isi:isi.join("\n")});pilih=new Set();
+    pesan.textContent=isi.length>1?"Sel digabung. Perhatikan: semua teks dari sel lama ikut masuk. Di Word, hapus teks yang dobel.":"Sel berhasil digabung.";
+    if(render()===TUGAS.length)pesan.textContent="Hebat! Keempat tugas selesai. Judul kolom bertingkat sudah jadi, seperti tabel jadwal di laporan resmi.";
+  }
+  function pisah(){
+    const s=[...pilih];
+    if(s.length!==1||s[0].rs*s[0].cs===1){pesan.textContent="Pilih satu sel gabungan untuk dipecah.";return;}
+    const g=s[0];reg=reg.filter(x=>x!==g);
+    for(let r=g.r;r<g.r+g.rs;r++)for(let c=g.c;c<g.c+g.cs;c++)reg.push({r,c,rs:1,cs:1,isi:r===g.r&&c===g.c?g.isi:""});
+    pilih=new Set();pesan.textContent="Sel dipecah kembali (Split Cells). Isinya tetap di sel pertama.";render();
+  }
+  el.append(h("div",{class:"tbl-tools"},
+    h("button",{class:"btn",type:"button",onclick:gabung},"Merge Cells"),
+    h("button",{class:"btn sec",type:"button",onclick:pisah},"Split Cells"),
+    h("button",{class:"btn sec",type:"button",onclick:()=>{pilih=new Set();pesan.textContent="";render();}},"Batal pilih"),
+    h("button",{class:"btn sec",type:"button",onclick:()=>{awal();pesan.textContent="";render();}},"Ulangi dari awal")),
+    wrap,pesan,h("p",{style:"font-weight:700;margin-bottom:0"},"Tugas:"),daftar);
+  awal();render();
+};
+
+/* STUDIO TABEL */
+W.studiotabel=el=>{
+  const DATA=[["No","Nama Dokter","Poli","Hari","Jam"],["1","dr. Hendra Kusuma","Poli Umum","Senin","08.00-12.00"],["2","drg. Lina Pratiwi","Poli Gigi","Selasa","09.00-13.00"],["3","dr. Ahmad Fauzi","Poli Anak","Rabu","08.00-11.00"],["4","dr. Sari Dewi","Poli THT","Kamis","13.00-16.00"],["5","dr. Rina Hakim","Poli Kandungan","Jumat","08.00-11.30"]];
+  const PENDEK=[0,3,4];
+  const AWAL={fit:"isi",header:false,banded:false,garis:"semua",tengah:"0",spasi:"2",font:"12"};
+  const TARGET={fit:"jendela",header:true,banded:true,garis:"semua",tengah:"1",spasi:"1",font:"11"};
+  const st=Object.assign({},AWAL),nm=nextId("st");
+  const tabel=h("table",{class:"tw"},
+    h("thead",{},h("tr",{},DATA[0].map((x,i)=>h("th",{class:PENDEK.includes(i)?"pendek":null},x)))),
+    h("tbody",{},DATA.slice(1).map(r=>h("tr",{},r.map((x,i)=>h("td",{class:PENDEK.includes(i)?"pendek":null},x))))));
+  const ctl=h("div",{class:"studio-ctl"});
+  const badge=h("div",{class:"badge-standar no"}),kurang=h("p",{class:"kriteria","aria-live":"polite"}),gridNote=h("p",{class:"kriteria"});
+  function radio(key,judul,opsi){
+    return h("fieldset",{},h("legend",{},judul),opsi.map(([v,t])=>{
+      const i=h("input",{type:"radio",name:nm+key,value:v,onchange:()=>{st[key]=v;up();}});i.checked=st[key]===v;
+      return h("label",{},i," ",t);}));
+  }
+  function cek(key,t){const i=h("input",{type:"checkbox",onchange:()=>{st[key]=i.checked;up();}});i.checked=st[key];return h("label",{style:"display:block"},i," ",t);}
+  function kontrol(){
+    ctl.textContent="";
+    ctl.append(
+      radio("fit","Lebar tabel (AutoFit)",[["isi","AutoFit Contents"],["jendela","AutoFit Window"],["tetap","Fixed Column Width"]]),
+      h("fieldset",{},h("legend",{},"Table Style Options"),cek("header","Header Row (baris judul tebal dan berwarna)"),cek("banded","Banded Rows (baris selang-seling)")),
+      radio("garis","Garis (Borders)",[["semua","All Borders"],["luar","Outside Borders"],["tanpa","No Border"]]),
+      radio("tengah","Perataan kolom No, Hari, dan Jam",[["0","Rata kiri"],["1","Rata tengah"]]),
+      radio("spasi","Spasi baris isi tabel",[["1","1 (Ctrl+1)"],["2","2 (Ctrl+2)"]]),
+      radio("font","Ukuran huruf isi tabel",[["10","10 pt"],["11","11 pt"],["12","12 pt"]]));
+  }
+  function up(){
+    const tengah=st.tengah==="1";
+    tabel.className="tw fit-"+st.fit+(st.header?"":" no-header")+(st.banded?" banded":"")+(st.garis==="semua"?"":" garis-"+st.garis)+(tengah?" tengah":"");
+    tabel.style.lineHeight=st.spasi==="2"?"2.3":"1.25";
+    tabel.style.fontSize=st.font+"pt";
+    gridNote.textContent=st.garis==="tanpa"?"Garis putus-putus biru hanya tampil di layar (View Gridlines) dan tidak ikut tercetak. Hasil cetaknya tanpa garis sama sekali.":"";
+    const s=[];
+    if(st.fit!=="jendela")s.push("lebar tabel belum pas dari margin kiri ke kanan (pakai AutoFit Window)");
+    if(!st.header)s.push("baris judul kolom belum dibedakan (centang Header Row)");
+    if(st.garis==="tanpa")s.push("tanpa garis, jadwal yang ditempel sulit dibaca (pakai All Borders)");
+    else if(st.garis==="luar")s.push("hanya garis luar, garis antarsel membantu mata mengikuti baris (pakai All Borders)");
+    if(!tengah)s.push("kolom pendek No, Hari, dan Jam sebaiknya rata tengah");
+    if(st.spasi!=="1")s.push("isi tabel masih spasi 2 (Panduan KTI: spasi 1)");
+    if(st.font==="12")s.push("huruf isi tabel 12 pt (Panduan KTI: 8 sampai 11 pt)");
+    badge.textContent=s.length?"Belum rapi":"Tabel siap cetak";
+    badge.className="badge-standar "+(s.length?"no":"ok");
+    kurang.textContent=s.length?"Yang masih perlu diperbaiki: "+s.join(", ")+".":"Semua pengaturan sudah sesuai target latihan. Banded Rows boleh dipakai atau tidak, sesuai selera.";
+  }
+  kontrol();
+  el.append(h("div",{class:"grid2"},
+    h("div",{},ctl,h("p",{style:"margin-top:10px"},h("button",{class:"btn accent",type:"button",onclick:()=>{Object.assign(st,TARGET);kontrol();up();}},"Terapkan target latihan")),badge,kurang),
+    h("div",{},h("div",{class:"kertas",style:"padding:22px 24px"},h("div",{class:"hal-isi"},h("p",{class:"cap"},"Tabel 1. Jadwal Praktik Dokter"),tabel)),gridNote)));
+  up();
+};
+
+/* ULANGI BARIS JUDUL */
+W.ulangjudul=el=>{
+  const kepala=["No","Nama","Poli","Tanggal Kontrol"];
+  const cb=h("input",{type:"checkbox"});
+  const hal=[h("div",{class:"mini-hal"}),h("div",{class:"mini-hal"})];
+  const ket=h("p",{class:"note","aria-live":"polite"});
+  function tabel(dari,sampai,judul,ulang){
+    const t=h("table",{class:"tw",style:"width:100%;font-size:.78rem"});
+    if(judul)t.append(h("thead",{},h("tr",{class:ulang?"ulang":null},kepala.map(k=>h("th",{},k)))));
+    const tb=h("tbody");
+    for(let i=dari;i<sampai;i++)tb.append(h("tr",{},h("td",{},String(i+1)),h("td",{},PASIEN[i][0]),h("td",{},PASIEN[i][1]),h("td",{},PASIEN[i][2])));
+    t.append(tb);return t;
+  }
+  function up(){
+    hal.forEach(x=>x.textContent="");
+    hal[0].append(h("p",{class:"cap",style:"font-size:.8rem"},"Tabel 2. Daftar Pasien Kontrol November 2026"),tabel(0,5,true,false),h("span",{class:"no-hal"},"Halaman 1"));
+    hal[1].append(tabel(5,10,cb.checked,true),h("span",{class:"no-hal"},"Halaman 2"));
+    ket.textContent=cb.checked
+      ?"Baris judul kolom (hijau) muncul lagi di halaman 2 secara otomatis. Jika ada baris yang ditambah atau dihapus, Word tetap meletakkannya di atas setiap halaman."
+      :"Halaman 2 langsung berisi data. Pembaca harus membalik ke halaman 1 untuk tahu arti setiap kolom.";
+  }
+  cb.addEventListener("change",up);
+  el.append(h("label",{style:"font-weight:700;display:block"},cb," Aktifkan Repeat Header Rows"),h("div",{class:"dua-hal"},hal),ket);
+  up();
+};
+
+/* SIMULATOR SORT */
+W.sorttabel=el=>{
+  const KEPALA=["Nama Dokter","Poli","Hari"];
+  const AWAL=[0,1,3,2,4,5,6].map(i=>JADWAL[i].slice(0,3));
+  const col=new Intl.Collator("id",{sensitivity:"base"});
+  let baris=[KEPALA,...AWAL],ikut=false;
+  const kol=h("select",{class:"pilih","aria-label":"Sort by"},KEPALA.map((k,i)=>h("option",{value:String(i)},k)));
+  const arah=h("select",{class:"pilih","aria-label":"Arah urutan"},h("option",{value:"1"},"Ascending (A ke Z)"),h("option",{value:"-1"},"Descending (Z ke A)"));
+  const hdr=h("input",{type:"checkbox"});hdr.checked=true;
+  const wrap=h("div",{class:"kertas"}),ket=h("p",{"aria-live":"polite",class:"note",style:"display:none"});
+  function render(){
+    wrap.textContent="";
+    const t=h("table",{class:"tw"});
+    baris.forEach(b=>{
+      const kp=b===KEPALA;
+      t.append(h("tr",{class:kp&&ikut?"judul-nyasar":null},b.map(x=>h(kp&&!ikut?"th":"td",{},x))));
+    });
+    wrap.append(t);
+  }
+  function urut(){
+    const k=Number(kol.value),a=Number(arah.value);
+    ikut=!hdr.checked;
+    const isi=baris.filter(b=>b!==KEPALA);
+    const set=ikut?[KEPALA,...isi]:isi;
+    const hasil=set.slice().sort((x,y)=>a*col.compare(x[k],y[k]));
+    baris=ikut?hasil:[KEPALA,...hasil];
+    let t="Tabel diurutkan berdasarkan kolom "+KEPALA[k]+", "+(a>0?"A ke Z":"Z ke A")+".";
+    if(ikut)t+=baris.indexOf(KEPALA)>0
+      ?" Lihat baris merah: baris judul kolom ikut diurutkan seperti data biasa dan pindah dari tempatnya. Itu terjadi karena Header row tidak dipilih."
+      :" Baris judul kolom (merah) ikut diurutkan seperti data biasa. Kebetulan abjadnya paling awal, jadi tetap di atas. Coba pilih Descending dan lihat bedanya.";
+    if(k===2)t+=" Perhatikan juga: nama hari diurutkan menurut abjad (Jumat, Kamis, Rabu, dan seterusnya), bukan urutan Senin sampai Sabtu. Jika perlu urutan hari, tambahkan kolom nomor urut hari lalu urutkan berdasarkan kolom itu.";
+    if(k===0)t+=" Perhatikan juga: Word membaca huruf demi huruf dari depan, jadi gelar ikut dihitung. Itu sebabnya drg. Lina tidak berbaur dengan nama-nama yang diawali dr.";
+    ket.textContent=t;ket.style.display="";render();
+  }
+  el.append(h("div",{class:"tbl-ctl"},
+    h("label",{},"Sort by",kol),h("label",{},arah),h("label",{},hdr," Header row (baris pertama adalah judul)"),
+    h("button",{class:"btn",type:"button",onclick:urut},"Urutkan (OK)"),
+    h("button",{class:"btn sec",type:"button",onclick:()=>{baris=[KEPALA,...AWAL];ikut=false;ket.style.display="none";render();}},"Kembalikan urutan awal")),
+    wrap,ket);
+  render();
+};
+
+/* SIAP UNTUK MAIL MERGE? */
+W.siapmm=el=>{
+  const d=getData(el.dataset.src);let i=0;const jawab={};
+  const box=h("div"),fb=h("p",{class:"fb","aria-live":"polite",style:"font-weight:600"}),skor=h("p",{class:"skor"}),info=h("span",{class:"info"});
+  function r(){
+    const k=d[i],nKol=Math.max(...k.baris.map(b=>b.length));
+    const t=h("table",{class:"tw"});
+    k.baris.forEach((b,ri)=>{
+      const kepala=ri===0||(k.atas&&ri===1);
+      t.append(h("tr",{},b.map(x=>h(kepala?"th":"td",{colspan:b.length===1&&nKol>1?String(nKol):null},x||" "))));
+    });
+    box.textContent="";box.append(h("div",{class:"kertas"},t));
+    info.textContent=k.judul+" ("+(i+1)+" dari "+d.length+")";
+    if(i in jawab){const ok=jawab[i]===k.siap;fb.textContent=(ok?"Tepat. ":"Belum tepat. ")+(k.siap?"Tabel ini siap. ":"Tabel ini belum siap. ")+k.jelas;fb.style.color=ok?"var(--ok)":"var(--bad)";}
+    else fb.textContent="";
+    const n=Object.keys(jawab).filter(x=>jawab[x]===d[x].siap).length;
+    skor.textContent="Benar: "+n+" dari "+d.length+" (terjawab "+Object.keys(jawab).length+")";
+  }
+  const pilih=v=>{jawab[i]=v;r();};
+  el.append(h("div",{class:"mm-nav"},
+      h("button",{class:"btn sec",type:"button","aria-label":"Tabel sebelumnya",onclick:()=>{i=(i-1+d.length)%d.length;r();}},"◀"),info,
+      h("button",{class:"btn sec",type:"button","aria-label":"Tabel berikutnya",onclick:()=>{i=(i+1)%d.length;r();}},"▶")),
+    box,
+    h("p",{},h("button",{class:"btn",type:"button",onclick:()=>pilih(true)},"Siap dipakai")," ",h("button",{class:"btn accent",type:"button",onclick:()=>pilih(false)},"Belum siap")),
+    fb,skor);
+  r();
+};
+
+/* GAME KESALAHAN TABEL */
+function initTabelGame(){
+  const game=document.getElementById("game-tabel");if(!game)return;
+  const bugs=$$(".bug",game),total=new Set(bugs.map(b=>b.dataset.bug)).size,found=new Set();
+  const skor=document.getElementById("tg-skor"),area=document.getElementById("tg-popup");
+  function pesan(judul,teks){area.textContent="";area.append(h("div",{class:"bug-popup"},judul?h("strong",{},judul+": "):null,teks));}
+  bugs.forEach(el=>{
+    el.setAttribute("role","button");el.setAttribute("tabindex","0");
+    const act=()=>{
+      if(!found.has(el.dataset.bug)){found.add(el.dataset.bug);el.classList.add("found");}
+      skor.textContent=found.size===total?total+" / "+total+". Hebat! Semua kesalahan ditemukan.":found.size+" / "+total;
+      pesan(el.dataset.judul,el.dataset.cara);
+    };
+    el.addEventListener("click",e=>{e.stopPropagation();act();});
+    el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();act();}});
+  });
+  game.addEventListener("click",()=>pesan("","Bagian itu sudah benar. Coba cari di bagian lain."));
+  document.getElementById("btn-reset-tg").addEventListener("click",()=>{
+    found.clear();bugs.forEach(b=>b.classList.remove("found"));skor.textContent="0 / "+total;area.textContent="";
+  });
+}
+
+/* SIMULATOR NOMOR HALAMAN */
+W.nomorhal=el=>{
+  const st={pos:"bawah",letak:"tengah",fmt:"1",mulai:"1",beda:false};
+  const nm=nextId("nh");
+  const romawi=n=>{let s="";for(const[v,r]of[[50,"l"],[40,"xl"],[10,"x"],[9,"ix"],[5,"v"],[4,"iv"],[1,"i"]])while(n>=v){s+=r;n-=v;}return s;};
+  const huruf=n=>String.fromCharCode(96+((n-1)%26)+1);
+  const tulis=n=>st.fmt==="i"?romawi(n):st.fmt==="a"?huruf(n):String(n);
+  const deret=h("div",{class:"hal-deret"}),info=h("p",{class:"note","aria-live":"polite"});
+  function radio(key,judul,opsi){
+    return h("fieldset",{},h("legend",{},judul),opsi.map(([v,t])=>{
+      const i=h("input",{type:"radio",name:nm+key,value:v,onchange:()=>{st[key]=v;up();}});i.checked=st[key]===v;
+      return h("label",{},i," ",t);}));
+  }
+  const awal=h("input",{type:"number",min:"1",max:"50",value:"1",class:"angka",style:"width:70px",oninput:()=>{st.mulai=awal.value;up();}});
+  const beda=h("input",{type:"checkbox",onchange:()=>{st.beda=beda.checked;up();}});
+  function up(){
+    const m=Math.min(50,Math.max(1,parseInt(st.mulai,10)||1));
+    deret.textContent="";
+    for(let i=0;i<4;i++){
+      const tampil=!(st.beda&&i===0);
+      const slot=()=>h("div",{class:"slot",style:"text-align:"+({kiri:"left",tengah:"center",kanan:"right"}[st.letak])},"");
+      const atas=slot(),bawah=slot();
+      if(tampil)(st.pos==="atas"?atas:bawah).textContent=tulis(m+i);
+      const bars=i===0?[h("i",{class:"bar judul"}),h("i",{class:"bar"}),h("i",{class:"bar"}),h("i",{class:"bar pendek"})]:[h("i",{class:"bar"}),h("i",{class:"bar"}),h("i",{class:"bar pendek"}),h("i",{class:"bar"}),h("i",{class:"bar"})];
+      deret.append(h("div",{},h("div",{class:"mini-a4"},atas,h("div",{class:"isi"},bars),bawah),h("p",{class:"hal-label"},"Halaman ke-"+(i+1))));
+    }
+    const nomor={kiri:"Plain Number 1",tengah:"Plain Number 2",kanan:"Plain Number 3"}[st.letak];
+    info.textContent="Di Word: Insert → Page Number → "+(st.pos==="atas"?"Top of Page":"Bottom of Page")+" → "+nomor+"."
+      +(st.fmt!=="1"||m!==1?" Lalu Format Page Numbers: Number format "+tulis(1)+", "+tulis(2)+", "+tulis(3)+" dan Start at "+tulis(m)+".":"")
+      +(st.beda?" Different First Page dicentang, jadi halaman pertama tidak menampilkan nomor, tetapi tetap dihitung.":"");
+  }
+  el.append(h("div",{class:"studio-ctl"},
+    radio("pos","Letak (Top atau Bottom of Page)",[["atas","Atas"],["bawah","Bawah"]]),
+    radio("letak","Posisi",[["kiri","Kiri"],["tengah","Tengah"],["kanan","Kanan"]]),
+    radio("fmt","Jenis angka (Number format)",[["1","1, 2, 3"],["i","i, ii, iii"],["a","a, b, c"]]),
+    h("fieldset",{},h("legend",{},"Lainnya"),h("label",{},"Mulai dari (Start at) ",awal),h("label",{},beda," Different First Page"))),
+    deret,info);
+  up();
+};
+
+/* SIMULATOR ENTER VS PAGE BREAK */
+W.pagebreak=el=>{
+  const KAP=10,AWAL=5,MAKS=9;let T=AWAL;
+  function alir(baris){
+    const hal=[[]];
+    baris.forEach(b=>{
+      const cur=hal[hal.length-1];
+      if(b==="break"){cur.push(b);hal.push([]);return;}
+      if(cur.filter(x=>x!=="break").length>=KAP)hal.push([]);
+      hal[hal.length-1].push(b);
+    });
+    return hal.slice(0,2);
+  }
+  const teks=n=>Array(n).fill("teks"),penutup=["judul","teks","teks","teks"];
+  const kolom=[h("div"),h("div")],ket=h("p",{"aria-live":"polite",style:"font-weight:600"});
+  function gambar(wadah,judul,hal){
+    wadah.textContent="";
+    wadah.append(h("p",{style:"font-weight:700;margin:0 0 6px"},judul),
+      h("div",{class:"hal-deret",style:"margin:0"},hal.map((isi,i)=>h("div",{},
+        h("div",{class:"pb-hal"},isi.map(b=>h("div",{class:"ln "+b},b==="enter"?"¶":b==="judul"?"LAMPIRAN":b==="break"?"······ Page Break ······":""))),
+        h("p",{class:"hal-label"},"Halaman "+(i+1))))));
+  }
+  function up(){
+    gambar(kolom[0],"Cara Doni: Enter berkali-kali",alir([...teks(T),...Array(KAP-AWAL).fill("enter"),...penutup]));
+    gambar(kolom[1],"Cara benar: Page Break (Ctrl+Enter)",alir([...teks(T),"break",...penutup]));
+    ket.textContent=T===AWAL?"Saat ini keduanya terlihat sama: LAMPIRAN berada di baris paling atas halaman 2."
+      :"Halaman 1 bertambah "+(T-AWAL)+" baris. Dengan Enter, tanda ¶ kosong terdorong ke halaman 2 sehingga LAMPIRAN turun ke tengah. Dengan Page Break, LAMPIRAN tetap di baris paling atas.";
+    tambah.disabled=T>=MAKS;
+  }
+  const tambah=h("button",{class:"btn",type:"button",onclick:()=>{T=Math.min(MAKS,T+2);up();}},"Tambah 2 baris di halaman 1");
+  el.append(h("p",{},tambah," ",h("button",{class:"btn sec",type:"button",onclick:()=>{T=AWAL;up();}},"Ulangi")),
+    h("div",{class:"pb-wrap"},kolom),ket);
+  up();
+};
+
+/* TUGAS LAB 2: gambar target saja, tanpa instruksi */
+function initLab2(){
+  const DINAS=[
+    ["Ns. Dewi Anggraini, S.Kep.","P","P","S","L","M"],
+    ["Ns. Fajar Ramadhan, S.Kep.","S","S","L","P","P"],
+    ["Ns. Lestari Wulan, S.Kep.","M","L","P","S","S"],
+    ["Ns. Yoga Pratama, S.Kep.","L","M","M","P","L"],
+    ["Ns. Putri Handayani, S.Kep.","P","P","S","M","L"],
+    ["Ns. Arif Nugroho, S.Kep.","S","L","P","P","S"]
+  ];
+  const tb=document.getElementById("lab2-tbody");
+  DINAS.forEach((r,i)=>tb.append(h("tr",{},
+    h("td",{class:"tengah"},String(i+1)),h("td",{},r[0]),
+    r.slice(1).map(k=>h("td",{class:"kode"+(k==="L"?" libur":"")},k)),
+    h("td",{class:"tengah"},String(r.slice(1).filter(k=>k!=="L").length)))));
+  const KOLOM=["Nomor","Nama","Sapaan","Jabatan","Indikator","Jam"];
+  const UND=[
+    ["112/RS-SC/XI/2026","dr. Hendra Kusuma","Bapak","Kepala Instalasi Rawat Jalan","Waktu tunggu rawat jalan","09.00-09.20"],
+    ["113/RS-SC/XI/2026","Ns. Dewi Anggraini, S.Kep.","Ibu","Kepala Ruang Melati","Kepatuhan identifikasi pasien","09.20-09.40"],
+    ["114/RS-SC/XI/2026","apt. Rudi Hartono, S.Farm.","Bapak","Kepala Instalasi Farmasi","Waktu tunggu pelayanan resep obat jadi","09.40-10.00"],
+    ["115/RS-SC/XI/2026","Sri Mulyani, A.Md.RMIK","Ibu","Kepala Unit Rekam Medis","Kelengkapan pengisian rekam medis","10.00-10.20"],
+    ["116/RS-SC/XI/2026","Bambang Setiawan, S.E.","Bapak","Kepala Bagian Keuangan","Kecepatan informasi tagihan pasien rawat inap","10.20-10.40"]
+  ];
+  document.getElementById("lab2-jumlah").textContent=String(UND.length);
+  document.getElementById("lab2-jumlah").textContent=String(UND.length);
+  document.getElementById("lab2-data").append(
+    h("thead",{},h("tr",{},KOLOM.map(x=>h("th",{},x)))),
+    h("tbody",{},UND.map(r=>h("tr",{},r.map(x=>h("td",{},x))))));
+  document.getElementById("btn-csv-lab2").addEventListener("click",()=>{
+    const rows=[KOLOM,...UND];
+    const sel=v=>/[";,\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;
+    const isi="﻿"+rows.map(r=>r.map(sel).join(";")).join("\r\n");
+    const url=URL.createObjectURL(new Blob([isi],{type:"text/csv;charset=utf-8"}));
+    const a=h("a",{href:url,download:"datasource-undangan-rapat-mutu.csv"});
+    document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+  const wadah=document.getElementById("lab2-surat");
+  UND.slice(0,2).forEach(([nomor,nama,sapa,jab,ind,jam])=>wadah.append(h("div",{class:"kertas lab2-surat"},
+    h("div",{class:"kop"},h("b",{},"Rumah Sakit Sehat Citra"),h("span",{},"Jl. Kenanga No. 47, Kota Mediasari 12345 · Telp. (021) 8765-4321")),
+    h("table",{},
+      h("tr",{},h("td",{},"Nomor"),h("td",{},": "+nomor)),
+      h("tr",{},h("td",{},"Lampiran"),h("td",{},": -")),
+      h("tr",{},h("td",{},"Perihal"),h("td",{},": Undangan Rapat Evaluasi Indikator Mutu"))),
+    h("p",{style:"text-align:right"},"Mediasari, 10 November 2026"),
+    h("p",{},"Yth. "+nama,h("br"),jab,h("br"),"RS Sehat Citra"),
+    h("p",{},"Dengan hormat,"),
+    h("p",{class:"isi"},"Dalam rangka evaluasi capaian indikator mutu bulan Oktober 2026, kami mengundang "+sapa+" untuk hadir pada:"),
+    h("table",{style:"margin-left:2em"},
+      h("tr",{},h("td",{},"Hari, tanggal"),h("td",{},": Senin, 16 November 2026")),
+      h("tr",{},h("td",{},"Waktu"),h("td",{},": 09.00 sampai selesai")),
+      h("tr",{},h("td",{},"Tempat"),h("td",{},": Ruang Rapat Lantai 2"))),
+    h("p",{class:"isi"},"Pada rapat tersebut, "+sapa+" mendapat giliran memaparkan capaian indikator “"+ind+"” pada pukul "+jam+". Atas perhatian dan kehadiran "+sapa+", kami ucapkan terima kasih."),
+    h("p",{style:"margin-top:14px"},"Hormat kami,",h("br"),"Ketua Komite Mutu",h("br"),h("br"),h("br"),h("strong",{},"dr. Andi Saputra, M.K.M.")))));
+}
+
+/* SALIN DATA JADWAL (TUGAS LAB) */
+function initSalinJadwal(){
+  const teks=[["Nama Dokter","Poli","Hari","Mulai","Selesai"],...JADWAL].map(r=>r.join("\t")).join("\n");
+  document.getElementById("pre-jadwal").textContent=teks;
+  const info=document.getElementById("salin-jadwal-info");
+  const ok=()=>{info.textContent="Tersalin! Tempel di Word dengan Ctrl+V.";setTimeout(()=>{info.textContent="";},3000);};
+  function cadangan(){
+    const ta=h("textarea",{style:"position:fixed;opacity:0"});ta.value=teks;document.body.append(ta);ta.select();
+    try{if(document.execCommand("copy"))ok();else throw 0;}catch(e){info.textContent="Gagal menyalin. Buka bagian Lihat data jadwal lalu salin manual.";}
+    ta.remove();
+  }
+  document.getElementById("btn-salin-jadwal").addEventListener("click",()=>{
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(teks).then(ok).catch(cadangan);else cadangan();
+  });
 }
 
 /* MAIL MERGE DIAGRAM */
@@ -600,7 +1784,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("hero-cpmk").textContent=KONFIG.cpmk;
   KONFIG.tujuan.forEach(t=>document.getElementById("hero-tujuan").append(h("li",{},t)));
   $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal: "+e.message));}});
-  initTabelSim();initMMDiagram();initSortlist();initMMSim();initRefleksi();
+  initTabs();initTabelGame();initSalinJadwal();initLab2();initMMDiagram();initSortlist();initMMSim();initRefleksi();
   initSegmen();
   window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
 });
