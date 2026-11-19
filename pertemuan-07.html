@@ -117,7 +117,7 @@ table.ms input.num{text-align:right}table.ms input.err{color:var(--bad)}
 @media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}
-  .top,nav.agenda,
+  .top,nav.agenda,.seg-foot,.btn,.skip{display:none!important}
   .wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
   .hero{background:#fff;color:#000}}
 
@@ -126,6 +126,13 @@ nav.agenda{display:none!important}
 .wrap{display:block!important;max-width:1200px}
 :fullscreen .wrap{max-width:1500px}
 :-webkit-full-screen .wrap{max-width:1500px}
+.kode-box{font-family:ui-monospace,Consolas,monospace;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 10px;font-size:.95rem;display:inline-block;margin:2px 0}
+.warn-box{background:var(--bad-soft);border-radius:8px;padding:10px 14px;margin:12px 0}
+.shot{margin:12px 0;text-align:center}
+.shot img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);background:#fff}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;background:var(--bg);font-size:.9em}
+.jenis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.jenis-grid .card img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
 </style>
 </head>
 <body>
@@ -147,11 +154,6 @@ nav.agenda{display:none!important}
       <ul id="hero-tujuan"></ul>
     </div>
 
-    <!-- PEMBUKA -->
-    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">Bu Sri Wahyuni, Kepala Administrasi RS Sehat Citra (fiktif), meminta stafnya membuat laporan kunjungan pasien bulanan lengkap dengan grafik untuk rapat direksi besok pagi. Staf tersebut, Mas Hendra, bingung: ada data 12 bulan kunjungan rawat jalan, rawat inap, dan IGD, grafik apa yang paling tepat? Apakah Line, Bar, atau Pie? Bagaimana cara menghitung mana bulan tertinggi dan terendah secara otomatis?</p>
-      <p>Hari ini kita pelajari fungsi MAX, MIN, dan AVERAGE untuk analisis statistik dasar, serta cara memilih dan membuat jenis grafik yang tepat dari data RS menggunakan MS Excel.</p>
-    </section>
 
     <!-- PRE-TEST -->
     <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
@@ -169,29 +171,129 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- INTI 1 -->
-    <section class="seg" id="seg-inti1" data-judul="MAX dan MIN" data-min="10">
-      <p>Mini-spreadsheet data kunjungan pasien 12 bulan RS Sehat Citra (fiktif). Ketik formula di sel yang ditentukan.</p>
+    <section class="seg" id="seg-inti1" data-judul="Fungsi MAX dan MIN" data-min="15">
+      <h4>Apa itu MAX dan MIN?</h4>
+      <p><strong>MAX</strong> dan <strong>MIN</strong> adalah fungsi Excel untuk mencari <strong>nilai terbesar</strong> dan <strong>nilai terkecil</strong> dari sekumpulan angka. Di rumah sakit, keduanya dipakai untuk menjawab pertanyaan seperti "kapan kunjungan paling ramai?" dan "kapan paling sepi?" tanpa perlu membaca angka satu per satu.</p>
+      <table class="data">
+        <thead><tr><th>Fungsi</th><th>Kegunaan</th><th>Contoh di RS</th><th>Contoh rumus</th><th>Hasil (data di bawah)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>MAX</strong></td><td>Nilai terbesar dalam rentang</td><td>Bulan dengan kunjungan tertinggi</td><td><span class="kode-box">=MAX(E2:E13)</span></td><td>649</td></tr>
+          <tr><td><strong>MIN</strong></td><td>Nilai terkecil dalam rentang</td><td>Bulan dengan kunjungan terendah</td><td><span class="kode-box">=MIN(E2:E13)</span></td><td>398</td></tr>
+          <tr><td><strong>AVERAGE</strong></td><td>Rata-rata (dipelajari di P06)</td><td>Rata-rata kunjungan per bulan</td><td><span class="kode-box">=AVERAGE(E2:E13)</span></td><td>528,25</td></tr>
+        </tbody>
+      </table>
+      <p class="kriteria">Penulisannya sama dengan SUM: tanda =, nama fungsi, lalu rentang di dalam kurung. MAX dan MIN hanya mengambil angka, sel berisi teks diabaikan.</p>
+
+      <h4>Cara menggunakan MAX dan MIN</h4>
+      <p>Data: kunjungan 12 bulan RS Sehat Citra (fiktif). Kolom Total sudah berisi jumlah Rawat Jalan, Rawat Inap, dan IGD.</p>
+      <figure class="shot"><img src="gambar/p07-maxmin-1.png" alt="Mengetik =MAX(E2:E13 di sel E15; rentang E2 sampai E13 diberi kotak berwarna dan muncul petunjuk MAX(number1, [number2], ...)" loading="lazy"></figure>
+      <ol>
+        <li>Klik sel tujuan, yaitu <strong>E15</strong>, lalu ketik <span class="kode-box">=MAX(</span>.</li>
+        <li>Pilih atau ketik rentangnya, <span class="kode-box">E2:E13</span>. Sel yang dipakai diberi kotak berwarna.</li>
+        <li>Petunjuk di bawah sel menampilkan bentuk fungsi: <em>MAX(number1, [number2], ...)</em>. Tutup kurung lalu tekan <kbd>Enter</kbd>.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p07-maxmin-2.png" alt="Sel E15 menampilkan 649, E16 menampilkan 398, dan E17 menampilkan 528,25 dengan Formula Bar menunjukkan rumus AVERAGE" loading="lazy"></figure>
+      <ol>
+        <li>Hasil <span class="kode-box">=MAX(E2:E13)</span> di E15: <strong>649</strong> (bulan Oktober).</li>
+        <li>Hasil <span class="kode-box">=MIN(E2:E13)</span> di E16: <strong>398</strong> (bulan Mei).</li>
+        <li>Hasil <span class="kode-box">=AVERAGE(E2:E13)</span> di E17: <strong>528,25</strong>.</li>
+        <li>Formula Bar menampilkan rumus dari sel yang sedang dipilih.</li>
+      </ol>
+      <div class="note"><strong>MAX hanya memberi angkanya, bukan namanya.</strong> Untuk tahu bulan apa yang punya angka 649, cari angka itu di tabel (misalnya dengan melihat baris yang sejajar). Selalu sebutkan keduanya di laporan: "tertinggi 649 kunjungan pada bulan Oktober".</div>
+
+      <h4>Latihan: kunjungan rawat jalan 12 bulan</h4>
+      <p>Isi sel B14, B15, dan B16 dengan fungsi yang tepat.</p>
       <div id="ms-inti1"></div>
-      <div class="note" style="font-size:.9rem">
-        <strong>Tantangan:</strong>
-        <ol style="margin:4px 0">
-          <li>Ketik <code>=MAX(B2:B13)</code> di sel B14 untuk mencari bulan kunjungan tertinggi</li>
-          <li>Ketik <code>=MIN(B2:B13)</code> di sel B15 untuk mencari bulan kunjungan terendah</li>
-          <li>Ketik <code>=AVERAGE(B2:B13)</code> di sel B16 untuk menghitung rata-rata kunjungan</li>
-        </ol>
-      </div>
+      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026): <a href="https://support.microsoft.com/en-us/office/max-function-e0012414-9ac8-4b34-9a47-73e662c08098" target="_blank" rel="noopener">MAX function</a></p>
     </section>
 
     <!-- INTI 2 -->
-    <section class="seg" id="seg-inti2" data-judul="Quiz Pilih Jenis Grafik" data-min="10">
+    <section class="seg" id="seg-inti2" data-judul="Mengenal Grafik dan Jenisnya" data-min="10">
+      <h4>Apa itu grafik?</h4>
+      <p><strong>Grafik</strong> (chart) adalah gambar yang mewakili angka di dalam tabel, supaya pola data terlihat sekilas. Daftar 12 angka sulit dibandingkan dengan cepat, tetapi satu garis naik-turun langsung menunjukkan kapan kunjungan memuncak. Di Excel, grafik selalu dibuat dari data di lembar kerja dan <strong>ikut berubah otomatis</strong> kalau datanya diubah.</p>
+
+      <h4>Bagian-bagian grafik</h4>
+      <table class="data">
+        <thead><tr><th>Bagian</th><th>Fungsi</th><th>Pada contoh kunjungan</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Judul grafik</strong> (Chart Title)</td><td>Menjelaskan isi grafik</td><td>Tren Kunjungan Pasien RS Sehat Citra 2026</td></tr>
+          <tr><td><strong>Sumbu horizontal</strong> (sumbu X)</td><td>Kategori atau waktu</td><td>Jan sampai Des</td></tr>
+          <tr><td><strong>Sumbu vertikal</strong> (sumbu Y)</td><td>Skala nilai</td><td>0 sampai 700 kunjungan</td></tr>
+          <tr><td><strong>Seri data</strong> (Series)</td><td>Satu kelompok angka yang digambar</td><td>Kolom Total</td></tr>
+          <tr><td><strong>Legenda</strong> (Legend)</td><td>Keterangan warna tiap seri</td><td>Rawat Jalan, Rawat Inap, IGD</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Tiga jenis grafik yang paling sering dipakai</h4>
+      <p>Ketiganya dibuat dari data kunjungan RS Sehat Citra di Excel asli.</p>
+      <div class="jenis-grid">
+        <div class="card">
+          <img src="gambar/p07-jenis-line.png" alt="Grafik garis total kunjungan per bulan Januari sampai Desember" loading="lazy">
+          <p><strong>Grafik garis (Line)</strong></p>
+          <p style="font-size:.92rem"><strong>Untuk:</strong> melihat <em>tren</em> dari waktu ke waktu. <strong>Contoh:</strong> kunjungan per bulan, BOR tiap bulan.</p>
+        </div>
+        <div class="card">
+          <img src="gambar/p07-jenis-bar.png" alt="Grafik kolom kunjungan rawat jalan, rawat inap, dan IGD per bulan" loading="lazy">
+          <p><strong>Grafik kolom atau batang (Column/Bar)</strong></p>
+          <p style="font-size:.92rem"><strong>Untuk:</strong> <em>membandingkan</em> nilai antar kategori. <strong>Contoh:</strong> kunjungan antar poli, rawat jalan vs rawat inap.</p>
+        </div>
+        <div class="card">
+          <img src="gambar/p07-jenis-pie.png" alt="Grafik lingkaran proporsi rawat jalan, rawat inap, dan IGD" loading="lazy">
+          <p><strong>Grafik lingkaran (Pie)</strong></p>
+          <p style="font-size:.92rem"><strong>Untuk:</strong> melihat <em>proporsi</em> bagian terhadap keseluruhan (100%). <strong>Contoh:</strong> persentase pasien BPJS dan umum.</p>
+        </div>
+      </div>
+      <div class="note">Di Excel, <strong>Column</strong> menggambar batang tegak dan <strong>Bar</strong> menggambar batang mendatar. Keduanya untuk perbandingan. Grafik lingkaran hanya cocok untuk <em>satu</em> kelompok data yang tidak bernilai negatif dengan sedikit bagian.</div>
+
+      <h4>Latihan: pilih jenis grafik yang tepat</h4>
       <p>Untuk setiap skenario data RS berikut, pilih jenis grafik yang paling tepat. Klik jawaban kamu.</p>
       <div id="quiz-grafik-container"></div>
       <div id="quiz-grafik-skor" aria-live="polite" style="font-weight:700;margin:12px 0"></div>
+      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026): <a href="https://support.microsoft.com/en-us/office/available-chart-types-in-office-a6187218-807e-4103-9e0a-27cdb19afb90" target="_blank" rel="noopener">Available chart types in Office</a></p>
     </section>
 
     <!-- INTI 3 -->
-    <section class="seg" id="seg-inti3" data-judul="Pembuat Grafik Interaktif" data-min="10">
-      <p>Edit data di tabel bawah dan pilih jenis grafik. Grafik SVG diperbarui secara langsung.</p>
+    <section class="seg" id="seg-inti3" data-judul="Membuat Grafik di Excel" data-min="10">
+      <h4>Langkah 1: pilih data yang akan digambar</h4>
+      <p>Tujuan: grafik garis tren total kunjungan per bulan. Grafik butuh <strong>dua kolom</strong>: nama bulan (sumbu X) dan angka Total (nilai).</p>
+      <figure class="shot"><img src="gambar/p07-grafik-1.png" alt="Kolom Bulan (A1:A13) dan kolom Total (E1:E13) terpilih bersamaan" loading="lazy"></figure>
+      <ol>
+        <li>Blok kolom <strong>Bulan</strong> (A1 sampai A13), termasuk judul kolomnya.</li>
+        <li>Tahan <kbd>Ctrl</kbd>, lalu blok kolom <strong>Total</strong> (E1 sampai E13). Dua kolom yang tidak bersebelahan terpilih sekaligus.</li>
+      </ol>
+      <div class="warn-box"><strong>Kesalahan umum:</strong> kalau hanya kolom Total yang dipilih, sumbu horizontal berisi angka 1, 2, 3, ... dan bukan nama bulan.</div>
+
+      <h4>Langkah 2: buka menu Insert dan pilih jenis grafik</h4>
+      <figure class="shot"><img src="gambar/p07-grafik-2.png" alt="Tab Insert terbuka; grup Charts berisi pilihan jenis grafik" loading="lazy"></figure>
+      <ol>
+        <li>Klik tab <strong>Insert</strong>.</li>
+        <li>Di grup <strong>Charts</strong>, pilih ikon jenis grafik. Ikon bergambar garis adalah <em>Insert Line or Area Chart</em>, ikon kolom adalah <em>Insert Column or Bar Chart</em>, dan ikon lingkaran adalah <em>Insert Pie or Doughnut Chart</em>.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p07-grafik-3.png" alt="Galeri Insert Line or Area Chart terbuka dengan pilihan 2-D Line, 3-D Line, 2-D Area, dan 3-D Area" loading="lazy" style="max-width:760px"></figure>
+      <ol>
+        <li>Klik panah di samping ikon garis untuk membuka galeri. Pilih <strong>Line with Markers</strong> (garis dengan titik penanda).</li>
+      </ol>
+
+      <h4>Langkah 3: periksa dan lengkapi grafik</h4>
+      <figure class="shot"><img src="gambar/p07-grafik-4.png" alt="Grafik garis muncul di lembar kerja dengan judul Total dan sumbu horizontal berisi nama bulan" loading="lazy"></figure>
+      <ol>
+        <li>Grafik muncul di atas lembar kerja. Kamu bisa menggesernya dengan menyeret bagian tepinya.</li>
+        <li><strong>Judul grafik</strong> masih bernama "Total", sesuai judul kolom. Ganti dengan judul yang jelas.</li>
+        <li>Sumbu horizontal sudah memuat nama bulan karena kolom Bulan ikut dipilih.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p07-grafik-5.png" alt="Judul grafik sudah diganti menjadi Tren Kunjungan Pasien RS Sehat Citra 2026; tab Chart Design dan Format muncul" loading="lazy"></figure>
+      <ol>
+        <li>Klik judul, klik sekali lagi untuk mengedit, lalu ketik judul baru, misalnya <em>Tren Kunjungan Pasien RS Sehat Citra 2026</em>.</li>
+      </ol>
+      <p>Setelah grafik dipilih, muncul tab baru <strong>Chart Design</strong> dan <strong>Format</strong> untuk mengganti gaya, warna, dan jenis grafik (<em>Change Chart Type</em>).</p>
+      <figure class="shot"><img src="gambar/p07-grafik-6.png" alt="Menu Chart Elements terbuka dengan pilihan Axes, Axis Titles, Chart Title, Data Labels, Data Table, Error Bars, Gridlines, Legend, Trendline, dan Up/Down Bars" loading="lazy"></figure>
+      <ol>
+        <li>Klik tombol <strong>+ (Chart Elements)</strong> di sisi kanan grafik.</li>
+        <li>Centang atau hapus centang bagian grafik: <em>Axis Titles</em> (judul sumbu), <em>Data Labels</em> (angka di tiap titik), <em>Legend</em> (legenda), dan lainnya. Pastikan <em>Chart Title</em> tercentang.</li>
+      </ol>
+
+      <h4>Coba sendiri: pembuat grafik interaktif</h4>
+      <p>Edit angka di tabel dan pilih jenis grafik. Grafik diperbarui langsung.</p>
       <div class="chart-ctl">
         <label>Jenis Grafik:
           <select id="chart3-tipe" aria-label="Jenis grafik">
@@ -210,23 +312,36 @@ nav.agenda{display:none!important}
         </div>
         <div class="chart-wrap" id="chart3-area"></div>
       </div>
+      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026): <a href="https://support.microsoft.com/en-us/office/create-a-chart-from-start-to-finish-0baf399e-dd61-4e18-8a73-b3fd5d5680c2" target="_blank" rel="noopener">Create a chart from start to finish</a></p>
     </section>
 
     <!-- INTI 4 -->
-    <section class="seg" id="seg-inti4" data-judul="AVERAGE Lanjutan &amp; BOR" data-min="10">
-      <p>Data BOR (Bed Occupancy Rate) RS Sehat Citra selama 6 bulan terakhir (fiktif). Hitung rata-rata BOR dan bandingkan dengan standar nasional (60%–85%).</p>
+
+    <section class="seg" id="seg-inti4" data-judul="AVERAGE Lanjutan dan BOR" data-min="10">
+      <h4>Apa itu BOR?</h4>
+      <p><strong>BOR</strong> (<em>Bed Occupancy Rate</em>) adalah persentase tempat tidur rumah sakit yang terisi pasien. Angka ini dipakai manajemen untuk menilai apakah tempat tidur sudah dimanfaatkan dengan baik.</p>
+      <p style="text-align:center"><span class="kode-box" style="font-size:1.05rem">BOR = (Jumlah hari perawatan &divide; (Jumlah tempat tidur &times; Jumlah hari dalam periode)) &times; 100%</span></p>
+      <p>Untuk data harian, rumusnya bisa disederhanakan: <strong>BOR harian = tempat tidur terisi &divide; jumlah tempat tidur &times; 100%</strong>. Contoh: 90 tempat tidur terisi dari 120 tempat tidur, BOR = 90 &divide; 120 = 0,75 = <strong>75%</strong>.</p>
+      <table class="data">
+        <thead><tr><th>BOR</th><th>Artinya</th></tr></thead>
+        <tbody>
+          <tr><td>Di bawah 60%</td><td>Tempat tidur kurang dimanfaatkan.</td></tr>
+          <tr><td>60% sampai 85%</td><td>Rentang standar nasional yang dianggap baik.</td></tr>
+          <tr><td>Di atas 85%</td><td>Rumah sakit terlalu padat, risiko penularan dan beban kerja meningkat.</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Latihan: rata-rata BOR enam bulan</h4>
+      <p>Data BOR RS Sehat Citra selama 6 bulan terakhir (fiktif). Hitung rata-rata BOR di sel B8 dan bandingkan dengan standar nasional.</p>
       <div id="ms-inti4"></div>
-      <div class="note" style="font-size:.9rem">
-        <strong>Standar nasional BOR:</strong> 60–85%. Di bawah 60% = tempat tidur kurang dimanfaatkan. Di atas 85% = RS terlalu padat, risiko penularan meningkat.
-      </div>
       <h4>Interpretasi BOR</h4>
-      <p>Tuliskan 1–2 kalimat analisis BOR RS ini berdasarkan data di atas:</p>
+      <p>Tuliskan 1-2 kalimat analisis BOR RS ini berdasarkan data di atas:</p>
       <textarea class="reflect" id="interpretasi-ta" aria-label="Interpretasi BOR" style="min-height:70px"></textarea>
     </section>
 
     <!-- PRAKTIK -->
     <section class="seg" id="seg-praktik" data-judul="Praktik: Studi Kasus Kunjungan 12 Bulan" data-min="25">
-      <p>Data kunjungan lengkap RS Sehat Citra (fiktif): 12 bulan, tiga jenis kunjungan. Selesaikan semua tantangan secara berurutan.</p>
+      <p>Data kunjungan lengkap RS Sehat Citra (fiktif): 12 bulan, tiga jenis kunjungan. Selesaikan semua tantangan di lembar bawah, lalu perhatikan grafiknya.</p>
       <div id="ms-praktik"></div>
       <h4>Grafik Total Kunjungan (dari kolom E)</h4>
       <div class="chart-ctl">
@@ -242,18 +357,38 @@ nav.agenda{display:none!important}
       <h4>Interpretasi Studi Kasus</h4>
       <textarea class="reflect" id="interpretasi-praktik" aria-label="Interpretasi studi kasus" style="min-height:80px" placeholder="Tuliskan 2 kalimat: 1) Bulan mana kunjungan tertinggi dan terendah? 2) Apa yang mungkin menjadi penyebabnya?"></textarea>
       <div class="tugas-lab">
-        <h4>Tugas Lab</h4>
-        <p>Buat laporan kunjungan bulanan di MS Excel nyata:</p>
+        <h4>Tugas Lab: Laporan Kunjungan Harian dengan Grafik di Excel Nyata</h4>
+        <p><strong>Kasus:</strong> bagian administrasi RS Sehat Citra (fiktif) diminta membuat laporan kunjungan <strong>harian selama November 2026</strong> (30 hari) untuk rapat direksi. Data mentah sudah ada. Selesaikan seluruh tahap di bawah ini.</p>
+        <p><a class="btn sec" href="unduhan/data-kunjungan-harian.xlsx" download style="display:inline-block;text-decoration:none">Unduh data-kunjungan-harian.xlsx</a></p>
+        <h4>Tahap A: hitung per hari (baris 2 sampai 31)</h4>
         <ol>
-          <li>Unduh dataset CSV di bawah dan buka di Excel.</li>
-          <li>Hitung Total per bulan menggunakan formula <code>=SUM(B2:D2)</code>.</li>
-          <li>Cari bulan kunjungan tertinggi dengan <code>=MAX(E2:E13)</code>.</li>
-          <li>Hitung rata-rata dengan <code>=AVERAGE(E2:E13)</code>.</li>
-          <li>Buat grafik Line dari kolom Total (pilih data E1:E13, lalu Insert → Line Chart).</li>
-          <li>Beri judul grafik: "Tren Kunjungan Pasien RS Sehat Citra 2026".</li>
+          <li>Kolom <strong>Total Kunjungan</strong>: jumlah Rawat Jalan, Rawat Inap, dan IGD.</li>
+          <li>Kolom <strong>BOR</strong>: tempat tidur terisi dibagi jumlah tempat tidur yang tertulis di sel <strong>J1</strong>. Jumlah tempat tidur itu harus <strong>dikunci</strong> dengan referensi absolut. Tampilkan hasilnya sebagai <strong>persen</strong> (Number Format).</li>
         </ol>
-        <p><button class="btn sec" id="btn-csv-praktik" type="button">Unduh Dataset (.csv)</button></p>
-        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Formula SUM/MAX/AVERAGE digunakan dengan benar. 2) Grafik Line dibuat dari kolom Total. 3) Interpretasi 2 kalimat tersedia.</p>
+        <h4>Tahap B: ringkasan (baris 34 sampai 40, hasil di kolom C)</h4>
+        <ol start="3">
+          <li>Total kunjungan sebulan.</li>
+          <li>Rata-rata kunjungan per hari.</li>
+          <li>Kunjungan tertinggi dan terendah dalam sehari.</li>
+          <li>Rata-rata BOR, BOR tertinggi, dan BOR terendah.</li>
+        </ol>
+        <h4>Tahap C: baca datanya</h4>
+        <ol start="7">
+          <li>Cari <strong>tanggal</strong> dengan kunjungan tertinggi dan tanggal dengan kunjungan terendah, lalu tulis keduanya di sel di sebelah ringkasan.</li>
+          <li>Beri warna latar pada sel BOR yang di bawah 60% atau di atas 85%. Catat berapa hari jumlahnya.</li>
+        </ol>
+        <h4>Tahap D: tiga grafik</h4>
+        <ol start="9">
+          <li><strong>Grafik garis</strong> total kunjungan per tanggal (pilih kolom Tanggal dan kolom Total Kunjungan bersamaan). Beri judul "Tren Kunjungan Harian RS Sehat Citra, November 2026".</li>
+          <li><strong>Grafik garis</strong> BOR harian dengan judul dan judul sumbu vertikal "BOR (%)".</li>
+          <li>Buat tabel kecil berisi total Rawat Jalan, total Rawat Inap, dan total IGD selama sebulan, lalu buat <strong>grafik lingkaran</strong> proporsinya dengan label persentase pada irisan.</li>
+        </ol>
+        <h4>Tahap E: interpretasi dan penyimpanan</h4>
+        <ol start="12">
+          <li>Tulis <strong>3 kalimat</strong> interpretasi di bawah grafik: hari tersibuk dan tersepi (sebut tanggal dan angkanya), rata-rata BOR dibandingkan standar 60% sampai 85%, serta satu saran untuk manajemen.</li>
+          <li>Simpan sebagai <em>Nama_NIM_P07.xlsx</em> dan kumpulkan.</li>
+        </ol>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Semua kolom hitung dan ringkasan memakai rumus, tanpa angka yang diketik manual. 2) Referensi absolut dipakai dengan benar untuk jumlah tempat tidur. 3) Hasil MAX, MIN, AVERAGE, dan BOR tepat, dengan kolom BOR berformat persen. 4) Jenis grafik tepat dan lengkap (judul, sumbu terbaca, nama bulan atau tanggal di sumbu horizontal, label persentase pada grafik lingkaran). 5) Interpretasi 3 kalimat memuat tanggal, angka, dan perbandingan dengan standar BOR. 6) File disimpan sebagai .xlsx dengan nama yang sesuai.</p>
       </div>
     </section>
 
@@ -279,7 +414,7 @@ nav.agenda{display:none!important}
       <ol>
         <li>MAX() dan MIN() mencari nilai terbesar dan terkecil dalam rentang data secara otomatis.</li>
         <li>AVERAGE() menghitung rata-rata aritmetika: berguna untuk indikator seperti BOR dan rata-rata kunjungan.</li>
-        <li>Bar chart → membandingkan kategori. Line chart → menunjukkan tren waktu. Pie chart → proporsi bagian.</li>
+        <li>Column/Bar chart: membandingkan kategori. Line chart: menunjukkan tren waktu. Pie chart: proporsi bagian.</li>
         <li>BOR ideal RS: 60–85%, di luar rentang ini perlu evaluasi kapasitas atau pola kunjungan.</li>
         <li>Pilih jenis grafik berdasarkan pertanyaan yang ingin dijawab, bukan berdasarkan estetika saja.</li>
       </ol>
@@ -295,7 +430,7 @@ nav.agenda{display:none!important}
 "use strict";
 const KONFIG={kode:"krs-p07",nomor:"07",judul:"Microsoft Excel Lanjutan: Grafik & Statistik",
   cpmk:"CPMK-2: Mampu menyusun laporan dengan fungsi visual dan statistik pada MS Excel.",
-  tujuan:["Menggunakan fungsi MAX dan MIN pada data RS","Memilih jenis grafik yang tepat","Membuat grafik dari data kunjungan RS"],
+  tujuan:["Menjelaskan dan memakai fungsi MAX, MIN, dan AVERAGE pada data RS","Mengenal bagian dan jenis grafik (garis, kolom/batang, lingkaran) serta memilih yang tepat","Membuat dan melengkapi grafik di Excel dari data kunjungan RS","Menghitung dan menafsirkan BOR"],
   totalMenit:90};
 
 const $=(s,r=document)=>r.querySelector(s);
@@ -525,12 +660,12 @@ const DATA_KUNJUNGAN=[312,298,345,367,289,401,356,412,378,445,398,421];
 function initInti1(){
   const sel={A1:"Bulan",B1:"Kunjungan",C1:"Keterangan"};
   BULAN.forEach((b,i)=>{sel["A"+(i+2)]=b;sel["B"+(i+2)]=String(DATA_KUNJUNGAN[i]);});
-  sel["A14"]="MAX";sel["A15"]="MIN";sel["A16"]="RATA-RATA";
-  sel["C14"]="← ketik =MAX(B2:B13)";sel["C15"]="← ketik =MIN(B2:B13)";sel["C16"]="← ketik =AVERAGE(B2:B13)";
+  sel["A14"]="Tertinggi";sel["A15"]="Terendah";sel["A16"]="Rata-rata";
+  
   const tantangan=[
-    {teks:"Ketik =MAX(B2:B13) di sel B14",sel:"B14",nilai:445,wajibRumus:true},
-    {teks:"Ketik =MIN(B2:B13) di sel B15",sel:"B15",nilai:289,wajibRumus:true},
-    {teks:"Ketik =AVERAGE(B2:B13) di sel B16",sel:"B16",nilai:DATA_KUNJUNGAN.reduce((a,b)=>a+b,0)/12,wajibRumus:true}
+    {teks:"B14 = kunjungan rawat jalan tertinggi",sel:"B14",nilai:445,wajibRumus:true},
+    {teks:"B15 = kunjungan rawat jalan terendah",sel:"B15",nilai:289,wajibRumus:true},
+    {teks:"B16 = rata-rata kunjungan rawat jalan per bulan",sel:"B16",nilai:DATA_KUNJUNGAN.reduce((a,b)=>a+b,0)/12,wajibRumus:true}
   ];
   buatMinisheet(document.getElementById("ms-inti1"),17,3,sel,tantangan,"ms-inti1");
 }
@@ -593,7 +728,7 @@ function initInti3(){
 /* ===== INTI 4: BOR ===== */
 function initInti4(){
   const sel={A1:"Bulan",B1:"BOR (%)",A2:"Januari",B2:"72",A3:"Februari",B3:"68",A4:"Maret",B4:"75",A5:"April",B5:"81",A6:"Mei",B6:"79",A7:"Juni",B7:"83",A8:"Rata-rata BOR"};
-  const tantangan=[{teks:"Ketik =AVERAGE(B2:B7) di sel B8 untuk menghitung rata-rata BOR",sel:"B8",nilai:(72+68+75+81+79+83)/6,wajibRumus:true}];
+  const tantangan=[{teks:"B8 = rata-rata BOR enam bulan",sel:"B8",nilai:(72+68+75+81+79+83)/6,wajibRumus:true}];
   buatMinisheet(document.getElementById("ms-inti4"),9,2,sel,tantangan,"ms-inti4");
   // Interpretasi
   const ta=document.getElementById("interpretasi-ta");
@@ -615,13 +750,13 @@ function initPraktik(){
     sel["C"+(i+2)]=String(BDATA.ri[i]);
     sel["D"+(i+2)]=String(BDATA.igd[i]);
   });
-  sel["A14"]="MAX";sel["A15"]="AVG";
+  sel["A14"]="Tertinggi";sel["A15"]="Rata-rata";
   const totBenar=BULAN.map((_,i)=>BDATA.rj[i]+BDATA.ri[i]+BDATA.igd[i]);
   const maxTot=Math.max(...totBenar),avgTot=totBenar.reduce((a,b)=>a+b,0)/12;
   const tantangan=[
-    {teks:"Ketik =SUM(B2:D2) di E2 (total bulan Jan)",sel:"E2",nilai:totBenar[0],wajibRumus:true},
-    {teks:"Ketik =MAX(E2:E13) di E14 (max total)",sel:"E14",nilai:maxTot,wajibRumus:true},
-    {teks:"Ketik =AVERAGE(E2:E13) di E15 (rata-rata total)",sel:"E15",nilai:avgTot,wajibRumus:true}
+    {teks:"E2 = total kunjungan bulan Januari",sel:"E2",nilai:totBenar[0],wajibRumus:true},
+    {teks:"E14 = total kunjungan tertinggi",sel:"E14",nilai:maxTot,wajibRumus:true},
+    {teks:"E15 = rata-rata total kunjungan per bulan",sel:"E15",nilai:avgTot,wajibRumus:true}
   ];
   const ms=buatMinisheet(document.getElementById("ms-praktik"),16,5,sel,tantangan,"ms-praktik");
   // Grafik praktik
@@ -639,16 +774,6 @@ function initPraktik(){
   const ta=document.getElementById("interpretasi-praktik");
   ta.value=store.get("interpretasi-praktik","");
   ta.addEventListener("input",()=>store.set("interpretasi-praktik",ta.value));
-  // CSV download
-  document.getElementById("btn-csv-praktik").addEventListener("click",()=>{
-    const header=["Bulan","Rawat Jalan","Rawat Inap","IGD","Total"];
-    const rows=[header,...BULAN.map((_,i)=>[BULAN[i],BDATA.rj[i],BDATA.ri[i],BDATA.igd[i],totBenar[i]])];
-    const esc=v=>{v=String(v);return/[";,\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
-    const isi="﻿"+rows.map(r=>r.map(esc).join(";")).join("\r\n");
-    const url=URL.createObjectURL(new Blob([isi],{type:"text/csv;charset=utf-8"}));
-    const a=document.createElement("a");a.href=url;a.download="kunjungan-bulanan-rs.csv";
-    document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
-  });
 }
 
 /* REFLEKSI */
