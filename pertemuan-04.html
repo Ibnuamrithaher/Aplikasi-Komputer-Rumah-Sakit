@@ -164,7 +164,6 @@ input.teks,select.pilih{width:100%}
 <a class="skip" href="#konten">Lewati ke konten</a>
 <header class="top">
   <h1><span id="hdr-judul">Microsoft Word untuk Administrasi RS</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 04</small></h1>
-  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 <div class="wrap">
@@ -202,7 +201,7 @@ input.teks,select.pilih{width:100%}
     </section>
 
     <!-- INTI 1 -->
-    <section class="seg" id="seg-inti1" data-judul="Inti 1: Mengenal Word dan Jenis Surat di RS">
+    <section class="seg" id="seg-inti1" data-judul="Mengenal Word dan Jenis Surat di RS">
       <h4>Apa itu pengolah kata?</h4>
       <p>Pengolah kata (word processor) adalah aplikasi untuk menulis, mengatur tampilan, menyimpan, dan mencetak dokumen teks. Microsoft Word adalah yang paling umum di perkantoran, tetapi konsepnya sama di aplikasi lain.</p>
       <table class="data">
@@ -248,7 +247,7 @@ input.teks,select.pilih{width:100%}
     </section>
 
     <!-- INTI 2 -->
-    <section class="seg" id="seg-inti2" data-judul="Inti 2: Anatomi Surat Dinas RS">
+    <section class="seg" id="seg-inti2" data-judul="Anatomi Surat Dinas RS">
       <p>Klik angka bernomor pada surat untuk melihat penjelasan setiap bagian surat dinas RS.</p>
       <div id="label-info-box" class="label-info" aria-live="polite">
         <strong>Klik nomor pada surat untuk melihat penjelasan.</strong>
@@ -308,7 +307,7 @@ input.teks,select.pilih{width:100%}
     </section>
 
     <!-- INTI 3 -->
-    <section class="seg" id="seg-inti3" data-judul="Inti 3: Mengatur Halaman: Margin, Font, dan Spasi">
+    <section class="seg" id="seg-inti3" data-judul="Mengatur Halaman: Margin, Font, dan Spasi">
       <h4>Bawaan Word belum sama dengan standar surat dinas</h4>
       <p>Dokumen baru di Word memakai pengaturan umum, bukan pengaturan surat dinas. Karena itu kita harus mengatur sendiri sebelum mengetik.</p>
       <table class="data">
@@ -412,7 +411,7 @@ input.teks,select.pilih{width:100%}
     </section>
 
     <!-- INTI 4 -->
-    <section class="seg" id="seg-inti4" data-judul="Inti 4: Kop Surat">
+    <section class="seg" id="seg-inti4" data-judul="Kop Surat">
       <h4>Kop surat adalah wajah RS di atas kertas</h4>
       <p>Kop surat memuat identitas resmi RS dan memberi tahu penerima siapa pengirimnya. Biasanya terdiri dari logo, nama RS, alamat, kontak, dan garis pemisah. Lihat contoh kop dan amplop rumah sakit berikut.</p>
       <figure class="gambar">
@@ -458,7 +457,7 @@ input.teks,select.pilih{width:100%}
     </section>
 
     <!-- INTI 5 -->
-    <section class="seg" id="seg-inti5" data-judul="Inti 5: Nomor, Tanggal, dan Bahasa Surat">
+    <section class="seg" id="seg-inti5" data-judul="Nomor, Tanggal, dan Bahasa Surat">
       <h4>Penyusun nomor dan tanggal surat</h4>
       <p class="note">Ubah isian di bawah. Nomor dan tanggal tersusun otomatis sesuai format baku. Bulan ditulis dengan angka Romawi di nomor surat, dan dengan huruf di tanggal.</p>
       <div data-widget="nomorsurat"></div>
@@ -490,7 +489,7 @@ input.teks,select.pilih{width:100%}
     </section>
 
     <!-- INTI 6 -->
-    <section class="seg" id="seg-inti6" data-judul="Inti 6: Checklist Kelengkapan Surat">
+    <section class="seg" id="seg-inti6" data-judul="Checklist Kelengkapan Surat">
       <p>Centang setiap elemen yang sudah ada di surat dinas RS kamu. Pantau progres kelengkapan surat di bawah.</p>
       <div class="prog" aria-label="Progres kelengkapan surat"><i id="prog-cek"></i></div>
       <div id="prog-txt" style="font-size:.9rem;color:var(--muted);margin-bottom:12px">0 / 14 item terpenuhi</div>
@@ -962,17 +961,8 @@ function initGambar(){
 /* SEGMEN */
 function initSegmen(){
   const segs=$$("section.seg");
-  const done=store.get("selesai",{});
-  segs.forEach(s=>{if(!(s.id in done))done[s.id]=false;});
-  store.set("selesai",done);
-  function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;document.getElementById("hdr-bar").style.width=(n/segs.length*100)+"%";}
   segs.forEach((s,i)=>{
     s.prepend(h("div",{class:"seg-head"},h("h3",{},s.dataset.judul||("Segmen "+(i+1)))));
-    const sb=h("button",{class:"btn sec",type:"button"});
-    function tampil(v){s.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";progres();}
-    sb.addEventListener("click",()=>{const v=!s.classList.contains("done");tampil(v);done[s.id]=v;store.set("selesai",done);});
-    s.append(h("div",{class:"seg-foot"},sb));
-    tampil(!!done[s.id]);
   });
 }
 

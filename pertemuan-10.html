@@ -186,7 +186,6 @@ nav.agenda{display:none!important}
 <a class="skip" href="#konten">Lewati ke konten</a>
 <header class="top">
   <h1><span id="hdr-judul">Memuat…</span><small id="hdr-sub">Komputer Rumah Sakit</small></h1>
-  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 <div class="wrap">
@@ -221,7 +220,7 @@ nav.agenda{display:none!important}
       </script>
     </section>
 
-    <section class="seg" id="seg-inti1" data-judul="Inti 1: Data Storytelling" data-min="10">
+    <section class="seg" id="seg-inti1" data-judul="Data Storytelling" data-min="10">
       <h4>Angka vs Cerita: klik tombol untuk beralih tampilan</h4>
       <div class="story-toggle-bar">
         <button class="btn sec" id="btn-toggle-story" type="button">Tampilkan Cerita</button>
@@ -257,7 +256,7 @@ nav.agenda{display:none!important}
       </ol>
     </section>
 
-    <section class="seg" id="seg-inti2" data-judul="Inti 2: Kalkulator Indikator Mutu RS" data-min="10">
+    <section class="seg" id="seg-inti2" data-judul="Kalkulator Indikator Mutu RS" data-min="10">
       <p>Ubah angka input di bawah, hasil, rumus, dan status normal tampil otomatis.</p>
       <div class="calc-inputs">
         <div class="calc-field"><label for="inp-tt">Tempat Tidur (TT)</label><input type="number" id="inp-tt" min="1" max="1000" value="100"></div>
@@ -269,7 +268,7 @@ nav.agenda{display:none!important}
       <p class="note"><strong>Catatan:</strong> Data default fiktif RS Harapan Medika. Nilai normal: BOR 60–85%, LOS 6–9 hari, TOI 1–3 hari, BTO 40–50 kali/tahun.</p>
     </section>
 
-    <section class="seg" id="seg-inti3" data-judul="Inti 3: Hyperlink & Navigasi Non-Linear" data-min="10">
+    <section class="seg" id="seg-inti3" data-judul="Hyperlink & Navigasi Non-Linear" data-min="10">
       <p>Presentasi PPT tidak harus linear. Klik tombol nomor slide untuk lompat langsung, ini meniru fitur <strong>Hyperlink</strong> dan <strong>Action Button</strong> di PPT nyata.</p>
       <div class="minideck" id="minideck-p10"></div>
       <h4>Kapan pakai navigasi non-linear?</h4>
@@ -281,7 +280,7 @@ nav.agenda{display:none!important}
       </div>
     </section>
 
-    <section class="seg" id="seg-inti4" data-judul="Inti 4: Rehearse Timings & Timer Latihan" data-min="10">
+    <section class="seg" id="seg-inti4" data-judul="Rehearse Timings & Timer Latihan" data-min="10">
       <p>Latih presentasi dengan timer per slide. Set target waktu, klik Mulai, dan lihat selisih aktual vs target.</p>
       <div id="rehearsal-widget"></div>
     </section>
@@ -767,26 +766,15 @@ function initDashBuilder() {
 /* === Timer & agenda === */
 function initSegmen() {
   const segs = $$("section.seg"), agenda = $("#agenda");
-  const done = store.get("selesai", {});
   let mulai = 0;
   const links = [];
   segs.forEach((s, i) => {
     const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
     const head = h("div", { class: "seg-head" }, h("h3", {}, judul));
      s.prepend(head);
-    const foot = h("div", { class: "seg-foot" });
-    const sb = h("button", { class: "btn sec", type: "button" });
-    function tandai(v) {
-      s.classList.toggle("done", v); a.classList.toggle("done", v); sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
-      done[s.id] = v; store.set("selesai", done); progres();
-    }
-    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
-    foot.append(sb); s.append(foot);
     const a = h("a", { href: "#" + s.id }, h("span", { class: "mnt" }, mulai + "–" + (mulai + min) + "'"), h("span", {}, judul), h("span", { class: "tick", "aria-label": "selesai" }, "✓"));
     agenda.append(a); links.push({ a, s }); mulai += min;
-    tandai(!!done[s.id]);
   });
-  function progres() { const n = segs.filter(x => x.classList.contains("done")).length; $("#hdr-bar").style.width = (n / segs.length * 100) + "%"; }
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target))); }), { rootMargin: "-20% 0px -70% 0px" });
     segs.forEach(s => io.observe(s));

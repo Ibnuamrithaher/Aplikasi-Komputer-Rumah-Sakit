@@ -174,7 +174,6 @@ nav.agenda{display:none!important}
 
 <header class="top">
   <h1><span id="hdr-judul">Cloud Storage &amp; Kolaborasi Dokumen Online</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 14</small></h1>
-  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 
@@ -218,7 +217,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- INTI 1: Cloud Storage -->
-    <section class="seg" id="seg-inti1" data-judul="Inti 1: Mengenal Cloud Storage" data-min="10">
+    <section class="seg" id="seg-inti1" data-judul="Mengenal Cloud Storage" data-min="10">
       <div class="tabs">
         <div class="tablist" role="tablist">
           <button type="button" role="tab">Lokal vs Cloud</button>
@@ -278,7 +277,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- INTI 2: Hak Akses -->
-    <section class="seg" id="seg-inti2" data-judul="Inti 2: Simulator Hak Akses Dokumen" data-min="10">
+    <section class="seg" id="seg-inti2" data-judul="Simulator Hak Akses Dokumen" data-min="10">
       <p>Gunakan simulator di bawah untuk mensimulasikan berbagi dokumen. Tambahkan orang dan lihat tabel "Siapa Bisa Apa" berubah secara langsung.</p>
 
       <div class="akses-sim">
@@ -341,7 +340,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- INTI 3: Struktur Folder & Penamaan -->
-    <section class="seg" id="seg-inti3" data-judul="Inti 3: Struktur Folder &amp; Penamaan File" data-min="10">
+    <section class="seg" id="seg-inti3" data-judul="Struktur Folder &amp; Penamaan File" data-min="10">
       <p>Struktur folder yang rapi memudahkan pencarian, audit, dan kolaborasi tim. Coba buat pohon folder di bawah ini.</p>
 
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:center">
@@ -372,7 +371,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- INTI 4: Kolaborasi & Riwayat Versi -->
-    <section class="seg" id="seg-inti4" data-judul="Inti 4: Kolaborasi &amp; Riwayat Versi" data-min="10">
+    <section class="seg" id="seg-inti4" data-judul="Kolaborasi &amp; Riwayat Versi" data-min="10">
       <p>Simulasi berikut mensimulasikan dua pengguna mengedit dokumen bersama. Klik tombol edit masing-masing pengguna secara bergantian dan lihat riwayat perubahannya.</p>
 
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
@@ -769,26 +768,15 @@ function initTabs() {
 }
 function initSegmen() {
   const segs = $$("section.seg"), agenda = $("#agenda");
-  const done = store.get("selesai", {});
   let mulai = 0;
   const links = [];
   segs.forEach((s, i) => {
     const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
     const head = h("div", { class: "seg-head" }, h("h3", {}, judul));
      s.prepend(head);
-    const foot = h("div", { class: "seg-foot" });
-    const sb = h("button", { class: "btn sec", type: "button" });
-    function tandai(v) {
-      s.classList.toggle("done", v); a.classList.toggle("done", v); sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
-      done[s.id] = v; store.set("selesai", done); progres();
-    }
-    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
-    foot.append(sb); s.append(foot);
     const a = h("a", { href: "#" + s.id }, h("span", { class: "mnt" }, mulai + "–" + (mulai + min) + "'"), h("span", {}, judul), h("span", { class: "tick", "aria-label": "selesai" }, "✓"));
     agenda.append(a); links.push({ a, s }); mulai += min;
-    tandai(!!done[s.id]);
   });
-  function progres() { const n = segs.filter(x => x.classList.contains("done")).length; $("#hdr-bar").style.width = (n / segs.length * 100) + "%"; }
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target))); }), { rootMargin: "-20% 0px -70% 0px" });
     segs.forEach(s => io.observe(s));

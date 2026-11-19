@@ -203,7 +203,6 @@ nav.agenda{display:none!important}
 <a class="skip" href="#konten">Lewati ke konten</a>
 <header class="top">
   <h1><span id="hdr-judul">Perangkat Lunak & Pemetaan Aplikasi</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 03</small></h1>
-  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 
@@ -243,7 +242,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- 3. INTI 1: Software & Sistem Operasi -->
-    <section class="seg" id="seg-inti1" data-judul="Inti 1: Software dan Sistem Operasi" data-min="15">
+    <section class="seg" id="seg-inti1" data-judul="Software dan Sistem Operasi" data-min="15">
 
       <h4>Hardware dan software: dua sisi yang tidak bisa dipisah</h4>
       <p>Minggu lalu kita membahas <strong>hardware</strong>, yaitu bagian komputer yang bisa disentuh. Hari ini kita membahas <strong>software</strong> (perangkat lunak): kumpulan instruksi yang membuat hardware bekerja. Komputer tanpa software hanya seonggok logam dan plastik. Software tanpa hardware tidak punya tempat untuk berjalan.</p>
@@ -314,7 +313,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- 4. INTI 2: Aplikasi, lisensi, ekstensi -->
-    <section class="seg" id="seg-inti2" data-judul="Inti 2: Aplikasi, Lisensi, dan Jenis File" data-min="10">
+    <section class="seg" id="seg-inti2" data-judul="Aplikasi, Lisensi, dan Jenis File" data-min="10">
 
       <h4>Aplikasi umum: alat sehari-hari</h4>
       <p>Aplikasi adalah perangkat lunak yang dipakai langsung untuk menyelesaikan pekerjaan. Beberapa kelompok yang paling sering kalian pakai:</p>
@@ -434,7 +433,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- 5. INTI 3: Utilitas & Keamanan -->
-    <section class="seg" id="seg-inti3" data-judul="Inti 3: Utilitas dan Keamanan Komputer" data-min="10">
+    <section class="seg" id="seg-inti3" data-judul="Utilitas dan Keamanan Komputer" data-min="10">
 
       <h4>Utilitas: perawat komputer</h4>
       <p>Utilitas adalah perangkat lunak pendukung yang menjaga komputer tetap aman, bersih, dan terawat. Ia bukan alat kerja utama, tetapi sangat menentukan apakah komputer bisa terus dipakai.</p>
@@ -489,7 +488,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- 6. INTI 4: Kompresi ZIP -->
-    <section class="seg" id="seg-inti4" data-judul="Inti 4: Kompresi File (ZIP)" data-min="8">
+    <section class="seg" id="seg-inti4" data-judul="Kompresi File (ZIP)" data-min="8">
 
       <h4>Mengapa Staf RS Perlu Kompresi File?</h4>
       <p>Email RS umumnya membatasi lampiran sekitar 10 MB, sedangkan scan rekam medis satu pasien bisa 5 sampai 15 MB. Kompresi membantu dalam tiga hal: menggabungkan banyak file menjadi satu paket, menghemat ruang pada file yang memang bisa dikecilkan, dan menambah kata sandi bila diperlukan.</p>
@@ -538,7 +537,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- 7. INTI 5: PDF -->
-    <section class="seg" id="seg-inti5" data-judul="Inti 5: Mengelola PDF" data-min="8">
+    <section class="seg" id="seg-inti5" data-judul="Mengelola PDF" data-min="8">
 
       <div class="tabs">
         <div class="tablist" role="tablist">
@@ -607,7 +606,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- 8. INTI 6: Matriks Word / Excel / PPT -->
-    <section class="seg" id="seg-inti6" data-judul="Inti 6: Word, Excel, atau PPT?" data-min="5">
+    <section class="seg" id="seg-inti6" data-judul="Word, Excel, atau PPT?" data-min="5">
       <h4>Matriks Pemilihan Aplikasi Kantor RS</h4>
       <p>Untuk setiap jenis dokumen RS berikut, pilih aplikasi yang paling tepat. Klik pilihan, lalu tekan <strong>Periksa</strong>.</p>
       <div data-widget="matriksapp"></div>
@@ -1221,34 +1220,19 @@ function initSegmen() {
   const agenda = $("#agenda");
   const total = segs.reduce((s, x) => s + Number(x.dataset.min || 0), 0);
   if (total !== KONFIG.totalMenit) console.warn("Total menit segmen = " + total);
-  const done = store.get("selesai", {});
   let mulai = 0;
   const links = [];
   segs.forEach((s, i) => {
     const min = Number(s.dataset.min || 0);
     const judul = s.dataset.judul || ("Segmen " + (i + 1));
     s.prepend(h("div", { class: "seg-head" }, h("h3", {}, judul)));
-    const foot = h("div", { class: "seg-foot" });
-    const sb = h("button", { class: "btn sec", type: "button" });
-    function tandai(v) {
-      s.classList.toggle("done", v); a.classList.toggle("done", v);
-      sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
-      done[s.id] = v; store.set("selesai", done); progres();
-    }
-    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
-    foot.append(sb); s.append(foot);
     const a = h("a", { href: "#" + s.id },
       h("span", { class: "mnt" }, mulai + "–" + (mulai + min) + "'"),
       h("span", {}, judul),
       h("span", { class: "tick", "aria-label": "selesai" }, "✓")
     );
     agenda.append(a); links.push({ a, s }); mulai += min;
-    tandai(!!done[s.id]);
   });
-  function progres() {
-    const n = segs.filter(x => x.classList.contains("done")).length;
-    $("#hdr-bar").style.width = (n / segs.length * 100) + "%";
-  }
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target)));

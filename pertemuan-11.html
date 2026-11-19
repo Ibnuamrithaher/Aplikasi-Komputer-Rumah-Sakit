@@ -156,7 +156,6 @@ nav.agenda{display:none!important}
 <a class="skip" href="#konten">Lewati ke konten</a>
 <header class="top">
   <h1><span id="hdr-judul">Integrasi Office Bagian 1: OLE</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 11</small></h1>
-  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 <div class="wrap">
@@ -195,7 +194,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- ============ INTI 1: ANALOGI OLE ============ -->
-    <section class="seg" id="seg-inti1" data-judul="Inti 1: Analogi OLE" data-min="10">
+    <section class="seg" id="seg-inti1" data-judul="Analogi OLE" data-min="10">
       <p>Sebelum masuk ke langkah teknis, pahami konsep OLE melalui tiga analogi yang mudah diingat.</p>
       <details open>
         <summary>📷 Paste Biasa = Foto Cetak</summary>
@@ -237,7 +236,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- ============ INTI 2: SIMULATOR OLE ============ -->
-    <section class="seg" id="seg-inti2" data-judul="Inti 2: Simulator Link vs Embed vs Paste" data-min="10">
+    <section class="seg" id="seg-inti2" data-judul="Simulator Link vs Embed vs Paste" data-min="10">
       <p>Ubah data di panel <strong>Sumber (Excel)</strong> dan amati panel mana yang ikut berubah.</p>
       <div id="ole-sim-area"></div>
       <p style="margin-top:12px"><button class="btn" type="button" id="btn-ubah-sumber">Ubah Data Sumber</button> <button class="btn sec" type="button" id="btn-reset-sumber">Reset</button></p>
@@ -259,7 +258,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- ============ INTI 3: SORTLIST PASTE SPECIAL ============ -->
-    <section class="seg" id="seg-inti3" data-judul="Inti 3: Langkah Paste Special" data-min="10">
+    <section class="seg" id="seg-inti3" data-judul="Langkah Paste Special" data-min="10">
       <p>Urutkan 7 langkah membuat <strong>Paste Link</strong> dari Excel ke Word menggunakan tombol ▲ ▼. Setelah yakin, klik <em>Cek Urutan</em>.</p>
       <div data-widget="sortlist" data-src="sl-paste" id="sl-paste-widget"></div>
       <script type="application/json" id="sl-paste">
@@ -277,7 +276,7 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- ============ INTI 4: GAME DIAGNOSA LINK ============ -->
-    <section class="seg" id="seg-inti4" data-judul="Inti 4: Game Diagnosa Link Putus" data-min="10">
+    <section class="seg" id="seg-inti4" data-judul="Game Diagnosa Link Putus" data-min="10">
       <p>Setiap skenario menampilkan "pesan error" seperti yang muncul di dokumen Word. Pilih solusi yang paling tepat dari tiga opsi.</p>
       <div id="diagnosa-area"></div>
       <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
@@ -630,20 +629,13 @@ W.reflect=el=>{
    ============================================================ */
 function initSegmen(){
   const segs=$$("section.seg"),agenda=$("#agenda");
-  const done=store.get("selesai",{});
   let mulai=0;const links=[];
   segs.forEach((s,i)=>{
     const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
     const head=h("div",{class:"seg-head"},h("h3",{},judul));
     s.prepend(head);
-    const foot=h("div",{class:"seg-foot"});const sb=h("button",{class:"btn sec",type:"button"});
-    function tandai(v){s.classList.toggle("done",v);a.classList.toggle("done",v);sb.textContent=v?"✔ Selesai (klik untuk batal)":"Tandai selesai";done[s.id]=v;store.set("selesai",done);progres();}
-    sb.addEventListener("click",()=>tandai(!s.classList.contains("done")));
-    foot.append(sb);s.append(foot);
     const a=h("a",{href:"#"+s.id},h("span",{class:"mnt"},mulai+"–"+(mulai+min)+"'"),h("span",{},judul),h("span",{class:"tick","aria-label":"selesai"},"✓"));
-    agenda.append(a);links.push({a,s});mulai+=min;tandai(!!done[s.id]);
-  });
-  function progres(){const n=segs.filter(x=>x.classList.contains("done")).length;$("#hdr-bar").style.width=(n/segs.length*100)+"%";}
+    agenda.append(a);links.push({a,s});mulai+=min;  });
   if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
 }
 

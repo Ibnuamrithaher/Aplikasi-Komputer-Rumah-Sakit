@@ -102,6 +102,7 @@ details>div,details>p{padding:8px 14px}
 .hs-stage svg{display:block;width:100%;height:auto}
 .hs-dot{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;
   border:3px solid #fff;background:var(--accent);color:#fff;font-weight:700;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.hs-dot{width:28px;height:28px;font-size:.85rem}
 .hs-dot[aria-pressed="true"]{background:var(--primary)}
 .hs-info{max-width:640px;margin:10px auto 0;min-height:70px;background:var(--primary-soft);border-radius:10px;padding:10px 14px}
 .checklist{list-style:none;padding:0;margin:8px 0}
@@ -123,6 +124,15 @@ table.ms input.err{color:var(--bad)}
 .ms-bar{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
 .ms-bar .addr{min-width:54px;font-weight:700;background:var(--primary-soft);padding:2px 10px;border-radius:6px;text-align:center}
 .ms-bar .fx{flex:1;min-width:160px;font-family:ui-monospace,Consolas,monospace;border:1px solid var(--line);border-radius:6px;padding:4px 10px;background:var(--surface)}
+.shot{margin:12px 0;text-align:center}
+.shot img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);background:#fff}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;background:var(--bg);font-size:.9em}
+.excel-intro{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.excel-intro>div{flex:1 1 320px}
+.excel-logo{width:96px;height:96px;flex:none}
+.cs td{min-width:64px}
+.cs td button{display:block;width:100%;min-height:38px;border:0;background:transparent}
+.cs td button:hover{background:var(--primary-soft)}
 .tantangan{list-style:none;padding:0}
 .tantangan li{padding:6px 10px;margin:4px 0;border-radius:8px;background:var(--bg);border:1px solid var(--line);font-size:.95rem}
 .tantangan li.ok{background:var(--ok-soft);border-color:var(--ok)}
@@ -138,7 +148,7 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 @media print{
   :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
   body{font-size:12pt}
-  .top,nav.agenda,
+  .top,nav.agenda,.seg-foot,.btn,.skip{display:none!important}
   .wrap{display:block;padding:0}
   .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
   .hero{background:#fff;color:#000}
@@ -156,7 +166,6 @@ nav.agenda{display:none!important}
 
 <header class="top">
   <h1><span id="hdr-judul">Microsoft Excel Dasar</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 06</small></h1>
-  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 
@@ -174,10 +183,35 @@ nav.agenda{display:none!important}
       <ul id="hero-tujuan"></ul>
     </div>
 
-    <!-- ===== PEMBUKA ===== -->
-    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">Pak Rudi, staf administrasi RS Harapan Bersama (fiktif), menerima email dari kepala bagian berisi tabel kunjungan pasien 100 baris. "Hitung total per poli dan rata-rata harian!" pinta atasan sebelum rapat pukul 09.00. Pak Rudi panik, ia belum pernah memakai rumus Excel, dan menghitung manual 100 baris berarti sejam lebih. Seandainya ia tahu tiga formula ajaib itu...</p>
-      <p>Hari ini kita belajar tiga hal: mengenal tampilan Excel, memahami tipe data agar tidak salah hitung, lalu menggunakan formula <strong>SUM</strong>, <strong>AVERAGE</strong>, dan <strong>COUNT</strong> untuk menyelesaikan pekerjaan seperti Pak Rudi dalam hitungan detik.</p>
+    <!-- ===== PENGENALAN EXCEL ===== -->
+    <section class="seg" id="seg-pengenalan" data-judul="Mengenal Microsoft Excel" data-min="5">
+      <div class="excel-intro">
+        <img class="excel-logo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Microsoft_Office_Excel_(2019%E2%80%93present).svg" alt="Logo Microsoft Excel" width="96" height="96" loading="lazy">
+        <div>
+          <p><strong>Microsoft Excel</strong> adalah aplikasi <em>spreadsheet</em> (lembar kerja) dari Microsoft untuk mengolah data dalam bentuk tabel berisi baris dan kolom. Excel tidak hanya menyimpan data, tetapi juga <strong>menghitung otomatis</strong> memakai rumus.</p>
+          <p class="kriteria">Sumber logo: <a href="https://commons.wikimedia.org/wiki/File:Microsoft_Office_Excel_(2019%E2%80%93present).svg" target="_blank" rel="noopener">Wikimedia Commons, Microsoft Office Excel (2019–present).svg</a>. Logo adalah merek dagang Microsoft Corporation.</p>
+        </div>
+      </div>
+
+      <h4>Apa gunanya Excel di rumah sakit?</h4>
+      <div class="grid2">
+        <div class="card"><strong>Rekap kunjungan</strong><p style="font-size:.92rem">Total pasien per poli, per hari, atau per bulan.</p></div>
+        <div class="card"><strong>Stok obat dan logistik</strong><p style="font-size:.92rem">Nilai stok, barang masuk dan keluar.</p></div>
+        <div class="card"><strong>Biaya dan billing</strong><p style="font-size:.92rem">Harga × jumlah, total tagihan, anggaran.</p></div>
+        <div class="card"><strong>Laporan dan grafik</strong><p style="font-size:.92rem">Bahan laporan rapat, misalnya tren kunjungan (dipelajari di Pertemuan 07).</p></div>
+      </div>
+
+      <h4>Istilah penting</h4>
+      <table class="data">
+        <thead><tr><th>Istilah</th><th>Artinya</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Workbook</strong></td><td>Satu berkas Excel (.xlsx), ibarat buku.</td></tr>
+          <tr><td><strong>Worksheet</strong></td><td>Satu lembar di dalam workbook, ibarat halaman buku.</td></tr>
+          <tr><td><strong>Cell</strong></td><td>Satu kotak tempat data, hasil pertemuan baris dan kolom.</td></tr>
+          <tr><td><strong>Formula</strong></td><td>Rumus yang diawali tanda =, agar Excel menghitung sendiri.</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Aplikasi sejenis:</strong> Google Sheets (daring) dan LibreOffice Calc (gratis) memakai konsep yang sama, jadi yang dipelajari hari ini tetap berguna di sana.</div>
     </section>
 
     <!-- ===== PRE-TEST ===== -->
@@ -196,91 +230,19 @@ nav.agenda{display:none!important}
     </section>
 
     <!-- ===== INTI 1: Anatomi Lembar Kerja ===== -->
-    <section class="seg" id="seg-inti1" data-judul="Inti 1: Anatomi Lembar Kerja" data-min="10">
+    <section class="seg" id="seg-inti1" data-judul="Anatomi Lembar Kerja" data-min="10">
       <p>Sebelum mengetik rumus, kita harus tahu <em>di mana</em> setiap bagian Excel berada. Klik titik bernomor pada gambar untuk melihat penjelasannya.</p>
 
       <div data-widget="hotspot">
         <div class="hs-stage">
-          <svg viewBox="0 0 500 300" role="img" aria-label="Antarmuka Microsoft Excel yang disederhanakan">
-            <!-- title bar -->
-            <rect x="0" y="0" width="500" height="22" fill="#1a5276" rx="0"/>
-            <text x="250" y="15" text-anchor="middle" font-size="11" fill="#fff" font-family="sans-serif">Buku1: Microsoft Excel</text>
-            <!-- ribbon tabs -->
-            <rect x="0" y="22" width="500" height="22" fill="#d6e8f0"/>
-            <text x="14" y="36" font-size="10" fill="#333" font-family="sans-serif">Beranda</text>
-            <text x="72" y="36" font-size="10" fill="#333" font-family="sans-serif">Sisipkan</text>
-            <text x="132" y="36" font-size="10" fill="#333" font-family="sans-serif">Rumus</text>
-            <text x="185" y="36" font-size="10" fill="#333" font-family="sans-serif">Data</text>
-            <!-- Name Box -->
-            <rect x="0" y="44" width="68" height="22" fill="#fff" stroke="#aaa" stroke-width="1"/>
-            <text x="34" y="59" text-anchor="middle" font-size="12" fill="#12303a" font-family="sans-serif" font-weight="bold">A1</text>
-            <!-- fx -->
-            <rect x="68" y="44" width="26" height="22" fill="#f0f0f0" stroke="#aaa" stroke-width="1"/>
-            <text x="81" y="59" text-anchor="middle" font-size="11" fill="#0b7285" font-family="sans-serif" font-weight="bold">fx</text>
-            <!-- Formula Bar -->
-            <rect x="94" y="44" width="406" height="22" fill="#fff" stroke="#aaa" stroke-width="1"/>
-            <text x="104" y="59" font-size="10" fill="#888" font-family="sans-serif">Ketik nilai atau rumus di sini (diawali = untuk rumus)</text>
-            <!-- Corner -->
-            <rect x="0" y="66" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
-            <!-- Col headers -->
-            <rect x="28" y="66" width="72" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
-            <text x="64" y="80" text-anchor="middle" font-size="12" font-family="sans-serif" font-weight="bold" fill="#12303a">A</text>
-            <rect x="100" y="66" width="72" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
-            <text x="136" y="80" text-anchor="middle" font-size="12" font-family="sans-serif" font-weight="bold" fill="#12303a">B</text>
-            <rect x="172" y="66" width="72" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
-            <text x="208" y="80" text-anchor="middle" font-size="12" font-family="sans-serif" fill="#555">C</text>
-            <rect x="244" y="66" width="72" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
-            <text x="280" y="80" text-anchor="middle" font-size="12" font-family="sans-serif" fill="#555">D</text>
-            <!-- Row 1 -->
-            <rect x="0" y="86" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
-            <text x="14" y="100" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#12303a" font-weight="bold">1</text>
-            <rect x="28" y="86" width="72" height="20" fill="#e0f4f9" stroke="#0b7285" stroke-width="2"/>
-            <text x="64" y="100" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#12303a">Nama Obat</text>
-            <rect x="100" y="86" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
-            <text x="136" y="100" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#12303a">Harga</text>
-            <rect x="172" y="86" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
-            <text x="208" y="100" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#12303a">Jumlah</text>
-            <rect x="244" y="86" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
-            <text x="280" y="100" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#12303a">Subtotal</text>
-            <!-- Row 2 -->
-            <rect x="0" y="106" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
-            <text x="14" y="120" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#555">2</text>
-            <rect x="28" y="106" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
-            <text x="64" y="120" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#333">Paracetamol</text>
-            <rect x="100" y="106" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
-            <text x="136" y="120" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#333">5000</text>
-            <rect x="172" y="106" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
-            <text x="208" y="120" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#333">10</text>
-            <rect x="244" y="106" width="72" height="20" fill="#fff" stroke="#ccc" stroke-width="1"/>
-            <text x="280" y="120" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#0b7285">=B2*C2</text>
-            <!-- Rows 3-6 simplified -->
-            <rect x="0" y="126" width="500" height="20" fill="#fff" stroke="#ddd" stroke-width="0.5"/>
-            <rect x="0" y="126" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
-            <text x="14" y="140" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#555">3</text>
-            <text x="64" y="140" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#333">Amoxicillin</text>
-            <rect x="0" y="146" width="500" height="20" fill="#f9f9f9" stroke="#ddd" stroke-width="0.5"/>
-            <rect x="0" y="146" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
-            <text x="14" y="160" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#555">4</text>
-            <rect x="0" y="166" width="500" height="20" fill="#fff" stroke="#ddd" stroke-width="0.5"/>
-            <rect x="0" y="166" width="28" height="20" fill="#d3f0f4" stroke="#ccc" stroke-width="1"/>
-            <text x="14" y="180" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#555">5</text>
-            <!-- Status bar -->
-            <rect x="0" y="272" width="500" height="18" fill="#d6e8f0"/>
-            <text x="8" y="284" font-size="10" fill="#333" font-family="sans-serif">Siap</text>
-            <text x="400" y="284" font-size="10" fill="#333" font-family="sans-serif">Lembar 1 dari 3</text>
-            <!-- Sheet tabs -->
-            <rect x="0" y="254" width="500" height="18" fill="#e8f2f5"/>
-            <rect x="4" y="243" width="58" height="16" rx="3" fill="#fff" stroke="#0b7285" stroke-width="1.5"/>
-            <text x="33" y="254" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#0b7285" font-weight="bold">Sheet1</text>
-            <rect x="67" y="244" width="48" height="14" rx="3" fill="#e0ecf0" stroke="#aaa" stroke-width="1"/>
-            <text x="91" y="254" text-anchor="middle" font-size="10" font-family="sans-serif" fill="#666">Sheet2</text>
-          </svg>
-          <button type="button" class="hs-dot" style="--x:7%;--y:18%" data-judul="Name Box" data-teks="Name Box menampilkan alamat sel yang sedang aktif (mis. A1, B3, C12). Klik Name Box dan ketik alamat sel untuk melompat langsung ke sel tersebut.">1</button>
-          <button type="button" class="hs-dot" style="--x:57%;--y:18%" data-judul="Formula Bar" data-teks="Formula Bar menampilkan isi asli sel, nilai, teks, atau rumus (mis. =SUM(B2:B10)). Di sinilah Anda mengedit rumus yang sudah ada di sel.">2</button>
-          <button type="button" class="hs-dot" style="--x:28%;--y:25%" data-judul="Header Kolom" data-teks="Header kolom bertanda huruf (A, B, C, ...). Klik header kolom untuk memilih seluruh kolom. Kolom maksimum Excel: XFD (16.384 kolom).">3</button>
-          <button type="button" class="hs-dot" style="--x:3%;--y:35%" data-judul="Header Baris" data-teks="Header baris bertanda angka (1, 2, 3, ...). Klik header baris untuk memilih seluruh baris. Baris maksimum Excel: 1.048.576 baris.">4</button>
-          <button type="button" class="hs-dot" style="--x:7%;--y:86%" data-judul="Tab Lembar (Sheet Tab)" data-teks="Tab di bagian bawah menunjukkan lembar kerja dalam satu buku kerja (workbook). Klik tab untuk berpindah lembar, klik kanan untuk mengubah nama atau menambah lembar baru.">5</button>
+          <img src="gambar/p06-anatomi-excel.png" width="1084" height="582" alt="Tangkapan layar Microsoft Excel dengan tabel stok obat; sel D2 terpilih dan berisi rumus =B2*C2">
+          <button type="button" class="hs-dot" style="--x:5.9%;--y:25.8%" data-judul="Name Box" data-teks="Name Box menampilkan alamat sel yang sedang aktif (mis. A1, B3, C12). Klik Name Box dan ketik alamat sel untuk melompat langsung ke sel tersebut.">1</button>
+          <button type="button" class="hs-dot" style="--x:63.8%;--y:25.8%" data-judul="Formula Bar" data-teks="Formula Bar menampilkan isi asli sel, nilai, teks, atau rumus (mis. =SUM(B2:B10)). Di sinilah Anda mengedit rumus yang sudah ada di sel.">2</button>
+          <button type="button" class="hs-dot" style="--x:58.4%;--y:30.8%" data-judul="Header Kolom" data-teks="Header kolom bertanda huruf (A, B, C, ...). Klik header kolom untuk memilih seluruh kolom. Kolom maksimum Excel: XFD (16.384 kolom).">3</button>
+          <button type="button" class="hs-dot" style="--x:2.6%;--y:75.6%" data-judul="Header Baris" data-teks="Header baris bertanda angka (1, 2, 3, ...). Klik header baris untuk memilih seluruh baris. Baris maksimum Excel: 1.048.576 baris.">4</button>
+          <button type="button" class="hs-dot" style="--x:8.5%;--y:93.1%" data-judul="Tab Lembar (Sheet Tab)" data-teks="Tab di bagian bawah menunjukkan lembar kerja dalam satu buku kerja (workbook). Klik tab untuk berpindah lembar, klik kanan untuk mengubah nama atau menambah lembar baru.">5</button>
         </div>
+        <p class="kriteria" style="text-align:center">Tangkapan layar Microsoft Excel (versi Microsoft 365), diambil oleh dosen pengampu. Data contoh fiktif.</p>
         <div class="hs-info" aria-live="polite">Klik salah satu titik bernomor untuk melihat penjelasan bagian tersebut.</div>
       </div>
 
@@ -308,94 +270,271 @@ nav.agenda{display:none!important}
           </ul>
         </div>
       </details>
+
+      <h4>Latihan: klik sel yang diminta</h4>
+      <p>Alamat sel yang kalian klik muncul di kotak Name Box, persis seperti di Excel. Selesaikan 6 soal.</p>
+      <div data-widget="carisel"></div>
     </section>
 
     <!-- ===== INTI 2: Tipe Data ===== -->
-    <section class="seg" id="seg-inti2" data-judul="Inti 2: Tipe Data & Referensi Sel" data-min="10">
-      <p>Excel membedakan empat tipe data utama. Tipe yang salah bisa membuat rumus tidak berjalan atau menghasilkan error.</p>
+    <section class="seg" id="seg-inti2" data-judul="Tipe Data & Referensi Sel" data-min="10">
+      <h4>Apa itu tipe data?</h4>
+      <p><strong>Tipe data</strong> adalah jenis isi sebuah sel. Tipe inilah yang menentukan bagaimana Excel <em>menyimpan</em>, <em>menampilkan</em>, dan <em>menghitung</em> isi sel tersebut. Angka 50000 bisa dijumlahkan, sedangkan "Rp 50.000" yang diketik dengan simbol Rp dianggap tulisan biasa dan diabaikan oleh rumus <span class="kode-box">=SUM</span>.</p>
+      <div class="note"><strong>Isi sel dan tampilannya itu berbeda.</strong> Excel menyimpan nilai aslinya, lalu <em>format</em> menentukan bagaimana nilai itu terlihat. Contoh: nilai 0,85 bisa tampil sebagai 85% (format Percentage), dan tanggal 15 Maret 2026 sebenarnya disimpan sebagai angka serial 46096 yang tampil sebagai tanggal (format Date).</div>
 
-      <h4>Pasangkan: pilih item di kanan, lalu klik kotak di kiri</h4>
-      <div data-widget="dragmatch" data-src="dm-tipe" class="quiz"></div>
-      <script type="application/json" id="dm-tipe">
-      {"pairs":[
-        {"kiri":"Siti Aminah","kanan":"Teks"},
-        {"kiri":"125000","kanan":"Angka"},
-        {"kiri":"2026-03-15","kanan":"Tanggal"},
-        {"kiri":"85%","kanan":"Persen"}
-      ]}
-      </script>
-
-      <h4>Contoh lengkap: semua 8 data dari administrasi RS</h4>
+      <h4>Empat tipe data yang paling sering dipakai</h4>
       <table class="data">
-        <thead><tr><th>Contoh Data</th><th>Tipe</th><th>Keterangan & Dampak Salah Tipe</th></tr></thead>
+        <thead><tr><th>Tipe</th><th>Pengertian</th><th>Contoh di RS</th><th>Rata default</th><th>Bisa dihitung?</th></tr></thead>
         <tbody>
-          <tr><td>"Siti Aminah"</td><td>Teks</td><td>Nama tidak bisa dijumlahkan. Rumus =SUM pada kolom nama menghasilkan 0.</td></tr>
-          <tr><td>"Poli Umum"</td><td>Teks</td><td>Teks rata kiri secara default. Jika muncul angka rata kiri, kemungkinan tersimpan sebagai teks.</td></tr>
-          <tr><td>"Rp 50.000"</td><td>Teks</td><td>Meskipun terlihat seperti angka, simbol Rp dan titik pemisah ribuan membuatnya jadi teks, tidak bisa dihitung!</td></tr>
-          <tr><td>125000</td><td>Angka</td><td>Angka murni, rata kanan, bisa dijumlahkan dengan SUM.</td></tr>
-          <tr><td>0.75</td><td>Angka</td><td>Desimal. Format sebagai Persen (%) di Format Cells agar tampil 75%.</td></tr>
-          <tr><td>2026-03-15</td><td>Tanggal</td><td>Disimpan sebagai angka serial (mis. 46291). Bisa dihitung: selisih dua tanggal = jumlah hari.</td></tr>
-          <tr><td>01/Apr/2026</td><td>Tanggal</td><td>Format tanggal lain yang dikenali Excel. Tetap disimpan sebagai angka serial.</td></tr>
-          <tr><td>85%</td><td>Persen</td><td>Disimpan sebagai 0.85. Tampilkan dengan format Persen agar terlihat 85%.</td></tr>
+          <tr><td><strong>Teks</strong> (Text)</td><td>Huruf, kata, atau gabungan huruf dan simbol. Bisa juga angka yang diperlakukan sebagai tulisan.</td><td>Siti Aminah, Poli Umum, No. RM 00012345</td><td>Kiri</td><td>Tidak (diabaikan oleh SUM, AVERAGE, COUNT)</td></tr>
+          <tr><td><strong>Angka</strong> (Number)</td><td>Bilangan murni tanpa simbol, bisa dijumlah, dikali, dan dirata-rata.</td><td>125000, 45 pasien, 7,5</td><td>Kanan</td><td>Ya</td></tr>
+          <tr><td><strong>Tanggal dan waktu</strong> (Date, Time)</td><td>Hari, bulan, tahun, atau jam. Disimpan sebagai angka serial sehingga bisa dikurangkan.</td><td>15/03/2026, jam kontrol 09.30</td><td>Kanan</td><td>Ya (selisih dua tanggal = jumlah hari)</td></tr>
+          <tr><td><strong>Persen</strong> (Percentage)</td><td>Angka desimal yang ditampilkan dengan tanda %. Nilai aslinya tetap desimal.</td><td>BOR 85% (disimpan 0,85)</td><td>Kanan</td><td>Ya</td></tr>
+        </tbody>
+      </table>
+      <p class="kriteria">Kebiasaan yang membantu: <strong>teks rata kiri, angka dan tanggal rata kanan</strong>. Kalau angka muncul rata kiri, curigai tersimpan sebagai teks.</p>
+
+      <h4>Pilihan format di Excel (Format Cells, tab Number)</h4>
+      <p>Di Excel tersedia 12 kategori format. Tidak semuanya perlu dihafal, tetapi kenali yang sering dipakai di administrasi RS.</p>
+      <table class="data">
+        <thead><tr><th>Kategori</th><th>Fungsi</th></tr></thead>
+        <tbody>
+          <tr><td><strong>General</strong></td><td>Format bawaan. Angka tampil sesuai yang diketik. Angka sangat panjang (12 digit atau lebih) bisa berubah ke notasi ilmiah.</td></tr>
+          <tr><td><strong>Number</strong></td><td>Tampilan angka umum, dengan pilihan jumlah desimal dan pemisah ribuan.</td></tr>
+          <tr><td><strong>Currency</strong></td><td>Nilai uang dengan simbol mata uang, misalnya untuk biaya dan tarif.</td></tr>
+          <tr><td><strong>Accounting</strong></td><td>Juga untuk uang, tetapi simbol mata uang dan titik desimal dirapikan sejajar dalam satu kolom.</td></tr>
+          <tr><td><strong>Date</strong> dan <strong>Time</strong></td><td>Menampilkan angka serial sebagai tanggal atau jam, sesuai bentuk dan wilayah yang dipilih.</td></tr>
+          <tr><td><strong>Percentage</strong></td><td>Mengalikan nilai sel dengan 100 dan menambah tanda %.</td></tr>
+          <tr><td><strong>Fraction</strong></td><td>Menampilkan angka sebagai pecahan.</td></tr>
+          <tr><td><strong>Scientific</strong></td><td>Notasi eksponen, misalnya 12345678901 tampil sebagai 1,23E+10.</td></tr>
+          <tr><td><strong>Text</strong></td><td>Isi sel diperlakukan sebagai teks dan tampil persis seperti diketik, termasuk bila berisi angka.</td></tr>
+          <tr><td><strong>Special</strong></td><td>Format khusus seperti kode pos, nomor telepon, atau nomor identitas (sesuai wilayah).</td></tr>
+          <tr><td><strong>Custom</strong></td><td>Membuat format sendiri dari salinan format yang ada.</td></tr>
         </tbody>
       </table>
 
-      <div class="note"><strong>Ingat:</strong> Angka yang tersimpan sebagai teks punya tanda segitiga hijau kecil di pojok sel. Gunakan <em>Convert to Number</em> atau ketik ulang tanpa simbol mata uang/titik ribuan.</div>
+      <div class="warn-box"><strong>Penting untuk data RS:</strong> Excel hanya menyimpan <strong>15 digit angka</strong> dengan tepat. NIK yang 16 digit dan nomor rekam medis berawalan nol (misalnya 00012345) harus diformat sebagai <strong>Text</strong> <em>sebelum</em> diketik, kalau tidak digit terakhirnya berubah jadi 0 atau nol di depannya hilang.</div>
 
-      <h4>Referensi Sel: Relatif vs Absolut</h4>
-      <div class="grid2">
-        <div class="card">
-          <strong>Relatif</strong>: <span class="kode-box">=B2*C2</span><br>
-          <p style="font-size:.92rem">Saat disalin ke baris bawah, berubah jadi =B3*C3, =B4*C4, dst. Cocok untuk operasi berulang per baris.</p>
-        </div>
-        <div class="card">
-          <strong>Absolut</strong>: <span class="kode-box">=B2*$C$1</span><br>
-          <p style="font-size:.92rem">Tanda $ mengunci kolom dan/atau baris. $C$1 tidak berubah saat disalin. Cocok untuk tarif/konstan yang sama untuk semua baris.</p>
-        </div>
-      </div>
+      <p class="kriteria"><strong>Referensi:</strong><br>
+      1. Microsoft Support, <em>Available number formats in Excel</em>.<br>
+      <a style="word-break:break-all" href="https://support.microsoft.com/en-us/office/available-number-formats-in-excel-0afe8f52-97db-41f1-b972-4b46e9f1e8d2" target="_blank" rel="noopener">https://support.microsoft.com/en-us/office/available-number-formats-in-excel-0afe8f52-97db-41f1-b972-4b46e9f1e8d2</a><br>
+      2. Microsoft Support, <em>Excel specifications and limits</em> (batas presisi 15 digit).<br>
+      <a style="word-break:break-all" href="https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3" target="_blank" rel="noopener">https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3</a><br>
+      Diakses 19 November 2026. Contoh data adalah fiktif.</p>
+
+
+      <h4>Di mana tipe data diatur?</h4>
+
+      <h4>Langkah 1: lihat tipe data sebuah sel</h4>
+      <figure class="shot"><img src="gambar/p06-tipe-1.png" alt="Excel dengan sel B3 terpilih; kotak Number Format di tab Home menampilkan General" loading="lazy"></figure>
+      <ol>
+        <li>Klik sel yang ingin dicek, misalnya <strong>B3</strong>.</li>
+        <li>Lihat kotak <strong>Number Format</strong> di tab <strong>Home</strong>, grup <strong>Number</strong>. Di sini tertulis tipe/format sel: <em>General</em>, <em>Number</em>, <em>Date</em>, <em>Percentage</em>, <em>Text</em>, dan seterusnya.</li>
+      </ol>
+      <p>Contoh lain: pada sel berisi 85%, kotaknya menampilkan <em>Percentage</em>.</p>
+      <figure class="shot"><img src="gambar/p06-tipe-6.png" alt="Sel B5 terpilih; kotak Number Format menampilkan Percentage" loading="lazy"></figure>
+      <ol>
+        <li>Kotak <strong>Number Format</strong> menampilkan tipe sel yang dipilih.</li>
+        <li>Sel <strong>B5</strong> terpilih dan berisi 85%.</li>
+      </ol>
+
+      <h4>Langkah 2: ubah tipe data lewat daftar Number Format</h4>
+      <figure class="shot"><img src="gambar/p06-tipe-2.png" alt="Daftar pilihan Number Format terbuka: General, Number, Currency, Accounting, Short Date, Long Date, Time, Percentage, Fraction, Scientific, Text, More Number Formats" loading="lazy"></figure>
+      <ol>
+        <li>Pilih sel atau rentang yang akan diubah, lalu klik <strong>panah kecil</strong> di kotak Number Format. Daftar pilihan terbuka: General, Number, Currency, Accounting, Short Date, Long Date, Time, Percentage, Fraction, Scientific, dan Text.</li>
+        <li>Klik <strong>More Number Formats...</strong> kalau ingin pengaturan lebih rinci, misalnya jumlah desimal.</li>
+      </ol>
+
+      <h4>Langkah 3: ubah tipe data lewat Format Cells</h4>
+      <p>Cara lain: pilih sel, tekan <span class="kode-box">Ctrl + 1</span> (atau klik kanan lalu <em>Format Cells</em>), dan buka tab <strong>Number</strong>.</p>
+      <figure class="shot"><img src="gambar/p06-tipe-3.png" alt="Kotak dialog Format Cells tab Number dengan kategori Percentage dipilih dan pengaturan Decimal places" loading="lazy" style="max-width:530px"></figure>
+      <ol>
+        <li><strong>Category</strong>: pilih jenis tipe data, misalnya <em>Percentage</em>.</li>
+        <li>Bagian kanan menampilkan <strong>Sample</strong> (contoh tampilan) dan pengaturan tambahan seperti <em>Decimal places</em>. Klik <strong>OK</strong> untuk menerapkan.</li>
+      </ol>
+      <div class="warn-box"><strong>Hati-hati dengan Percentage:</strong> Excel mengalikan nilai sel dengan 100. Angka 125000 yang diberi format Percentage menjadi 12500000,00%. Format persen dipakai untuk angka desimal (0,85 menjadi 85%).</div>
+      <figure class="shot"><img src="gambar/p06-tipe-4.png" alt="Kotak dialog Format Cells dengan kategori Text dipilih dan keterangan tentang format Text" loading="lazy" style="max-width:530px"></figure>
+      <ol>
+        <li>Kategori <strong>Text</strong> membuat isi sel diperlakukan sebagai teks, walaupun berisi angka.</li>
+        <li>Keterangan di dialog: sel ditampilkan persis seperti yang diketik. Angka berformat Text <em>tidak ikut dijumlahkan</em> oleh rumus.</li>
+      </ol>
+
+      <h4>Cara mengenali tipe data dari tampilannya</h4>
+      <figure class="shot"><img src="gambar/p06-tipe-5.png" alt="Sel B6 berisi Rp 50.000 rata kiri, sedangkan sel B3 berisi 125000 rata kanan" loading="lazy"></figure>
+      <ol>
+        <li><strong>B6</strong> berisi <em>Rp 50.000</em> dan <strong>rata kiri</strong>, tanda bahwa Excel menganggapnya teks.</li>
+        <li>Formula Bar menampilkan isi asli sel persis seperti yang diketik, tanpa format angka apa pun.</li>
+        <li>Bandingkan dengan <strong>B3</strong> (125000) yang <strong>rata kanan</strong>, tanda angka sungguhan.</li>
+      </ol>
+
+      <h4>Referensi sel: apa dan untuk apa?</h4>
+      <p><strong>Referensi sel</strong> adalah alamat sel yang ditulis di dalam rumus, misalnya <span class="kode-box">B2</span>. Dengan referensi, rumus mengambil nilai dari sel itu, bukan dari angka yang diketik. Ada dua keuntungan:</p>
+      <ul>
+        <li>Kalau data di sel berubah, hasil rumus ikut berubah sendiri.</li>
+        <li>Satu rumus bisa <strong>disalin ke banyak baris</strong> (seret kotak kecil di pojok kanan bawah sel, disebut <em>fill handle</em>) tanpa mengetik ulang.</li>
+      </ul>
+      <p>Saat rumus disalin, Excel menggeser alamatnya mengikuti arah salinan. Kadang itu yang kita mau, kadang tidak. Karena itu ada dua jenis referensi: <strong>relatif</strong> (ikut bergeser) dan <strong>absolut</strong> (dikunci, tidak bergeser).</p>
+
+      <h4>Contoh kasus: tarif admin yang sama untuk semua pasien</h4>
+      <p>Tarif admin Rp 2.500 ada di sel <span class="kode-box">B8</span>. Setiap pasien harus membayar biaya + tarif admin itu. Rumus di C11 ditulis lalu disalin ke C12:</p>
+      <table class="data">
+        <thead><tr><th>Cara menulis</th><th>Rumus di C11</th><th>Setelah disalin ke C12</th><th>Hasil C12</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Relatif</strong></td><td><span class="kode-box">=B11+B8</span></td><td><span class="kode-box">=B12+B9</span> (B8 ikut bergeser jadi B9, sel kosong)</td><td class="err">150.000 (salah, admin tidak terhitung)</td></tr>
+          <tr><td><strong>Absolut</strong></td><td><span class="kode-box">=B11+$B$8</span></td><td><span class="kode-box">=B12+$B$8</span> (B8 terkunci)</td><td><strong>152.500 (benar)</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h4>Tiga bentuk referensi</h4>
+      <table class="data">
+        <thead><tr><th>Bentuk</th><th>Nama</th><th>Saat disalin</th><th>Dipakai untuk</th></tr></thead>
+        <tbody>
+          <tr><td><span class="kode-box">B8</span></td><td>Relatif</td><td>Kolom dan baris ikut bergeser</td><td>Data yang berbeda tiap baris (harga, jumlah)</td></tr>
+          <tr><td><span class="kode-box">$B$8</span></td><td>Absolut</td><td>Kolom dan baris terkunci</td><td>Nilai tetap: tarif, persentase, kurs</td></tr>
+          <tr><td><span class="kode-box">$B8</span> atau <span class="kode-box">B$8</span></td><td>Campuran</td><td>Hanya kolom atau hanya baris yang terkunci</td><td>Tabel dua arah (dipelajari lebih lanjut nanti)</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Jalan pintas:</strong> saat mengetik atau mengedit rumus, letakkan kursor di alamat sel lalu tekan <kbd>F4</kbd>. Bentuknya berganti: B8, $B$8, B$8, $B8, lalu kembali ke B8.</div>
+
+      <h4>Melihat referensi absolut di Excel asli</h4>
+      <figure class="shot"><img src="gambar/p06-tipe-7.png" alt="Sel C12 berisi rumus =B12+$B$8; Formula Bar menampilkan rumus, sel B8 berisi tarif admin 2500" loading="lazy"></figure>
+      <ol>
+        <li>Klik <strong>C12</strong>. Formula Bar menampilkan <span class="kode-box">=B12+$B$8</span>.</li>
+        <li>Hasilnya (152.500) tampil di sel C12. <span class="kode-box">B12</span> relatif, ikut bergeser kalau rumus disalin.</li>
+        <li><span class="kode-box">$B$8</span> (tarif admin 2.500) absolut: tanda <strong>$</strong> mengunci kolom dan baris, sehingga tidak bergeser saat disalin. Tekan <kbd>F4</kbd> saat mengedit rumus untuk memberi tanda $ otomatis.</li>
+      </ol>
     </section>
 
     <!-- ===== INTI 3: Formula Dasar ===== -->
-    <section class="seg" id="seg-inti3" data-judul="Inti 3: Formula Dasar (×, ÷, +, −)" data-min="10">
-      <p>Semua rumus Excel dimulai dengan <strong>=</strong>. Urutan operasi: <code>( )</code> lebih dulu, lalu <code>*</code> dan <code>/</code>, baru <code>+</code> dan <code>-</code>.</p>
-      <p class="note">Data stok obat di bawah adalah fiktif untuk keperluan latihan.</p>
+    <section class="seg" id="seg-inti3" data-judul="Formula Dasar (×, ÷, +, −)" data-min="10">
+      <p>Semua rumus Excel dimulai dengan tanda <strong>=</strong>. Excel lalu menghitung sendiri dan menampilkan hasilnya di sel. Data stok obat di bawah adalah fiktif untuk keperluan latihan.</p>
 
-      <h4>Tantangan: isi kolom Subtotal = Harga × Jumlah (ketik rumus diawali =)</h4>
-      <div data-widget="minisheet" data-src="ms-inti3"></div>
-      <script type="application/json" id="ms-inti3">
-      {"baris":8,"kolom":4,
-       "sel":{
-         "A1":"Nama Obat","B1":"Harga (Rp)","C1":"Jumlah","D1":"Subtotal",
-         "A2":"Paracetamol","B2":"5000","C2":"10",
-         "A3":"Amoxicillin","B3":"12000","C3":"5",
-         "A4":"Vitamin C","B4":"8000","C4":"3",
-         "A5":"Antasida","B5":"3500","C5":"8",
-         "A6":"Ibuprofen","B6":"7500","C6":"6"
-       },
-       "tantangan":[
-         {"teks":"D2 = Subtotal Paracetamol (=B2*C2)","sel":"D2","nilai":50000,"wajibRumus":true},
-         {"teks":"D3 = Subtotal Amoxicillin (=B3*C3)","sel":"D3","nilai":60000,"wajibRumus":true},
-         {"teks":"D4 = Subtotal Vitamin C (=B4*C4)","sel":"D4","nilai":24000,"wajibRumus":true},
-         {"teks":"D5 = Subtotal Antasida (=B5*C5)","sel":"D5","nilai":28000,"wajibRumus":true},
-         {"teks":"D6 = Subtotal Ibuprofen (=B6*C6)","sel":"D6","nilai":45000,"wajibRumus":true}
-       ]}
-      </script>
+      <table class="data">
+        <thead><tr><th>Operator</th><th>Fungsi</th><th>Contoh</th><th>Hasil</th></tr></thead>
+        <tbody>
+          <tr><td><span class="kode-box">+</span></td><td>Tambah</td><td>=120+30</td><td>150</td></tr>
+          <tr><td><span class="kode-box">-</span></td><td>Kurang</td><td>=120-45</td><td>75</td></tr>
+          <tr><td><span class="kode-box">*</span></td><td>Kali</td><td>=5000*10</td><td>50000</td></tr>
+          <tr><td><span class="kode-box">/</span></td><td>Bagi</td><td>=45/5</td><td>9</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Urutan operasi:</strong> kurung ( ) dikerjakan lebih dulu, lalu * dan /, baru + dan -. Jadi <span class="kode-box">=5+3*2</span> hasilnya 11, karena 3*2 dikerjakan dulu. Kalau ingin 5+3 dulu, pakai kurung: <span class="kode-box">=(5+3)*2</span> hasilnya 16.</div>
 
-      <details><summary>Petunjuk: cara menulis rumus perkalian</summary>
-        <div>Klik sel D2, ketik <code>=B2*C2</code> lalu tekan Enter. Untuk baris berikutnya, ketik <code>=B3*C3</code> dan seterusnya. Tanda bintang (*) adalah operator kali di Excel.</div>
-      </details>
+      <h4>Langkah 1: mengetik rumus pertama</h4>
+      <p>Tujuan: menghitung Subtotal = Harga × Jumlah untuk Paracetamol.</p>
+      <figure class="shot"><img src="gambar/p06-formula-1.png" alt="Tabel stok obat dengan sel D2 terpilih; Name Box menampilkan D2" loading="lazy"></figure>
+      <ol>
+        <li>Lihat Name Box yang menampilkan alamat sel aktif.</li>
+        <li>Klik sel <strong>D2</strong>, tempat hasil Subtotal akan ditulis.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-formula-2.png" alt="Mengetik rumus =B2*C2 di sel D2; sel B2 dan C2 diberi kotak berwarna" loading="lazy"></figure>
+      <ol>
+        <li>Sel D2 sedang diedit dan berisi rumus yang diketik.</li>
+        <li>Formula Bar menampilkan rumus yang sama: <span class="kode-box">=B2*C2</span>. Rumus <strong>harus diawali tanda =</strong>.</li>
+        <li>Sel yang dipakai (Harga di B2 dan Jumlah di C2) diberi kotak berwarna yang cocok dengan warna alamat di rumus. Ini membantu mengecek rumus sebelum menekan Enter.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-formula-3.png" alt="Setelah Enter, sel D2 menampilkan hasil 50000 dan Formula Bar menampilkan =B2*C2" loading="lazy"></figure>
+      <ol>
+        <li>Tekan <kbd>Enter</kbd>. Sel D2 menampilkan hasilnya, yaitu 50000.</li>
+        <li>Klik D2 lagi: sel menampilkan hasil, sedangkan Formula Bar tetap menyimpan rumus aslinya.</li>
+      </ol>
+
+      <h4>Langkah 2: menyalin rumus ke baris lain</h4>
+      <p>Tidak perlu mengetik rumus satu per satu. Salin rumus D2 ke bawah.</p>
+      <figure class="shot"><img src="gambar/p06-formula-4.png" alt="Rumus D2 disalin ke D6 dengan fill handle; hasil terisi dan status bar menampilkan Average, Count, dan Sum" loading="lazy"></figure>
+      <ol>
+        <li>Pilih D2, lalu <strong>seret kotak kecil di pojok kanan bawah</strong> (fill handle) ke bawah sampai D6. Seluruh sel D2 sampai D6 terisi hasil.</li>
+        <li>Tombol <em>Auto Fill Options</em> muncul di sudut bawah hasil salinan. Klik untuk memilih cara menyalin.</li>
+        <li>Saat beberapa sel angka dipilih, <strong>status bar</strong> di bawah menampilkan Average, Count, dan Sum secara otomatis, berguna untuk mengecek hasil dengan cepat.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-formula-5.png" alt="Sel D4 terpilih dan Formula Bar menampilkan =B4*C4" loading="lazy"></figure>
+      <ol>
+        <li>Formula Bar menampilkan <span class="kode-box">=B4*C4</span>. Excel menyesuaikan alamat rumus otomatis mengikuti barisnya.</li>
+        <li>Sel D4 menampilkan hasil Vitamin C: 8000 × 3 = 24000.</li>
+      </ol>
+
+      <h4>Langkah 3: urutan operasi di Excel</h4>
+      <p>Ketik rumus berikut di sel kosong dan bandingkan hasilnya.</p>
+      <figure class="shot"><img src="gambar/p06-formula-6.png" alt="Sel B10 berisi rumus =5+3*2 dengan hasil 11" loading="lazy"></figure>
+      <ol>
+        <li>Formula Bar menampilkan <span class="kode-box">=5+3*2</span>.</li>
+        <li>Hasilnya <strong>11</strong>, karena perkalian dikerjakan lebih dulu.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-formula-7.png" alt="Sel B11 berisi rumus =(5+3)*2 dengan hasil 16" loading="lazy"></figure>
+      <ol>
+        <li>Formula Bar menampilkan <span class="kode-box">=(5+3)*2</span>.</li>
+        <li>Hasilnya <strong>16</strong>, karena tanda kurung membuat 5+3 dikerjakan lebih dulu.</li>
+      </ol>
+
     </section>
 
     <!-- ===== INTI 4: SUM, AVERAGE, COUNT ===== -->
-    <section class="seg" id="seg-inti4" data-judul="Inti 4: SUM, AVERAGE, COUNT" data-min="10">
-      <p>Tiga fungsi paling sering dipakai di administrasi RS. Data subtotal sudah terisi dari latihan sebelumnya.</p>
+    <section class="seg" id="seg-inti4" data-judul="Fungsi di Dalam Excel" data-min="10">
+      <h4>Apa itu fungsi?</h4>
+      <p><strong>Fungsi</strong> adalah rumus siap pakai bawaan Excel yang mengerjakan satu jenis perhitungan tertentu. Kita cukup menyebut nama fungsinya dan sel yang akan dihitung, lalu Excel yang mengerjakannya.</p>
+      <table class="data">
+        <thead><tr><th></th><th>Tanpa fungsi</th><th>Dengan fungsi</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Menjumlah 5 subtotal</strong></td><td><span class="kode-box">=D2+D3+D4+D5+D6</span></td><td><span class="kode-box">=SUM(D2:D6)</span></td></tr>
+          <tr><td><strong>Menjumlah 100 baris</strong></td><td>Rumus sangat panjang, mudah salah ketik</td><td><span class="kode-box">=SUM(D2:D101)</span></td></tr>
+        </tbody>
+      </table>
 
-      <div class="grid2">
-        <div class="card"><strong>=SUM(rentang)</strong><p style="font-size:.92rem">Menjumlahkan semua angka dalam rentang. Mis.: =SUM(D2:D6) menjumlahkan D2 hingga D6.</p></div>
-        <div class="card"><strong>=AVERAGE(rentang)</strong><p style="font-size:.92rem">Menghitung rata-rata. Mis.: =AVERAGE(B2:B6) membagi total harga dengan jumlah item.</p></div>
-        <div class="card"><strong>=COUNT(rentang)</strong><p style="font-size:.92rem">Menghitung jumlah sel yang berisi angka. Teks tidak dihitung. Berguna untuk menghitung banyaknya data.</p></div>
-        <div class="card"><strong>=MAX / =MIN</strong><p style="font-size:.92rem">Mencari nilai terbesar atau terkecil dalam rentang. Sangat berguna untuk laporan BOR atau kunjungan tertinggi.</p></div>
-      </div>
+      <h4>Bagian-bagian sebuah fungsi</h4>
+      <p style="text-align:center"><span class="kode-box" style="font-size:1.2rem">=SUM(D2:D6)</span></p>
+      <table class="data">
+        <thead><tr><th>Bagian</th><th>Pada contoh</th><th>Artinya</th></tr></thead>
+        <tbody>
+          <tr><td>Tanda sama dengan</td><td><span class="kode-box">=</span></td><td>Penanda bahwa isi sel adalah rumus.</td></tr>
+          <tr><td>Nama fungsi</td><td><span class="kode-box">SUM</span></td><td>Perhitungan yang dikerjakan (SUM = jumlahkan).</td></tr>
+          <tr><td>Tanda kurung</td><td><span class="kode-box">( )</span></td><td>Membungkus argumen fungsi.</td></tr>
+          <tr><td>Argumen</td><td><span class="kode-box">D2:D6</span></td><td>Data yang dihitung. Berupa <em>rentang</em> sel (dari D2 sampai D6), satu sel, atau angka.</td></tr>
+        </tbody>
+      </table>
+      <div class="note">Satu fungsi boleh punya beberapa argumen, dipisah koma, misalnya <span class="kode-box">=SUM(B2:B6,D2:D6)</span>. Pemisahnya bisa berupa koma (,) atau titik koma (;) tergantung pengaturan wilayah komputer.</div>
+
+      <h4>Fungsi yang paling sering dipakai</h4>
+      <p>Data contoh: tabel stok obat fiktif (Harga di B2:B6, Subtotal di D2:D6).</p>
+      <table class="data">
+        <thead><tr><th>Fungsi</th><th>Kegunaan</th><th>Contoh di RS</th><th>Contoh rumus</th><th>Hasil</th></tr></thead>
+        <tbody>
+          <tr><td><strong>SUM</strong></td><td>Menjumlahkan angka</td><td>Total nilai stok obat, total kunjungan</td><td><span class="kode-box">=SUM(D2:D6)</span></td><td>207000</td></tr>
+          <tr><td><strong>AVERAGE</strong></td><td>Menghitung rata-rata</td><td>Rata-rata harga obat, rata-rata pasien per hari</td><td><span class="kode-box">=AVERAGE(B2:B6)</span></td><td>7200</td></tr>
+          <tr><td><strong>COUNT</strong></td><td>Menghitung banyaknya sel berisi angka</td><td>Jumlah jenis obat, jumlah hari pelayanan</td><td><span class="kode-box">=COUNT(B2:B6)</span></td><td>5</td></tr>
+          <tr><td><strong>MAX</strong></td><td>Mencari nilai terbesar</td><td>Kunjungan tertinggi, obat termahal</td><td><span class="kode-box">=MAX(B2:B6)</span></td><td>12000</td></tr>
+          <tr><td><strong>MIN</strong></td><td>Mencari nilai terkecil</td><td>Kunjungan terendah, obat termurah</td><td><span class="kode-box">=MIN(B2:B6)</span></td><td>3500</td></tr>
+        </tbody>
+      </table>
+      <p class="kriteria">Hari ini kita fokus pada SUM, AVERAGE, dan COUNT. MAX dan MIN dibahas lengkap di Pertemuan 07. Fungsi COUNT hanya menghitung sel berisi <em>angka</em>; sel berisi teks atau kosong tidak dihitung.</p>
+
+      <h4>Cara Penggunaan Fungsi</h4>
+      <p>Tujuan: menghitung total nilai stok dari kolom Subtotal.</p>
+      <figure class="shot"><img src="gambar/p06-fungsi-1.png" alt="Mengetik =SUM(D2:D6 di sel D8; rentang D2 sampai D6 diberi kotak berwarna dan muncul petunjuk SUM(number1, [number2], ...)" loading="lazy"></figure>
+      <ol>
+        <li>Klik sel tujuan, yaitu <strong>D8</strong>, lalu ketik <span class="kode-box">=SUM(</span>.</li>
+        <li>Pilih atau ketik rentangnya, <span class="kode-box">D2:D6</span>. Sel yang dipakai diberi kotak berwarna.</li>
+        <li>Petunjuk di bawah sel menampilkan bentuk fungsi: <em>SUM(number1, [number2], ...)</em>. Tutup kurung lalu tekan <kbd>Enter</kbd>.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-fungsi-2.png" alt="Sel D8 menampilkan hasil 207000 dan Formula Bar menampilkan =SUM(D2:D6)" loading="lazy"></figure>
+      <ol>
+        <li>Sel D8 menampilkan hasilnya: <strong>207000</strong>.</li>
+        <li>Formula Bar menyimpan rumus aslinya, <span class="kode-box">=SUM(D2:D6)</span>.</li>
+      </ol>
+
+      <h4>Cara lain memasukkan fungsi</h4>
+      <p>Selain mengetik, Excel menyediakan dua jalan pintas supaya tidak perlu menghafal nama fungsi.</p>
+      <figure class="shot"><img src="gambar/p06-fungsi-5.png" alt="Menu AutoSum di tab Home terbuka dengan pilihan Sum, Average, Count Numbers, Max, Min, dan More Functions" loading="lazy"></figure>
+      <ol>
+        <li>Tombol <strong>AutoSum (&Sigma;)</strong> di tab <strong>Home</strong>, grup Editing.</li>
+        <li>Klik panah di sebelahnya untuk memilih <em>Sum</em>, <em>Average</em>, <em>Count Numbers</em>, <em>Max</em>, atau <em>Min</em>. Excel menebak rentang di dekat sel dan kita tinggal menekan Enter.</li>
+        <li><strong>More Functions...</strong> membuka daftar lengkap seluruh fungsi.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-fungsi-6.png" alt="Kotak dialog Insert Function dengan pilihan kategori, daftar fungsi, dan keterangan singkat fungsi SUM" loading="lazy"></figure>
+      <ol>
+        <li>Klik tombol <strong>fx</strong> di samping Formula Bar untuk membuka <em>Insert Function</em>. Pilih <strong>kategori</strong> fungsi, misalnya Most Recently Used.</li>
+        <li>Pilih fungsi dari <strong>daftar</strong>. Kalau lupa namanya, ketik deskripsi pekerjaan di kotak pencarian lalu klik Go.</li>
+        <li>Bagian bawah menampilkan <strong>bentuk dan keterangan singkat</strong> fungsi yang dipilih. Klik OK untuk melanjutkan.</li>
+      </ol>
 
       <h4>Tantangan: lengkapi baris ringkasan di bawah</h4>
       <div data-widget="minisheet" data-src="ms-inti4"></div>
@@ -411,19 +550,19 @@ nav.agenda{display:none!important}
          "A8":"Total Nilai Stok","A9":"Rata-rata Harga","A10":"Jumlah Jenis Obat"
        },
        "tantangan":[
-         {"teks":"D8 = Total semua subtotal (=SUM(D2:D6))","sel":"D8","nilai":207000,"wajibRumus":true},
-         {"teks":"D9 = Rata-rata harga per obat (=AVERAGE(B2:B6))","sel":"D9","nilai":7200,"wajibRumus":true},
-         {"teks":"D10 = Jumlah jenis obat (=COUNT(B2:B6))","sel":"D10","nilai":5,"wajibRumus":true}
+         {"teks":"D8 = Total semua subtotal","sel":"D8","nilai":207000,"wajibRumus":true},
+         {"teks":"D9 = Rata-rata harga per obat","sel":"D9","nilai":7200,"wajibRumus":true},
+         {"teks":"D10 = Jumlah jenis obat","sel":"D10","nilai":5,"wajibRumus":true}
        ]}
       </script>
 
-      <details><summary>Cek perhitungan manual</summary>
-        <div>
-          SUM: 50000+60000+24000+28000+45000 = <strong>207.000</strong><br>
-          AVERAGE harga: (5000+12000+8000+3500+7500)÷5 = 36000÷5 = <strong>7.200</strong><br>
-          COUNT angka di B2:B6 = <strong>5</strong> (semua sel berisi angka)
-        </div>
-      </details>
+
+      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026):<br>
+      1. <a href="https://support.microsoft.com/en-us/office/overview-of-formulas-in-excel-ecfdc708-9162-49e8-b993-c311f47ca173" target="_blank" rel="noopener">Overview of formulas in Excel</a><br>
+      2. <a href="https://support.microsoft.com/en-us/office/sum-function-043e1c7d-7726-4e80-8f32-07b23e057f89" target="_blank" rel="noopener">SUM function</a><br>
+      3. <a href="https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6" target="_blank" rel="noopener">AVERAGE function</a><br>
+      4. <a href="https://support.microsoft.com/en-us/office/count-function-a59cd7fc-b623-4d93-87a4-d23bf411294c" target="_blank" rel="noopener">COUNT function</a><br>
+      5. <a href="https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb" target="_blank" rel="noopener">Excel functions (by category)</a></p>
     </section>
 
     <!-- ===== PRAKTIK ===== -->
@@ -451,37 +590,45 @@ nav.agenda{display:none!important}
          "A15":"5) Total SEMUA kunjungan semua poli"
        },
        "tantangan":[
-         {"teks":"B11 = Total kunjungan Poli Umum sepekan (=SUM(B2:F2))","sel":"B11","nilai":225,"wajibRumus":true},
-         {"teks":"B12 = Rata-rata per hari Poli Umum (=AVERAGE(B2:F2))","sel":"B12","nilai":45,"wajibRumus":true},
-         {"teks":"B13 = Jumlah jenis poli (=COUNT(B2:B8))","sel":"B13","nilai":7,"wajibRumus":true},
-         {"teks":"B14 = Kunjungan tertinggi Poli Umum (=MAX(B2:F2))","sel":"B14","nilai":52,"wajibRumus":true},
-         {"teks":"B15 = Total semua kunjungan semua poli (=SUM(B2:F8))","sel":"B15","nilai":708,"wajibRumus":true}
+         {"teks":"B11 = Total kunjungan Poli Umum sepekan","sel":"B11","nilai":225,"wajibRumus":true},
+         {"teks":"B12 = Rata-rata per hari Poli Umum","sel":"B12","nilai":45,"wajibRumus":true},
+         {"teks":"B13 = Jumlah jenis poli","sel":"B13","nilai":7,"wajibRumus":true},
+         {"teks":"B14 = Kunjungan tertinggi Poli Umum","sel":"B14","nilai":52,"wajibRumus":true},
+         {"teks":"B15 = Total semua kunjungan semua poli","sel":"B15","nilai":708,"wajibRumus":true}
        ]}
       </script>
 
       <div class="tugas-lab">
-        <h4>Tugas Lab: Kerjakan di Excel Nyata</h4>
+        <h4>Tugas Lab: Rekap Penjualan Farmasi di Excel Nyata</h4>
+        <p><strong>Kasus:</strong> bagian farmasi RS Harapan Bersama (fiktif) meminta rekap penjualan 24 jenis obat untuk satu bulan. Data mentah sudah ada, tetapi belum dihitung dan <strong>sebagian datanya salah tipe</strong>. Selesaikan seluruh tahap di bawah ini.</p>
+        <p><a class="btn sec" href="unduhan/data-rekap-farmasi.xlsx" download style="display:inline-block;text-decoration:none">Unduh data-rekap-farmasi.xlsx</a></p>
+        <h4>Tahap A: periksa tipe data</h4>
         <ol>
-          <li>Unduh CSV di bawah, buka di Excel atau LibreOffice Calc.</li>
-          <li>Tambahkan kolom <strong>G "Total"</strong> dan isi dengan =SUM(B2:F2) untuk tiap poli.</li>
-          <li>Tambahkan kolom <strong>H "Rata-rata"</strong> dan isi dengan =AVERAGE(B2:F2).</li>
-          <li>Di baris bawah tabel, buat baris <strong>"TOTAL"</strong> menggunakan =SUM(G2:G6).</li>
+          <li>Buka berkas, lihat kolom <strong>Harga Satuan</strong> dan <strong>Jumlah Terjual</strong>. Ada beberapa sel yang berisi teks (rata kiri atau berlabel segitiga hijau). Temukan semuanya.</li>
+          <li>Ubah setiap sel tersebut menjadi angka murni. Buktikan berhasil dengan fungsi COUNT: jumlah angka di tiap kolom harus <strong>24</strong>.</li>
+        </ol>
+        <h4>Tahap B: hitung per baris (baris 2 sampai 25)</h4>
+        <ol start="3">
+          <li>Kolom <strong>Subtotal</strong>: Harga × Jumlah Terjual.</li>
+          <li>Kolom <strong>Diskon</strong>: Subtotal × persentase diskon yang tertulis di sel <strong>N1</strong>. Persentase itu harus <strong>dikunci</strong> dengan referensi absolut agar tetap benar saat rumus disalin ke 24 baris.</li>
+          <li>Kolom <strong>Total Bayar</strong>: Subtotal dikurangi Diskon.</li>
+          <li>Kolom <strong>Stok Akhir</strong>: Stok Awal dikurangi Jumlah Terjual.</li>
+          <li>Kolom <strong>Kontribusi</strong>: Total Bayar tiap obat dibagi total seluruh Total Bayar, ditampilkan sebagai <strong>persen</strong> (atur lewat Number Format). Total pembaginya harus dikunci.</li>
+        </ol>
+        <h4>Tahap C: ringkasan (baris 29 sampai 33, hasil di kolom E)</h4>
+        <ol start="8">
+          <li>Total pendapatan (jumlah seluruh Total Bayar).</li>
+          <li>Total unit terjual.</li>
+          <li>Rata-rata harga satuan.</li>
+          <li>Jumlah jenis obat.</li>
+          <li>Rata-rata Total Bayar per jenis obat.</li>
+        </ol>
+        <h4>Tahap D: uji dan simpan</h4>
+        <ol start="13">
+          <li>Ubah persentase diskon di N1 menjadi 10%. Seluruh kolom Diskon, Total Bayar, Kontribusi, dan ringkasan harus ikut berubah. Kembalikan ke 5%.</li>
           <li>Simpan sebagai <em>Nama_NIM_P06.xlsx</em> dan kumpulkan.</li>
         </ol>
-        <p><button class="btn sec" type="button" data-widget="csv" data-src="csv-p06">Unduh data-kunjungan-poli.csv</button></p>
-        <script type="application/json" id="csv-p06">
-        {"nama":"data-kunjungan-poli.csv","pemisah":";","baris":[
-          ["Poli","Senin","Selasa","Rabu","Kamis","Jumat"],
-          ["Umum",45,38,52,41,49],
-          ["Gigi",12,15,10,18,14],
-          ["Anak",28,32,25,30,27],
-          ["Kandungan",8,11,9,7,12],
-          ["THT",15,13,17,14,16],
-          ["Saraf",10,12,8,11,9],
-          ["Kulit",20,18,22,19,21]
-        ]}
-        </script>
-        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Semua rumus menggunakan = dan rentang yang benar. 2) Tidak ada nilai hardcoded (angka diketik manual). 3) Hasil nilai SUM dan AVERAGE tepat. 4) File disimpan format .xlsx dengan nama yang sesuai.</p>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Seluruh sel teks pada Harga dan Jumlah sudah menjadi angka (COUNT = 24). 2) Semua rumus diawali = dan memakai alamat sel, tanpa angka yang diketik manual. 3) Referensi absolut dipakai dengan benar untuk diskon dan total pembagi. 4) Hasil perhitungan dan ringkasan tepat. 5) Kolom Kontribusi berformat persen. 6) File disimpan sebagai .xlsx dengan nama yang sesuai.</p>
       </div>
     </section>
 
@@ -527,7 +674,7 @@ const KONFIG = {
   nomor: "06",
   judul: "Microsoft Excel Dasar",
   cpmk: "CPMK-2: Mampu menerapkan operasi matematika dasar pada MS Excel untuk data administrasi RS.",
-  tujuan: ["Mengenal antarmuka lembar kerja Excel", "Memahami tipe data dan referensi sel", "Menggunakan formula SUM, AVERAGE, COUNT"],
+  tujuan: ["Menjelaskan apa itu Excel dan kegunaannya di rumah sakit", "Mengenal cell, row, column, dan antarmuka lembar kerja Excel", "Memahami tipe data (teks, angka, tanggal, persen) dan referensi sel", "Menggunakan operator dan formula SUM, AVERAGE, COUNT"],
   totalMenit: 90
 };
 
@@ -687,15 +834,37 @@ W.reflect = el => {
   el.append(h("p", {}, el.dataset.prompt || "Tuliskan refleksi singkat:"), ta);
 };
 
-W.csv = el => {
-  el.addEventListener("click", () => {
-    const d = getData(el.dataset.src), sep = d.pemisah || ";";
-    const esc = v => { v = String(v); return /[";,\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
-    const isi = "﻿" + d.baris.map(r => r.map(esc).join(sep)).join("\r\n");
-    const url = URL.createObjectURL(new Blob([isi], { type: "text/csv;charset=utf-8" }));
-    const a = h("a", { href: url, download: d.nama || "data.csv" });
-    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-  });
+W.carisel = el => {
+  const K = 6, B = 8, N = 6;
+  let ronde = 0, benar = 0, target = "", selesai = false;
+  const addr = h("span", { class: "addr" }, "–"), info = h("p", { class: "skor", "aria-live": "polite" }), fb = h("p", { class: "fb", "aria-live": "polite" });
+  function baru() {
+    target = kolHuruf(Math.floor(Math.random() * K)) + (1 + Math.floor(Math.random() * B));
+    info.textContent = "Soal " + (ronde + 1) + " dari " + N + ": klik sel " + target;
+  }
+  function klik(id) {
+    addr.textContent = id;
+    if (selesai) return;
+    if (id === target) { benar++; fb.textContent = "Benar."; } else fb.textContent = "Itu sel " + id + ", bukan " + target + ". Huruf = kolom, angka = baris.";
+    ronde++;
+    if (ronde >= N) { selesai = true; info.textContent = "Selesai. Benar " + benar + " dari " + N + "."; } else baru();
+  }
+  const tbl = h("table", { class: "ms cs" }), head = h("tr", {}, h("th", { class: "rh" }, ""));
+  for (let c = 0; c < K; c++) head.append(h("th", { scope: "col" }, kolHuruf(c)));
+  tbl.append(h("thead", {}, head));
+  const tb = h("tbody");
+  for (let r = 1; r <= B; r++) {
+    const tr = h("tr", {}, h("th", { class: "rh", scope: "row" }, r));
+    for (let c = 0; c < K; c++) {
+      const id = kolHuruf(c) + r;
+      tr.append(h("td", {}, h("button", { type: "button", "aria-label": "Sel " + id, onclick: () => klik(id) }, "")));
+    }
+    tb.append(tr);
+  }
+  tbl.append(tb);
+  el.append(h("div", { class: "ms-bar" }, h("span", {}, "Name Box:"), addr), info, h("div", { class: "ms-wrap" }, tbl), fb,
+    h("p", {}, h("button", { class: "btn sec", type: "button", onclick: () => { ronde = 0; benar = 0; selesai = false; fb.textContent = ""; addr.textContent = "–"; baru(); } }, "Ulangi")));
+  baru();
 };
 
 /* === PARSER-AWAL === */
@@ -722,7 +891,7 @@ function tokenisasi(s) {
   return t;
 }
 function evalRumus(src, getCell) {
-  const tk = tokenisasi(src); let p = 0;
+  const tk = tokenisasi(src.replace(/\$/g, "")); let p = 0;
   const peek = () => tk[p] && tk[p].t, ambil = () => tk[p++];
   const jml = x => { if (Array.isArray(x)) throw new Error("#VALUE!"); if (x === null) return 0; if (typeof x === "string") throw new Error("#VALUE!"); return x; };
   function expr() { let v = term(); while (peek() === "+" || peek() === "-") { const o = ambil().t; const r = term(); v = o === "+" ? jml(v) + jml(r) : jml(v) - jml(r); } return v; }
@@ -832,7 +1001,7 @@ W.minisheet = el => {
     let ok = 0;
     (d.tantangan || []).forEach((t, i) => {
       const v = hitung(t.sel), rumus = String(raw[t.sel] || "").trim().startsWith("=");
-      const benar = typeof v === "number" && Math.abs(v - t.nilai) < 1e-9 && (!t.wajibRumus || rumus);
+      const benar = typeof v === "number" && Math.abs(v - t.nilai) < 1e-9 && (!t.wajibRumus || rumus) && (!t.harusMemuat || String(raw[t.sel] || "").includes(t.harusMemuat));
       li[i].classList.toggle("ok", benar); li[i].textContent = (benar ? "✔ " : "☐ ") + t.teks; if (benar) ok++;
     });
     if (tampilPesan && d.tantangan) hasil.textContent = "Tantangan selesai: " + ok + " / " + d.tantangan.length;
@@ -856,26 +1025,15 @@ function initSegmen() {
   const segs = $$("section.seg"), agenda = $("#agenda");
   const total = segs.reduce((s, x) => s + Number(x.dataset.min || 0), 0);
   if (total !== KONFIG.totalMenit) console.warn("Total menit segmen = " + total + ", seharusnya " + KONFIG.totalMenit);
-  const done = store.get("selesai", {});
   let mulai = 0;
   const links = [];
   segs.forEach((s, i) => {
     const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
     const head = h("div", { class: "seg-head" }, h("h3", {}, judul));
      s.prepend(head);
-    const foot = h("div", { class: "seg-foot" });
-    const sb = h("button", { class: "btn sec", type: "button" });
-    function tandai(v) {
-      s.classList.toggle("done", v); a.classList.toggle("done", v); sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
-      done[s.id] = v; store.set("selesai", done); progres();
-    }
-    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
-    foot.append(sb); s.append(foot);
     const a = h("a", { href: "#" + s.id }, h("span", { class: "mnt" }, mulai + "–" + (mulai + min) + "'"), h("span", {}, judul), h("span", { class: "tick", "aria-label": "selesai" }, "✓"));
     agenda.append(a); links.push({ a, s }); mulai += min;
-    tandai(!!done[s.id]);
   });
-  function progres() { const n = segs.filter(x => x.classList.contains("done")).length; $("#hdr-bar").style.width = (n / segs.length * 100) + "%"; }
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target))); }), { rootMargin: "-20% 0px -70% 0px" });
     segs.forEach(s => io.observe(s));

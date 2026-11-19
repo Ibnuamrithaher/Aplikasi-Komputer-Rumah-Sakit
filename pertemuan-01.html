@@ -340,7 +340,6 @@ nav.agenda{display:none!important}
 
 <header class="top">
   <h1><span id="hdr-judul">Judul Pertemuan</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 00</small></h1>
-  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 
@@ -416,7 +415,7 @@ nav.agenda{display:none!important}
       </script>
     </section>
 
-    <section class="seg" id="seg-inti1" data-judul="Inti 1: Peta 16 Minggu" data-min="10">
+    <section class="seg" id="seg-inti1" data-judul="Peta 16 Minggu" data-min="10">
       <p>Klik salah satu minggu untuk melihat topik pembelajaran. Dua minggu khusus ditandai: minggu 8 (UTS) dan minggu 16 (UAS).</p>
 
       <div class="konsep">
@@ -499,7 +498,7 @@ nav.agenda{display:none!important}
       </div>
     </section>
 
-    <section class="seg" id="seg-inti2" data-judul="Inti 2: Kalkulator Nilai Akhir" data-min="10">
+    <section class="seg" id="seg-inti2" data-judul="Kalkulator Nilai Akhir" data-min="10">
       <p>Masukkan nilai Anda (0–100) untuk kelima komponen, lalu lihat estimasi nilai akhir berdasarkan bobot penilaian.</p>
 
       <div class="konsep">
@@ -513,7 +512,7 @@ nav.agenda{display:none!important}
           <li>Tugas dikerjakan berkali-kali sepanjang semester, jadi ada banyak kesempatan mengumpulkan poin. Ujian hanya sekali.</li>
           <li>Tidak ada komponen yang aman untuk diabaikan: nilai 0 di salah satunya menghilangkan seluruh jatahnya.</li>
         </ul>
-        <p>Kehadiran masuk ke rumus (10%), dan batas absensi tetap menjadi syarat mengikuti UAS (lihat Inti 3). Cara menghitung nilai kehadiran dan sikap serta batas nilai huruf (A, B, C, dan seterusnya) mengikuti pedoman dosen: <span class="warn" style="display:inline-block;padding:0 6px;margin:0">ATUR OLEH DOSEN</span>.</p>
+        <p>Kehadiran masuk ke rumus (10%), dan batas absensi tetap menjadi syarat mengikuti UAS (lihat bagian Aturan Main & Tata Tertib). Cara menghitung nilai kehadiran dan sikap serta batas nilai huruf (A, B, C, dan seterusnya) mengikuti pedoman dosen: <span class="warn" style="display:inline-block;padding:0 6px;margin:0">ATUR OLEH DOSEN</span>.</p>
       </div>
 
       <div class="aktiv">
@@ -588,7 +587,7 @@ nav.agenda{display:none!important}
       </div>
     </section>
 
-    <section class="seg" id="seg-inti3" data-judul="Inti 3: Aturan Main & Tata Tertib" data-min="10">
+    <section class="seg" id="seg-inti3" data-judul="Aturan Main & Tata Tertib" data-min="10">
       <p>Klik untuk membuka setiap aturan. Nilai yang belum ditentukan diberi keterangan <span class="warn" style="display:inline-block;padding:0 4px;border-radius:4px">ATUR OLEH DOSEN</span>.</p>
 
       <div class="konsep">
@@ -683,7 +682,7 @@ nav.agenda{display:none!important}
       </div>
     </section>
 
-    <section class="seg" id="seg-inti4" data-judul="Inti 4: Peran Komputer dalam Alur Pelayanan RS" data-min="10">
+    <section class="seg" id="seg-inti4" data-judul="Peran Komputer dalam Alur Pelayanan RS" data-min="10">
       <p>Klik setiap bagian alur pelayanan pasien untuk melihat peran teknologi komputer. Dari pendaftaran hingga obat, komputer mendukung setiap tahapan.</p>
 
       <div class="konsep">
@@ -1383,26 +1382,15 @@ function initSegmen() {
   const segs = $$("section.seg"), agenda = $("#agenda");
   const total = segs.reduce((s, x) => s + Number(x.dataset.min || 0), 0);
   if (total !== KONFIG.totalMenit) console.warn("Total menit segmen = " + total + ", seharusnya " + KONFIG.totalMenit);
-  const done = store.get("selesai", {});
   let mulai = 0;
   const links = [];
   segs.forEach((s, i) => {
     const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
     const head = h("div", { class: "seg-head" }, h("h3", {}, judul));
     s.prepend(head);
-    const foot = h("div", { class: "seg-foot" });
-    const sb = h("button", { class: "btn sec", type: "button" });
-    function tandai(v) {
-      s.classList.toggle("done", v); a.classList.toggle("done", v); sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
-      done[s.id] = v; store.set("selesai", done); progres();
-    }
-    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
-    foot.append(sb); s.append(foot);
     const a = h("a", { href: "#" + s.id }, h("span", {}, judul), h("span", { class: "tick", "aria-label": "selesai" }, "✓"));
     agenda.append(a); links.push({ a, s }); mulai += min;
-    tandai(!!done[s.id]);
   });
-  function progres() { const n = segs.filter(x => x.classList.contains("done")).length; $("#hdr-bar").style.width = (n / segs.length * 100) + "%"; }
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target))); }), { rootMargin: "-20% 0px -70% 0px" });
     segs.forEach(s => io.observe(s));

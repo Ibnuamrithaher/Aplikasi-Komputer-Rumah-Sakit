@@ -219,7 +219,6 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 
 <header class="top">
   <h1><span id="hdr-judul">Judul Pertemuan</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 00</small></h1>
-  <div class="bar" title="Progres segmen selesai"><i id="hdr-bar"></i></div>
   <span class="clock" id="clock" aria-label="Waktu berjalan">00:00</span>
   <button class="btn sec" id="clock-btn" type="button">Mulai</button>
   <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
@@ -878,7 +877,6 @@ function initSegmen() {
   const segs = $$("section.seg"), agenda = $("#agenda");
   const total = segs.reduce((s, x) => s + Number(x.dataset.min || 0), 0);
   if (total !== KONFIG.totalMenit) console.warn("Total menit segmen = " + total + ", seharusnya " + KONFIG.totalMenit);
-  const done = store.get("selesai", {});
   let mulai = 0;
   const links = [];
   segs.forEach((s, i) => {
@@ -892,19 +890,9 @@ function initSegmen() {
       tid = setInterval(() => { sisa--; tw.classList.toggle("over", sisa < 0); tb.textContent = "⏸ " + (sisa < 0 ? "-" : "") + mmss(Math.abs(sisa)); }, 1000);
     });
     head.append(tw); s.prepend(head);
-    const foot = h("div", { class: "seg-foot" });
-    const sb = h("button", { class: "btn sec", type: "button" });
-    function tandai(v) {
-      s.classList.toggle("done", v); a.classList.toggle("done", v); sb.textContent = v ? "✔ Selesai (klik untuk batal)" : "Tandai selesai";
-      done[s.id] = v; store.set("selesai", done); progres();
-    }
-    sb.addEventListener("click", () => tandai(!s.classList.contains("done")));
-    foot.append(sb); s.append(foot);
     const a = h("a", { href: "#" + s.id }, h("span", { class: "mnt" }, mulai + "–" + (mulai + min) + "'"), h("span", {}, judul), h("span", { class: "tick", "aria-label": "selesai" }, "✓"));
     agenda.append(a); links.push({ a, s }); mulai += min;
-    tandai(!!done[s.id]);
   });
-  function progres() { const n = segs.filter(x => x.classList.contains("done")).length; $("#hdr-bar").style.width = (n / segs.length * 100) + "%"; }
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target))); }), { rootMargin: "-20% 0px -70% 0px" });
     segs.forEach(s => io.observe(s));
