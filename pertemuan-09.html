@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 09: Microsoft PowerPoint Dasar | Komputer Rumah Sakit</title>
+<title>Pertemuan 09: Excel Lanjutan: Grafik &amp; Statistik | Komputer Rumah Sakit</title>
 <style>
 :root{
   --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
@@ -57,8 +57,11 @@ nav.agenda a.done .tick{visibility:visible}main{min-width:0}
 h4{margin:18px 0 6px;font-size:1.1rem}p{margin:8px 0}
 .cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
 .note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
 .card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+table.data{border-collapse:collapse;width:100%;font-size:.95rem}
+table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.data th{background:var(--primary-soft)}
 details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
 summary{cursor:pointer;padding:10px 14px;font-weight:600}
 details[open] summary{border-bottom:1px solid var(--line)}
@@ -78,55 +81,43 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 .banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
 .banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
 .banding .row.post .track i{background:var(--ok)}
-/* Slide preview */
-.slide-16-9{aspect-ratio:16/9;border:2px solid #bbb;border-radius:8px;overflow:hidden;position:relative;box-shadow:var(--shadow);max-width:560px}
-.slide-buruk{background:#dd0000;color:#000;padding:16px;font-size:8.5px;line-height:1.3}
-.slide-buruk .judul{font-size:12px;font-family:Impact,sans-serif}
-.slide-buruk .isi{font-family:Arial,sans-serif}
-.slide-baik{background:#fff;color:#12303a;padding:20px 24px;display:flex;flex-direction:column;justify-content:center}
-.slide-baik .judul{font-size:22px;font-weight:700;color:#0b7285;margin-bottom:10px;border-bottom:3px solid #0b7285;padding-bottom:6px}
-.slide-baik .poin{font-size:14px;line-height:1.7;list-style:disc;padding-left:18px}
-.slide-panel-label{font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:4px;text-transform:uppercase}
-/* Contrast checker */
-.contrast-wrap{max-width:480px}
-.color-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.color-row label{display:flex;flex-direction:column;gap:4px;font-size:.9rem;font-weight:600}
-.color-row input[type=color]{width:100%;height:44px;border:1px solid var(--line);border-radius:6px;cursor:pointer;padding:2px}
-.contrast-result{font-size:1.2rem;font-weight:700;margin:8px 0}
-.contrast-badge{display:inline-block;padding:3px 12px;border-radius:99px;font-size:.85rem;font-weight:700}
-.contrast-badge.pass{background:var(--ok-soft);color:var(--ok)}.contrast-badge.fail{background:var(--bad-soft);color:var(--bad)}
-.contrast-preview{padding:14px 18px;border-radius:8px;font-size:1rem;margin:10px 0;border:1px solid var(--line)}
-.preset-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-/* Aturan teks */
-.slide-teks-demo{aspect-ratio:16/9;border:2px solid #bbb;border-radius:8px;overflow:hidden;max-width:480px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:20px;background:var(--slidekulit,#ffffff);color:var(--slideteks,#111);position:relative}
-.slide-teks-demo .judul-demo{font-weight:700;line-height:1.2;color:var(--slideteks,#111)}
-.aturan-warn{background:var(--bad-soft);border-left:4px solid var(--bad);padding:8px 12px;border-radius:0 8px 8px 0;font-size:.9rem;margin:6px 0;display:none}
-.aturan-warn.vis{display:block}
-/* Quiz animasi */
-.anim-soal{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;background:var(--bg)}
-.anim-soal p{margin:0 0 8px;font-weight:700}
-.anim-btns{display:flex;gap:8px}
-.anim-btn{border:2px solid var(--line);border-radius:8px;padding:8px 16px;background:var(--surface);cursor:pointer;font-size:.9rem;transition:border-color .15s}
-.anim-btn:hover{border-color:var(--primary)}
-.anim-btn.membantu{border-color:var(--ok);background:var(--ok-soft)}
-.anim-btn.mengganggu{border-color:var(--bad);background:var(--bad-soft)}
-.anim-fb{font-size:.9rem;color:var(--muted);margin-top:4px}
-/* Slide editor */
-.layout-kartu{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:12px}
-.lk{border:2px solid var(--line);border-radius:8px;padding:8px 10px;text-align:center;cursor:pointer;font-size:.85rem;background:var(--bg)}
-.lk:hover{border-color:var(--primary)}.lk.aktif{border-color:var(--primary);background:var(--primary-soft);font-weight:700}
-.editor-form{display:grid;gap:8px}
-.editor-form label{display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:start;font-size:.9rem}
-.editor-form input,.editor-form textarea{border:1px solid var(--line);border-radius:6px;padding:6px 10px;background:var(--surface);width:100%}
-.penilai{display:grid;gap:6px;margin-top:10px;font-size:.9rem}
-.penilai-baris{display:grid;grid-template-columns:1fr 80px;align-items:center;gap:8px}
-.penilai-badge{font-weight:700;text-align:right}
-.penilai-badge.ok{color:var(--ok)}.penilai-badge.no{color:var(--bad)}
-.slide-editor-preview{aspect-ratio:16/9;border:2px solid #bbb;border-radius:8px;overflow:hidden;max-width:540px;padding:18px 24px;display:flex;flex-direction:column;justify-content:center;margin:12px 0;box-shadow:var(--shadow)}
+/* Minisheet */
+.ms-wrap{overflow:auto;border:1px solid var(--line);border-radius:8px;max-height:480px}
+table.ms{border-collapse:collapse;font-size:.92rem;min-width:100%}
+table.ms th{background:var(--primary-soft);position:sticky;top:0;z-index:1;border:1px solid var(--line);padding:2px 8px;font-weight:600;white-space:nowrap}
+table.ms th.rh{position:sticky;left:0;top:auto;z-index:1}
+table.ms td{border:1px solid var(--line);padding:0;min-width:90px}
+table.ms input{width:100%;border:0;background:transparent;padding:4px 8px;font-size:.92rem}
+table.ms input:focus{background:var(--primary-soft);outline:2px solid var(--primary);outline-offset:-2px}
+table.ms input.num{text-align:right}table.ms input.err{color:var(--bad)}
+.ms-bar{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.ms-bar .addr{min-width:54px;font-weight:700;background:var(--primary-soft);padding:2px 10px;border-radius:6px;text-align:center}
+.ms-bar .fx{flex:1;min-width:160px;font-family:ui-monospace,Consolas,monospace;border:1px solid var(--line);border-radius:6px;padding:4px 10px;background:var(--surface)}
+.tantangan{list-style:none;padding:0}
+.tantangan li{padding:6px 10px;margin:4px 0;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.tantangan li.ok{background:var(--ok-soft);border-color:var(--ok)}
+/* Chart */
+.chart-wrap svg{width:100%;height:auto;max-width:640px;display:block;margin:0 auto}
+.chart-wrap svg text{fill:var(--ink);font-size:12px}
+.chart-ctl{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.chart-tbl{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px;max-width:400px}
+.chart-tbl th,.chart-tbl td{border:1px solid var(--line);padding:4px 8px}
+.chart-tbl th{background:var(--primary-soft)}
+.chart-tbl input{width:100%;border:0;background:transparent;padding:2px 6px;font-size:.9rem}
+/* Quiz grafik */
+.quiz-grafik-soal{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.quiz-grafik-soal p{margin:0 0 8px;font-weight:700}
+.grafik-opsi{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0}
+.grafik-btn{border:2px solid var(--line);border-radius:8px;background:var(--surface);padding:6px 12px;cursor:pointer;font-size:.9rem}
+.grafik-btn:hover{border-color:var(--primary)}
+.grafik-btn.pilih{border-color:var(--primary);background:var(--primary-soft)}
+.grafik-btn.benar{border-color:var(--ok);background:var(--ok-soft)}
+.grafik-btn.salah{border-color:var(--bad);background:var(--bad-soft)}
+.grafik-fb{font-size:.9rem;color:var(--muted);margin-top:4px}
 @media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}
-  .top,nav.agenda,
+  .top,nav.agenda,.seg-foot,.btn,.skip{display:none!important}
   .wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
   .hero{background:#fff;color:#000}}
 
@@ -135,12 +126,19 @@ nav.agenda{display:none!important}
 .wrap{display:block!important;max-width:1200px}
 :fullscreen .wrap{max-width:1500px}
 :-webkit-full-screen .wrap{max-width:1500px}
+.kode-box{font-family:ui-monospace,Consolas,monospace;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 10px;font-size:.95rem;display:inline-block;margin:2px 0}
+.warn-box{background:var(--bad-soft);border-radius:8px;padding:10px 14px;margin:12px 0}
+.shot{margin:12px 0;text-align:center}
+.shot img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);background:#fff}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;background:var(--bg);font-size:.9em}
+.jenis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.jenis-grid .card img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
 </style>
 </head>
 <body>
 <a class="skip" href="#konten">Lewati ke konten</a>
 <header class="top">
-  <h1><span id="hdr-judul">Microsoft PowerPoint Dasar</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 09</small></h1>
+  <h1><span id="hdr-judul">Excel Lanjutan: Grafik &amp; Statistik</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 09</small></h1>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 <div class="wrap">
@@ -150,193 +148,247 @@ nav.agenda{display:none!important}
   </nav>
   <main id="konten">
     <div class="hero">
-      <span class="kode" id="hero-kode">Pertemuan 09 · CPMK-4</span>
-      <h2 id="hero-judul">Microsoft PowerPoint Dasar</h2>
-      <p id="hero-cpmk">CPMK-4: Mampu mendesain slide presentasi laporan kinerja eksekutif RS yang profesional.</p>
+      <span class="kode" id="hero-kode">Pertemuan 09 · CPMK-2</span>
+      <h2 id="hero-judul">Microsoft Excel Lanjutan: Grafik &amp; Statistik</h2>
+      <p id="hero-cpmk">CPMK-2: Mampu menyusun laporan dengan fungsi visual dan statistik pada MS Excel.</p>
       <ul id="hero-tujuan"></ul>
     </div>
 
-    <!-- PEMBUKA -->
-    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">Aldi Firmansyah, staf RS Sehat Citra (fiktif), diminta mempresentasikan laporan kunjungan bulanan kepada Direktur dan jajaran manajemen RS. Ia membuka laptopnya dan menampilkan slide: background merah cerah menyilaukan, teks hitam ukuran 8pt memenuhi setiap slide (ada yang sampai 20 poin per slide!), font berubah-ubah di setiap halaman. Direktur mengernyitkan dahi dari kursinya 3 meter jauhnya: "Aldi, saya tidak bisa membaca apapun dari sini." Presentasi pun dihentikan.</p>
-      <p>Tiga masalah utama pada slide Aldi: (1) font terlalu kecil untuk ruang besar, (2) kontras warna yang buruk, (3) terlalu banyak teks per slide. Hari ini kita pelajari prinsip desain slide formal RS yang efektif dan dapat dibaca dari jarak 3 meter.</p>
-    </section>
 
     <!-- PRE-TEST -->
     <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
-      <p>Jawab dulu, tidak ada yang salah. Ini untuk melihat titik awalmu.</p>
+      <p>Jawab dulu tanpa takut salah, untuk melihat titik awal pengetahuanmu.</p>
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test","soal":[
-        {"q":"Font minimum yang aman dibaca dari jarak 3 meter pada proyektor adalah:","opsi":["8 pt","12 pt","18 pt","24 pt"],"benar":3,"jelas":"Aturan umum presentasi: minimal 24 pt untuk isi, 36 pt atau lebih untuk judul. Di bawah 18 pt tidak terbaca dari kursi belakang."},
-        {"q":"Prinsip '1 slide 1 pesan' berarti:","opsi":["Hanya boleh ada 1 kata per slide","Setiap slide berfokus pada satu ide utama","Slide harus kosong kecuali satu kalimat","Tidak boleh ada gambar, hanya teks"],"benar":1,"jelas":"1 slide = 1 ide utama. Penonton tidak bisa memproses banyak ide sekaligus sambil mendengarkan pembicara."},
-        {"q":"Rasio kontras WCAG AA minimum untuk teks normal adalah:","opsi":["2:1","3:1","4,5:1","7:1"],"benar":2,"jelas":"WCAG AA mensyaratkan rasio kontras minimal 4,5:1 untuk teks normal (di bawah 18 pt) agar dapat dibaca penderita gangguan penglihatan."},
-        {"q":"Animasi 'fly-in setiap huruf satu per satu' pada slide presentasi termasuk:","opsi":["Efektif untuk audience","Mengganggu dan tidak profesional","Wajib digunakan","Standar presentasi medis"],"benar":1,"jelas":"Animasi berlebihan mengalihkan perhatian dari konten. Hanya gunakan animasi yang membantu pemahaman (fade in per poin)."},
-        {"q":"Rasio aspek slide presentasi modern yang direkomendasikan adalah:","opsi":["4:3","16:9","1:1","3:2"],"benar":1,"jelas":"16:9 (widescreen) adalah standar proyektor dan monitor modern. 4:3 sudah usang dan tidak memaksimalkan layar."}
+        {"q":"Fungsi MAX(A1:A10) di Excel mengembalikan:","opsi":["Jumlah semua nilai","Nilai terbesar","Nilai terkecil","Rata-rata nilai"],"benar":1,"jelas":"MAX() mencari dan mengembalikan nilai terbesar dalam rentang sel yang ditentukan."},
+        {"q":"Jenis grafik Line (garis) paling cocok untuk menampilkan:","opsi":["Perbandingan antar kategori","Proporsi bagian dari keseluruhan","Tren data dari waktu ke waktu","Hubungan dua variabel kontinu"],"benar":2,"jelas":"Grafik Line terbaik untuk menunjukkan perubahan/tren data sepanjang waktu, misalnya kunjungan pasien per bulan."},
+        {"q":"Grafik Pie (lingkaran) paling cocok untuk menampilkan:","opsi":["Tren kunjungan 12 bulan","Proporsi jenis pasien (BPJS vs Umum)","Perbandingan kunjungan 10 poli","Data kunjungan harian"],"benar":1,"jelas":"Pie chart ideal untuk menunjukkan proporsi/persentase bagian dari total keseluruhan (100%)."},
+        {"q":"Untuk membuat grafik di Excel, langkah pertama adalah:","opsi":["Insert → Chart","Data → Chart","Home → Grafik","File → New Chart"],"benar":0,"jelas":"Pilih data terlebih dahulu, lalu klik Insert → Chart (atau ikon grafik) untuk membuka galeri tipe grafik."},
+        {"q":"Fungsi AVERAGE(B2:B13) di Excel menghitung:","opsi":["Jumlah semua sel","Nilai tengah (median)","Rata-rata aritmetika","Standar deviasi"],"benar":2,"jelas":"AVERAGE() menghitung rata-rata aritmetika: jumlah semua nilai dibagi banyaknya nilai."}
       ]}
       </script>
     </section>
 
     <!-- INTI 1 -->
-    <section class="seg" id="seg-inti1" data-judul="Slide Buruk vs Baik" data-min="10">
-      <p>Bandingkan dua versi slide presentasi laporan kunjungan RS. Klik "Bandingkan" untuk toggle.</p>
-      <div class="grid2">
-        <div id="panel-buruk">
-          <div class="slide-panel-label">Versi: Buruk</div>
-          <div class="slide-16-9 slide-buruk">
-            <div class="judul">LAPORAN KUNJUNGAN PASIEN BULANAN RS SEHAT CITRA - NOVEMBER 2026</div>
-            <div class="isi">
-              • Total kunjungan: 1.254 pasien<br>
-              • Poli Umum: 312 pasien (tertinggi)<br>
-              • Poli Gigi: 189 pasien<br>
-              • Poli Anak: 145 pasien<br>
-              • Poli THT: 98 pasien<br>
-              • Poli Jantung: 87 pasien<br>
-              • Poli Kandungan: 112 pasien<br>
-              • Poli Mata: 76 pasien<br>
-              • Poli Bedah: 65 pasien<br>
-              • IGD: 170 pasien<br>
-              • BPJS: 65% dari total<br>
-              • Umum: 35% dari total<br>
-              • BOR bulan ini: 78%<br>
-              • Target BOR: 80%<br>
-              • Catatan: perlu penambahan tenaga medis poli umum karena antrian rata-rata 45 menit
-            </div>
-          </div>
-        </div>
-        <div id="panel-baik">
-          <div class="slide-panel-label">Versi: Baik</div>
-          <div class="slide-16-9 slide-baik">
-            <div class="judul">Kunjungan Pasien: November 2026</div>
-            <ul class="poin">
-              <li>Total: <strong>1.254 pasien</strong></li>
-              <li>Poli Umum tertinggi: <strong>312 kunjungan</strong></li>
-              <li>BOR: <strong>78%</strong> (target 80%)</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <p style="margin-top:12px"><button class="btn sec" id="btn-bandingkan" type="button">Bandingkan (Toggle Buruk/Baik)</button></p>
-      <div id="checklist-beda" style="margin-top:12px;display:none">
-        <h4>6 Perbedaan Utama</h4>
-        <ol style="font-size:.95rem">
-          <li>Font minimum: Buruk 8–10 pt &rarr; Baik 14–22 pt (terbaca dari 3 m)</li>
-          <li>Jumlah poin: Buruk 15 poin &rarr; Baik 3 poin (1 slide 1 fokus)</li>
-          <li>Warna latar: Buruk merah menyilaukan &rarr; Baik putih bersih</li>
-          <li>Konsistensi font: Buruk campuran Impact+Arial &rarr; Baik satu font sistem</li>
-          <li>Whitespace: Buruk penuh sesak &rarr; Baik ada ruang napas</li>
-          <li>Judul: Buruk panjang + kapital semua &rarr; Baik singkat dan informatif</li>
-        </ol>
-      </div>
+    <section class="seg" id="seg-inti1" data-judul="Fungsi MAX dan MIN" data-min="15">
+      <h4>Apa itu MAX dan MIN?</h4>
+      <p><strong>MAX</strong> dan <strong>MIN</strong> adalah fungsi Excel untuk mencari <strong>nilai terbesar</strong> dan <strong>nilai terkecil</strong> dari sekumpulan angka. Di rumah sakit, keduanya dipakai untuk menjawab pertanyaan seperti "kapan kunjungan paling ramai?" dan "kapan paling sepi?" tanpa perlu membaca angka satu per satu.</p>
+      <table class="data">
+        <thead><tr><th>Fungsi</th><th>Kegunaan</th><th>Contoh di RS</th><th>Contoh rumus</th><th>Hasil (data di bawah)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>MAX</strong></td><td>Nilai terbesar dalam rentang</td><td>Bulan dengan kunjungan tertinggi</td><td><span class="kode-box">=MAX(E2:E13)</span></td><td>649</td></tr>
+          <tr><td><strong>MIN</strong></td><td>Nilai terkecil dalam rentang</td><td>Bulan dengan kunjungan terendah</td><td><span class="kode-box">=MIN(E2:E13)</span></td><td>398</td></tr>
+          <tr><td><strong>AVERAGE</strong></td><td>Rata-rata (dipelajari di Pertemuan 07)</td><td>Rata-rata kunjungan per bulan</td><td><span class="kode-box">=AVERAGE(E2:E13)</span></td><td>528,25</td></tr>
+        </tbody>
+      </table>
+      <p class="kriteria">Penulisannya sama dengan SUM: tanda =, nama fungsi, lalu rentang di dalam kurung. MAX dan MIN hanya mengambil angka, sel berisi teks diabaikan.</p>
+
+      <h4>Cara menggunakan MAX dan MIN</h4>
+      <p>Data: kunjungan 12 bulan RS Sehat Citra (fiktif). Kolom Total sudah berisi jumlah Rawat Jalan, Rawat Inap, dan IGD.</p>
+      <figure class="shot"><img src="gambar/p09-maxmin-1.png" alt="Mengetik =MAX(E2:E13 di sel E15; rentang E2 sampai E13 diberi kotak berwarna dan muncul petunjuk MAX(number1, [number2], ...)" loading="lazy"></figure>
+      <ol>
+        <li>Klik sel tujuan, yaitu <strong>E15</strong>, lalu ketik <span class="kode-box">=MAX(</span>.</li>
+        <li>Pilih atau ketik rentangnya, <span class="kode-box">E2:E13</span>. Sel yang dipakai diberi kotak berwarna.</li>
+        <li>Petunjuk di bawah sel menampilkan bentuk fungsi: <em>MAX(number1, [number2], ...)</em>. Tutup kurung lalu tekan <kbd>Enter</kbd>.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p09-maxmin-2.png" alt="Sel E15 menampilkan 649, E16 menampilkan 398, dan E17 menampilkan 528,25 dengan Formula Bar menunjukkan rumus AVERAGE" loading="lazy"></figure>
+      <ol>
+        <li>Hasil <span class="kode-box">=MAX(E2:E13)</span> di E15: <strong>649</strong> (bulan Oktober).</li>
+        <li>Hasil <span class="kode-box">=MIN(E2:E13)</span> di E16: <strong>398</strong> (bulan Mei).</li>
+        <li>Hasil <span class="kode-box">=AVERAGE(E2:E13)</span> di E17: <strong>528,25</strong>.</li>
+        <li>Formula Bar menampilkan rumus dari sel yang sedang dipilih.</li>
+      </ol>
+      <div class="note"><strong>MAX hanya memberi angkanya, bukan namanya.</strong> Untuk tahu bulan apa yang punya angka 649, cari angka itu di tabel (misalnya dengan melihat baris yang sejajar). Selalu sebutkan keduanya di laporan: "tertinggi 649 kunjungan pada bulan Oktober".</div>
+
+      <h4>Latihan: kunjungan rawat jalan 12 bulan</h4>
+      <p>Isi sel B14, B15, dan B16 dengan fungsi yang tepat.</p>
+      <div id="ms-inti1"></div>
+      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026): <a href="https://support.microsoft.com/en-us/office/max-function-e0012414-9ac8-4b34-9a47-73e662c08098" target="_blank" rel="noopener">MAX function</a></p>
     </section>
 
     <!-- INTI 2 -->
-    <section class="seg" id="seg-inti2" data-judul="Pemeriksa Kontras WCAG" data-min="10">
-      <p>Pilih warna teks dan warna latar. Rasio kontras dihitung otomatis menggunakan formula luminansi WCAG.</p>
-      <div class="contrast-wrap">
-        <div class="preset-btns">
-          <button class="btn sec" type="button" onclick="setPreset('#000000','#ffffff')">Hitam-Putih</button>
-          <button class="btn sec" type="button" onclick="setPreset('#ffffff','#0b7285')">Putih-Biru RS</button>
-          <button class="btn sec" type="button" onclick="setPreset('#ffff00','#ffffff')">Kuning-Putih (gagal)</button>
-          <button class="btn sec" type="button" onclick="setPreset('#ffffff','#444444')">Putih-Abu</button>
+    <section class="seg" id="seg-inti2" data-judul="Mengenal Grafik dan Jenisnya" data-min="10">
+      <h4>Apa itu grafik?</h4>
+      <p><strong>Grafik</strong> (chart) adalah gambar yang mewakili angka di dalam tabel, supaya pola data terlihat sekilas. Daftar 12 angka sulit dibandingkan dengan cepat, tetapi satu garis naik-turun langsung menunjukkan kapan kunjungan memuncak. Di Excel, grafik selalu dibuat dari data di lembar kerja dan <strong>ikut berubah otomatis</strong> kalau datanya diubah.</p>
+
+      <h4>Bagian-bagian grafik</h4>
+      <table class="data">
+        <thead><tr><th>Bagian</th><th>Fungsi</th><th>Pada contoh kunjungan</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Judul grafik</strong> (Chart Title)</td><td>Menjelaskan isi grafik</td><td>Tren Kunjungan Pasien RS Sehat Citra 2026</td></tr>
+          <tr><td><strong>Sumbu horizontal</strong> (sumbu X)</td><td>Kategori atau waktu</td><td>Jan sampai Des</td></tr>
+          <tr><td><strong>Sumbu vertikal</strong> (sumbu Y)</td><td>Skala nilai</td><td>0 sampai 700 kunjungan</td></tr>
+          <tr><td><strong>Seri data</strong> (Series)</td><td>Satu kelompok angka yang digambar</td><td>Kolom Total</td></tr>
+          <tr><td><strong>Legenda</strong> (Legend)</td><td>Keterangan warna tiap seri</td><td>Rawat Jalan, Rawat Inap, IGD</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Tiga jenis grafik yang paling sering dipakai</h4>
+      <p>Ketiganya dibuat dari data kunjungan RS Sehat Citra di Excel asli.</p>
+      <div class="jenis-grid">
+        <div class="card">
+          <img src="gambar/p09-jenis-line.png" alt="Grafik garis total kunjungan per bulan Januari sampai Desember" loading="lazy">
+          <p><strong>Grafik garis (Line)</strong></p>
+          <p style="font-size:.92rem"><strong>Untuk:</strong> melihat <em>tren</em> dari waktu ke waktu. <strong>Contoh:</strong> kunjungan per bulan, BOR tiap bulan.</p>
         </div>
-        <div class="color-row">
-          <label>Warna Teks<input type="color" id="warna-teks" value="#000000" oninput="hitungKontras()"></label>
-          <label>Warna Latar<input type="color" id="warna-latar" value="#ffffff" oninput="hitungKontras()"></label>
+        <div class="card">
+          <img src="gambar/p09-jenis-bar.png" alt="Grafik kolom kunjungan rawat jalan, rawat inap, dan IGD per bulan" loading="lazy">
+          <p><strong>Grafik kolom atau batang (Column/Bar)</strong></p>
+          <p style="font-size:.92rem"><strong>Untuk:</strong> <em>membandingkan</em> nilai antar kategori. <strong>Contoh:</strong> kunjungan antar poli, rawat jalan vs rawat inap.</p>
         </div>
-        <div class="contrast-result">Rasio kontras: <span id="rasio-val">21:1</span></div>
-        <span class="contrast-badge pass" id="badge-wcag">✓ AA Lulus (≥4,5:1)</span>
-        <div class="contrast-preview" id="contrast-preview" style="background:#ffffff;color:#000000">
-          Contoh Teks RS Sehat Citra, apakah ini terbaca dengan jelas?
+        <div class="card">
+          <img src="gambar/p09-jenis-pie.png" alt="Grafik lingkaran proporsi rawat jalan, rawat inap, dan IGD" loading="lazy">
+          <p><strong>Grafik lingkaran (Pie)</strong></p>
+          <p style="font-size:.92rem"><strong>Untuk:</strong> melihat <em>proporsi</em> bagian terhadap keseluruhan (100%). <strong>Contoh:</strong> persentase pasien BPJS dan umum.</p>
         </div>
       </div>
+      <div class="note">Di Excel, <strong>Column</strong> menggambar batang tegak dan <strong>Bar</strong> menggambar batang mendatar. Keduanya untuk perbandingan. Grafik lingkaran hanya cocok untuk <em>satu</em> kelompok data yang tidak bernilai negatif dengan sedikit bagian.</div>
+
+      <h4>Latihan: pilih jenis grafik yang tepat</h4>
+      <p>Untuk setiap skenario data RS berikut, pilih jenis grafik yang paling tepat. Klik jawaban kamu.</p>
+      <div id="quiz-grafik-container"></div>
+      <div id="quiz-grafik-skor" aria-live="polite" style="font-weight:700;margin:12px 0"></div>
+      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026): <a href="https://support.microsoft.com/en-us/office/available-chart-types-in-office-a6187218-807e-4103-9e0a-27cdb19afb90" target="_blank" rel="noopener">Available chart types in Office</a></p>
     </section>
 
     <!-- INTI 3 -->
-    <section class="seg" id="seg-inti3" data-judul="Aturan Teks Slide" data-min="10">
-      <p>Atur jumlah kata dan ukuran font. Peringatan merah muncul jika melampaui batas standar.</p>
+    <section class="seg" id="seg-inti3" data-judul="Membuat Grafik di Excel" data-min="10">
+      <h4>Langkah 1: pilih data yang akan digambar</h4>
+      <p>Tujuan: grafik garis tren total kunjungan per bulan. Grafik butuh <strong>dua kolom</strong>: nama bulan (sumbu X) dan angka Total (nilai).</p>
+      <figure class="shot"><img src="gambar/p09-grafik-1.png" alt="Kolom Bulan (A1:A13) dan kolom Total (E1:E13) terpilih bersamaan" loading="lazy"></figure>
+      <ol>
+        <li>Blok kolom <strong>Bulan</strong> (A1 sampai A13), termasuk judul kolomnya.</li>
+        <li>Tahan <kbd>Ctrl</kbd>, lalu blok kolom <strong>Total</strong> (E1 sampai E13). Dua kolom yang tidak bersebelahan terpilih sekaligus.</li>
+      </ol>
+      <div class="warn-box"><strong>Kesalahan umum:</strong> kalau hanya kolom Total yang dipilih, sumbu horizontal berisi angka 1, 2, 3, ... dan bukan nama bulan.</div>
+
+      <h4>Langkah 2: buka menu Insert dan pilih jenis grafik</h4>
+      <figure class="shot"><img src="gambar/p09-grafik-2.png" alt="Tab Insert terbuka; grup Charts berisi pilihan jenis grafik" loading="lazy"></figure>
+      <ol>
+        <li>Klik tab <strong>Insert</strong>.</li>
+        <li>Di grup <strong>Charts</strong>, pilih ikon jenis grafik. Ikon bergambar garis adalah <em>Insert Line or Area Chart</em>, ikon kolom adalah <em>Insert Column or Bar Chart</em>, dan ikon lingkaran adalah <em>Insert Pie or Doughnut Chart</em>.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p09-grafik-3.png" alt="Galeri Insert Line or Area Chart terbuka dengan pilihan 2-D Line, 3-D Line, 2-D Area, dan 3-D Area" loading="lazy" style="max-width:760px"></figure>
+      <ol>
+        <li>Klik panah di samping ikon garis untuk membuka galeri. Pilih <strong>Line with Markers</strong> (garis dengan titik penanda).</li>
+      </ol>
+
+      <h4>Langkah 3: periksa dan lengkapi grafik</h4>
+      <figure class="shot"><img src="gambar/p09-grafik-4.png" alt="Grafik garis muncul di lembar kerja dengan judul Total dan sumbu horizontal berisi nama bulan" loading="lazy"></figure>
+      <ol>
+        <li>Grafik muncul di atas lembar kerja. Kamu bisa menggesernya dengan menyeret bagian tepinya.</li>
+        <li><strong>Judul grafik</strong> masih bernama "Total", sesuai judul kolom. Ganti dengan judul yang jelas.</li>
+        <li>Sumbu horizontal sudah memuat nama bulan karena kolom Bulan ikut dipilih.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p09-grafik-5.png" alt="Judul grafik sudah diganti menjadi Tren Kunjungan Pasien RS Sehat Citra 2026; tab Chart Design dan Format muncul" loading="lazy"></figure>
+      <ol>
+        <li>Klik judul, klik sekali lagi untuk mengedit, lalu ketik judul baru, misalnya <em>Tren Kunjungan Pasien RS Sehat Citra 2026</em>.</li>
+      </ol>
+      <p>Setelah grafik dipilih, muncul tab baru <strong>Chart Design</strong> dan <strong>Format</strong> untuk mengganti gaya, warna, dan jenis grafik (<em>Change Chart Type</em>).</p>
+      <figure class="shot"><img src="gambar/p09-grafik-6.png" alt="Menu Chart Elements terbuka dengan pilihan Axes, Axis Titles, Chart Title, Data Labels, Data Table, Error Bars, Gridlines, Legend, Trendline, dan Up/Down Bars" loading="lazy"></figure>
+      <ol>
+        <li>Klik tombol <strong>+ (Chart Elements)</strong> di sisi kanan grafik.</li>
+        <li>Centang atau hapus centang bagian grafik: <em>Axis Titles</em> (judul sumbu), <em>Data Labels</em> (angka di tiap titik), <em>Legend</em> (legenda), dan lainnya. Pastikan <em>Chart Title</em> tercentang.</li>
+      </ol>
+
+      <h4>Coba sendiri: pembuat grafik interaktif</h4>
+      <p>Edit angka di tabel dan pilih jenis grafik. Grafik diperbarui langsung.</p>
+      <div class="chart-ctl">
+        <label>Jenis Grafik:
+          <select id="chart3-tipe" aria-label="Jenis grafik">
+            <option value="bar">Bar (Batang)</option>
+            <option value="line">Line (Garis)</option>
+            <option value="pie">Pie (Lingkaran)</option>
+          </select>
+        </label>
+      </div>
       <div class="grid2">
         <div>
-          <div style="margin-bottom:12px">
-            <label style="display:grid;grid-template-columns:160px 1fr 80px;gap:8px;align-items:center;font-size:.9rem">
-              Jumlah kata/slide
-              <input type="range" id="sl-kata" min="5" max="200" value="80" oninput="updateSlideTeks()">
-              <output id="out-kata">80</output>
-            </label>
-            <label style="display:grid;grid-template-columns:160px 1fr 80px;gap:8px;align-items:center;font-size:.9rem;margin-top:8px">
-              Ukuran font (pt)
-              <input type="range" id="sl-font" min="8" max="36" value="18" oninput="updateSlideTeks()">
-              <output id="out-font">18 pt</output>
-            </label>
-          </div>
-          <div class="aturan-warn" id="warn-kata">Terlalu banyak kata! Batas aman: maks 150 kata per slide. Perpecah menjadi beberapa slide.</div>
-          <div class="aturan-warn" id="warn-font">Font terlalu kecil! Minimum 18 pt agar terbaca dari 3 meter.</div>
+          <table class="chart-tbl" id="chart3-tbl">
+            <thead><tr><th>Poli</th><th>Kunjungan</th></tr></thead>
+            <tbody id="chart3-tbody"></tbody>
+          </table>
         </div>
-        <div>
-          <div class="slide-teks-demo" id="slide-teks-demo">
-            <div class="judul-demo" id="demo-judul" style="font-size:22px">Kunjungan Pasien November 2026</div>
-            <div id="demo-isi" style="font-size:18px;margin-top:8px;line-height:1.5">
-              Total 1.254 pasien • Poli Umum tertinggi • BOR 78%
-            </div>
-          </div>
-        </div>
+        <div class="chart-wrap" id="chart3-area"></div>
       </div>
-      <h4>Tiga Aturan Emas Teks Slide</h4>
-      <details><summary>1. Satu Slide, Satu Pesan</summary>
-        <div><p>Setiap slide harus menyampaikan <strong>satu ide utama</strong>. Penonton tidak bisa membaca teks panjang dan mendengarkan pembicara sekaligus. Jika ada 3 topik berbeda, buat 3 slide terpisah.</p><p><em>Contoh baik:</em> "Kunjungan Poli Umum Naik 12% November". bukan "Ringkasan Kunjungan Semua Poli November-Desember 2026".</p></div>
-      </details>
-      <details><summary>2. Maksimal 6 Poin per Slide</summary>
-        <div><p>Jika slide membutuhkan lebih dari 6 bullet point, pisahkan menjadi beberapa slide atau gunakan tabel ringkas. Terlalu banyak poin = tidak ada yang penting.</p><p>Aturan tambahan: setiap poin maksimal <strong>6–8 kata</strong>. Gunakan kata kunci, bukan kalimat lengkap.</p></div>
-      </details>
-      <details><summary>3. Font Minimum 24 pt (Judul 36 pt)</summary>
-        <div><p>Untuk presentasi di ruang rapat atau aula: judul minimal <strong>36 pt</strong>, isi minimal <strong>24 pt</strong>. Jika tidak yakin, coba berdiri 3 meter dari layar dan baca sendiri sebelum presentasi.</p><p>Font sans-serif (Arial, Calibri) lebih mudah dibaca pada proyektor daripada serif (Times New Roman).</p></div>
-      </details>
+      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026): <a href="https://support.microsoft.com/en-us/office/create-a-chart-from-start-to-finish-0baf399e-dd61-4e18-8a73-b3fd5d5680c2" target="_blank" rel="noopener">Create a chart from start to finish</a></p>
     </section>
 
     <!-- INTI 4 -->
-    <section class="seg" id="seg-inti4" data-judul="Quiz Animasi" data-min="10">
-      <p>Untuk setiap jenis animasi berikut, klik "Membantu" atau "Mengganggu". Lihat skor di akhir.</p>
-      <div id="quiz-anim-container"></div>
-      <div id="quiz-anim-skor" aria-live="polite" style="font-weight:700;margin:10px 0;display:none"></div>
-      <button class="btn" id="btn-cek-anim" type="button" style="display:none">Lihat Skor &amp; Penjelasan</button>
+
+    <section class="seg" id="seg-inti4" data-judul="AVERAGE Lanjutan dan BOR" data-min="10">
+      <h4>Apa itu BOR?</h4>
+      <p><strong>BOR</strong> (<em>Bed Occupancy Rate</em>) adalah persentase tempat tidur rumah sakit yang terisi pasien. Angka ini dipakai manajemen untuk menilai apakah tempat tidur sudah dimanfaatkan dengan baik.</p>
+      <p style="text-align:center"><span class="kode-box" style="font-size:1.05rem">BOR = (Jumlah hari perawatan &divide; (Jumlah tempat tidur &times; Jumlah hari dalam periode)) &times; 100%</span></p>
+      <p>Untuk data harian, rumusnya bisa disederhanakan: <strong>BOR harian = tempat tidur terisi &divide; jumlah tempat tidur &times; 100%</strong>. Contoh: 90 tempat tidur terisi dari 120 tempat tidur, BOR = 90 &divide; 120 = 0,75 = <strong>75%</strong>.</p>
+      <table class="data">
+        <thead><tr><th>BOR</th><th>Artinya</th></tr></thead>
+        <tbody>
+          <tr><td>Di bawah 60%</td><td>Tempat tidur kurang dimanfaatkan.</td></tr>
+          <tr><td>60% sampai 85%</td><td>Rentang standar nasional yang dianggap baik.</td></tr>
+          <tr><td>Di atas 85%</td><td>Rumah sakit terlalu padat, risiko penularan dan beban kerja meningkat.</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Latihan: rata-rata BOR enam bulan</h4>
+      <p>Data BOR RS Sehat Citra selama 6 bulan terakhir (fiktif). Hitung rata-rata BOR di sel B8 dan bandingkan dengan standar nasional.</p>
+      <div id="ms-inti4"></div>
+      <h4>Interpretasi BOR</h4>
+      <p>Tuliskan 1-2 kalimat analisis BOR RS ini berdasarkan data di atas:</p>
+      <textarea class="reflect" id="interpretasi-ta" aria-label="Interpretasi BOR" style="min-height:70px"></textarea>
     </section>
 
     <!-- PRAKTIK -->
-    <section class="seg" id="seg-praktik" data-judul="Praktik: Editor Slide Mini" data-min="25">
-      <p>Pilih layout, isi konten, pilih warna, dan lihat penilaian otomatis. Tujuan: capai 3/3 kriteria terpenuhi.</p>
-      <h4>1. Pilih Layout Slide</h4>
-      <div class="layout-kartu" id="layout-kartu"></div>
-      <div class="grid2" style="align-items:start">
-        <div>
-          <h4>2. Isi Konten</h4>
-          <div class="editor-form" id="editor-form"></div>
-          <h4>3. Pilih Warna Latar</h4>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
-            <button class="btn sec" type="button" onclick="setSlideWarna('#ffffff','#12303a')">Putih Profesional</button>
-            <button class="btn sec" type="button" onclick="setSlideWarna('#0b7285','#ffffff')">Biru Teal RS</button>
-            <button class="btn sec" type="button" onclick="setSlideWarna('#f5f5f0','#12303a')">Abu Netral</button>
-          </div>
-          <h4>Penilaian Otomatis</h4>
-          <div class="penilai" id="penilai"></div>
-          <div style="margin-top:8px;font-weight:700;font-size:1.05rem" id="skor-editor" aria-live="polite"></div>
-        </div>
-        <div>
-          <h4>4. Pratinjau Slide</h4>
-          <div class="slide-editor-preview" id="slide-editor-preview"></div>
-        </div>
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Studi Kasus Kunjungan 12 Bulan" data-min="25">
+      <p>Data kunjungan lengkap RS Sehat Citra (fiktif): 12 bulan, tiga jenis kunjungan. Selesaikan semua tantangan di lembar bawah, lalu perhatikan grafiknya.</p>
+      <div id="ms-praktik"></div>
+      <h4>Grafik Total Kunjungan (dari kolom E)</h4>
+      <div class="chart-ctl">
+        <label>Jenis Grafik:
+          <select id="chart-praktik-tipe" aria-label="Jenis grafik praktik">
+            <option value="bar">Bar</option>
+            <option value="line" selected>Line</option>
+          </select>
+        </label>
+        <button class="btn sec" id="btn-update-grafik" type="button">Perbarui Grafik</button>
       </div>
+      <div class="chart-wrap" id="chart-praktik-area"></div>
+      <h4>Interpretasi Studi Kasus</h4>
+      <textarea class="reflect" id="interpretasi-praktik" aria-label="Interpretasi studi kasus" style="min-height:80px" placeholder="Tuliskan 2 kalimat: 1) Bulan mana kunjungan tertinggi dan terendah? 2) Apa yang mungkin menjadi penyebabnya?"></textarea>
       <div class="tugas-lab">
-        <h4>Tugas Lab</h4>
-        <p>Buat 5 slide profil RS Sehat Citra di PowerPoint nyata dengan ketentuan:</p>
+        <h4>Tugas Lab: Laporan Kunjungan Harian dengan Grafik di Excel Nyata</h4>
+        <p><strong>Kasus:</strong> bagian administrasi RS Sehat Citra (fiktif) diminta membuat laporan kunjungan <strong>harian selama November 2026</strong> (30 hari) untuk rapat direksi. Data mentah sudah ada. Selesaikan seluruh tahap di bawah ini.</p>
+        <p><a class="btn sec" href="unduhan/data-kunjungan-harian.xlsx" download style="display:inline-block;text-decoration:none">Unduh data-kunjungan-harian.xlsx</a></p>
+        <h4>Tahap A: hitung per hari (baris 2 sampai 31)</h4>
         <ol>
-          <li>Slide 1: Judul presentasi + nama penyusun (layout Judul + Subjudul)</li>
-          <li>Slide 2: Profil singkat RS (layout Judul + 4 Poin maks 6 kata/poin)</li>
-          <li>Slide 3: Data kunjungan bulanan dalam tabel (layout Judul + Konten)</li>
-          <li>Slide 4: Grafik BOR 6 bulan (Insert Chart dari data Excel)</li>
-          <li>Slide 5: Simpulan dan tindak lanjut (maks 3 poin)</li>
+          <li>Kolom <strong>Total Kunjungan</strong>: jumlah Rawat Jalan, Rawat Inap, dan IGD.</li>
+          <li>Kolom <strong>BOR</strong>: tempat tidur terisi dibagi jumlah tempat tidur yang tertulis di sel <strong>J1</strong>. Jumlah tempat tidur itu harus <strong>dikunci</strong> dengan referensi absolut. Tampilkan hasilnya sebagai <strong>persen</strong> (Number Format).</li>
         </ol>
-        <p><strong>Ketentuan desain:</strong> font judul ≥36 pt, isi ≥24 pt, max 6 poin/slide, warna teks kontras ≥4,5:1, tidak ada animasi berlebihan.</p>
-        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Konsistensi desain (warna/font). 2) Keterbacaan (font cukup besar). 3) Kepadatan konten (max 6 poin/slide).</p>
+        <h4>Tahap B: ringkasan (baris 34 sampai 40, hasil di kolom C)</h4>
+        <ol start="3">
+          <li>Total kunjungan sebulan.</li>
+          <li>Rata-rata kunjungan per hari.</li>
+          <li>Kunjungan tertinggi dan terendah dalam sehari.</li>
+          <li>Rata-rata BOR, BOR tertinggi, dan BOR terendah.</li>
+        </ol>
+        <h4>Tahap C: baca datanya</h4>
+        <ol start="7">
+          <li>Cari <strong>tanggal</strong> dengan kunjungan tertinggi dan tanggal dengan kunjungan terendah, lalu tulis keduanya di sel di sebelah ringkasan.</li>
+          <li>Beri warna latar pada sel BOR yang di bawah 60% atau di atas 85%. Catat berapa hari jumlahnya.</li>
+        </ol>
+        <h4>Tahap D: tiga grafik</h4>
+        <ol start="9">
+          <li><strong>Grafik garis</strong> total kunjungan per tanggal (pilih kolom Tanggal dan kolom Total Kunjungan bersamaan). Beri judul "Tren Kunjungan Harian RS Sehat Citra, November 2026".</li>
+          <li><strong>Grafik garis</strong> BOR harian dengan judul dan judul sumbu vertikal "BOR (%)".</li>
+          <li>Buat tabel kecil berisi total Rawat Jalan, total Rawat Inap, dan total IGD selama sebulan, lalu buat <strong>grafik lingkaran</strong> proporsinya dengan label persentase pada irisan.</li>
+        </ol>
+        <h4>Tahap E: interpretasi dan penyimpanan</h4>
+        <ol start="12">
+          <li>Tulis <strong>3 kalimat</strong> interpretasi di bawah grafik: hari tersibuk dan tersepi (sebut tanggal dan angkanya), rata-rata BOR dibandingkan standar 60% sampai 85%, serta satu saran untuk manajemen.</li>
+          <li>Simpan sebagai <em>Nama_NIM_P09.xlsx</em> dan kumpulkan.</li>
+        </ol>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Semua kolom hitung dan ringkasan memakai rumus, tanpa angka yang diketik manual. 2) Referensi absolut dipakai dengan benar untuk jumlah tempat tidur. 3) Hasil MAX, MIN, AVERAGE, dan BOR tepat, dengan kolom BOR berformat persen. 4) Jenis grafik tepat dan lengkap (judul, sumbu terbaca, nama bulan atau tanggal di sumbu horizontal, label persentase pada grafik lingkaran). 5) Interpretasi 3 kalimat memuat tanggal, angka, dan perbandingan dengan standar BOR. 6) File disimpan sebagai .xlsx dengan nama yang sesuai.</p>
       </div>
     </section>
 
@@ -345,11 +397,11 @@ nav.agenda{display:none!important}
       <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
       <script type="application/json" id="quiz-post">
       {"judul":"Post-test","soal":[
-        {"q":"Untuk presentasi di ruang besar, ukuran font judul sebaiknya minimal:","opsi":["18 pt","24 pt","36 pt","48 pt"],"benar":2,"jelas":"Judul slide minimal 36 pt agar terbaca dari jarak 3–5 meter. Isi minimal 24 pt. Terapkan aturan '3 meter test' sebelum presentasi."},
-        {"q":"Warna merah cerah (#FF0000) pada latar putih memiliki rasio kontras sekitar:","opsi":["Sangat tinggi, di atas 7:1","Sekitar 4:1, tidak memenuhi WCAG AA","Tepat 4,5:1","Di atas 7:1 (AA Enhanced)"],"benar":1,"jelas":"Merah (#FF0000) vs putih (#FFFFFF) memiliki rasio kontras sekitar 4:1, tidak memenuhi WCAG AA (4,5:1). Gunakan teks hitam di atas latar merah."},
-        {"q":"Layout 'Judul + 2 Kolom' paling cocok untuk:","opsi":["Perbandingan dua hal berdampingan","Satu narasi panjang yang mengalir","Daftar 10 poin sekaligus","Foto latar penuh layar"],"benar":0,"jelas":"2-kolom ideal untuk before/after, pro/cons, data dua departemen, atau dua konsep yang dibandingkan."},
-        {"q":"Animasi 'muncul per poin saat diklik' termasuk animasi yang:","opsi":["Mengganggu konsentrasi audience","Dekoratif semata","Fungsional, membantu fokus pada poin yang dibahas","Tidak perlu karena memperlambat"],"benar":2,"jelas":"Animasi Appear/Fade per poin (on-click) membantu pembicara mengontrol alur, audience fokus pada poin yang sedang dibahas, bukan membaca semua sekaligus."},
-        {"q":"File PowerPoint yang disimpan untuk presentasi standar menggunakan ekstensi:","opsi":[".docx",".xlsx",".pptx",".ppsx"],"benar":2,"jelas":".pptx adalah format standar PowerPoint (bisa diedit). .ppsx adalah format slideshow yang langsung berjalan tanpa bisa diedit dengan mudah."}
+        {"q":"Hasil dari =MAX(72,68,75,81,79,83) adalah:","opsi":["72","68","83","459"],"benar":2,"jelas":"MAX() mengembalikan nilai terbesar. Dari daftar: 83 adalah yang terbesar."},
+        {"q":"Grafik yang paling tepat untuk membandingkan kunjungan di 12 poli berbeda adalah:","opsi":["Pie chart","Bar chart","Line chart","Scatter plot"],"benar":1,"jelas":"Bar chart terbaik untuk membandingkan nilai-nilai dari kategori yang berbeda (poli, bulan, dll)."},
+        {"q":"BOR 72% artinya:","opsi":["72% tempat tidur RS terisi rata-rata","72% pasien sudah pulang hari itu","72% dokter sedang bertugas","72% obat sudah terjual"],"benar":0,"jelas":"BOR (Bed Occupancy Rate) = persentase tempat tidur yang terisi dibanding total tempat tidur tersedia."},
+        {"q":"Untuk memilih sel tidak berurutan di Excel (misalnya A1, C3, E5), gunakan:","opsi":["Shift+klik","Ctrl+klik","Alt+klik","Tab+klik"],"benar":1,"jelas":"Ctrl+klik memungkinkan pemilihan sel atau rentang sel yang tidak bersebelahan secara bersamaan."},
+        {"q":"Sumbu X pada grafik kunjungan pasien bulanan RS biasanya berisi:","opsi":["Jumlah pasien","Nama dokter","Nama bulan","Nama poli"],"benar":2,"jelas":"Sumbu X = kategori waktu (Jan, Feb, Mar, ...). Sumbu Y = nilai/jumlah kunjungan."}
       ]}
       </script>
       <h4>Perbandingan Pre-test vs Post-test</h4>
@@ -360,25 +412,25 @@ nav.agenda{display:none!important}
     <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
       <h4>Ringkasan Pertemuan 09</h4>
       <ol>
-        <li>Font minimum untuk presentasi di ruang besar: 36 pt (judul) dan 24 pt (isi).</li>
-        <li>Rasio kontras WCAG AA minimal 4,5:1, uji setiap kombinasi warna sebelum presentasi.</li>
-        <li>Satu slide = satu pesan. Maksimal 6 poin per slide dengan 6–8 kata per poin.</li>
-        <li>Gunakan animasi fungsional (muncul per poin), hindari animasi dekoratif berlebihan.</li>
-        <li>Format file standar PowerPoint: .pptx. Rasio aspek modern: 16:9.</li>
+        <li>MAX() dan MIN() mencari nilai terbesar dan terkecil dalam rentang data secara otomatis.</li>
+        <li>AVERAGE() menghitung rata-rata aritmetika: berguna untuk indikator seperti BOR dan rata-rata kunjungan.</li>
+        <li>Column/Bar chart: membandingkan kategori. Line chart: menunjukkan tren waktu. Pie chart: proporsi bagian.</li>
+        <li>BOR ideal RS: 60–85%, di luar rentang ini perlu evaluasi kapasitas atau pola kunjungan.</li>
+        <li>Pilih jenis grafik berdasarkan pertanyaan yang ingin dijawab, bukan berdasarkan estetika saja.</li>
       </ol>
       <h4>Refleksi</h4>
       <p>Tuliskan satu hal yang paling berguna hari ini dan satu hal yang masih membingungkan:</p>
       <textarea class="reflect" id="refleksi-ta" aria-label="Refleksi pertemuan 09"></textarea>
-      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 10: PowerPoint Lanjutan: animasi fungsional, transisi slide, dan desain template RS yang konsisten.</p>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 10: Microsoft PowerPoint. Grafik yang kamu buat hari ini akan dipakai untuk menyusun slide laporan kinerja RS.</p>
     </section>
   </main>
 </div>
 
 <script>
 "use strict";
-const KONFIG={kode:"krs-p09",nomor:"09",judul:"Microsoft PowerPoint Dasar",
-  cpmk:"CPMK-4: Mampu mendesain slide presentasi laporan kinerja eksekutif RS yang profesional.",
-  tujuan:["Memahami prinsip desain slide formal RS","Memeriksa kontras warna yang tepat","Membuat layout slide yang efektif"],
+const KONFIG={kode:"krs-p09",nomor:"09",judul:"Microsoft Excel Lanjutan: Grafik & Statistik",
+  cpmk:"CPMK-2: Mampu menyusun laporan dengan fungsi visual dan statistik pada MS Excel.",
+  tujuan:["Menjelaskan dan memakai fungsi MAX, MIN, dan AVERAGE pada data RS","Mengenal bagian dan jenis grafik (garis, kolom/batang, lingkaran) serta memilih yang tepat","Membuat dan melengkapi grafik di Excel dari data kunjungan RS","Menghitung dan menafsirkan BOR"],
   totalMenit:90};
 
 const $=(s,r=document)=>r.querySelector(s);
@@ -428,184 +480,300 @@ W.banding=el=>{
   el.classList.add("banding");const a=baris("pre","Pre-test","pre"),b=baris("post","Post-test","post");
   const up=()=>{a();b();};document.addEventListener("krs:skor",up);up();};
 
-/* INTI 1: SLIDE BURUK VS BAIK */
-let bandingTampil=false;
-document.addEventListener("DOMContentLoaded",()=>{
-  const btn=document.getElementById("btn-bandingkan");
-  if(btn)btn.addEventListener("click",()=>{
-    bandingTampil=!bandingTampil;
-    const ck=document.getElementById("checklist-beda");
-    if(ck)ck.style.display=bandingTampil?"block":"none";
-    btn.textContent=bandingTampil?"Sembunyikan Perbandingan":"Bandingkan (Toggle Buruk/Baik)";
-  });
-});
-
-/* INTI 2: KONTRAS WCAG */
-function hexToRgb(hex){hex=hex.replace(/^#/,"");if(hex.length===3)hex=hex.split("").map(c=>c+c).join("");const n=parseInt(hex,16);return{r:(n>>16)&255,g:(n>>8)&255,b:n&255};}
-function linearize(c){c/=255;return c<=0.03928?c/12.92:Math.pow((c+0.055)/1.055,2.4);}
-function luminance(hex){const {r,g,b}=hexToRgb(hex);return 0.2126*linearize(r)+0.7152*linearize(g)+0.0722*linearize(b);}
-function kontrasRasio(h1,h2){const L1=Math.max(luminance(h1),luminance(h2)),L2=Math.min(luminance(h1),luminance(h2));return(L1+0.05)/(L2+0.05);}
-
-function hitungKontras(){
-  const teks=document.getElementById("warna-teks").value;
-  const latar=document.getElementById("warna-latar").value;
-  const r=kontrasRasio(teks,latar);
-  document.getElementById("rasio-val").textContent=r.toFixed(1)+":1";
-  const pass=r>=4.5;
-  const badge=document.getElementById("badge-wcag");
-  badge.textContent=pass?"✓ AA Lulus (≥4,5:1)":"✗ Gagal AA (<4,5:1)";
-  badge.className="contrast-badge "+(pass?"pass":"fail");
-  const prev=document.getElementById("contrast-preview");
-  prev.style.background=latar;prev.style.color=teks;
+/* ===== FORMULA PARSER (tanpa eval/Function) ===== */
+function kolHuruf(n){return String.fromCharCode(65+n);}
+function parseRef(s){const m=/^([A-Z])(\d+)$/.exec(s.toUpperCase());return m?{c:m[1].charCodeAt(0)-65,r:parseInt(m[2],10)-1}:null;}
+function tokenisasi(s){
+  const t=[];let i=0;
+  while(i<s.length){
+    const c=s[i];if(/\s/.test(c)){i++;continue;}
+    let m=/^(\d+(\.\d+)?|\.\d+)/.exec(s.slice(i));
+    if(m){t.push({t:"n",v:parseFloat(m[0])});i+=m[0].length;continue;}
+    m=/^[A-Za-z]+\d*/.exec(s.slice(i));
+    if(m){const nm=m[0],nx=s[i+nm.length];
+      if(nx==="(")t.push({t:"f",v:nm.toUpperCase()});
+      else if(/^[A-Za-z]+\d+$/.test(nm))t.push({t:"r",v:nm.toUpperCase()});
+      else throw new Error("#NAME?");
+      i+=nm.length;continue;}
+    if("+-*/(),:;".includes(c)){t.push({t:c===";"?",":c});i++;continue;}
+    throw new Error("#ERROR");
+  }
+  return t;
 }
-function setPreset(teks,latar){
-  document.getElementById("warna-teks").value=teks;
-  document.getElementById("warna-latar").value=latar;
-  hitungKontras();
+function evalRumus(src,getCell){
+  const tk=tokenisasi(src);let p=0;
+  const peek=()=>tk[p]&&tk[p].t,ambil=()=>tk[p++];
+  const jml=x=>{if(Array.isArray(x))throw new Error("#VALUE!");if(x===null)return 0;if(typeof x==="string")throw new Error("#VALUE!");return x;};
+  function expr(){let v=term();while(peek()==="+"||peek()==="-"){const o=ambil().t;const r=term();v=o==="+"?jml(v)+jml(r):jml(v)-jml(r);}return v;}
+  function term(){let v=unary();while(peek()==="*"||peek()==="/"){const o=ambil().t;const r=unary();if(o==="*")v=jml(v)*jml(r);else{const d=jml(r);if(d===0)throw new Error("#DIV/0!");v=jml(v)/d;}}return v;}
+  function unary(){if(peek()==="-"){ambil();return -jml(unary());}if(peek()==="+"){ambil();return jml(unary());}return primary();}
+  function ref(tok){const a=parseRef(tok.v);if(!a)throw new Error("#REF!");return a;}
+  function primary(){
+    const k=ambil();if(!k)throw new Error("#ERROR");
+    if(k.t==="n")return k.v;
+    if(k.t==="("){const v=expr();if(ambil()==null||tk[p-1].t!==")")throw new Error("#ERROR");return v;}
+    if(k.t==="r"){const a=ref(k);
+      if(peek()===":"){ambil();const k2=ambil();if(!k2||k2.t!=="r")throw new Error("#ERROR");
+        const b=ref(k2),out=[];
+        for(let r=Math.min(a.r,b.r);r<=Math.max(a.r,b.r);r++)for(let c=Math.min(a.c,b.c);c<=Math.max(a.c,b.c);c++)out.push(getCell(c,r));
+        return out;}
+      return getCell(a.c,a.r);}
+    if(k.t==="f"){if(ambil()==null||tk[p-1].t!=="(")throw new Error("#ERROR");
+      const args=[];if(peek()!==")"){{args.push(expr());while(peek()===","){ambil();args.push(expr());}}}
+      if(ambil()==null||tk[p-1].t!==")")throw new Error("#ERROR");
+      const angka=[];args.forEach(a=>{if(Array.isArray(a))a.forEach(x=>{if(typeof x==="number")angka.push(x);});else if(typeof a==="number")angka.push(a);else if(a!==null)throw new Error("#VALUE!");});
+      switch(k.v){
+        case"SUM":return angka.reduce((s,x)=>s+x,0);
+        case"AVERAGE":if(!angka.length)throw new Error("#DIV/0!");return angka.reduce((s,x)=>s+x,0)/angka.length;
+        case"COUNT":return angka.length;
+        case"MAX":return angka.length?Math.max(...angka):0;
+        case"MIN":return angka.length?Math.min(...angka):0;
+        default:throw new Error("#NAME?");}}
+    throw new Error("#ERROR");}
+  const hasil=expr();if(p<tk.length)throw new Error("#ERROR");
+  if(Array.isArray(hasil))throw new Error("#VALUE!");return hasil;
 }
 
-/* INTI 3: ATURAN TEKS */
-function updateSlideTeks(){
-  const kata=parseInt(document.getElementById("sl-kata").value)||80;
-  const font=parseInt(document.getElementById("sl-font").value)||18;
-  document.getElementById("out-kata").textContent=kata;
-  document.getElementById("out-font").textContent=font+" pt";
-  const demoJudul=document.getElementById("demo-judul");
-  const demoIsi=document.getElementById("demo-isi");
-  if(demoJudul)demoJudul.style.fontSize=Math.max(font+4,12)+"px";
-  if(demoIsi)demoIsi.style.fontSize=font+"px";
-  document.getElementById("warn-kata").className="aturan-warn"+(kata>150?" vis":"");
-  document.getElementById("warn-font").className="aturan-warn"+(font<18?" vis":"");
+/* ===== SVG CHART ENGINE ===== */
+const NS="http://www.w3.org/2000/svg";
+function sv(tag,attrs,txt){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(txt!=null)e.textContent=txt;return e;}
+function niceMax(mx){if(mx<=0)return 1;const e=Math.pow(10,Math.floor(Math.log10(mx))),f=mx/e;return(f<=1?1:f<=2?2:f<=5?5:10)*e;}
+const CWARNA=["#0b7285","#e8590c","#7048e8","#2b8a3e","#c2255c","#f08c00","#1971c2","#5c940d"];
+
+function drawBar(label,nilai,judul){
+  const W=600,H=320,svg=sv("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":judul||"Grafik batang"});
+  svg.append(sv("text",{x:W/2,y:20,"text-anchor":"middle",style:"font-size:14px;font-weight:700"},judul||""));
+  const v=nilai.map(x=>Math.max(0,Number(x)||0));
+  const L=55,Rr=10,T=36,B=36,pw=W-L-Rr,ph=H-T-B;
+  const mx=niceMax(Math.max(...v,1));
+  for(let g=0;g<=4;g++){const y=T+ph-ph*g/4;svg.append(sv("line",{x1:L,x2:W-Rr,y1:y,y2:y,stroke:"var(--line)"}));svg.append(sv("text",{x:L-6,y:y+4,"text-anchor":"end"},String(Math.round(mx*g/4))));}
+  const n=v.length,step=pw/Math.max(n,1);
+  v.forEach((x,i)=>{const bw=step*0.6,bx=L+step*i+(step-bw)/2,bh=ph*x/mx;
+    svg.append(sv("rect",{x:bx,y:T+ph-bh,width:bw,height:bh,fill:CWARNA[i%8],rx:3}));
+    if(x>0)svg.append(sv("text",{x:bx+bw/2,y:T+ph-bh-4,"text-anchor":"middle",style:"font-size:11px"},String(x)));});
+  v.forEach((x,i)=>svg.append(sv("text",{x:L+step*(i+0.5),y:H-14,"text-anchor":"middle",style:"font-size:11px"},label[i])));
+  svg.append(sv("line",{x1:L,x2:L,y1:T,y2:T+ph,stroke:"var(--ink)"}));
+  svg.append(sv("line",{x1:L,x2:W-Rr,y1:T+ph,y2:T+ph,stroke:"var(--ink)"}));
+  return svg;
+}
+function drawLine(label,nilai,judul){
+  const W=600,H=320,svg=sv("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":judul||"Grafik garis"});
+  svg.append(sv("text",{x:W/2,y:20,"text-anchor":"middle",style:"font-size:14px;font-weight:700"},judul||""));
+  const v=nilai.map(x=>Math.max(0,Number(x)||0));
+  const L=55,Rr=10,T=36,B=36,pw=W-L-Rr,ph=H-T-B;
+  const mx=niceMax(Math.max(...v,1));
+  for(let g=0;g<=4;g++){const y=T+ph-ph*g/4;svg.append(sv("line",{x1:L,x2:W-Rr,y1:y,y2:y,stroke:"var(--line)"}));svg.append(sv("text",{x:L-6,y:y+4,"text-anchor":"end"},String(Math.round(mx*g/4))));}
+  const n=v.length,step=pw/Math.max(n,1);
+  const pts=v.map((x,i)=>[L+step*(i+0.5),T+ph-ph*x/mx]);
+  svg.append(sv("polyline",{points:pts.map(p=>p.join(",")).join(" "),fill:"none",stroke:"var(--c1)","stroke-width":3}));
+  pts.forEach((p,i)=>{svg.append(sv("circle",{cx:p[0],cy:p[1],r:5,fill:"var(--c1)"}));if(v[i]>0)svg.append(sv("text",{x:p[0],y:p[1]-9,"text-anchor":"middle",style:"font-size:11px"},String(v[i])));});
+  v.forEach((x,i)=>svg.append(sv("text",{x:L+step*(i+0.5),y:H-14,"text-anchor":"middle",style:"font-size:11px"},label[i])));
+  svg.append(sv("line",{x1:L,x2:L,y1:T,y2:T+ph,stroke:"var(--ink)"}));
+  svg.append(sv("line",{x1:L,x2:W-Rr,y1:T+ph,y2:T+ph,stroke:"var(--ink)"}));
+  return svg;
+}
+function drawPie(label,nilai,judul){
+  const W=500,H=310,svg=sv("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":judul||"Grafik lingkaran"});
+  svg.append(sv("text",{x:W/2,y:20,"text-anchor":"middle",style:"font-size:14px;font-weight:700"},judul||""));
+  const v=nilai.map(x=>Math.max(0,Number(x)||0)),tot=v.reduce((a,b)=>a+b,0);
+  if(tot<=0){svg.append(sv("text",{x:W/2,y:H/2,"text-anchor":"middle"},"Belum ada data"));return svg;}
+  const cx=160,cy=170,r=110;let a0=-Math.PI/2;
+  v.forEach((x,i)=>{if(x<=0)return;const fr=x/tot;
+    if(fr>0.9999){svg.append(sv("circle",{cx,cy,r,fill:CWARNA[i%8]}));}
+    else{const a1=a0+fr*2*Math.PI,big=fr>0.5?1:0;
+      svg.append(sv("path",{d:"M"+cx+","+cy+" L"+(cx+r*Math.cos(a0))+","+(cy+r*Math.sin(a0))+" A"+r+","+r+" 0 "+big+" 1 "+(cx+r*Math.cos(a1))+","+(cy+r*Math.sin(a1))+" Z",fill:CWARNA[i%8],stroke:"var(--surface)","stroke-width":2}));
+      a0=a1;}});
+  v.forEach((x,i)=>{const y=55+i*24;svg.append(sv("rect",{x:310,y:y-12,width:14,height:14,fill:CWARNA[i%8]}));svg.append(sv("text",{x:330,y},label[i]+": "+(Math.round(x/tot*1000)/10)+"%"));});
+  return svg;
+}
+function gambarGrafik(tipe,label,nilai,judul){
+  if(tipe==="pie")return drawPie(label,nilai,judul);
+  if(tipe==="line")return drawLine(label,nilai,judul);
+  return drawBar(label,nilai,judul);
 }
 
-/* INTI 4: QUIZ ANIMASI */
-function initQuizAnim(){
-  const soal=[
-    {q:"Fly-in setiap huruf satu per satu untuk teks judul slide",benar:"Mengganggu",jelas:"Animasi per huruf sangat lambat dan mengganggu, audience menunggu terlalu lama sebelum bisa membaca isi."},
-    {q:"Fade-in halus saat berpindah ke section baru presentasi",benar:"Membantu",jelas:"Transisi ringan seperti Fade membantu audience menyadari perpindahan topik tanpa mengalihkan perhatian."},
-    {q:"Objek 'bounce' terus-menerus saat slide sedang diam",benar:"Mengganggu",jelas:"Gerakan konstan saat slide diam mengalihkan perhatian dari penjelasan pembicara."},
-    {q:"Bullet point muncul satu per satu saat pembicara mengklik",benar:"Membantu",jelas:"Animasi Appear/Fade per poin fungsional: audience fokus pada poin yang sedang dibahas, bukan membaca semuanya sekaligus."},
-    {q:"Transisi berbeda-beda (Random) di setiap pergantian slide",benar:"Mengganggu",jelas:"Konsistensi transisi penting. Variasi transisi random terlihat tidak profesional dan memecah konsentrasi."}
+/* ===== MINISHEET ENGINE ===== */
+function buatMinisheet(container,baris,kolom,selData,tantangan,storeKey){
+  const R=baris,C=kolom;
+  const raw=Object.assign({},selData,store.get(storeKey,{}));
+  let cache=new Map(),aktif=new Set();
+  const nilaiAsli=(c,r)=>{
+    if(c<0||c>=C||r<0||r>=R)throw new Error("#REF!");
+    const id=kolHuruf(c)+(r+1);
+    if(cache.has(id)){const v=cache.get(id);if(v instanceof Error)throw v;return v;}
+    if(aktif.has(id))throw new Error("#CIRC!");
+    aktif.add(id);let v;const s=String(raw[id]===undefined?"":raw[id]).trim();
+    try{if(s==="")v=null;else if(s[0]==="=")v=evalRumus(s.slice(1),nilaiAsli);else if(/^-?\d+(\.\d+)?$/.test(s))v=parseFloat(s);else v=s;}
+    catch(e){v=e;}aktif.delete(id);cache.set(id,v);if(v instanceof Error)throw v;return v;};
+  const hitung=id=>{cache=new Map();aktif=new Set();const a=parseRef(id);try{return nilaiAsli(a.c,a.r);}catch(e){return e;}};
+  const fmt=v=>v instanceof Error?v.message:v===null?"":typeof v==="number"?String(Math.round(v*1e6)/1e6):v;
+  const addr=h("span",{class:"addr"},"–"),fx=h("span",{class:"fx"},"");
+  const tbl=h("table",{class:"ms"}),inputs={};
+  const head=h("tr",{},h("th",{class:"rh"},""));
+  for(let c=0;c<C;c++)head.append(h("th",{scope:"col"},kolHuruf(c)));
+  tbl.append(h("thead",{},head));
+  const tb=h("tbody");
+  for(let r=0;r<R;r++){
+    const tr=h("tr",{},h("th",{class:"rh",scope:"row"},r+1));
+    for(let c=0;c<C;c++){
+      const id=kolHuruf(c)+(r+1);
+      const inp=h("input",{type:"text","aria-label":"Sel "+id,autocomplete:"off",spellcheck:"false"});
+      inp.value=fmt(hitung(id));inputs[id]=inp;
+      inp.addEventListener("focus",()=>{addr.textContent=id;fx.textContent=raw[id]||"";inp.value=raw[id]===undefined?"":raw[id];});
+      inp.addEventListener("input",()=>{fx.textContent=inp.value;});
+      inp.addEventListener("blur",()=>{raw[id]=inp.value;simpan();segarkan();});
+      inp.addEventListener("keydown",e=>{
+        if(e.key==="Enter"||e.key==="ArrowDown"){e.preventDefault();const n=inputs[kolHuruf(c)+(r+2)];if(n)n.focus();else inp.blur();}
+        else if(e.key==="ArrowUp"){e.preventDefault();const n=inputs[kolHuruf(c)+r];if(n)n.focus();}
+      });
+      tr.append(h("td",{},inp));
+    }
+    tb.append(tr);
+  }
+  tbl.append(tb);
+  function simpan(){const u={};for(const k in raw)if(raw[k]!==(selData||{})[k]&&raw[k]!=="")u[k]=raw[k];store.set(storeKey,u);}
+  function segarkan(){
+    for(const id in inputs){if(document.activeElement===inputs[id])continue;const v=hitung(id);inputs[id].value=fmt(v);inputs[id].className=(v instanceof Error?"err":typeof v==="number"?"num":"");}
+    if(tantangan)cekTantangan(false);
+  }
+  let li_els=[];
+  const daftar=h("ul",{class:"tantangan"}),hasilEl=h("p",{class:"skor","aria-live":"polite"});
+  if(tantangan&&tantangan.length){
+    li_els=(tantangan||[]).map(t=>{const e=h("li",{},"☐ "+t.teks);daftar.append(e);return e;});
+  }
+  function cekTantangan(tampil){let ok=0;
+    (tantangan||[]).forEach((t,i)=>{const v=hitung(t.sel),rumus=String(raw[t.sel]||"").trim().startsWith("=");
+      const benar=typeof v==="number"&&Math.abs(v-t.nilai)<0.5&&(!t.wajibRumus||rumus);
+      li_els[i].classList.toggle("ok",benar);li_els[i].textContent=(benar?"✔ ":"☐ ")+t.teks;if(benar)ok++;});
+    if(tampil&&tantangan)hasilEl.textContent="Tantangan selesai: "+ok+" / "+tantangan.length;
+  }
+  container.append(h("div",{class:"ms-bar"},addr,fx),h("div",{class:"ms-wrap"},tbl));
+  if(tantangan&&tantangan.length)container.append(h("h4",{},"Tantangan"),daftar,h("button",{class:"btn",type:"button",onclick:()=>cekTantangan(true)},"Periksa jawaban"),hasilEl);
+  container.append(h("p",{},h("button",{class:"btn sec",type:"button",onclick:()=>{for(const k in raw)delete raw[k];Object.assign(raw,selData||{});store.set(storeKey,{});segarkan();}},"Reset lembar")));
+  cekTantangan(false);
+  return {inputs,hitung,raw};
+}
+
+/* ===== INTI 1: MAX MIN ===== */
+const BULAN=["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+const DATA_KUNJUNGAN=[312,298,345,367,289,401,356,412,378,445,398,421];
+function initInti1(){
+  const sel={A1:"Bulan",B1:"Kunjungan",C1:"Keterangan"};
+  BULAN.forEach((b,i)=>{sel["A"+(i+2)]=b;sel["B"+(i+2)]=String(DATA_KUNJUNGAN[i]);});
+  sel["A14"]="Tertinggi";sel["A15"]="Terendah";sel["A16"]="Rata-rata";
+  
+  const tantangan=[
+    {teks:"B14 = kunjungan rawat jalan tertinggi",sel:"B14",nilai:445,wajibRumus:true},
+    {teks:"B15 = kunjungan rawat jalan terendah",sel:"B15",nilai:289,wajibRumus:true},
+    {teks:"B16 = rata-rata kunjungan rawat jalan per bulan",sel:"B16",nilai:DATA_KUNJUNGAN.reduce((a,b)=>a+b,0)/12,wajibRumus:true}
   ];
-  const container=document.getElementById("quiz-anim-container");
+  buatMinisheet(document.getElementById("ms-inti1"),17,3,sel,tantangan,"ms-inti1");
+}
+
+/* ===== INTI 2: QUIZ GRAFIK ===== */
+function initQuizGrafik(){
+  const soal=[
+    {q:"Membandingkan jumlah kunjungan dari 5 poli berbeda bulan ini",benar:"Bar",opsi:["Bar","Line","Pie"],jelas:"Bar chart terbaik untuk membandingkan nilai antar kategori yang berbeda (poli, departemen, dll)."},
+    {q:"Menampilkan tren kunjungan pasien selama 12 bulan berturut-turut",benar:"Line",opsi:["Line","Bar","Pie"],jelas:"Line chart ideal untuk menunjukkan perubahan dari waktu ke waktu (tren)."},
+    {q:"Menampilkan proporsi pasien BPJS (65%) vs pasien umum (35%)",benar:"Pie",opsi:["Pie","Bar","Line"],jelas:"Pie chart digunakan untuk menampilkan bagian-bagian dari total 100%."},
+    {q:"Memperlihatkan perubahan BOR (Bed Occupancy Rate) tiap bulan",benar:"Line",opsi:["Line","Bar","Pie"],jelas:"Data berurutan per waktu paling cocok dengan Line chart untuk melihat tren naik-turun."},
+    {q:"Membandingkan jumlah Rawat Inap vs Rawat Jalan per triwulan",benar:"Bar",opsi:["Bar","Line","Pie"],jelas:"Bar chart grouped/stacked cocok untuk membandingkan beberapa kategori per periode."}
+  ];
+  const container=document.getElementById("quiz-grafik-container");
+  const skorEl=document.getElementById("quiz-grafik-skor");
   let jawab=new Array(soal.length).fill(null);
   soal.forEach((s,i)=>{
-    const div=h("div",{class:"anim-soal"});
+    const div=h("div",{class:"quiz-grafik-soal"});
     div.append(h("p",{},(i+1)+". "+s.q));
-    const fb=h("div",{class:"anim-fb","aria-live":"polite"});
-    const btnM=h("button",{type:"button",class:"anim-btn",onclick:()=>pilih(i,"Membantu",btnM,btnG,fb,s)},"Membantu");
-    const btnG=h("button",{type:"button",class:"anim-btn",onclick:()=>pilih(i,"Mengganggu",btnM,btnG,fb,s)},"Mengganggu");
-    div.append(h("div",{class:"anim-btns"},btnM,btnG),fb);
-    container.append(div);
-  });
-  function pilih(i,jawaban,bM,bG,fb,s){
-    if(jawab[i]!==null)return;
-    jawab[i]=jawaban;
-    bM.className="anim-btn"+(jawab[i]==="Membantu"?"Membantu"===s.benar?" membantu":" mengganggu":"");
-    bG.className="anim-btn"+(jawab[i]==="Mengganggu"?"Mengganggu"===s.benar?" mengganggu":" membantu":"");
-    bM.disabled=true;bG.disabled=true;
-    fb.textContent=(jawaban===s.benar?"Benar! ":"Kurang tepat. ")+s.jelas;
-    if(jawab.filter(j=>j!==null).length===soal.length){
-      document.getElementById("btn-cek-anim").style.display="";
-    }
-  }
-  document.getElementById("btn-cek-anim").addEventListener("click",()=>{
-    const b=jawab.filter((j,i)=>j===soal[i].benar).length;
-    const sk=document.getElementById("quiz-anim-skor");
-    sk.style.display="";sk.textContent="Skor: "+b+" / "+soal.length+": "+(b===soal.length?"Sempurna!":b>=3?"Bagus!":"Pelajari lagi.");
-  });
-}
-
-/* PRAKTIK: EDITOR SLIDE */
-const LAYOUTS=[
-  {nama:"Judul + Subjudul",kode:"a",desc:"Slide pembuka",fields:[{id:"judul",label:"Judul (max 8 kata)",type:"input"},{id:"sub",label:"Subjudul (max 10 kata)",type:"input"}]},
-  {nama:"Judul + 4 Poin",kode:"b",desc:"Konten utama",fields:[{id:"judul",label:"Judul",type:"input"},{id:"p1",label:"Poin 1 (≤8 kata)",type:"input"},{id:"p2",label:"Poin 2 (≤8 kata)",type:"input"},{id:"p3",label:"Poin 3 (≤8 kata)",type:"input"},{id:"p4",label:"Poin 4 (≤8 kata)",type:"input"}]},
-  {nama:"Judul + 2 Kolom",kode:"c",desc:"Perbandingan",fields:[{id:"judul",label:"Judul",type:"input"},{id:"k1judul",label:"Kolom Kiri (judul)",type:"input"},{id:"k1isi",label:"Kolom Kiri (isi)",type:"input"},{id:"k2judul",label:"Kolom Kanan (judul)",type:"input"},{id:"k2isi",label:"Kolom Kanan (isi)",type:"input"}]},
-  {nama:"Judul + Angka Besar",kode:"d",desc:"Statistik kunci",fields:[{id:"judul",label:"Judul",type:"input"},{id:"angka",label:"Angka Besar",type:"input"},{id:"keterangan",label:"Keterangan singkat",type:"input"}]}
-];
-let layoutAktif=0;
-let slideWarna={bg:"#ffffff",teks:"#12303a"};
-let nilaiField={};
-
-function setSlideWarna(bg,teks){
-  slideWarna={bg,teks};
-  renderSlideEditor();
-  nilaiPenilaian();
-}
-
-function renderSlideEditor(){
-  const preview=document.getElementById("slide-editor-preview");
-  const L=LAYOUTS[layoutAktif];
-  const v=nilaiField;
-  preview.style.background=slideWarna.bg;
-  preview.style.color=slideWarna.teks;
-  preview.textContent="";
-  if(L.kode==="a"){
-    const judulEl=h("div",{style:"font-size:22px;font-weight:700;margin-bottom:8px"},v.judul||"Judul Slide");
-    const subEl=h("div",{style:"font-size:16px;opacity:.8"},v.sub||"Subjudul / nama penyusun");
-    preview.append(judulEl,subEl);
-  }else if(L.kode==="b"){
-    preview.append(h("div",{style:"font-size:20px;font-weight:700;margin-bottom:8px;border-bottom:2px solid;padding-bottom:4px"},v.judul||"Judul Slide"));
-    const ul=h("ul",{style:"margin:0;padding-left:20px;font-size:15px;line-height:1.8"});
-    ["p1","p2","p3","p4"].forEach(k=>{if(v[k])ul.append(h("li",{},v[k]));});
-    if(!ul.children.length)ul.append(h("li",{},"Poin pertama..."));
-    preview.append(ul);
-  }else if(L.kode==="c"){
-    preview.append(h("div",{style:"font-size:20px;font-weight:700;margin-bottom:8px"},v.judul||"Judul"));
-    const grid=h("div",{style:"display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1"});
-    const k1=h("div",{style:"border:1px solid;border-radius:6px;padding:8px;font-size:13px"});k1.append(h("div",{style:"font-weight:700;margin-bottom:4px"},v.k1judul||"Kiri"),h("div",{},v.k1isi||"Isi kolom kiri"));
-    const k2=h("div",{style:"border:1px solid;border-radius:6px;padding:8px;font-size:13px"});k2.append(h("div",{style:"font-weight:700;margin-bottom:4px"},v.k2judul||"Kanan"),h("div",{},v.k2isi||"Isi kolom kanan"));
-    grid.append(k1,k2);preview.append(grid);
-  }else if(L.kode==="d"){
-    preview.append(h("div",{style:"font-size:18px;font-weight:700;margin-bottom:4px"},v.judul||"Statistik Kunci"));
-    preview.append(h("div",{style:"font-size:48px;font-weight:900;color:var(--c1);line-height:1"},v.angka||"1.254"));
-    preview.append(h("div",{style:"font-size:14px;opacity:.8"},v.keterangan||"Total kunjungan bulan ini"));
-  }
-}
-
-function hitungPoin(str){return str?str.trim().split(/\s+/).filter(Boolean).length:0;}
-
-function nilaiPenilaian(){
-  const penilai=document.getElementById("penilai");const skor=document.getElementById("skor-editor");
-  penilai.textContent="";
-  const L=LAYOUTS[layoutAktif];let ok=0,total=3;
-  // Kriteria 1: jumlah poin
-  let poinOk=true;
-  if(L.kode==="b"){const poin=["p1","p2","p3","p4"].filter(k=>nilaiField[k]).length;poinOk=poin<=6;}
-  penilai.append(h("div",{class:"penilai-baris"},h("span",{},"Jumlah poin ≤6"),h("span",{class:"penilai-badge "+(poinOk?"ok":"no")},poinOk?"✓ Terpenuhi":"✗ Terlalu banyak")));
-  if(poinOk)ok++;
-  // Kriteria 2: panjang poin
-  let panjangOk=true;
-  if(L.kode==="b"){["p1","p2","p3","p4"].forEach(k=>{if(nilaiField[k]&&hitungPoin(nilaiField[k])>8)panjangOk=false;});}
-  penilai.append(h("div",{class:"penilai-baris"},h("span",{},"Panjang per poin ≤8 kata"),h("span",{class:"penilai-badge "+(panjangOk?"ok":"no")},panjangOk?"✓ Terpenuhi":"✗ Ada poin terlalu panjang")));
-  if(panjangOk)ok++;
-  // Kriteria 3: kontras
-  const r=kontrasRasio(slideWarna.teks,slideWarna.bg);const kontrasOk=r>=4.5;
-  penilai.append(h("div",{class:"penilai-baris"},h("span",{},"Kontras warna ≥4,5:1"),h("span",{class:"penilai-badge "+(kontrasOk?"ok":"no")},kontrasOk?"✓ "+r.toFixed(1)+":1":"✗ "+r.toFixed(1)+":1, terlalu rendah")));
-  if(kontrasOk)ok++;
-  skor.textContent="Total skor: "+ok+" / "+total+" kriteria terpenuhi";
-}
-
-function initEditorSlide(){
-  // Layout kartu
-  const kartuWrap=document.getElementById("layout-kartu");
-  LAYOUTS.forEach((L,i)=>{
-    const btn=h("button",{type:"button",class:"lk"+(i===0?" aktif":""),onclick:()=>{
-      layoutAktif=i;nilaiField={};
-      $$(".lk",kartuWrap).forEach((b,j)=>b.classList.toggle("aktif",j===i));
-      renderForm();renderSlideEditor();nilaiPenilaian();
-    }},h("div",{style:"font-weight:700"},L.nama),h("div",{style:"font-size:.8rem;opacity:.7"},L.desc));
-    kartuWrap.append(btn);
-  });
-  function renderForm(){
-    const form=document.getElementById("editor-form");form.textContent="";
-    LAYOUTS[layoutAktif].fields.forEach(f=>{
-      const inp=h("input",{type:"text","aria-label":f.label,placeholder:f.label,oninput:()=>{nilaiField[f.id]=inp.value;renderSlideEditor();nilaiPenilaian();}});
-      inp.value=nilaiField[f.id]||"";
-      form.append(h("label",{},h("span",{},f.label),inp));
+    const opsiDiv=h("div",{class:"grafik-opsi"});
+    const fb=h("div",{class:"grafik-fb","aria-live":"polite"});
+    const btns=s.opsi.map(o=>{
+      const btn=h("button",{type:"button",class:"grafik-btn",onclick:()=>{
+        if(jawab[i]!==null)return;
+        jawab[i]=o;
+        btns.forEach(b=>{
+          const bTxt=b.textContent;
+          b.className="grafik-btn "+(bTxt===s.benar?"benar":bTxt===o&&o!==s.benar?"salah":"");
+          b.disabled=true;
+        });
+        fb.textContent=(o===s.benar?"Benar! ":"Kurang tepat. ")+s.jelas;
+        updateSkor();
+      }},o+" chart");
+      return btn;
     });
+    btns.forEach(b=>opsiDiv.append(b));
+    div.append(opsiDiv,fb);container.append(div);
+  });
+  function updateSkor(){const done=jawab.filter(j=>j!==null).length,benar=jawab.filter((j,i)=>j===soal[i].benar).length;
+    if(done>0)skorEl.textContent="Benar: "+benar+" / "+done+" soal dijawab"+(done===soal.length?". Selesai!":"");}
+}
+
+/* ===== INTI 3: GRAFIK INTERAKTIF ===== */
+const POLI_DATA=[["Poli Umum",145],["Poli Gigi",82],["Poli Anak",67],["Poli THT",53],["Poli Jantung",41],["Poli Kandungan",78]];
+function initInti3(){
+  const tbody=document.getElementById("chart3-tbody");
+  const nilaiArr=POLI_DATA.map(p=>p[1]);
+  const labelArr=POLI_DATA.map(p=>p[0]);
+  POLI_DATA.forEach((p,i)=>{
+    const inpV=h("input",{type:"number",min:"0",value:p[1],"aria-label":"Nilai "+p[0],oninput:()=>{nilaiArr[i]=Number(inpV.value)||0;draw();}});
+    tbody.append(h("tr",{},h("td",{},labelArr[i]),h("td",{},inpV)));
+  });
+  const area=document.getElementById("chart3-area");
+  const tipeEl=document.getElementById("chart3-tipe");
+  tipeEl.addEventListener("change",draw);
+  function draw(){area.textContent="";area.append(gambarGrafik(tipeEl.value,labelArr,nilaiArr,"Kunjungan per Poli - RS Sehat Citra"));}
+  draw();
+}
+
+/* ===== INTI 4: BOR ===== */
+function initInti4(){
+  const sel={A1:"Bulan",B1:"BOR (%)",A2:"Januari",B2:"72",A3:"Februari",B3:"68",A4:"Maret",B4:"75",A5:"April",B5:"81",A6:"Mei",B6:"79",A7:"Juni",B7:"83",A8:"Rata-rata BOR"};
+  const tantangan=[{teks:"B8 = rata-rata BOR enam bulan",sel:"B8",nilai:(72+68+75+81+79+83)/6,wajibRumus:true}];
+  buatMinisheet(document.getElementById("ms-inti4"),9,2,sel,tantangan,"ms-inti4");
+  // Interpretasi
+  const ta=document.getElementById("interpretasi-ta");
+  ta.value=store.get("interpretasi","");
+  ta.addEventListener("input",()=>store.set("interpretasi",ta.value));
+}
+
+/* ===== PRAKTIK: STUDI KASUS ===== */
+const BDATA={
+  rj:[312,298,345,367,289,401,356,412,378,445,398,421],
+  ri:[87,79,92,101,74,115,98,122,109,131,118,127],
+  igd:[43,38,47,52,35,61,54,67,59,73,65,70]
+};
+function initPraktik(){
+  const sel={A1:"Bulan",B1:"Rawat Jalan",C1:"Rawat Inap",D1:"IGD",E1:"Total"};
+  BULAN.forEach((b,i)=>{
+    sel["A"+(i+2)]=b;
+    sel["B"+(i+2)]=String(BDATA.rj[i]);
+    sel["C"+(i+2)]=String(BDATA.ri[i]);
+    sel["D"+(i+2)]=String(BDATA.igd[i]);
+  });
+  sel["A14"]="Tertinggi";sel["A15"]="Rata-rata";
+  const totBenar=BULAN.map((_,i)=>BDATA.rj[i]+BDATA.ri[i]+BDATA.igd[i]);
+  const maxTot=Math.max(...totBenar),avgTot=totBenar.reduce((a,b)=>a+b,0)/12;
+  const tantangan=[
+    {teks:"E2 = total kunjungan bulan Januari",sel:"E2",nilai:totBenar[0],wajibRumus:true},
+    {teks:"E14 = total kunjungan tertinggi",sel:"E14",nilai:maxTot,wajibRumus:true},
+    {teks:"E15 = rata-rata total kunjungan per bulan",sel:"E15",nilai:avgTot,wajibRumus:true}
+  ];
+  const ms=buatMinisheet(document.getElementById("ms-praktik"),16,5,sel,tantangan,"ms-praktik");
+  // Grafik praktik
+  const chartArea=document.getElementById("chart-praktik-area");
+  const tipeEl=document.getElementById("chart-praktik-tipe");
+  function drawPraktik(){
+    chartArea.textContent="";
+    const vals=BULAN.map((_,i)=>{const id="E"+(i+2);const v=ms.hitung(id);return typeof v==="number"?v:totBenar[i];});
+    chartArea.append(gambarGrafik(tipeEl.value,BULAN,vals,"Total Kunjungan RS Sehat Citra 2026"));
   }
-  renderForm();renderSlideEditor();nilaiPenilaian();
+  document.getElementById("btn-update-grafik").addEventListener("click",drawPraktik);
+  tipeEl.addEventListener("change",drawPraktik);
+  drawPraktik();
+  // Interpretasi
+  const ta=document.getElementById("interpretasi-praktik");
+  ta.value=store.get("interpretasi-praktik","");
+  ta.addEventListener("input",()=>store.set("interpretasi-praktik",ta.value));
 }
 
 /* REFLEKSI */
@@ -633,7 +801,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("hero-cpmk").textContent=KONFIG.cpmk;
   KONFIG.tujuan.forEach(t=>document.getElementById("hero-tujuan").append(h("li",{},t)));
   $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal: "+e.message));}});
-  hitungKontras();updateSlideTeks();initQuizAnim();initEditorSlide();initRefleksi();
+  initInti1();initQuizGrafik();initInti3();initInti4();initPraktik();initRefleksi();
   initSegmen();
   window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
 });

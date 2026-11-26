@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 07: Excel Lanjutan: Grafik &amp; Statistik | Komputer Rumah Sakit</title>
+<title>Pertemuan 07: Microsoft Excel Dasar | Komputer Rumah Sakit</title>
 <style>
 :root{
-  --bg:#f6faf9;--surface:#fff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
-  --primary:#0b7285;--primary-ink:#fff;--primary-soft:#d3f0f4;
+  --bg:#f6faf9;--surface:#ffffff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
+  --primary:#0b7285;--primary-ink:#ffffff;--primary-soft:#d3f0f4;
   --accent:#e8590c;--ok:#2b8a3e;--ok-soft:#dff3e3;--warn:#e67700;--bad:#c92a2a;--bad-soft:#fbe1e1;
   --c1:#0b7285;--c2:#e8590c;--c3:#7048e8;--c4:#2b8a3e;--c5:#c2255c;--c6:#f08c00;--c7:#1971c2;--c8:#5c940d;
   --shadow:0 1px 2px rgba(18,48,58,.08),0 6px 18px rgba(18,48,58,.06);--r:12px;
@@ -18,15 +18,19 @@
   --accent:#ff922b;--ok:#69db7c;--ok-soft:#173a22;--warn:#ffc078;--bad:#ff8787;--bad-soft:#4a1d1d;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
 }}
-*{box-sizing:border-box}html{scroll-behavior:smooth;color-scheme:light dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
 body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,"Segoe UI",Roboto,sans-serif}
 a{color:var(--primary)}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
 .skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:99}
-button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
 .btn{background:var(--primary);color:var(--primary-ink);border:0;border-radius:8px;padding:8px 16px;font-weight:600}
-.btn:hover{filter:brightness(1.08)}.btn.sec{background:var(--primary-soft);color:var(--ink)}
-.btn.accent{background:var(--accent);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:var(--primary-soft);color:var(--ink)}
+.btn.accent{background:var(--accent);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 .top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
   padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
 .top h1{font-size:1.05rem;margin:0;flex:1 1 280px;line-height:1.3}
@@ -38,13 +42,17 @@ nav.agenda{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100
   background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
 nav.agenda h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:4px 8px 8px}
 nav.agenda a{display:flex;gap:8px;align-items:baseline;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;line-height:1.35}
-nav.agenda a:hover{background:var(--primary-soft)}nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
+nav.agenda a:hover{background:var(--primary-soft)}
+nav.agenda a[aria-current="true"]{background:var(--primary-soft);font-weight:700}
 nav.agenda .mnt{flex:none;min-width:58px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
 nav.agenda .tick{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
-nav.agenda a.done .tick{visibility:visible}main{min-width:0}
+nav.agenda a.done .tick{visibility:visible}
+main{min-width:0}
 .hero{background:linear-gradient(135deg,var(--primary),#1a8da0);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
 .hero .kode{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 12px;font-size:.85rem;font-weight:600}
-.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}.hero p{margin:6px 0;opacity:.95}.hero ul{margin:8px 0 0;padding-left:20px}
+.hero h2{margin:10px 0 6px;font-size:1.9rem;line-height:1.2}
+.hero p{margin:6px 0;opacity:.95}
+.hero ul{margin:8px 0 0;padding-left:20px}
 @media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#0e5560,#12707f)}}
 .seg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:90px}
 .seg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
@@ -54,10 +62,13 @@ nav.agenda a.done .tick{visibility:visible}main{min-width:0}
 
 .seg-foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
 .seg.done{border-left:6px solid var(--ok)}
-h4{margin:18px 0 6px;font-size:1.1rem}p{margin:8px 0}
+h4{margin:18px 0 6px;font-size:1.1rem}
+p{margin:8px 0}
 .cerita{border-left:5px solid var(--accent);background:var(--bg);padding:10px 16px;border-radius:0 8px 8px 0;font-style:italic}
 .note{background:var(--primary-soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.95rem}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.warn-box{background:var(--bad-soft);border-radius:8px;padding:10px 14px;margin:12px 0}
+.err{color:var(--bad);font-weight:700}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
 .card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
 table.data{border-collapse:collapse;width:100%;font-size:.95rem}
 table.data th,table.data td{border:1px solid var(--line);padding:6px 10px;text-align:left}
@@ -73,737 +84,981 @@ details>div,details>p{padding:8px 14px}
 .quiz legend{font-weight:700;padding:0 6px}
 .quiz label{display:block;padding:6px 10px;border-radius:8px;cursor:pointer}
 .quiz label:hover{background:var(--primary-soft)}
-.quiz label.benar{background:var(--ok-soft)}.quiz label.salah{background:var(--bad-soft)}
-.quiz .fb{font-size:.95rem;margin:6px 0 0}.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+.quiz label.benar{background:var(--ok-soft)}
+.quiz label.salah{background:var(--bad-soft)}
+.quiz .fb{font-size:.95rem;margin:6px 0 0}
+.quiz .skor{font-weight:700;font-size:1.05rem;margin:10px 0}
+.dm{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:700px){.dm{grid-template-columns:1fr}}
+.dm-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch;margin:6px 0}
+.dm-slot{min-height:44px;border:2px dashed var(--line);border-radius:8px;padding:6px 10px;background:var(--bg);text-align:left}
+.dm-slot.isi{border-style:solid;border-color:var(--primary)}
+.dm-slot.benar{border-color:var(--ok);background:var(--ok-soft)}
+.dm-slot.salah{border-color:var(--bad);background:var(--bad-soft)}
+.dm-bank{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.dm-item{border:2px solid var(--primary);background:var(--surface);border-radius:8px;padding:6px 12px}
+.dm-item.pilih{background:var(--primary);color:var(--primary-ink)}
+.hs-stage{position:relative;max-width:640px;margin:0 auto;border:1px solid var(--line);border-radius:10px;background:var(--bg);overflow:hidden}
+.hs-stage svg{display:block;width:100%;height:auto}
+.hs-dot{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;
+  border:3px solid #fff;background:var(--accent);color:#fff;font-weight:700;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.hs-dot{width:28px;height:28px;font-size:.85rem}
+.hs-dot[aria-pressed="true"]{background:var(--primary)}
+.hs-info{max-width:640px;margin:10px auto 0;min-height:70px;background:var(--primary-soft);border-radius:10px;padding:10px 14px}
+.checklist{list-style:none;padding:0;margin:8px 0}
+.checklist li{margin:4px 0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:6px}
+.checklist input{width:20px;height:20px;margin-top:4px;flex:none}
+.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}
+.prog{height:12px;background:var(--primary-soft);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.ms-wrap{overflow:auto;border:1px solid var(--line);border-radius:8px;max-height:480px}
+table.ms{border-collapse:collapse;font-size:.95rem;min-width:100%}
+table.ms th{background:var(--primary-soft);position:sticky;top:0;z-index:1;border:1px solid var(--line);padding:2px 8px;font-weight:600}
+table.ms th.rh{position:sticky;left:0;top:auto;z-index:1}
+table.ms td{border:1px solid var(--line);padding:0;min-width:96px}
+table.ms input{width:100%;border:0;background:transparent;padding:4px 8px;font-size:.95rem}
+table.ms input:focus{background:var(--primary-soft);outline:2px solid var(--primary);outline-offset:-2px}
+table.ms input.num{text-align:right}
+table.ms input.err{color:var(--bad)}
+.ms-bar{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.ms-bar .addr{min-width:54px;font-weight:700;background:var(--primary-soft);padding:2px 10px;border-radius:6px;text-align:center}
+.ms-bar .fx{flex:1;min-width:160px;font-family:ui-monospace,Consolas,monospace;border:1px solid var(--line);border-radius:6px;padding:4px 10px;background:var(--surface)}
+.shot{margin:12px 0;text-align:center}
+.shot img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);background:#fff}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;background:var(--bg);font-size:.9em}
+.excel-intro{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.excel-intro>div{flex:1 1 320px}
+.excel-logo{width:96px;height:96px;flex:none}
+.cs td{min-width:64px}
+.cs td button{display:block;width:100%;min-height:38px;border:0;background:transparent}
+.cs td button:hover{background:var(--primary-soft)}
+.tantangan{list-style:none;padding:0}
+.tantangan li{padding:6px 10px;margin:4px 0;border-radius:8px;background:var(--bg);border:1px solid var(--line);font-size:.95rem}
+.tantangan li.ok{background:var(--ok-soft);border-color:var(--ok)}
 textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
 .banding{display:grid;gap:8px;max-width:520px}
 .banding .row{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center}
 .banding .track{height:18px;background:var(--primary-soft);border-radius:99px;overflow:hidden}
 .banding .track i{display:block;height:100%;background:var(--primary);width:0;transition:width .4s}
 .banding .row.post .track i{background:var(--ok)}
-/* Minisheet */
-.ms-wrap{overflow:auto;border:1px solid var(--line);border-radius:8px;max-height:480px}
-table.ms{border-collapse:collapse;font-size:.92rem;min-width:100%}
-table.ms th{background:var(--primary-soft);position:sticky;top:0;z-index:1;border:1px solid var(--line);padding:2px 8px;font-weight:600;white-space:nowrap}
-table.ms th.rh{position:sticky;left:0;top:auto;z-index:1}
-table.ms td{border:1px solid var(--line);padding:0;min-width:90px}
-table.ms input{width:100%;border:0;background:transparent;padding:4px 8px;font-size:.92rem}
-table.ms input:focus{background:var(--primary-soft);outline:2px solid var(--primary);outline-offset:-2px}
-table.ms input.num{text-align:right}table.ms input.err{color:var(--bad)}
-.ms-bar{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
-.ms-bar .addr{min-width:54px;font-weight:700;background:var(--primary-soft);padding:2px 10px;border-radius:6px;text-align:center}
-.ms-bar .fx{flex:1;min-width:160px;font-family:ui-monospace,Consolas,monospace;border:1px solid var(--line);border-radius:6px;padding:4px 10px;background:var(--surface)}
-.tantangan{list-style:none;padding:0}
-.tantangan li{padding:6px 10px;margin:4px 0;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
-.tantangan li.ok{background:var(--ok-soft);border-color:var(--ok)}
-/* Chart */
-.chart-wrap svg{width:100%;height:auto;max-width:640px;display:block;margin:0 auto}
-.chart-wrap svg text{fill:var(--ink);font-size:12px}
-.chart-ctl{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
-.chart-tbl{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px;max-width:400px}
-.chart-tbl th,.chart-tbl td{border:1px solid var(--line);padding:4px 8px}
-.chart-tbl th{background:var(--primary-soft)}
-.chart-tbl input{width:100%;border:0;background:transparent;padding:2px 6px;font-size:.9rem}
-/* Quiz grafik */
-.quiz-grafik-soal{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
-.quiz-grafik-soal p{margin:0 0 8px;font-weight:700}
-.grafik-opsi{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0}
-.grafik-btn{border:2px solid var(--line);border-radius:8px;background:var(--surface);padding:6px 12px;cursor:pointer;font-size:.9rem}
-.grafik-btn:hover{border-color:var(--primary)}
-.grafik-btn.pilih{border-color:var(--primary);background:var(--primary-soft)}
-.grafik-btn.benar{border-color:var(--ok);background:var(--ok-soft)}
-.grafik-btn.salah{border-color:var(--bad);background:var(--bad-soft)}
-.grafik-fb{font-size:.9rem;color:var(--muted);margin-top:4px}
+.kode-box{font-family:ui-monospace,Consolas,monospace;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 12px;font-size:.95rem;display:inline-block;margin:2px 0}
 @media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-@media print{:root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}body{font-size:12pt}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
+  body{font-size:12pt}
   .top,nav.agenda,.seg-foot,.btn,.skip{display:none!important}
-  .wrap{display:block;padding:0}.seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
-  .hero{background:#fff;color:#000}}
+  .wrap{display:block;padding:0}
+  .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
+  .hero{background:#fff;color:#000}
+}
 
 /* Tanpa sidebar agenda, dengan layar penuh */
 nav.agenda{display:none!important}
 .wrap{display:block!important;max-width:1200px}
 :fullscreen .wrap{max-width:1500px}
 :-webkit-full-screen .wrap{max-width:1500px}
-.kode-box{font-family:ui-monospace,Consolas,monospace;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 10px;font-size:.95rem;display:inline-block;margin:2px 0}
-.warn-box{background:var(--bad-soft);border-radius:8px;padding:10px 14px;margin:12px 0}
-.shot{margin:12px 0;text-align:center}
-.shot img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);background:#fff}
-kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;background:var(--bg);font-size:.9em}
-.jenis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.jenis-grid .card img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
 </style>
 </head>
 <body>
 <a class="skip" href="#konten">Lewati ke konten</a>
+
 <header class="top">
-  <h1><span id="hdr-judul">Excel Lanjutan: Grafik &amp; Statistik</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 07</small></h1>
+  <h1><span id="hdr-judul">Microsoft Excel Dasar</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 07</small></h1>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
+
 <div class="wrap">
   <nav class="agenda" aria-label="Agenda 90 menit">
     <h2>Agenda 90 menit</h2>
     <div class="list" id="agenda"></div>
   </nav>
+
   <main id="konten">
     <div class="hero">
       <span class="kode" id="hero-kode">Pertemuan 07 · CPMK-2</span>
-      <h2 id="hero-judul">Microsoft Excel Lanjutan: Grafik &amp; Statistik</h2>
-      <p id="hero-cpmk">CPMK-2: Mampu menyusun laporan dengan fungsi visual dan statistik pada MS Excel.</p>
+      <h2 id="hero-judul">Microsoft Excel Dasar</h2>
+      <p id="hero-cpmk"></p>
       <ul id="hero-tujuan"></ul>
     </div>
 
+    <!-- ===== PENGENALAN EXCEL ===== -->
+    <section class="seg" id="seg-pengenalan" data-judul="Mengenal Microsoft Excel" data-min="5">
+      <div class="excel-intro">
+        <img class="excel-logo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Microsoft_Office_Excel_(2019%E2%80%93present).svg" alt="Logo Microsoft Excel" width="96" height="96" loading="lazy">
+        <div>
+          <p><strong>Microsoft Excel</strong> adalah aplikasi <em>spreadsheet</em> (lembar kerja) dari Microsoft untuk mengolah data dalam bentuk tabel berisi baris dan kolom. Excel tidak hanya menyimpan data, tetapi juga <strong>menghitung otomatis</strong> memakai rumus.</p>
+          <p class="kriteria">Sumber logo: <a href="https://commons.wikimedia.org/wiki/File:Microsoft_Office_Excel_(2019%E2%80%93present).svg" target="_blank" rel="noopener">Wikimedia Commons, Microsoft Office Excel (2019–present).svg</a>. Logo adalah merek dagang Microsoft Corporation.</p>
+        </div>
+      </div>
 
-    <!-- PRE-TEST -->
+      <h4>Apa gunanya Excel di rumah sakit?</h4>
+      <div class="grid2">
+        <div class="card"><strong>Rekap kunjungan</strong><p style="font-size:.92rem">Total pasien per poli, per hari, atau per bulan.</p></div>
+        <div class="card"><strong>Stok obat dan logistik</strong><p style="font-size:.92rem">Nilai stok, barang masuk dan keluar.</p></div>
+        <div class="card"><strong>Biaya dan billing</strong><p style="font-size:.92rem">Harga × jumlah, total tagihan, anggaran.</p></div>
+        <div class="card"><strong>Laporan dan grafik</strong><p style="font-size:.92rem">Bahan laporan rapat, misalnya tren kunjungan (dipelajari di Pertemuan 09).</p></div>
+      </div>
+
+      <h4>Istilah penting</h4>
+      <table class="data">
+        <thead><tr><th>Istilah</th><th>Artinya</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Workbook</strong></td><td>Satu berkas Excel (.xlsx), ibarat buku.</td></tr>
+          <tr><td><strong>Worksheet</strong></td><td>Satu lembar di dalam workbook, ibarat halaman buku.</td></tr>
+          <tr><td><strong>Cell</strong></td><td>Satu kotak tempat data, hasil pertemuan baris dan kolom.</td></tr>
+          <tr><td><strong>Formula</strong></td><td>Rumus yang diawali tanda =, agar Excel menghitung sendiri.</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Aplikasi sejenis:</strong> Google Sheets (daring) dan LibreOffice Calc (gratis) memakai konsep yang sama, jadi yang dipelajari hari ini tetap berguna di sana.</div>
+    </section>
+
+    <!-- ===== PRE-TEST ===== -->
     <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
-      <p>Jawab dulu tanpa takut salah, untuk melihat titik awal pengetahuanmu.</p>
+      <p>Jawab dulu tanpa takut salah, ini hanya untuk melihat titik awal kalian sebelum belajar.</p>
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test","soal":[
-        {"q":"Fungsi MAX(A1:A10) di Excel mengembalikan:","opsi":["Jumlah semua nilai","Nilai terbesar","Nilai terkecil","Rata-rata nilai"],"benar":1,"jelas":"MAX() mencari dan mengembalikan nilai terbesar dalam rentang sel yang ditentukan."},
-        {"q":"Jenis grafik Line (garis) paling cocok untuk menampilkan:","opsi":["Perbandingan antar kategori","Proporsi bagian dari keseluruhan","Tren data dari waktu ke waktu","Hubungan dua variabel kontinu"],"benar":2,"jelas":"Grafik Line terbaik untuk menunjukkan perubahan/tren data sepanjang waktu, misalnya kunjungan pasien per bulan."},
-        {"q":"Grafik Pie (lingkaran) paling cocok untuk menampilkan:","opsi":["Tren kunjungan 12 bulan","Proporsi jenis pasien (BPJS vs Umum)","Perbandingan kunjungan 10 poli","Data kunjungan harian"],"benar":1,"jelas":"Pie chart ideal untuk menunjukkan proporsi/persentase bagian dari total keseluruhan (100%)."},
-        {"q":"Untuk membuat grafik di Excel, langkah pertama adalah:","opsi":["Insert → Chart","Data → Chart","Home → Grafik","File → New Chart"],"benar":0,"jelas":"Pilih data terlebih dahulu, lalu klik Insert → Chart (atau ikon grafik) untuk membuka galeri tipe grafik."},
-        {"q":"Fungsi AVERAGE(B2:B13) di Excel menghitung:","opsi":["Jumlah semua sel","Nilai tengah (median)","Rata-rata aritmetika","Standar deviasi"],"benar":2,"jelas":"AVERAGE() menghitung rata-rata aritmetika: jumlah semua nilai dibagi banyaknya nilai."}
+        {"q":"Kotak kecil di pojok kiri atas lembar kerja Excel yang menampilkan alamat sel aktif disebut…","opsi":["Formula Bar","Name Box","Cell Pointer","Status Bar"],"benar":1,"jelas":"Name Box menampilkan alamat sel aktif (mis. B3). Formula Bar ada di sebelah kanannya untuk menampilkan isi/rumus sel."},
+        {"q":"Sel C5 berarti sel yang berada di…","opsi":["Baris C, Kolom 5","Kolom C, Baris 5","Kolom 5, Baris C","Baris 3, Kolom 5"],"benar":1,"jelas":"Konvensi Excel: huruf = kolom, angka = baris. Jadi C5 = Kolom C, Baris 5."},
+        {"q":"Data '2026-03-15' yang diketik di sel Excel paling tepat bertipe…","opsi":["Teks","Angka","Tanggal","Boolean"],"benar":2,"jelas":"Format YYYY-MM-DD dikenali Excel sebagai tipe Tanggal (Date). Tanggal disimpan sebagai angka serial, sehingga bisa dihitung selisihnya."},
+        {"q":"Rumus manakah yang benar untuk menjumlahkan sel B2 sampai B10?","opsi":["=JUMLAH(B2:B10)","=SUM(B2,B10)","=SUM(B2:B10)","SUM(B2:B10)"],"benar":2,"jelas":"=SUM(B2:B10) menggunakan titik dua (:) untuk rentang dan harus diawali tanda = agar Excel mengenalinya sebagai rumus."},
+        {"q":"Hasil dari rumus =5+3*2 di Excel adalah…","opsi":["16","11","13","10"],"benar":1,"jelas":"Excel mengikuti urutan operasi matematika: perkalian (*) dikerjakan sebelum penjumlahan (+). Jadi 3×2=6, lalu 5+6=11."}
       ]}
       </script>
     </section>
 
-    <!-- INTI 1 -->
-    <section class="seg" id="seg-inti1" data-judul="Fungsi MAX dan MIN" data-min="15">
-      <h4>Apa itu MAX dan MIN?</h4>
-      <p><strong>MAX</strong> dan <strong>MIN</strong> adalah fungsi Excel untuk mencari <strong>nilai terbesar</strong> dan <strong>nilai terkecil</strong> dari sekumpulan angka. Di rumah sakit, keduanya dipakai untuk menjawab pertanyaan seperti "kapan kunjungan paling ramai?" dan "kapan paling sepi?" tanpa perlu membaca angka satu per satu.</p>
-      <table class="data">
-        <thead><tr><th>Fungsi</th><th>Kegunaan</th><th>Contoh di RS</th><th>Contoh rumus</th><th>Hasil (data di bawah)</th></tr></thead>
-        <tbody>
-          <tr><td><strong>MAX</strong></td><td>Nilai terbesar dalam rentang</td><td>Bulan dengan kunjungan tertinggi</td><td><span class="kode-box">=MAX(E2:E13)</span></td><td>649</td></tr>
-          <tr><td><strong>MIN</strong></td><td>Nilai terkecil dalam rentang</td><td>Bulan dengan kunjungan terendah</td><td><span class="kode-box">=MIN(E2:E13)</span></td><td>398</td></tr>
-          <tr><td><strong>AVERAGE</strong></td><td>Rata-rata (dipelajari di P06)</td><td>Rata-rata kunjungan per bulan</td><td><span class="kode-box">=AVERAGE(E2:E13)</span></td><td>528,25</td></tr>
-        </tbody>
-      </table>
-      <p class="kriteria">Penulisannya sama dengan SUM: tanda =, nama fungsi, lalu rentang di dalam kurung. MAX dan MIN hanya mengambil angka, sel berisi teks diabaikan.</p>
+    <!-- ===== INTI 1: Anatomi Lembar Kerja ===== -->
+    <section class="seg" id="seg-inti1" data-judul="Anatomi Lembar Kerja" data-min="10">
+      <p>Sebelum mengetik rumus, kita harus tahu <em>di mana</em> setiap bagian Excel berada. Klik titik bernomor pada gambar untuk melihat penjelasannya.</p>
 
-      <h4>Cara menggunakan MAX dan MIN</h4>
-      <p>Data: kunjungan 12 bulan RS Sehat Citra (fiktif). Kolom Total sudah berisi jumlah Rawat Jalan, Rawat Inap, dan IGD.</p>
-      <figure class="shot"><img src="gambar/p07-maxmin-1.png" alt="Mengetik =MAX(E2:E13 di sel E15; rentang E2 sampai E13 diberi kotak berwarna dan muncul petunjuk MAX(number1, [number2], ...)" loading="lazy"></figure>
-      <ol>
-        <li>Klik sel tujuan, yaitu <strong>E15</strong>, lalu ketik <span class="kode-box">=MAX(</span>.</li>
-        <li>Pilih atau ketik rentangnya, <span class="kode-box">E2:E13</span>. Sel yang dipakai diberi kotak berwarna.</li>
-        <li>Petunjuk di bawah sel menampilkan bentuk fungsi: <em>MAX(number1, [number2], ...)</em>. Tutup kurung lalu tekan <kbd>Enter</kbd>.</li>
-      </ol>
-      <figure class="shot"><img src="gambar/p07-maxmin-2.png" alt="Sel E15 menampilkan 649, E16 menampilkan 398, dan E17 menampilkan 528,25 dengan Formula Bar menunjukkan rumus AVERAGE" loading="lazy"></figure>
-      <ol>
-        <li>Hasil <span class="kode-box">=MAX(E2:E13)</span> di E15: <strong>649</strong> (bulan Oktober).</li>
-        <li>Hasil <span class="kode-box">=MIN(E2:E13)</span> di E16: <strong>398</strong> (bulan Mei).</li>
-        <li>Hasil <span class="kode-box">=AVERAGE(E2:E13)</span> di E17: <strong>528,25</strong>.</li>
-        <li>Formula Bar menampilkan rumus dari sel yang sedang dipilih.</li>
-      </ol>
-      <div class="note"><strong>MAX hanya memberi angkanya, bukan namanya.</strong> Untuk tahu bulan apa yang punya angka 649, cari angka itu di tabel (misalnya dengan melihat baris yang sejajar). Selalu sebutkan keduanya di laporan: "tertinggi 649 kunjungan pada bulan Oktober".</div>
-
-      <h4>Latihan: kunjungan rawat jalan 12 bulan</h4>
-      <p>Isi sel B14, B15, dan B16 dengan fungsi yang tepat.</p>
-      <div id="ms-inti1"></div>
-      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026): <a href="https://support.microsoft.com/en-us/office/max-function-e0012414-9ac8-4b34-9a47-73e662c08098" target="_blank" rel="noopener">MAX function</a></p>
-    </section>
-
-    <!-- INTI 2 -->
-    <section class="seg" id="seg-inti2" data-judul="Mengenal Grafik dan Jenisnya" data-min="10">
-      <h4>Apa itu grafik?</h4>
-      <p><strong>Grafik</strong> (chart) adalah gambar yang mewakili angka di dalam tabel, supaya pola data terlihat sekilas. Daftar 12 angka sulit dibandingkan dengan cepat, tetapi satu garis naik-turun langsung menunjukkan kapan kunjungan memuncak. Di Excel, grafik selalu dibuat dari data di lembar kerja dan <strong>ikut berubah otomatis</strong> kalau datanya diubah.</p>
-
-      <h4>Bagian-bagian grafik</h4>
-      <table class="data">
-        <thead><tr><th>Bagian</th><th>Fungsi</th><th>Pada contoh kunjungan</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Judul grafik</strong> (Chart Title)</td><td>Menjelaskan isi grafik</td><td>Tren Kunjungan Pasien RS Sehat Citra 2026</td></tr>
-          <tr><td><strong>Sumbu horizontal</strong> (sumbu X)</td><td>Kategori atau waktu</td><td>Jan sampai Des</td></tr>
-          <tr><td><strong>Sumbu vertikal</strong> (sumbu Y)</td><td>Skala nilai</td><td>0 sampai 700 kunjungan</td></tr>
-          <tr><td><strong>Seri data</strong> (Series)</td><td>Satu kelompok angka yang digambar</td><td>Kolom Total</td></tr>
-          <tr><td><strong>Legenda</strong> (Legend)</td><td>Keterangan warna tiap seri</td><td>Rawat Jalan, Rawat Inap, IGD</td></tr>
-        </tbody>
-      </table>
-
-      <h4>Tiga jenis grafik yang paling sering dipakai</h4>
-      <p>Ketiganya dibuat dari data kunjungan RS Sehat Citra di Excel asli.</p>
-      <div class="jenis-grid">
-        <div class="card">
-          <img src="gambar/p07-jenis-line.png" alt="Grafik garis total kunjungan per bulan Januari sampai Desember" loading="lazy">
-          <p><strong>Grafik garis (Line)</strong></p>
-          <p style="font-size:.92rem"><strong>Untuk:</strong> melihat <em>tren</em> dari waktu ke waktu. <strong>Contoh:</strong> kunjungan per bulan, BOR tiap bulan.</p>
+      <div data-widget="hotspot">
+        <div class="hs-stage">
+          <img src="gambar/p07-anatomi-excel.png" width="1084" height="582" alt="Tangkapan layar Microsoft Excel dengan tabel stok obat; sel D2 terpilih dan berisi rumus =B2*C2">
+          <button type="button" class="hs-dot" style="--x:5.9%;--y:25.8%" data-judul="Name Box" data-teks="Name Box menampilkan alamat sel yang sedang aktif (mis. A1, B3, C12). Klik Name Box dan ketik alamat sel untuk melompat langsung ke sel tersebut.">1</button>
+          <button type="button" class="hs-dot" style="--x:63.8%;--y:25.8%" data-judul="Formula Bar" data-teks="Formula Bar menampilkan isi asli sel, nilai, teks, atau rumus (mis. =SUM(B2:B10)). Di sinilah Anda mengedit rumus yang sudah ada di sel.">2</button>
+          <button type="button" class="hs-dot" style="--x:58.4%;--y:30.8%" data-judul="Header Kolom" data-teks="Header kolom bertanda huruf (A, B, C, ...). Klik header kolom untuk memilih seluruh kolom. Kolom maksimum Excel: XFD (16.384 kolom).">3</button>
+          <button type="button" class="hs-dot" style="--x:2.6%;--y:75.6%" data-judul="Header Baris" data-teks="Header baris bertanda angka (1, 2, 3, ...). Klik header baris untuk memilih seluruh baris. Baris maksimum Excel: 1.048.576 baris.">4</button>
+          <button type="button" class="hs-dot" style="--x:8.5%;--y:93.1%" data-judul="Tab Lembar (Sheet Tab)" data-teks="Tab di bagian bawah menunjukkan lembar kerja dalam satu buku kerja (workbook). Klik tab untuk berpindah lembar, klik kanan untuk mengubah nama atau menambah lembar baru.">5</button>
         </div>
-        <div class="card">
-          <img src="gambar/p07-jenis-bar.png" alt="Grafik kolom kunjungan rawat jalan, rawat inap, dan IGD per bulan" loading="lazy">
-          <p><strong>Grafik kolom atau batang (Column/Bar)</strong></p>
-          <p style="font-size:.92rem"><strong>Untuk:</strong> <em>membandingkan</em> nilai antar kategori. <strong>Contoh:</strong> kunjungan antar poli, rawat jalan vs rawat inap.</p>
-        </div>
-        <div class="card">
-          <img src="gambar/p07-jenis-pie.png" alt="Grafik lingkaran proporsi rawat jalan, rawat inap, dan IGD" loading="lazy">
-          <p><strong>Grafik lingkaran (Pie)</strong></p>
-          <p style="font-size:.92rem"><strong>Untuk:</strong> melihat <em>proporsi</em> bagian terhadap keseluruhan (100%). <strong>Contoh:</strong> persentase pasien BPJS dan umum.</p>
-        </div>
+        <p class="kriteria" style="text-align:center">Tangkapan layar Microsoft Excel (versi Microsoft 365), diambil oleh dosen pengampu. Data contoh fiktif.</p>
+        <div class="hs-info" aria-live="polite">Klik salah satu titik bernomor untuk melihat penjelasan bagian tersebut.</div>
       </div>
-      <div class="note">Di Excel, <strong>Column</strong> menggambar batang tegak dan <strong>Bar</strong> menggambar batang mendatar. Keduanya untuk perbandingan. Grafik lingkaran hanya cocok untuk <em>satu</em> kelompok data yang tidak bernilai negatif dengan sedikit bagian.</div>
 
-      <h4>Latihan: pilih jenis grafik yang tepat</h4>
-      <p>Untuk setiap skenario data RS berikut, pilih jenis grafik yang paling tepat. Klik jawaban kamu.</p>
-      <div id="quiz-grafik-container"></div>
-      <div id="quiz-grafik-skor" aria-live="polite" style="font-weight:700;margin:12px 0"></div>
-      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026): <a href="https://support.microsoft.com/en-us/office/available-chart-types-in-office-a6187218-807e-4103-9e0a-27cdb19afb90" target="_blank" rel="noopener">Available chart types in Office</a></p>
-    </section>
-
-    <!-- INTI 3 -->
-    <section class="seg" id="seg-inti3" data-judul="Membuat Grafik di Excel" data-min="10">
-      <h4>Langkah 1: pilih data yang akan digambar</h4>
-      <p>Tujuan: grafik garis tren total kunjungan per bulan. Grafik butuh <strong>dua kolom</strong>: nama bulan (sumbu X) dan angka Total (nilai).</p>
-      <figure class="shot"><img src="gambar/p07-grafik-1.png" alt="Kolom Bulan (A1:A13) dan kolom Total (E1:E13) terpilih bersamaan" loading="lazy"></figure>
-      <ol>
-        <li>Blok kolom <strong>Bulan</strong> (A1 sampai A13), termasuk judul kolomnya.</li>
-        <li>Tahan <kbd>Ctrl</kbd>, lalu blok kolom <strong>Total</strong> (E1 sampai E13). Dua kolom yang tidak bersebelahan terpilih sekaligus.</li>
-      </ol>
-      <div class="warn-box"><strong>Kesalahan umum:</strong> kalau hanya kolom Total yang dipilih, sumbu horizontal berisi angka 1, 2, 3, ... dan bukan nama bulan.</div>
-
-      <h4>Langkah 2: buka menu Insert dan pilih jenis grafik</h4>
-      <figure class="shot"><img src="gambar/p07-grafik-2.png" alt="Tab Insert terbuka; grup Charts berisi pilihan jenis grafik" loading="lazy"></figure>
-      <ol>
-        <li>Klik tab <strong>Insert</strong>.</li>
-        <li>Di grup <strong>Charts</strong>, pilih ikon jenis grafik. Ikon bergambar garis adalah <em>Insert Line or Area Chart</em>, ikon kolom adalah <em>Insert Column or Bar Chart</em>, dan ikon lingkaran adalah <em>Insert Pie or Doughnut Chart</em>.</li>
-      </ol>
-      <figure class="shot"><img src="gambar/p07-grafik-3.png" alt="Galeri Insert Line or Area Chart terbuka dengan pilihan 2-D Line, 3-D Line, 2-D Area, dan 3-D Area" loading="lazy" style="max-width:760px"></figure>
-      <ol>
-        <li>Klik panah di samping ikon garis untuk membuka galeri. Pilih <strong>Line with Markers</strong> (garis dengan titik penanda).</li>
-      </ol>
-
-      <h4>Langkah 3: periksa dan lengkapi grafik</h4>
-      <figure class="shot"><img src="gambar/p07-grafik-4.png" alt="Grafik garis muncul di lembar kerja dengan judul Total dan sumbu horizontal berisi nama bulan" loading="lazy"></figure>
-      <ol>
-        <li>Grafik muncul di atas lembar kerja. Kamu bisa menggesernya dengan menyeret bagian tepinya.</li>
-        <li><strong>Judul grafik</strong> masih bernama "Total", sesuai judul kolom. Ganti dengan judul yang jelas.</li>
-        <li>Sumbu horizontal sudah memuat nama bulan karena kolom Bulan ikut dipilih.</li>
-      </ol>
-      <figure class="shot"><img src="gambar/p07-grafik-5.png" alt="Judul grafik sudah diganti menjadi Tren Kunjungan Pasien RS Sehat Citra 2026; tab Chart Design dan Format muncul" loading="lazy"></figure>
-      <ol>
-        <li>Klik judul, klik sekali lagi untuk mengedit, lalu ketik judul baru, misalnya <em>Tren Kunjungan Pasien RS Sehat Citra 2026</em>.</li>
-      </ol>
-      <p>Setelah grafik dipilih, muncul tab baru <strong>Chart Design</strong> dan <strong>Format</strong> untuk mengganti gaya, warna, dan jenis grafik (<em>Change Chart Type</em>).</p>
-      <figure class="shot"><img src="gambar/p07-grafik-6.png" alt="Menu Chart Elements terbuka dengan pilihan Axes, Axis Titles, Chart Title, Data Labels, Data Table, Error Bars, Gridlines, Legend, Trendline, dan Up/Down Bars" loading="lazy"></figure>
-      <ol>
-        <li>Klik tombol <strong>+ (Chart Elements)</strong> di sisi kanan grafik.</li>
-        <li>Centang atau hapus centang bagian grafik: <em>Axis Titles</em> (judul sumbu), <em>Data Labels</em> (angka di tiap titik), <em>Legend</em> (legenda), dan lainnya. Pastikan <em>Chart Title</em> tercentang.</li>
-      </ol>
-
-      <h4>Coba sendiri: pembuat grafik interaktif</h4>
-      <p>Edit angka di tabel dan pilih jenis grafik. Grafik diperbarui langsung.</p>
-      <div class="chart-ctl">
-        <label>Jenis Grafik:
-          <select id="chart3-tipe" aria-label="Jenis grafik">
-            <option value="bar">Bar (Batang)</option>
-            <option value="line">Line (Garis)</option>
-            <option value="pie">Pie (Lingkaran)</option>
-          </select>
-        </label>
-      </div>
+      <h4>Cara membaca alamat sel</h4>
       <div class="grid2">
-        <div>
-          <table class="chart-tbl" id="chart3-tbl">
-            <thead><tr><th>Poli</th><th>Kunjungan</th></tr></thead>
-            <tbody id="chart3-tbody"></tbody>
-          </table>
+        <div class="card">
+          <p><strong>Sel tunggal</strong><br>
+          <span class="kode-box">B3</span> = Kolom <strong>B</strong>, Baris <strong>3</strong><br>
+          <span class="kode-box">D12</span> = Kolom <strong>D</strong>, Baris <strong>12</strong></p>
         </div>
-        <div class="chart-wrap" id="chart3-area"></div>
+        <div class="card">
+          <p><strong>Rentang sel</strong><br>
+          <span class="kode-box">B2:B10</span> = Kolom B, baris 2 sampai 10<br>
+          <span class="kode-box">A1:D5</span> = Blok 4 kolom × 5 baris</p>
+        </div>
       </div>
-      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026): <a href="https://support.microsoft.com/en-us/office/create-a-chart-from-start-to-finish-0baf399e-dd61-4e18-8a73-b3fd5d5680c2" target="_blank" rel="noopener">Create a chart from start to finish</a></p>
+      <details><summary>Cara cepat navigasi sel</summary>
+        <div>
+          <ul>
+            <li><strong>Enter</strong>: turun satu baris</li>
+            <li><strong>Tab</strong>: geser ke kanan satu kolom</li>
+            <li><strong>Ctrl + End</strong>: lompat ke sel terakhir berisi data</li>
+            <li><strong>Ctrl + Home</strong>: kembali ke A1</li>
+            <li>Ketik alamat di <strong>Name Box</strong> lalu Enter, langsung ke sel tersebut</li>
+          </ul>
+        </div>
+      </details>
+
+      <h4>Latihan: klik sel yang diminta</h4>
+      <p>Alamat sel yang kalian klik muncul di kotak Name Box, persis seperti di Excel. Selesaikan 6 soal.</p>
+      <div data-widget="carisel"></div>
     </section>
 
-    <!-- INTI 4 -->
+    <!-- ===== INTI 2: Tipe Data ===== -->
+    <section class="seg" id="seg-inti2" data-judul="Tipe Data & Referensi Sel" data-min="10">
+      <h4>Apa itu tipe data?</h4>
+      <p><strong>Tipe data</strong> adalah jenis isi sebuah sel. Tipe inilah yang menentukan bagaimana Excel <em>menyimpan</em>, <em>menampilkan</em>, dan <em>menghitung</em> isi sel tersebut. Angka 50000 bisa dijumlahkan, sedangkan "Rp 50.000" yang diketik dengan simbol Rp dianggap tulisan biasa dan diabaikan oleh rumus <span class="kode-box">=SUM</span>.</p>
+      <div class="note"><strong>Isi sel dan tampilannya itu berbeda.</strong> Excel menyimpan nilai aslinya, lalu <em>format</em> menentukan bagaimana nilai itu terlihat. Contoh: nilai 0,85 bisa tampil sebagai 85% (format Percentage), dan tanggal 15 Maret 2026 sebenarnya disimpan sebagai angka serial 46096 yang tampil sebagai tanggal (format Date).</div>
 
-    <section class="seg" id="seg-inti4" data-judul="AVERAGE Lanjutan dan BOR" data-min="10">
-      <h4>Apa itu BOR?</h4>
-      <p><strong>BOR</strong> (<em>Bed Occupancy Rate</em>) adalah persentase tempat tidur rumah sakit yang terisi pasien. Angka ini dipakai manajemen untuk menilai apakah tempat tidur sudah dimanfaatkan dengan baik.</p>
-      <p style="text-align:center"><span class="kode-box" style="font-size:1.05rem">BOR = (Jumlah hari perawatan &divide; (Jumlah tempat tidur &times; Jumlah hari dalam periode)) &times; 100%</span></p>
-      <p>Untuk data harian, rumusnya bisa disederhanakan: <strong>BOR harian = tempat tidur terisi &divide; jumlah tempat tidur &times; 100%</strong>. Contoh: 90 tempat tidur terisi dari 120 tempat tidur, BOR = 90 &divide; 120 = 0,75 = <strong>75%</strong>.</p>
+      <h4>Empat tipe data yang paling sering dipakai</h4>
       <table class="data">
-        <thead><tr><th>BOR</th><th>Artinya</th></tr></thead>
+        <thead><tr><th>Tipe</th><th>Pengertian</th><th>Contoh di RS</th><th>Rata default</th><th>Bisa dihitung?</th></tr></thead>
         <tbody>
-          <tr><td>Di bawah 60%</td><td>Tempat tidur kurang dimanfaatkan.</td></tr>
-          <tr><td>60% sampai 85%</td><td>Rentang standar nasional yang dianggap baik.</td></tr>
-          <tr><td>Di atas 85%</td><td>Rumah sakit terlalu padat, risiko penularan dan beban kerja meningkat.</td></tr>
+          <tr><td><strong>Teks</strong> (Text)</td><td>Huruf, kata, atau gabungan huruf dan simbol. Bisa juga angka yang diperlakukan sebagai tulisan.</td><td>Siti Aminah, Poli Umum, No. RM 00012345</td><td>Kiri</td><td>Tidak (diabaikan oleh SUM, AVERAGE, COUNT)</td></tr>
+          <tr><td><strong>Angka</strong> (Number)</td><td>Bilangan murni tanpa simbol, bisa dijumlah, dikali, dan dirata-rata.</td><td>125000, 45 pasien, 7,5</td><td>Kanan</td><td>Ya</td></tr>
+          <tr><td><strong>Tanggal dan waktu</strong> (Date, Time)</td><td>Hari, bulan, tahun, atau jam. Disimpan sebagai angka serial sehingga bisa dikurangkan.</td><td>15/03/2026, jam kontrol 09.30</td><td>Kanan</td><td>Ya (selisih dua tanggal = jumlah hari)</td></tr>
+          <tr><td><strong>Persen</strong> (Percentage)</td><td>Angka desimal yang ditampilkan dengan tanda %. Nilai aslinya tetap desimal.</td><td>BOR 85% (disimpan 0,85)</td><td>Kanan</td><td>Ya</td></tr>
+        </tbody>
+      </table>
+      <p class="kriteria">Kebiasaan yang membantu: <strong>teks rata kiri, angka dan tanggal rata kanan</strong>. Kalau angka muncul rata kiri, curigai tersimpan sebagai teks.</p>
+
+      <h4>Pilihan format di Excel (Format Cells, tab Number)</h4>
+      <p>Di Excel tersedia 12 kategori format. Tidak semuanya perlu dihafal, tetapi kenali yang sering dipakai di administrasi RS.</p>
+      <table class="data">
+        <thead><tr><th>Kategori</th><th>Fungsi</th></tr></thead>
+        <tbody>
+          <tr><td><strong>General</strong></td><td>Format bawaan. Angka tampil sesuai yang diketik. Angka sangat panjang (12 digit atau lebih) bisa berubah ke notasi ilmiah.</td></tr>
+          <tr><td><strong>Number</strong></td><td>Tampilan angka umum, dengan pilihan jumlah desimal dan pemisah ribuan.</td></tr>
+          <tr><td><strong>Currency</strong></td><td>Nilai uang dengan simbol mata uang, misalnya untuk biaya dan tarif.</td></tr>
+          <tr><td><strong>Accounting</strong></td><td>Juga untuk uang, tetapi simbol mata uang dan titik desimal dirapikan sejajar dalam satu kolom.</td></tr>
+          <tr><td><strong>Date</strong> dan <strong>Time</strong></td><td>Menampilkan angka serial sebagai tanggal atau jam, sesuai bentuk dan wilayah yang dipilih.</td></tr>
+          <tr><td><strong>Percentage</strong></td><td>Mengalikan nilai sel dengan 100 dan menambah tanda %.</td></tr>
+          <tr><td><strong>Fraction</strong></td><td>Menampilkan angka sebagai pecahan.</td></tr>
+          <tr><td><strong>Scientific</strong></td><td>Notasi eksponen, misalnya 12345678901 tampil sebagai 1,23E+10.</td></tr>
+          <tr><td><strong>Text</strong></td><td>Isi sel diperlakukan sebagai teks dan tampil persis seperti diketik, termasuk bila berisi angka.</td></tr>
+          <tr><td><strong>Special</strong></td><td>Format khusus seperti kode pos, nomor telepon, atau nomor identitas (sesuai wilayah).</td></tr>
+          <tr><td><strong>Custom</strong></td><td>Membuat format sendiri dari salinan format yang ada.</td></tr>
         </tbody>
       </table>
 
-      <h4>Latihan: rata-rata BOR enam bulan</h4>
-      <p>Data BOR RS Sehat Citra selama 6 bulan terakhir (fiktif). Hitung rata-rata BOR di sel B8 dan bandingkan dengan standar nasional.</p>
-      <div id="ms-inti4"></div>
-      <h4>Interpretasi BOR</h4>
-      <p>Tuliskan 1-2 kalimat analisis BOR RS ini berdasarkan data di atas:</p>
-      <textarea class="reflect" id="interpretasi-ta" aria-label="Interpretasi BOR" style="min-height:70px"></textarea>
+      <div class="warn-box"><strong>Penting untuk data RS:</strong> Excel hanya menyimpan <strong>15 digit angka</strong> dengan tepat. NIK yang 16 digit dan nomor rekam medis berawalan nol (misalnya 00012345) harus diformat sebagai <strong>Text</strong> <em>sebelum</em> diketik, kalau tidak digit terakhirnya berubah jadi 0 atau nol di depannya hilang.</div>
+
+      <p class="kriteria"><strong>Referensi:</strong><br>
+      1. Microsoft Support, <em>Available number formats in Excel</em>.<br>
+      <a style="word-break:break-all" href="https://support.microsoft.com/en-us/office/available-number-formats-in-excel-0afe8f52-97db-41f1-b972-4b46e9f1e8d2" target="_blank" rel="noopener">https://support.microsoft.com/en-us/office/available-number-formats-in-excel-0afe8f52-97db-41f1-b972-4b46e9f1e8d2</a><br>
+      2. Microsoft Support, <em>Excel specifications and limits</em> (batas presisi 15 digit).<br>
+      <a style="word-break:break-all" href="https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3" target="_blank" rel="noopener">https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3</a><br>
+      Diakses 19 November 2026. Contoh data adalah fiktif.</p>
+
+
+      <h4>Di mana tipe data diatur?</h4>
+
+      <h4>Langkah 1: lihat tipe data sebuah sel</h4>
+      <figure class="shot"><img src="gambar/p07-tipe-1.png" alt="Excel dengan sel B3 terpilih; kotak Number Format di tab Home menampilkan General" loading="lazy"></figure>
+      <ol>
+        <li>Klik sel yang ingin dicek, misalnya <strong>B3</strong>.</li>
+        <li>Lihat kotak <strong>Number Format</strong> di tab <strong>Home</strong>, grup <strong>Number</strong>. Di sini tertulis tipe/format sel: <em>General</em>, <em>Number</em>, <em>Date</em>, <em>Percentage</em>, <em>Text</em>, dan seterusnya.</li>
+      </ol>
+      <p>Contoh lain: pada sel berisi 85%, kotaknya menampilkan <em>Percentage</em>.</p>
+      <figure class="shot"><img src="gambar/p07-tipe-6.png" alt="Sel B5 terpilih; kotak Number Format menampilkan Percentage" loading="lazy"></figure>
+      <ol>
+        <li>Kotak <strong>Number Format</strong> menampilkan tipe sel yang dipilih.</li>
+        <li>Sel <strong>B5</strong> terpilih dan berisi 85%.</li>
+      </ol>
+
+      <h4>Langkah 2: ubah tipe data lewat daftar Number Format</h4>
+      <figure class="shot"><img src="gambar/p07-tipe-2.png" alt="Daftar pilihan Number Format terbuka: General, Number, Currency, Accounting, Short Date, Long Date, Time, Percentage, Fraction, Scientific, Text, More Number Formats" loading="lazy"></figure>
+      <ol>
+        <li>Pilih sel atau rentang yang akan diubah, lalu klik <strong>panah kecil</strong> di kotak Number Format. Daftar pilihan terbuka: General, Number, Currency, Accounting, Short Date, Long Date, Time, Percentage, Fraction, Scientific, dan Text.</li>
+        <li>Klik <strong>More Number Formats...</strong> kalau ingin pengaturan lebih rinci, misalnya jumlah desimal.</li>
+      </ol>
+
+      <h4>Langkah 3: ubah tipe data lewat Format Cells</h4>
+      <p>Cara lain: pilih sel, tekan <span class="kode-box">Ctrl + 1</span> (atau klik kanan lalu <em>Format Cells</em>), dan buka tab <strong>Number</strong>.</p>
+      <figure class="shot"><img src="gambar/p07-tipe-3.png" alt="Kotak dialog Format Cells tab Number dengan kategori Percentage dipilih dan pengaturan Decimal places" loading="lazy" style="max-width:530px"></figure>
+      <ol>
+        <li><strong>Category</strong>: pilih jenis tipe data, misalnya <em>Percentage</em>.</li>
+        <li>Bagian kanan menampilkan <strong>Sample</strong> (contoh tampilan) dan pengaturan tambahan seperti <em>Decimal places</em>. Klik <strong>OK</strong> untuk menerapkan.</li>
+      </ol>
+      <div class="warn-box"><strong>Hati-hati dengan Percentage:</strong> Excel mengalikan nilai sel dengan 100. Angka 125000 yang diberi format Percentage menjadi 12500000,00%. Format persen dipakai untuk angka desimal (0,85 menjadi 85%).</div>
+      <figure class="shot"><img src="gambar/p07-tipe-4.png" alt="Kotak dialog Format Cells dengan kategori Text dipilih dan keterangan tentang format Text" loading="lazy" style="max-width:530px"></figure>
+      <ol>
+        <li>Kategori <strong>Text</strong> membuat isi sel diperlakukan sebagai teks, walaupun berisi angka.</li>
+        <li>Keterangan di dialog: sel ditampilkan persis seperti yang diketik. Angka berformat Text <em>tidak ikut dijumlahkan</em> oleh rumus.</li>
+      </ol>
+
+      <h4>Cara mengenali tipe data dari tampilannya</h4>
+      <figure class="shot"><img src="gambar/p07-tipe-5.png" alt="Sel B6 berisi Rp 50.000 rata kiri, sedangkan sel B3 berisi 125000 rata kanan" loading="lazy"></figure>
+      <ol>
+        <li><strong>B6</strong> berisi <em>Rp 50.000</em> dan <strong>rata kiri</strong>, tanda bahwa Excel menganggapnya teks.</li>
+        <li>Formula Bar menampilkan isi asli sel persis seperti yang diketik, tanpa format angka apa pun.</li>
+        <li>Bandingkan dengan <strong>B3</strong> (125000) yang <strong>rata kanan</strong>, tanda angka sungguhan.</li>
+      </ol>
+
+      <h4>Referensi sel: apa dan untuk apa?</h4>
+      <p><strong>Referensi sel</strong> adalah alamat sel yang ditulis di dalam rumus, misalnya <span class="kode-box">B2</span>. Dengan referensi, rumus mengambil nilai dari sel itu, bukan dari angka yang diketik. Ada dua keuntungan:</p>
+      <ul>
+        <li>Kalau data di sel berubah, hasil rumus ikut berubah sendiri.</li>
+        <li>Satu rumus bisa <strong>disalin ke banyak baris</strong> (seret kotak kecil di pojok kanan bawah sel, disebut <em>fill handle</em>) tanpa mengetik ulang.</li>
+      </ul>
+      <p>Saat rumus disalin, Excel menggeser alamatnya mengikuti arah salinan. Kadang itu yang kita mau, kadang tidak. Karena itu ada dua jenis referensi: <strong>relatif</strong> (ikut bergeser) dan <strong>absolut</strong> (dikunci, tidak bergeser).</p>
+
+      <h4>Contoh kasus: tarif admin yang sama untuk semua pasien</h4>
+      <p>Tarif admin Rp 2.500 ada di sel <span class="kode-box">B8</span>. Setiap pasien harus membayar biaya + tarif admin itu. Rumus di C11 ditulis lalu disalin ke C12:</p>
+      <table class="data">
+        <thead><tr><th>Cara menulis</th><th>Rumus di C11</th><th>Setelah disalin ke C12</th><th>Hasil C12</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Relatif</strong></td><td><span class="kode-box">=B11+B8</span></td><td><span class="kode-box">=B12+B9</span> (B8 ikut bergeser jadi B9, sel kosong)</td><td class="err">150.000 (salah, admin tidak terhitung)</td></tr>
+          <tr><td><strong>Absolut</strong></td><td><span class="kode-box">=B11+$B$8</span></td><td><span class="kode-box">=B12+$B$8</span> (B8 terkunci)</td><td><strong>152.500 (benar)</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h4>Tiga bentuk referensi</h4>
+      <table class="data">
+        <thead><tr><th>Bentuk</th><th>Nama</th><th>Saat disalin</th><th>Dipakai untuk</th></tr></thead>
+        <tbody>
+          <tr><td><span class="kode-box">B8</span></td><td>Relatif</td><td>Kolom dan baris ikut bergeser</td><td>Data yang berbeda tiap baris (harga, jumlah)</td></tr>
+          <tr><td><span class="kode-box">$B$8</span></td><td>Absolut</td><td>Kolom dan baris terkunci</td><td>Nilai tetap: tarif, persentase, kurs</td></tr>
+          <tr><td><span class="kode-box">$B8</span> atau <span class="kode-box">B$8</span></td><td>Campuran</td><td>Hanya kolom atau hanya baris yang terkunci</td><td>Tabel dua arah (dipelajari lebih lanjut nanti)</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Jalan pintas:</strong> saat mengetik atau mengedit rumus, letakkan kursor di alamat sel lalu tekan <kbd>F4</kbd>. Bentuknya berganti: B8, $B$8, B$8, $B8, lalu kembali ke B8.</div>
+
+      <h4>Melihat referensi absolut di Excel asli</h4>
+      <figure class="shot"><img src="gambar/p07-tipe-7.png" alt="Sel C12 berisi rumus =B12+$B$8; Formula Bar menampilkan rumus, sel B8 berisi tarif admin 2500" loading="lazy"></figure>
+      <ol>
+        <li>Klik <strong>C12</strong>. Formula Bar menampilkan <span class="kode-box">=B12+$B$8</span>.</li>
+        <li>Hasilnya (152.500) tampil di sel C12. <span class="kode-box">B12</span> relatif, ikut bergeser kalau rumus disalin.</li>
+        <li><span class="kode-box">$B$8</span> (tarif admin 2.500) absolut: tanda <strong>$</strong> mengunci kolom dan baris, sehingga tidak bergeser saat disalin. Tekan <kbd>F4</kbd> saat mengedit rumus untuk memberi tanda $ otomatis.</li>
+      </ol>
     </section>
 
-    <!-- PRAKTIK -->
-    <section class="seg" id="seg-praktik" data-judul="Praktik: Studi Kasus Kunjungan 12 Bulan" data-min="25">
-      <p>Data kunjungan lengkap RS Sehat Citra (fiktif): 12 bulan, tiga jenis kunjungan. Selesaikan semua tantangan di lembar bawah, lalu perhatikan grafiknya.</p>
-      <div id="ms-praktik"></div>
-      <h4>Grafik Total Kunjungan (dari kolom E)</h4>
-      <div class="chart-ctl">
-        <label>Jenis Grafik:
-          <select id="chart-praktik-tipe" aria-label="Jenis grafik praktik">
-            <option value="bar">Bar</option>
-            <option value="line" selected>Line</option>
-          </select>
-        </label>
-        <button class="btn sec" id="btn-update-grafik" type="button">Perbarui Grafik</button>
-      </div>
-      <div class="chart-wrap" id="chart-praktik-area"></div>
-      <h4>Interpretasi Studi Kasus</h4>
-      <textarea class="reflect" id="interpretasi-praktik" aria-label="Interpretasi studi kasus" style="min-height:80px" placeholder="Tuliskan 2 kalimat: 1) Bulan mana kunjungan tertinggi dan terendah? 2) Apa yang mungkin menjadi penyebabnya?"></textarea>
+    <!-- ===== INTI 3: Formula Dasar ===== -->
+    <section class="seg" id="seg-inti3" data-judul="Formula Dasar (×, ÷, +, −)" data-min="10">
+      <p>Semua rumus Excel dimulai dengan tanda <strong>=</strong>. Excel lalu menghitung sendiri dan menampilkan hasilnya di sel. Data stok obat di bawah adalah fiktif untuk keperluan latihan.</p>
+
+      <table class="data">
+        <thead><tr><th>Operator</th><th>Fungsi</th><th>Contoh</th><th>Hasil</th></tr></thead>
+        <tbody>
+          <tr><td><span class="kode-box">+</span></td><td>Tambah</td><td>=120+30</td><td>150</td></tr>
+          <tr><td><span class="kode-box">-</span></td><td>Kurang</td><td>=120-45</td><td>75</td></tr>
+          <tr><td><span class="kode-box">*</span></td><td>Kali</td><td>=5000*10</td><td>50000</td></tr>
+          <tr><td><span class="kode-box">/</span></td><td>Bagi</td><td>=45/5</td><td>9</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Urutan operasi:</strong> kurung ( ) dikerjakan lebih dulu, lalu * dan /, baru + dan -. Jadi <span class="kode-box">=5+3*2</span> hasilnya 11, karena 3*2 dikerjakan dulu. Kalau ingin 5+3 dulu, pakai kurung: <span class="kode-box">=(5+3)*2</span> hasilnya 16.</div>
+
+      <h4>Langkah 1: mengetik rumus pertama</h4>
+      <p>Tujuan: menghitung Subtotal = Harga × Jumlah untuk Paracetamol.</p>
+      <figure class="shot"><img src="gambar/p07-formula-1.png" alt="Tabel stok obat dengan sel D2 terpilih; Name Box menampilkan D2" loading="lazy"></figure>
+      <ol>
+        <li>Lihat Name Box yang menampilkan alamat sel aktif.</li>
+        <li>Klik sel <strong>D2</strong>, tempat hasil Subtotal akan ditulis.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p07-formula-2.png" alt="Mengetik rumus =B2*C2 di sel D2; sel B2 dan C2 diberi kotak berwarna" loading="lazy"></figure>
+      <ol>
+        <li>Sel D2 sedang diedit dan berisi rumus yang diketik.</li>
+        <li>Formula Bar menampilkan rumus yang sama: <span class="kode-box">=B2*C2</span>. Rumus <strong>harus diawali tanda =</strong>.</li>
+        <li>Sel yang dipakai (Harga di B2 dan Jumlah di C2) diberi kotak berwarna yang cocok dengan warna alamat di rumus. Ini membantu mengecek rumus sebelum menekan Enter.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p07-formula-3.png" alt="Setelah Enter, sel D2 menampilkan hasil 50000 dan Formula Bar menampilkan =B2*C2" loading="lazy"></figure>
+      <ol>
+        <li>Tekan <kbd>Enter</kbd>. Sel D2 menampilkan hasilnya, yaitu 50000.</li>
+        <li>Klik D2 lagi: sel menampilkan hasil, sedangkan Formula Bar tetap menyimpan rumus aslinya.</li>
+      </ol>
+
+      <h4>Langkah 2: menyalin rumus ke baris lain</h4>
+      <p>Tidak perlu mengetik rumus satu per satu. Salin rumus D2 ke bawah.</p>
+      <figure class="shot"><img src="gambar/p07-formula-4.png" alt="Rumus D2 disalin ke D6 dengan fill handle; hasil terisi dan status bar menampilkan Average, Count, dan Sum" loading="lazy"></figure>
+      <ol>
+        <li>Pilih D2, lalu <strong>seret kotak kecil di pojok kanan bawah</strong> (fill handle) ke bawah sampai D6. Seluruh sel D2 sampai D6 terisi hasil.</li>
+        <li>Tombol <em>Auto Fill Options</em> muncul di sudut bawah hasil salinan. Klik untuk memilih cara menyalin.</li>
+        <li>Saat beberapa sel angka dipilih, <strong>status bar</strong> di bawah menampilkan Average, Count, dan Sum secara otomatis, berguna untuk mengecek hasil dengan cepat.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p07-formula-5.png" alt="Sel D4 terpilih dan Formula Bar menampilkan =B4*C4" loading="lazy"></figure>
+      <ol>
+        <li>Formula Bar menampilkan <span class="kode-box">=B4*C4</span>. Excel menyesuaikan alamat rumus otomatis mengikuti barisnya.</li>
+        <li>Sel D4 menampilkan hasil Vitamin C: 8000 × 3 = 24000.</li>
+      </ol>
+
+      <h4>Langkah 3: urutan operasi di Excel</h4>
+      <p>Ketik rumus berikut di sel kosong dan bandingkan hasilnya.</p>
+      <figure class="shot"><img src="gambar/p07-formula-6.png" alt="Sel B10 berisi rumus =5+3*2 dengan hasil 11" loading="lazy"></figure>
+      <ol>
+        <li>Formula Bar menampilkan <span class="kode-box">=5+3*2</span>.</li>
+        <li>Hasilnya <strong>11</strong>, karena perkalian dikerjakan lebih dulu.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p07-formula-7.png" alt="Sel B11 berisi rumus =(5+3)*2 dengan hasil 16" loading="lazy"></figure>
+      <ol>
+        <li>Formula Bar menampilkan <span class="kode-box">=(5+3)*2</span>.</li>
+        <li>Hasilnya <strong>16</strong>, karena tanda kurung membuat 5+3 dikerjakan lebih dulu.</li>
+      </ol>
+
+    </section>
+
+    <!-- ===== INTI 4: SUM, AVERAGE, COUNT ===== -->
+    <section class="seg" id="seg-inti4" data-judul="Fungsi di Dalam Excel" data-min="10">
+      <h4>Apa itu fungsi?</h4>
+      <p><strong>Fungsi</strong> adalah rumus siap pakai bawaan Excel yang mengerjakan satu jenis perhitungan tertentu. Kita cukup menyebut nama fungsinya dan sel yang akan dihitung, lalu Excel yang mengerjakannya.</p>
+      <table class="data">
+        <thead><tr><th></th><th>Tanpa fungsi</th><th>Dengan fungsi</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Menjumlah 5 subtotal</strong></td><td><span class="kode-box">=D2+D3+D4+D5+D6</span></td><td><span class="kode-box">=SUM(D2:D6)</span></td></tr>
+          <tr><td><strong>Menjumlah 100 baris</strong></td><td>Rumus sangat panjang, mudah salah ketik</td><td><span class="kode-box">=SUM(D2:D101)</span></td></tr>
+        </tbody>
+      </table>
+
+      <h4>Bagian-bagian sebuah fungsi</h4>
+      <p style="text-align:center"><span class="kode-box" style="font-size:1.2rem">=SUM(D2:D6)</span></p>
+      <table class="data">
+        <thead><tr><th>Bagian</th><th>Pada contoh</th><th>Artinya</th></tr></thead>
+        <tbody>
+          <tr><td>Tanda sama dengan</td><td><span class="kode-box">=</span></td><td>Penanda bahwa isi sel adalah rumus.</td></tr>
+          <tr><td>Nama fungsi</td><td><span class="kode-box">SUM</span></td><td>Perhitungan yang dikerjakan (SUM = jumlahkan).</td></tr>
+          <tr><td>Tanda kurung</td><td><span class="kode-box">( )</span></td><td>Membungkus argumen fungsi.</td></tr>
+          <tr><td>Argumen</td><td><span class="kode-box">D2:D6</span></td><td>Data yang dihitung. Berupa <em>rentang</em> sel (dari D2 sampai D6), satu sel, atau angka.</td></tr>
+        </tbody>
+      </table>
+      <div class="note">Satu fungsi boleh punya beberapa argumen, dipisah koma, misalnya <span class="kode-box">=SUM(B2:B6,D2:D6)</span>. Pemisahnya bisa berupa koma (,) atau titik koma (;) tergantung pengaturan wilayah komputer.</div>
+
+      <h4>Fungsi yang paling sering dipakai</h4>
+      <p>Data contoh: tabel stok obat fiktif (Harga di B2:B6, Subtotal di D2:D6).</p>
+      <table class="data">
+        <thead><tr><th>Fungsi</th><th>Kegunaan</th><th>Contoh di RS</th><th>Contoh rumus</th><th>Hasil</th></tr></thead>
+        <tbody>
+          <tr><td><strong>SUM</strong></td><td>Menjumlahkan angka</td><td>Total nilai stok obat, total kunjungan</td><td><span class="kode-box">=SUM(D2:D6)</span></td><td>207000</td></tr>
+          <tr><td><strong>AVERAGE</strong></td><td>Menghitung rata-rata</td><td>Rata-rata harga obat, rata-rata pasien per hari</td><td><span class="kode-box">=AVERAGE(B2:B6)</span></td><td>7200</td></tr>
+          <tr><td><strong>COUNT</strong></td><td>Menghitung banyaknya sel berisi angka</td><td>Jumlah jenis obat, jumlah hari pelayanan</td><td><span class="kode-box">=COUNT(B2:B6)</span></td><td>5</td></tr>
+          <tr><td><strong>MAX</strong></td><td>Mencari nilai terbesar</td><td>Kunjungan tertinggi, obat termahal</td><td><span class="kode-box">=MAX(B2:B6)</span></td><td>12000</td></tr>
+          <tr><td><strong>MIN</strong></td><td>Mencari nilai terkecil</td><td>Kunjungan terendah, obat termurah</td><td><span class="kode-box">=MIN(B2:B6)</span></td><td>3500</td></tr>
+        </tbody>
+      </table>
+      <p class="kriteria">Hari ini kita fokus pada SUM, AVERAGE, dan COUNT. MAX dan MIN dibahas lengkap di Pertemuan 09. Fungsi COUNT hanya menghitung sel berisi <em>angka</em>; sel berisi teks atau kosong tidak dihitung.</p>
+
+      <h4>Cara Penggunaan Fungsi</h4>
+      <p>Tujuan: menghitung total nilai stok dari kolom Subtotal.</p>
+      <figure class="shot"><img src="gambar/p07-fungsi-1.png" alt="Mengetik =SUM(D2:D6 di sel D8; rentang D2 sampai D6 diberi kotak berwarna dan muncul petunjuk SUM(number1, [number2], ...)" loading="lazy"></figure>
+      <ol>
+        <li>Klik sel tujuan, yaitu <strong>D8</strong>, lalu ketik <span class="kode-box">=SUM(</span>.</li>
+        <li>Pilih atau ketik rentangnya, <span class="kode-box">D2:D6</span>. Sel yang dipakai diberi kotak berwarna.</li>
+        <li>Petunjuk di bawah sel menampilkan bentuk fungsi: <em>SUM(number1, [number2], ...)</em>. Tutup kurung lalu tekan <kbd>Enter</kbd>.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p07-fungsi-2.png" alt="Sel D8 menampilkan hasil 207000 dan Formula Bar menampilkan =SUM(D2:D6)" loading="lazy"></figure>
+      <ol>
+        <li>Sel D8 menampilkan hasilnya: <strong>207000</strong>.</li>
+        <li>Formula Bar menyimpan rumus aslinya, <span class="kode-box">=SUM(D2:D6)</span>.</li>
+      </ol>
+
+      <h4>Cara lain memasukkan fungsi</h4>
+      <p>Selain mengetik, Excel menyediakan dua jalan pintas supaya tidak perlu menghafal nama fungsi.</p>
+      <figure class="shot"><img src="gambar/p07-fungsi-5.png" alt="Menu AutoSum di tab Home terbuka dengan pilihan Sum, Average, Count Numbers, Max, Min, dan More Functions" loading="lazy"></figure>
+      <ol>
+        <li>Tombol <strong>AutoSum (&Sigma;)</strong> di tab <strong>Home</strong>, grup Editing.</li>
+        <li>Klik panah di sebelahnya untuk memilih <em>Sum</em>, <em>Average</em>, <em>Count Numbers</em>, <em>Max</em>, atau <em>Min</em>. Excel menebak rentang di dekat sel dan kita tinggal menekan Enter.</li>
+        <li><strong>More Functions...</strong> membuka daftar lengkap seluruh fungsi.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p07-fungsi-6.png" alt="Kotak dialog Insert Function dengan pilihan kategori, daftar fungsi, dan keterangan singkat fungsi SUM" loading="lazy"></figure>
+      <ol>
+        <li>Klik tombol <strong>fx</strong> di samping Formula Bar untuk membuka <em>Insert Function</em>. Pilih <strong>kategori</strong> fungsi, misalnya Most Recently Used.</li>
+        <li>Pilih fungsi dari <strong>daftar</strong>. Kalau lupa namanya, ketik deskripsi pekerjaan di kotak pencarian lalu klik Go.</li>
+        <li>Bagian bawah menampilkan <strong>bentuk dan keterangan singkat</strong> fungsi yang dipilih. Klik OK untuk melanjutkan.</li>
+      </ol>
+
+      <h4>Tantangan: lengkapi baris ringkasan di bawah</h4>
+      <div data-widget="minisheet" data-src="ms-inti4"></div>
+      <script type="application/json" id="ms-inti4">
+      {"baris":10,"kolom":4,
+       "sel":{
+         "A1":"Nama Obat","B1":"Harga (Rp)","C1":"Jumlah","D1":"Subtotal",
+         "A2":"Paracetamol","B2":"5000","C2":"10","D2":"50000",
+         "A3":"Amoxicillin","B3":"12000","C3":"5","D3":"60000",
+         "A4":"Vitamin C","B4":"8000","C4":"3","D4":"24000",
+         "A5":"Antasida","B5":"3500","C5":"8","D5":"28000",
+         "A6":"Ibuprofen","B6":"7500","C6":"6","D6":"45000",
+         "A8":"Total Nilai Stok","A9":"Rata-rata Harga","A10":"Jumlah Jenis Obat"
+       },
+       "tantangan":[
+         {"teks":"D8 = Total semua subtotal","sel":"D8","nilai":207000,"wajibRumus":true},
+         {"teks":"D9 = Rata-rata harga per obat","sel":"D9","nilai":7200,"wajibRumus":true},
+         {"teks":"D10 = Jumlah jenis obat","sel":"D10","nilai":5,"wajibRumus":true}
+       ]}
+      </script>
+
+
+      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026):<br>
+      1. <a href="https://support.microsoft.com/en-us/office/overview-of-formulas-in-excel-ecfdc708-9162-49e8-b993-c311f47ca173" target="_blank" rel="noopener">Overview of formulas in Excel</a><br>
+      2. <a href="https://support.microsoft.com/en-us/office/sum-function-043e1c7d-7726-4e80-8f32-07b23e057f89" target="_blank" rel="noopener">SUM function</a><br>
+      3. <a href="https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6" target="_blank" rel="noopener">AVERAGE function</a><br>
+      4. <a href="https://support.microsoft.com/en-us/office/count-function-a59cd7fc-b623-4d93-87a4-d23bf411294c" target="_blank" rel="noopener">COUNT function</a><br>
+      5. <a href="https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb" target="_blank" rel="noopener">Excel functions (by category)</a></p>
+    </section>
+
+    <!-- ===== PRAKTIK ===== -->
+    <section class="seg" id="seg-praktik" data-judul="Praktik / Simulasi" data-min="25">
+      <p>Latihan lengkap: data kunjungan poli fiktif RS Harapan Bersama selama sepekan. Selesaikan 5 tantangan bertingkat.</p>
+      <p class="note"><strong>Data di bawah sepenuhnya fiktif</strong> dan hanya digunakan untuk keperluan pembelajaran.</p>
+
+      <div data-widget="minisheet" data-src="ms-praktik"></div>
+      <script type="application/json" id="ms-praktik">
+      {"baris":16,"kolom":6,
+       "sel":{
+         "A1":"Poli","B1":"Senin","C1":"Selasa","D1":"Rabu","E1":"Kamis","F1":"Jumat",
+         "A2":"Umum","B2":"45","C2":"38","D2":"52","E2":"41","F2":"49",
+         "A3":"Gigi","B3":"12","C3":"15","D3":"10","E3":"18","F3":"14",
+         "A4":"Anak","B4":"28","C4":"32","D4":"25","E4":"30","F4":"27",
+         "A5":"Kandungan","B5":"8","C5":"11","D5":"9","E5":"7","F5":"12",
+         "A6":"THT","B6":"15","C6":"13","D6":"17","E6":"14","F6":"16",
+         "A7":"Saraf","B7":"10","C7":"12","D7":"8","E7":"11","F7":"9",
+         "A8":"Kulit","B8":"20","C8":"18","D8":"22","E8":"19","F8":"21",
+         "A10":"=== Isi jawaban di kolom B baris 11–15 ===",
+         "A11":"1) Total kunjungan Poli Umum (sepekan)",
+         "A12":"2) Rata-rata per hari Poli Umum",
+         "A13":"3) Jumlah jenis poli (COUNT kolom B)",
+         "A14":"4) Kunjungan tertinggi Poli Umum (MAX)",
+         "A15":"5) Total SEMUA kunjungan semua poli"
+       },
+       "tantangan":[
+         {"teks":"B11 = Total kunjungan Poli Umum sepekan","sel":"B11","nilai":225,"wajibRumus":true},
+         {"teks":"B12 = Rata-rata per hari Poli Umum","sel":"B12","nilai":45,"wajibRumus":true},
+         {"teks":"B13 = Jumlah jenis poli","sel":"B13","nilai":7,"wajibRumus":true},
+         {"teks":"B14 = Kunjungan tertinggi Poli Umum","sel":"B14","nilai":52,"wajibRumus":true},
+         {"teks":"B15 = Total semua kunjungan semua poli","sel":"B15","nilai":708,"wajibRumus":true}
+       ]}
+      </script>
+
       <div class="tugas-lab">
-        <h4>Tugas Lab: Laporan Kunjungan Harian dengan Grafik di Excel Nyata</h4>
-        <p><strong>Kasus:</strong> bagian administrasi RS Sehat Citra (fiktif) diminta membuat laporan kunjungan <strong>harian selama November 2026</strong> (30 hari) untuk rapat direksi. Data mentah sudah ada. Selesaikan seluruh tahap di bawah ini.</p>
-        <p><a class="btn sec" href="unduhan/data-kunjungan-harian.xlsx" download style="display:inline-block;text-decoration:none">Unduh data-kunjungan-harian.xlsx</a></p>
-        <h4>Tahap A: hitung per hari (baris 2 sampai 31)</h4>
+        <h4>Tugas Lab: Rekap Penjualan Farmasi di Excel Nyata</h4>
+        <p><strong>Kasus:</strong> bagian farmasi RS Harapan Bersama (fiktif) meminta rekap penjualan 24 jenis obat untuk satu bulan. Data mentah sudah ada, tetapi belum dihitung dan <strong>sebagian datanya salah tipe</strong>. Selesaikan seluruh tahap di bawah ini.</p>
+        <p><a class="btn sec" href="unduhan/data-rekap-farmasi.xlsx" download style="display:inline-block;text-decoration:none">Unduh data-rekap-farmasi.xlsx</a></p>
+        <h4>Tahap A: periksa tipe data</h4>
         <ol>
-          <li>Kolom <strong>Total Kunjungan</strong>: jumlah Rawat Jalan, Rawat Inap, dan IGD.</li>
-          <li>Kolom <strong>BOR</strong>: tempat tidur terisi dibagi jumlah tempat tidur yang tertulis di sel <strong>J1</strong>. Jumlah tempat tidur itu harus <strong>dikunci</strong> dengan referensi absolut. Tampilkan hasilnya sebagai <strong>persen</strong> (Number Format).</li>
+          <li>Buka berkas, lihat kolom <strong>Harga Satuan</strong> dan <strong>Jumlah Terjual</strong>. Ada beberapa sel yang berisi teks (rata kiri atau berlabel segitiga hijau). Temukan semuanya.</li>
+          <li>Ubah setiap sel tersebut menjadi angka murni. Buktikan berhasil dengan fungsi COUNT: jumlah angka di tiap kolom harus <strong>24</strong>.</li>
         </ol>
-        <h4>Tahap B: ringkasan (baris 34 sampai 40, hasil di kolom C)</h4>
+        <h4>Tahap B: hitung per baris (baris 2 sampai 25)</h4>
         <ol start="3">
-          <li>Total kunjungan sebulan.</li>
-          <li>Rata-rata kunjungan per hari.</li>
-          <li>Kunjungan tertinggi dan terendah dalam sehari.</li>
-          <li>Rata-rata BOR, BOR tertinggi, dan BOR terendah.</li>
+          <li>Kolom <strong>Subtotal</strong>: Harga × Jumlah Terjual.</li>
+          <li>Kolom <strong>Diskon</strong>: Subtotal × persentase diskon yang tertulis di sel <strong>N1</strong>. Persentase itu harus <strong>dikunci</strong> dengan referensi absolut agar tetap benar saat rumus disalin ke 24 baris.</li>
+          <li>Kolom <strong>Total Bayar</strong>: Subtotal dikurangi Diskon.</li>
+          <li>Kolom <strong>Stok Akhir</strong>: Stok Awal dikurangi Jumlah Terjual.</li>
+          <li>Kolom <strong>Kontribusi</strong>: Total Bayar tiap obat dibagi total seluruh Total Bayar, ditampilkan sebagai <strong>persen</strong> (atur lewat Number Format). Total pembaginya harus dikunci.</li>
         </ol>
-        <h4>Tahap C: baca datanya</h4>
-        <ol start="7">
-          <li>Cari <strong>tanggal</strong> dengan kunjungan tertinggi dan tanggal dengan kunjungan terendah, lalu tulis keduanya di sel di sebelah ringkasan.</li>
-          <li>Beri warna latar pada sel BOR yang di bawah 60% atau di atas 85%. Catat berapa hari jumlahnya.</li>
+        <h4>Tahap C: ringkasan (baris 29 sampai 33, hasil di kolom E)</h4>
+        <ol start="8">
+          <li>Total pendapatan (jumlah seluruh Total Bayar).</li>
+          <li>Total unit terjual.</li>
+          <li>Rata-rata harga satuan.</li>
+          <li>Jumlah jenis obat.</li>
+          <li>Rata-rata Total Bayar per jenis obat.</li>
         </ol>
-        <h4>Tahap D: tiga grafik</h4>
-        <ol start="9">
-          <li><strong>Grafik garis</strong> total kunjungan per tanggal (pilih kolom Tanggal dan kolom Total Kunjungan bersamaan). Beri judul "Tren Kunjungan Harian RS Sehat Citra, November 2026".</li>
-          <li><strong>Grafik garis</strong> BOR harian dengan judul dan judul sumbu vertikal "BOR (%)".</li>
-          <li>Buat tabel kecil berisi total Rawat Jalan, total Rawat Inap, dan total IGD selama sebulan, lalu buat <strong>grafik lingkaran</strong> proporsinya dengan label persentase pada irisan.</li>
-        </ol>
-        <h4>Tahap E: interpretasi dan penyimpanan</h4>
-        <ol start="12">
-          <li>Tulis <strong>3 kalimat</strong> interpretasi di bawah grafik: hari tersibuk dan tersepi (sebut tanggal dan angkanya), rata-rata BOR dibandingkan standar 60% sampai 85%, serta satu saran untuk manajemen.</li>
+        <h4>Tahap D: uji dan simpan</h4>
+        <ol start="13">
+          <li>Ubah persentase diskon di N1 menjadi 10%. Seluruh kolom Diskon, Total Bayar, Kontribusi, dan ringkasan harus ikut berubah. Kembalikan ke 5%.</li>
           <li>Simpan sebagai <em>Nama_NIM_P07.xlsx</em> dan kumpulkan.</li>
         </ol>
-        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Semua kolom hitung dan ringkasan memakai rumus, tanpa angka yang diketik manual. 2) Referensi absolut dipakai dengan benar untuk jumlah tempat tidur. 3) Hasil MAX, MIN, AVERAGE, dan BOR tepat, dengan kolom BOR berformat persen. 4) Jenis grafik tepat dan lengkap (judul, sumbu terbaca, nama bulan atau tanggal di sumbu horizontal, label persentase pada grafik lingkaran). 5) Interpretasi 3 kalimat memuat tanggal, angka, dan perbandingan dengan standar BOR. 6) File disimpan sebagai .xlsx dengan nama yang sesuai.</p>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Seluruh sel teks pada Harga dan Jumlah sudah menjadi angka (COUNT = 24). 2) Semua rumus diawali = dan memakai alamat sel, tanpa angka yang diketik manual. 3) Referensi absolut dipakai dengan benar untuk diskon dan total pembagi. 4) Hasil perhitungan dan ringkasan tepat. 5) Kolom Kontribusi berformat persen. 6) File disimpan sebagai .xlsx dengan nama yang sesuai.</p>
       </div>
     </section>
 
-    <!-- POST-TEST -->
+    <!-- ===== POST-TEST ===== -->
     <section class="seg" id="seg-post" data-judul="Post-test" data-min="7">
+      <p>Jawab setelah mengikuti seluruh materi. Bandingkan dengan skor pre-test kalian.</p>
       <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
       <script type="application/json" id="quiz-post">
       {"judul":"Post-test","soal":[
-        {"q":"Hasil dari =MAX(72,68,75,81,79,83) adalah:","opsi":["72","68","83","459"],"benar":2,"jelas":"MAX() mengembalikan nilai terbesar. Dari daftar: 83 adalah yang terbesar."},
-        {"q":"Grafik yang paling tepat untuk membandingkan kunjungan di 12 poli berbeda adalah:","opsi":["Pie chart","Bar chart","Line chart","Scatter plot"],"benar":1,"jelas":"Bar chart terbaik untuk membandingkan nilai-nilai dari kategori yang berbeda (poli, bulan, dll)."},
-        {"q":"BOR 72% artinya:","opsi":["72% tempat tidur RS terisi rata-rata","72% pasien sudah pulang hari itu","72% dokter sedang bertugas","72% obat sudah terjual"],"benar":0,"jelas":"BOR (Bed Occupancy Rate) = persentase tempat tidur yang terisi dibanding total tempat tidur tersedia."},
-        {"q":"Untuk memilih sel tidak berurutan di Excel (misalnya A1, C3, E5), gunakan:","opsi":["Shift+klik","Ctrl+klik","Alt+klik","Tab+klik"],"benar":1,"jelas":"Ctrl+klik memungkinkan pemilihan sel atau rentang sel yang tidak bersebelahan secara bersamaan."},
-        {"q":"Sumbu X pada grafik kunjungan pasien bulanan RS biasanya berisi:","opsi":["Jumlah pasien","Nama dokter","Nama bulan","Nama poli"],"benar":2,"jelas":"Sumbu X = kategori waktu (Jan, Feb, Mar, ...). Sumbu Y = nilai/jumlah kunjungan."}
+        {"q":"Rumus =SUM(D2:D6) menghitung…","opsi":["Hanya sel D2 dan D6","Semua sel dari D2 sampai D6","Rata-rata D2 hingga D6","Jumlah sel yang berisi angka di kolom D"],"benar":1,"jelas":"Titik dua (:) dalam rentang berarti 'dari ... sampai ...', sehingga =SUM(D2:D6) menjumlahkan D2, D3, D4, D5, dan D6."},
+        {"q":"Jika sel B2 berisi 'Rp 50.000' (dengan teks Rp), maka =SUM(B2:B5) akan…","opsi":["Menjumlahkan nilai mata uangnya","Menghasilkan 0 atau mengabaikan sel B2","Menghasilkan error #VALUE!","Mengkonversi otomatis ke angka"],"benar":1,"jelas":"SUM mengabaikan teks. Sel berisi teks dianggap 0, sehingga tidak ikut dijumlahkan. Solusi: hilangkan simbol Rp dan gunakan format Currency."},
+        {"q":"Fungsi =COUNT(B2:B10) menghitung…","opsi":["Jumlah semua sel (kosong maupun isi)","Jumlah sel yang berisi teks","Jumlah sel yang berisi angka","Jumlah karakter dalam sel"],"benar":2,"jelas":"COUNT hanya menghitung sel berisi angka. Untuk menghitung semua sel tidak kosong (termasuk teks), gunakan COUNTA."},
+        {"q":"Dari data: {20, 30, 40, 50, 60}, nilai =AVERAGE(A1:A5) adalah…","opsi":["150","30","40","50"],"benar":2,"jelas":"Rata-rata = (20+30+40+50+60)÷5 = 200÷5 = 40."},
+        {"q":"Mengapa angka harus rata kanan dan teks rata kiri di Excel?","opsi":["Sekadar selera tampilan","Karena aturan internasional","Excel menggunakan perataan default untuk menunjukkan tipe data: angka selalu rata kanan, teks selalu rata kiri","Karena keyboard lebih mudah mengetik ke kiri"],"benar":2,"jelas":"Perataan default Excel adalah tanda tipe data: angka (termasuk tanggal) rata kanan, teks rata kiri. Ini membantu mendeteksi angka yang tersimpan sebagai teks."}
       ]}
       </script>
       <h4>Perbandingan Pre-test vs Post-test</h4>
       <div data-widget="banding"></div>
     </section>
 
-    <!-- PENUTUP -->
+    <!-- ===== PENUTUP ===== -->
     <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
-      <h4>Ringkasan Pertemuan 07</h4>
+      <h4>Ringkasan 5 Poin Kunci</h4>
       <ol>
-        <li>MAX() dan MIN() mencari nilai terbesar dan terkecil dalam rentang data secara otomatis.</li>
-        <li>AVERAGE() menghitung rata-rata aritmetika: berguna untuk indikator seperti BOR dan rata-rata kunjungan.</li>
-        <li>Column/Bar chart: membandingkan kategori. Line chart: menunjukkan tren waktu. Pie chart: proporsi bagian.</li>
-        <li>BOR ideal RS: 60–85%, di luar rentang ini perlu evaluasi kapasitas atau pola kunjungan.</li>
-        <li>Pilih jenis grafik berdasarkan pertanyaan yang ingin dijawab, bukan berdasarkan estetika saja.</li>
+        <li><strong>Anatomi Excel</strong>: Name Box (alamat sel), Formula Bar (isi/rumus), header kolom (huruf), header baris (angka), sheet tab (lembar).</li>
+        <li><strong>Alamat sel</strong>: huruf = kolom, angka = baris. B3 = Kolom B Baris 3. Rentang B2:B10 berarti B2 sampai B10.</li>
+        <li><strong>Tipe data</strong>: Angka murni (rata kanan) bisa dihitung. Teks dan angka dengan simbol (Rp, %) tidak bisa dihitung langsung.</li>
+        <li><strong>Formula dasar</strong>: semua rumus diawali =. Operator: * (kali), / (bagi), + (tambah), - (kurang). Urutan: kurung dahulu, lalu */, baru +-.</li>
+        <li><strong>SUM/AVERAGE/COUNT</strong>: =SUM(rentang) menjumlahkan, =AVERAGE(rentang) merata-ratakan, =COUNT(rentang) menghitung banyaknya angka.</li>
       </ol>
       <h4>Refleksi</h4>
-      <p>Tuliskan satu hal yang paling berguna hari ini dan satu hal yang masih membingungkan:</p>
-      <textarea class="reflect" id="refleksi-ta" aria-label="Refleksi pertemuan 07"></textarea>
-      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 08: UTS. Pastikan kamu sudah menguasai: format dokumen Word, Mail Merge, formula Excel dasar, dan pemilihan jenis grafik.</p>
+      <div data-widget="reflect" data-key="refleksi-p07" data-prompt="Satu hal paling berguna hari ini dan satu hal yang masih membingungkan:"></div>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 08 adalah UTS. Pastikan kamu sudah menguasai: format dokumen Word, Mail Merge, pengaturan halaman dan daftar isi, serta formula dan fungsi dasar Excel. Setelah UTS, Pertemuan 09 membahas fungsi MAX, MIN, dan pembuatan grafik dari data kunjungan RS.</p>
     </section>
+
   </main>
 </div>
 
 <script>
 "use strict";
-const KONFIG={kode:"krs-p07",nomor:"07",judul:"Microsoft Excel Lanjutan: Grafik & Statistik",
-  cpmk:"CPMK-2: Mampu menyusun laporan dengan fungsi visual dan statistik pada MS Excel.",
-  tujuan:["Menjelaskan dan memakai fungsi MAX, MIN, dan AVERAGE pada data RS","Mengenal bagian dan jenis grafik (garis, kolom/batang, lingkaran) serta memilih yang tepat","Membuat dan melengkapi grafik di Excel dari data kunjungan RS","Menghitung dan menafsirkan BOR"],
-  totalMenit:90};
+const KONFIG = {
+  kode: "krs-p07",
+  nomor: "07",
+  judul: "Microsoft Excel Dasar",
+  cpmk: "CPMK-2: Mampu menerapkan operasi matematika dasar pada MS Excel untuk data administrasi RS.",
+  tujuan: ["Menjelaskan apa itu Excel dan kegunaannya di rumah sakit", "Mengenal cell, row, column, dan antarmuka lembar kerja Excel", "Memahami tipe data (teks, angka, tanggal, persen) dan referensi sel", "Menggunakan operator dan formula SUM, AVERAGE, COUNT"],
+  totalMenit: 90
+};
 
-const $=(s,r=document)=>r.querySelector(s);
-const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
-function h(tag,props,...kids){
-  const e=document.createElement(tag);
-  for(const k in(props||{})){const v=props[k];if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,"");else if(v!==false&&v!=null)e.setAttribute(k,v);}
-  for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(String(c)));}
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, props, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in (props || {})) {
+    const v = props[k];
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (v === true) e.setAttribute(k, "");
+    else if (v !== false && v != null) e.setAttribute(k, v);
+  }
+  for (const c of kids.flat()) {
+    if (c == null || c === false) continue;
+    e.append(c.nodeType ? c : document.createTextNode(String(c)));
+  }
   return e;
 }
-const store={
-  get(k,d){try{const v=localStorage.getItem(KONFIG.kode+"-"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},
-  set(k,v){try{localStorage.setItem(KONFIG.kode+"-"+k,JSON.stringify(v));}catch(e){}}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(KONFIG.kode + "-" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(KONFIG.kode + "-" + k, JSON.stringify(v)); } catch (e) {} }
 };
-function getData(id){return JSON.parse(document.getElementById(id).textContent);}
-let uid=0;const nextId=p=>p+"-"+(++uid);
+function getData(id) { return JSON.parse(document.getElementById(id).textContent); }
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+let uid = 0; const nextId = p => p + "-" + (++uid);
 
-/* QUIZ */
-const W={};
-W.quiz=el=>{
-  const d=getData(el.dataset.src);
-  const key="quiz-"+(el.dataset.role||el.dataset.src);
-  const saved=store.get(key,{jawab:{}});const jawab=saved.jawab||{};
-  const skorEl=h("p",{class:"skor","aria-live":"polite"});const items=[];
-  function hitung(){let b=0;for(const i in jawab)if(jawab[i]===d.soal[i].benar)b++;const n=Object.keys(jawab).length;
-    skorEl.textContent="Skor: "+b+" / "+d.soal.length+(n<d.soal.length?"  (terjawab "+n+")":"");
-    store.set(key,{jawab,skor:b,total:d.soal.length,selesai:n===d.soal.length});
-    document.dispatchEvent(new CustomEvent("krs:skor"));}
-  function tampil(i,pilih){const it=items[i],s=d.soal[i];
-    it.labels.forEach((l,j)=>{l.classList.toggle("benar",j===s.benar);l.classList.toggle("salah",j===pilih&&j!==s.benar);});
-    it.fb.textContent=(pilih===s.benar?"Benar. ":"Belum tepat. ")+(s.jelas||"");}
-  d.soal.forEach((s,i)=>{
-    const name=nextId("q"),fb=h("p",{class:"fb","aria-live":"polite"});
-    const labels=s.opsi.map((o,j)=>{const inp=h("input",{type:"radio",name,value:j,onchange:()=>{jawab[i]=j;tampil(i,j);hitung();}});if(jawab[i]===j)inp.checked=true;return h("label",{},inp," ",o);});
-    items.push({labels,fb});el.append(h("fieldset",{},h("legend",{},(i+1)+". "+s.q),labels,fb));
-    if(jawab[i]!==undefined)tampil(i,jawab[i]);});
-  el.append(skorEl,h("button",{class:"btn sec",type:"button",onclick:()=>{
-    for(const k in jawab)delete jawab[k];$$("input",el).forEach(x=>x.checked=false);
-    items.forEach(it=>{it.labels.forEach(l=>l.classList.remove("benar","salah"));it.fb.textContent="";});hitung();}},"Ulangi"));
-  hitung();};
-
-W.banding=el=>{
-  function baris(role,nama,cls){const track=h("i"),val=h("span",{},"–");
-    el.append(h("div",{class:"row "+cls},h("span",{},nama),h("div",{class:"track"},track),val));
-    return()=>{const s=store.get("quiz-"+role,null);if(!s||!s.selesai){track.style.width="0";val.textContent="–";return;}
-      const p=Math.round(s.skor/s.total*100);track.style.width=p+"%";val.textContent=p+"%";};}
-  el.classList.add("banding");const a=baris("pre","Pre-test","pre"),b=baris("post","Post-test","post");
-  const up=()=>{a();b();};document.addEventListener("krs:skor",up);up();};
-
-/* ===== FORMULA PARSER (tanpa eval/Function) ===== */
-function kolHuruf(n){return String.fromCharCode(65+n);}
-function parseRef(s){const m=/^([A-Z])(\d+)$/.exec(s.toUpperCase());return m?{c:m[1].charCodeAt(0)-65,r:parseInt(m[2],10)-1}:null;}
-function tokenisasi(s){
-  const t=[];let i=0;
-  while(i<s.length){
-    const c=s[i];if(/\s/.test(c)){i++;continue;}
-    let m=/^(\d+(\.\d+)?|\.\d+)/.exec(s.slice(i));
-    if(m){t.push({t:"n",v:parseFloat(m[0])});i+=m[0].length;continue;}
-    m=/^[A-Za-z]+\d*/.exec(s.slice(i));
-    if(m){const nm=m[0],nx=s[i+nm.length];
-      if(nx==="(")t.push({t:"f",v:nm.toUpperCase()});
-      else if(/^[A-Za-z]+\d+$/.test(nm))t.push({t:"r",v:nm.toUpperCase()});
-      else throw new Error("#NAME?");
-      i+=nm.length;continue;}
-    if("+-*/(),:;".includes(c)){t.push({t:c===";"?",":c});i++;continue;}
-    throw new Error("#ERROR");
+const W = {};
+W.quiz = el => {
+  const d = getData(el.dataset.src);
+  const key = "quiz-" + (el.dataset.role || el.dataset.src);
+  const saved = store.get(key, { jawab: {} });
+  const jawab = saved.jawab || {};
+  const skorEl = h("p", { class: "skor", "aria-live": "polite" });
+  const items = [];
+  function hitung() {
+    let b = 0; for (const i in jawab) if (jawab[i] === d.soal[i].benar) b++;
+    const n = Object.keys(jawab).length;
+    skorEl.textContent = "Skor: " + b + " / " + d.soal.length + (n < d.soal.length ? "  (terjawab " + n + ")" : "");
+    store.set(key, { jawab, skor: b, total: d.soal.length, selesai: n === d.soal.length });
+    document.dispatchEvent(new CustomEvent("krs:skor"));
   }
-  return t;
-}
-function evalRumus(src,getCell){
-  const tk=tokenisasi(src);let p=0;
-  const peek=()=>tk[p]&&tk[p].t,ambil=()=>tk[p++];
-  const jml=x=>{if(Array.isArray(x))throw new Error("#VALUE!");if(x===null)return 0;if(typeof x==="string")throw new Error("#VALUE!");return x;};
-  function expr(){let v=term();while(peek()==="+"||peek()==="-"){const o=ambil().t;const r=term();v=o==="+"?jml(v)+jml(r):jml(v)-jml(r);}return v;}
-  function term(){let v=unary();while(peek()==="*"||peek()==="/"){const o=ambil().t;const r=unary();if(o==="*")v=jml(v)*jml(r);else{const d=jml(r);if(d===0)throw new Error("#DIV/0!");v=jml(v)/d;}}return v;}
-  function unary(){if(peek()==="-"){ambil();return -jml(unary());}if(peek()==="+"){ambil();return jml(unary());}return primary();}
-  function ref(tok){const a=parseRef(tok.v);if(!a)throw new Error("#REF!");return a;}
-  function primary(){
-    const k=ambil();if(!k)throw new Error("#ERROR");
-    if(k.t==="n")return k.v;
-    if(k.t==="("){const v=expr();if(ambil()==null||tk[p-1].t!==")")throw new Error("#ERROR");return v;}
-    if(k.t==="r"){const a=ref(k);
-      if(peek()===":"){ambil();const k2=ambil();if(!k2||k2.t!=="r")throw new Error("#ERROR");
-        const b=ref(k2),out=[];
-        for(let r=Math.min(a.r,b.r);r<=Math.max(a.r,b.r);r++)for(let c=Math.min(a.c,b.c);c<=Math.max(a.c,b.c);c++)out.push(getCell(c,r));
-        return out;}
-      return getCell(a.c,a.r);}
-    if(k.t==="f"){if(ambil()==null||tk[p-1].t!=="(")throw new Error("#ERROR");
-      const args=[];if(peek()!==")"){{args.push(expr());while(peek()===","){ambil();args.push(expr());}}}
-      if(ambil()==null||tk[p-1].t!==")")throw new Error("#ERROR");
-      const angka=[];args.forEach(a=>{if(Array.isArray(a))a.forEach(x=>{if(typeof x==="number")angka.push(x);});else if(typeof a==="number")angka.push(a);else if(a!==null)throw new Error("#VALUE!");});
-      switch(k.v){
-        case"SUM":return angka.reduce((s,x)=>s+x,0);
-        case"AVERAGE":if(!angka.length)throw new Error("#DIV/0!");return angka.reduce((s,x)=>s+x,0)/angka.length;
-        case"COUNT":return angka.length;
-        case"MAX":return angka.length?Math.max(...angka):0;
-        case"MIN":return angka.length?Math.min(...angka):0;
-        default:throw new Error("#NAME?");}}
-    throw new Error("#ERROR");}
-  const hasil=expr();if(p<tk.length)throw new Error("#ERROR");
-  if(Array.isArray(hasil))throw new Error("#VALUE!");return hasil;
-}
+  function tampil(i, pilih) {
+    const it = items[i], s = d.soal[i];
+    it.labels.forEach((l, j) => { l.classList.toggle("benar", j === s.benar); l.classList.toggle("salah", j === pilih && j !== s.benar); });
+    it.fb.textContent = (pilih === s.benar ? "Benar. " : "Belum tepat. ") + (s.jelas || "");
+  }
+  d.soal.forEach((s, i) => {
+    const name = nextId("q");
+    const fb = h("p", { class: "fb", "aria-live": "polite" });
+    const labels = s.opsi.map((o, j) => {
+      const inp = h("input", { type: "radio", name, value: j, onchange: () => { jawab[i] = j; tampil(i, j); hitung(); } });
+      if (jawab[i] === j) inp.checked = true;
+      return h("label", {}, inp, " ", o);
+    });
+    items.push({ labels, fb });
+    el.append(h("fieldset", {}, h("legend", {}, (i + 1) + ". " + s.q), labels, fb));
+    if (jawab[i] !== undefined) tampil(i, jawab[i]);
+  });
+  el.append(skorEl, h("button", { class: "btn sec", type: "button", onclick: () => {
+    for (const k in jawab) delete jawab[k];
+    $$("input", el).forEach(x => x.checked = false);
+    items.forEach(it => { it.labels.forEach(l => l.classList.remove("benar", "salah")); it.fb.textContent = ""; });
+    hitung();
+  } }, "Ulangi"));
+  hitung();
+};
 
-/* ===== SVG CHART ENGINE ===== */
-const NS="http://www.w3.org/2000/svg";
-function sv(tag,attrs,txt){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(txt!=null)e.textContent=txt;return e;}
-function niceMax(mx){if(mx<=0)return 1;const e=Math.pow(10,Math.floor(Math.log10(mx))),f=mx/e;return(f<=1?1:f<=2?2:f<=5?5:10)*e;}
-const CWARNA=["#0b7285","#e8590c","#7048e8","#2b8a3e","#c2255c","#f08c00","#1971c2","#5c940d"];
+W.banding = el => {
+  function baris(role, nama, cls) {
+    const track = h("i"), val = h("span", {}, "–");
+    el.append(h("div", { class: "row " + cls }, h("span", {}, nama), h("div", { class: "track" }, track), val));
+    return () => {
+      const s = store.get("quiz-" + role, null);
+      if (!s || !s.selesai) { track.style.width = "0"; val.textContent = "–"; return; }
+      const p = Math.round(s.skor / s.total * 100);
+      track.style.width = p + "%"; val.textContent = p + "%";
+    };
+  }
+  el.classList.add("banding");
+  const a = baris("pre", "Pre-test", "pre"), b = baris("post", "Post-test", "post");
+  const up = () => { a(); b(); };
+  document.addEventListener("krs:skor", up); up();
+};
 
-function drawBar(label,nilai,judul){
-  const W=600,H=320,svg=sv("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":judul||"Grafik batang"});
-  svg.append(sv("text",{x:W/2,y:20,"text-anchor":"middle",style:"font-size:14px;font-weight:700"},judul||""));
-  const v=nilai.map(x=>Math.max(0,Number(x)||0));
-  const L=55,Rr=10,T=36,B=36,pw=W-L-Rr,ph=H-T-B;
-  const mx=niceMax(Math.max(...v,1));
-  for(let g=0;g<=4;g++){const y=T+ph-ph*g/4;svg.append(sv("line",{x1:L,x2:W-Rr,y1:y,y2:y,stroke:"var(--line)"}));svg.append(sv("text",{x:L-6,y:y+4,"text-anchor":"end"},String(Math.round(mx*g/4))));}
-  const n=v.length,step=pw/Math.max(n,1);
-  v.forEach((x,i)=>{const bw=step*0.6,bx=L+step*i+(step-bw)/2,bh=ph*x/mx;
-    svg.append(sv("rect",{x:bx,y:T+ph-bh,width:bw,height:bh,fill:CWARNA[i%8],rx:3}));
-    if(x>0)svg.append(sv("text",{x:bx+bw/2,y:T+ph-bh-4,"text-anchor":"middle",style:"font-size:11px"},String(x)));});
-  v.forEach((x,i)=>svg.append(sv("text",{x:L+step*(i+0.5),y:H-14,"text-anchor":"middle",style:"font-size:11px"},label[i])));
-  svg.append(sv("line",{x1:L,x2:L,y1:T,y2:T+ph,stroke:"var(--ink)"}));
-  svg.append(sv("line",{x1:L,x2:W-Rr,y1:T+ph,y2:T+ph,stroke:"var(--ink)"}));
-  return svg;
-}
-function drawLine(label,nilai,judul){
-  const W=600,H=320,svg=sv("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":judul||"Grafik garis"});
-  svg.append(sv("text",{x:W/2,y:20,"text-anchor":"middle",style:"font-size:14px;font-weight:700"},judul||""));
-  const v=nilai.map(x=>Math.max(0,Number(x)||0));
-  const L=55,Rr=10,T=36,B=36,pw=W-L-Rr,ph=H-T-B;
-  const mx=niceMax(Math.max(...v,1));
-  for(let g=0;g<=4;g++){const y=T+ph-ph*g/4;svg.append(sv("line",{x1:L,x2:W-Rr,y1:y,y2:y,stroke:"var(--line)"}));svg.append(sv("text",{x:L-6,y:y+4,"text-anchor":"end"},String(Math.round(mx*g/4))));}
-  const n=v.length,step=pw/Math.max(n,1);
-  const pts=v.map((x,i)=>[L+step*(i+0.5),T+ph-ph*x/mx]);
-  svg.append(sv("polyline",{points:pts.map(p=>p.join(",")).join(" "),fill:"none",stroke:"var(--c1)","stroke-width":3}));
-  pts.forEach((p,i)=>{svg.append(sv("circle",{cx:p[0],cy:p[1],r:5,fill:"var(--c1)"}));if(v[i]>0)svg.append(sv("text",{x:p[0],y:p[1]-9,"text-anchor":"middle",style:"font-size:11px"},String(v[i])));});
-  v.forEach((x,i)=>svg.append(sv("text",{x:L+step*(i+0.5),y:H-14,"text-anchor":"middle",style:"font-size:11px"},label[i])));
-  svg.append(sv("line",{x1:L,x2:L,y1:T,y2:T+ph,stroke:"var(--ink)"}));
-  svg.append(sv("line",{x1:L,x2:W-Rr,y1:T+ph,y2:T+ph,stroke:"var(--ink)"}));
-  return svg;
-}
-function drawPie(label,nilai,judul){
-  const W=500,H=310,svg=sv("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":judul||"Grafik lingkaran"});
-  svg.append(sv("text",{x:W/2,y:20,"text-anchor":"middle",style:"font-size:14px;font-weight:700"},judul||""));
-  const v=nilai.map(x=>Math.max(0,Number(x)||0)),tot=v.reduce((a,b)=>a+b,0);
-  if(tot<=0){svg.append(sv("text",{x:W/2,y:H/2,"text-anchor":"middle"},"Belum ada data"));return svg;}
-  const cx=160,cy=170,r=110;let a0=-Math.PI/2;
-  v.forEach((x,i)=>{if(x<=0)return;const fr=x/tot;
-    if(fr>0.9999){svg.append(sv("circle",{cx,cy,r,fill:CWARNA[i%8]}));}
-    else{const a1=a0+fr*2*Math.PI,big=fr>0.5?1:0;
-      svg.append(sv("path",{d:"M"+cx+","+cy+" L"+(cx+r*Math.cos(a0))+","+(cy+r*Math.sin(a0))+" A"+r+","+r+" 0 "+big+" 1 "+(cx+r*Math.cos(a1))+","+(cy+r*Math.sin(a1))+" Z",fill:CWARNA[i%8],stroke:"var(--surface)","stroke-width":2}));
-      a0=a1;}});
-  v.forEach((x,i)=>{const y=55+i*24;svg.append(sv("rect",{x:310,y:y-12,width:14,height:14,fill:CWARNA[i%8]}));svg.append(sv("text",{x:330,y},label[i]+": "+(Math.round(x/tot*1000)/10)+"%"));});
-  return svg;
-}
-function gambarGrafik(tipe,label,nilai,judul){
-  if(tipe==="pie")return drawPie(label,nilai,judul);
-  if(tipe==="line")return drawLine(label,nilai,judul);
-  return drawBar(label,nilai,judul);
-}
+W.dragmatch = el => {
+  const d = getData(el.dataset.src);
+  const bankItems = shuffle(d.pairs.map(p => p.kanan));
+  let placed = d.pairs.map(() => null);
+  let pilih = null, dicek = false;
+  const root = h("div", { class: "dm" }), kiri = h("div"), bank = h("div", { class: "dm-bank" });
+  const hasil = h("p", { class: "skor", "aria-live": "polite" });
+  function lepas(slot) { if (pilih !== null) { placed = placed.map(x => (x === pilih ? null : x)); placed[slot] = pilih; pilih = null; dicek = false; r(); } }
+  function r() {
+    kiri.textContent = ""; bank.textContent = "";
+    d.pairs.forEach((p, i) => {
+      const t = placed[i] !== null ? bankItems[placed[i]] : "";
+      const cls = ["dm-slot"]; if (t) cls.push("isi");
+      if (dicek) cls.push(t === p.kanan ? "benar" : "salah");
+      const s = h("button", { type: "button", class: cls.join(" "), onclick: () => { if (pilih !== null) lepas(i); else if (placed[i] !== null) { placed[i] = null; dicek = false; r(); } },
+        ondragover: e => e.preventDefault(), ondrop: e => { e.preventDefault(); const k = Number(e.dataTransfer.getData("text/plain")); if (!isNaN(k)) { pilih = k; lepas(i); } } }, t || "…");
+      kiri.append(h("div", { class: "dm-row" }, h("div", { class: "card" }, p.kiri), s));
+    });
+    bankItems.forEach((t, k) => {
+      if (placed.includes(k)) return;
+      bank.append(h("button", { type: "button", draggable: "true", class: "dm-item" + (pilih === k ? " pilih" : ""),
+        onclick: () => { pilih = pilih === k ? null : k; r(); },
+        ondragstart: e => e.dataTransfer.setData("text/plain", String(k)) }, t));
+    });
+  }
+  const cek = h("button", { class: "btn", type: "button", onclick: () => {
+    dicek = true; r();
+    const b = d.pairs.filter((p, i) => placed[i] !== null && bankItems[placed[i]] === p.kanan).length;
+    hasil.textContent = "Benar " + b + " dari " + d.pairs.length;
+  } }, "Periksa");
+  const reset = h("button", { class: "btn sec", type: "button", onclick: () => { placed = d.pairs.map(() => null); pilih = null; dicek = false; hasil.textContent = ""; r(); } }, "Ulangi");
+  root.append(kiri, bank); el.append(root, h("p", {}, cek, " ", reset), hasil); r();
+};
 
-/* ===== MINISHEET ENGINE ===== */
-function buatMinisheet(container,baris,kolom,selData,tantangan,storeKey){
-  const R=baris,C=kolom;
-  const raw=Object.assign({},selData,store.get(storeKey,{}));
-  let cache=new Map(),aktif=new Set();
-  const nilaiAsli=(c,r)=>{
-    if(c<0||c>=C||r<0||r>=R)throw new Error("#REF!");
-    const id=kolHuruf(c)+(r+1);
-    if(cache.has(id)){const v=cache.get(id);if(v instanceof Error)throw v;return v;}
-    if(aktif.has(id))throw new Error("#CIRC!");
-    aktif.add(id);let v;const s=String(raw[id]===undefined?"":raw[id]).trim();
-    try{if(s==="")v=null;else if(s[0]==="=")v=evalRumus(s.slice(1),nilaiAsli);else if(/^-?\d+(\.\d+)?$/.test(s))v=parseFloat(s);else v=s;}
-    catch(e){v=e;}aktif.delete(id);cache.set(id,v);if(v instanceof Error)throw v;return v;};
-  const hitung=id=>{cache=new Map();aktif=new Set();const a=parseRef(id);try{return nilaiAsli(a.c,a.r);}catch(e){return e;}};
-  const fmt=v=>v instanceof Error?v.message:v===null?"":typeof v==="number"?String(Math.round(v*1e6)/1e6):v;
-  const addr=h("span",{class:"addr"},"–"),fx=h("span",{class:"fx"},"");
-  const tbl=h("table",{class:"ms"}),inputs={};
-  const head=h("tr",{},h("th",{class:"rh"},""));
-  for(let c=0;c<C;c++)head.append(h("th",{scope:"col"},kolHuruf(c)));
-  tbl.append(h("thead",{},head));
-  const tb=h("tbody");
-  for(let r=0;r<R;r++){
-    const tr=h("tr",{},h("th",{class:"rh",scope:"row"},r+1));
-    for(let c=0;c<C;c++){
-      const id=kolHuruf(c)+(r+1);
-      const inp=h("input",{type:"text","aria-label":"Sel "+id,autocomplete:"off",spellcheck:"false"});
-      inp.value=fmt(hitung(id));inputs[id]=inp;
-      inp.addEventListener("focus",()=>{addr.textContent=id;fx.textContent=raw[id]||"";inp.value=raw[id]===undefined?"":raw[id];});
-      inp.addEventListener("input",()=>{fx.textContent=inp.value;});
-      inp.addEventListener("blur",()=>{raw[id]=inp.value;simpan();segarkan();});
-      inp.addEventListener("keydown",e=>{
-        if(e.key==="Enter"||e.key==="ArrowDown"){e.preventDefault();const n=inputs[kolHuruf(c)+(r+2)];if(n)n.focus();else inp.blur();}
-        else if(e.key==="ArrowUp"){e.preventDefault();const n=inputs[kolHuruf(c)+r];if(n)n.focus();}
-      });
-      tr.append(h("td",{},inp));
+W.hotspot = el => {
+  const info = $(".hs-info", el), dots = $$(".hs-dot", el);
+  dots.forEach(b => {
+    b.setAttribute("aria-label", b.dataset.judul);
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => {
+      dots.forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      info.textContent = "";
+      info.append(h("strong", {}, b.dataset.judul), h("br"), b.dataset.teks);
+    });
+  });
+};
+
+W.checklist = el => {
+  const key = "cek-" + (el.dataset.key || nextId("c"));
+  const saved = store.get(key, []);
+  const lis = $$(":scope > li", el);
+  const bar = h("i"), txt = h("span", { class: "kriteria" });
+  function up() {
+    const n = lis.filter(l => $("input", l).checked).length;
+    bar.style.width = (n / lis.length * 100) + "%"; txt.textContent = n + " / " + lis.length + " selesai";
+    store.set(key, lis.map(l => $("input", l).checked));
+  }
+  lis.forEach((li, i) => {
+    const t = li.textContent, cb = h("input", { type: "checkbox", onchange: up });
+    cb.checked = !!saved[i];
+    li.textContent = ""; li.append(h("label", {}, cb, h("span", {}, t)));
+  });
+  el.after(h("div", { class: "prog" }, bar), txt); up();
+};
+
+W.reflect = el => {
+  const key = "ref-" + (el.dataset.key || "x");
+  const ta = h("textarea", { class: "reflect", "aria-label": el.dataset.prompt || "Refleksi" });
+  ta.value = store.get(key, "");
+  ta.addEventListener("input", () => store.set(key, ta.value));
+  el.append(h("p", {}, el.dataset.prompt || "Tuliskan refleksi singkat:"), ta);
+};
+
+W.carisel = el => {
+  const K = 6, B = 8, N = 6;
+  let ronde = 0, benar = 0, target = "", selesai = false;
+  const addr = h("span", { class: "addr" }, "–"), info = h("p", { class: "skor", "aria-live": "polite" }), fb = h("p", { class: "fb", "aria-live": "polite" });
+  function baru() {
+    target = kolHuruf(Math.floor(Math.random() * K)) + (1 + Math.floor(Math.random() * B));
+    info.textContent = "Soal " + (ronde + 1) + " dari " + N + ": klik sel " + target;
+  }
+  function klik(id) {
+    addr.textContent = id;
+    if (selesai) return;
+    if (id === target) { benar++; fb.textContent = "Benar."; } else fb.textContent = "Itu sel " + id + ", bukan " + target + ". Huruf = kolom, angka = baris.";
+    ronde++;
+    if (ronde >= N) { selesai = true; info.textContent = "Selesai. Benar " + benar + " dari " + N + "."; } else baru();
+  }
+  const tbl = h("table", { class: "ms cs" }), head = h("tr", {}, h("th", { class: "rh" }, ""));
+  for (let c = 0; c < K; c++) head.append(h("th", { scope: "col" }, kolHuruf(c)));
+  tbl.append(h("thead", {}, head));
+  const tb = h("tbody");
+  for (let r = 1; r <= B; r++) {
+    const tr = h("tr", {}, h("th", { class: "rh", scope: "row" }, r));
+    for (let c = 0; c < K; c++) {
+      const id = kolHuruf(c) + r;
+      tr.append(h("td", {}, h("button", { type: "button", "aria-label": "Sel " + id, onclick: () => klik(id) }, "")));
     }
     tb.append(tr);
   }
   tbl.append(tb);
-  function simpan(){const u={};for(const k in raw)if(raw[k]!==(selData||{})[k]&&raw[k]!=="")u[k]=raw[k];store.set(storeKey,u);}
-  function segarkan(){
-    for(const id in inputs){if(document.activeElement===inputs[id])continue;const v=hitung(id);inputs[id].value=fmt(v);inputs[id].className=(v instanceof Error?"err":typeof v==="number"?"num":"");}
-    if(tantangan)cekTantangan(false);
-  }
-  let li_els=[];
-  const daftar=h("ul",{class:"tantangan"}),hasilEl=h("p",{class:"skor","aria-live":"polite"});
-  if(tantangan&&tantangan.length){
-    li_els=(tantangan||[]).map(t=>{const e=h("li",{},"☐ "+t.teks);daftar.append(e);return e;});
-  }
-  function cekTantangan(tampil){let ok=0;
-    (tantangan||[]).forEach((t,i)=>{const v=hitung(t.sel),rumus=String(raw[t.sel]||"").trim().startsWith("=");
-      const benar=typeof v==="number"&&Math.abs(v-t.nilai)<0.5&&(!t.wajibRumus||rumus);
-      li_els[i].classList.toggle("ok",benar);li_els[i].textContent=(benar?"✔ ":"☐ ")+t.teks;if(benar)ok++;});
-    if(tampil&&tantangan)hasilEl.textContent="Tantangan selesai: "+ok+" / "+tantangan.length;
-  }
-  container.append(h("div",{class:"ms-bar"},addr,fx),h("div",{class:"ms-wrap"},tbl));
-  if(tantangan&&tantangan.length)container.append(h("h4",{},"Tantangan"),daftar,h("button",{class:"btn",type:"button",onclick:()=>cekTantangan(true)},"Periksa jawaban"),hasilEl);
-  container.append(h("p",{},h("button",{class:"btn sec",type:"button",onclick:()=>{for(const k in raw)delete raw[k];Object.assign(raw,selData||{});store.set(storeKey,{});segarkan();}},"Reset lembar")));
-  cekTantangan(false);
-  return {inputs,hitung,raw};
-}
-
-/* ===== INTI 1: MAX MIN ===== */
-const BULAN=["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
-const DATA_KUNJUNGAN=[312,298,345,367,289,401,356,412,378,445,398,421];
-function initInti1(){
-  const sel={A1:"Bulan",B1:"Kunjungan",C1:"Keterangan"};
-  BULAN.forEach((b,i)=>{sel["A"+(i+2)]=b;sel["B"+(i+2)]=String(DATA_KUNJUNGAN[i]);});
-  sel["A14"]="Tertinggi";sel["A15"]="Terendah";sel["A16"]="Rata-rata";
-  
-  const tantangan=[
-    {teks:"B14 = kunjungan rawat jalan tertinggi",sel:"B14",nilai:445,wajibRumus:true},
-    {teks:"B15 = kunjungan rawat jalan terendah",sel:"B15",nilai:289,wajibRumus:true},
-    {teks:"B16 = rata-rata kunjungan rawat jalan per bulan",sel:"B16",nilai:DATA_KUNJUNGAN.reduce((a,b)=>a+b,0)/12,wajibRumus:true}
-  ];
-  buatMinisheet(document.getElementById("ms-inti1"),17,3,sel,tantangan,"ms-inti1");
-}
-
-/* ===== INTI 2: QUIZ GRAFIK ===== */
-function initQuizGrafik(){
-  const soal=[
-    {q:"Membandingkan jumlah kunjungan dari 5 poli berbeda bulan ini",benar:"Bar",opsi:["Bar","Line","Pie"],jelas:"Bar chart terbaik untuk membandingkan nilai antar kategori yang berbeda (poli, departemen, dll)."},
-    {q:"Menampilkan tren kunjungan pasien selama 12 bulan berturut-turut",benar:"Line",opsi:["Line","Bar","Pie"],jelas:"Line chart ideal untuk menunjukkan perubahan dari waktu ke waktu (tren)."},
-    {q:"Menampilkan proporsi pasien BPJS (65%) vs pasien umum (35%)",benar:"Pie",opsi:["Pie","Bar","Line"],jelas:"Pie chart digunakan untuk menampilkan bagian-bagian dari total 100%."},
-    {q:"Memperlihatkan perubahan BOR (Bed Occupancy Rate) tiap bulan",benar:"Line",opsi:["Line","Bar","Pie"],jelas:"Data berurutan per waktu paling cocok dengan Line chart untuk melihat tren naik-turun."},
-    {q:"Membandingkan jumlah Rawat Inap vs Rawat Jalan per triwulan",benar:"Bar",opsi:["Bar","Line","Pie"],jelas:"Bar chart grouped/stacked cocok untuk membandingkan beberapa kategori per periode."}
-  ];
-  const container=document.getElementById("quiz-grafik-container");
-  const skorEl=document.getElementById("quiz-grafik-skor");
-  let jawab=new Array(soal.length).fill(null);
-  soal.forEach((s,i)=>{
-    const div=h("div",{class:"quiz-grafik-soal"});
-    div.append(h("p",{},(i+1)+". "+s.q));
-    const opsiDiv=h("div",{class:"grafik-opsi"});
-    const fb=h("div",{class:"grafik-fb","aria-live":"polite"});
-    const btns=s.opsi.map(o=>{
-      const btn=h("button",{type:"button",class:"grafik-btn",onclick:()=>{
-        if(jawab[i]!==null)return;
-        jawab[i]=o;
-        btns.forEach(b=>{
-          const bTxt=b.textContent;
-          b.className="grafik-btn "+(bTxt===s.benar?"benar":bTxt===o&&o!==s.benar?"salah":"");
-          b.disabled=true;
-        });
-        fb.textContent=(o===s.benar?"Benar! ":"Kurang tepat. ")+s.jelas;
-        updateSkor();
-      }},o+" chart");
-      return btn;
-    });
-    btns.forEach(b=>opsiDiv.append(b));
-    div.append(opsiDiv,fb);container.append(div);
-  });
-  function updateSkor(){const done=jawab.filter(j=>j!==null).length,benar=jawab.filter((j,i)=>j===soal[i].benar).length;
-    if(done>0)skorEl.textContent="Benar: "+benar+" / "+done+" soal dijawab"+(done===soal.length?". Selesai!":"");}
-}
-
-/* ===== INTI 3: GRAFIK INTERAKTIF ===== */
-const POLI_DATA=[["Poli Umum",145],["Poli Gigi",82],["Poli Anak",67],["Poli THT",53],["Poli Jantung",41],["Poli Kandungan",78]];
-function initInti3(){
-  const tbody=document.getElementById("chart3-tbody");
-  const nilaiArr=POLI_DATA.map(p=>p[1]);
-  const labelArr=POLI_DATA.map(p=>p[0]);
-  POLI_DATA.forEach((p,i)=>{
-    const inpV=h("input",{type:"number",min:"0",value:p[1],"aria-label":"Nilai "+p[0],oninput:()=>{nilaiArr[i]=Number(inpV.value)||0;draw();}});
-    tbody.append(h("tr",{},h("td",{},labelArr[i]),h("td",{},inpV)));
-  });
-  const area=document.getElementById("chart3-area");
-  const tipeEl=document.getElementById("chart3-tipe");
-  tipeEl.addEventListener("change",draw);
-  function draw(){area.textContent="";area.append(gambarGrafik(tipeEl.value,labelArr,nilaiArr,"Kunjungan per Poli - RS Sehat Citra"));}
-  draw();
-}
-
-/* ===== INTI 4: BOR ===== */
-function initInti4(){
-  const sel={A1:"Bulan",B1:"BOR (%)",A2:"Januari",B2:"72",A3:"Februari",B3:"68",A4:"Maret",B4:"75",A5:"April",B5:"81",A6:"Mei",B6:"79",A7:"Juni",B7:"83",A8:"Rata-rata BOR"};
-  const tantangan=[{teks:"B8 = rata-rata BOR enam bulan",sel:"B8",nilai:(72+68+75+81+79+83)/6,wajibRumus:true}];
-  buatMinisheet(document.getElementById("ms-inti4"),9,2,sel,tantangan,"ms-inti4");
-  // Interpretasi
-  const ta=document.getElementById("interpretasi-ta");
-  ta.value=store.get("interpretasi","");
-  ta.addEventListener("input",()=>store.set("interpretasi",ta.value));
-}
-
-/* ===== PRAKTIK: STUDI KASUS ===== */
-const BDATA={
-  rj:[312,298,345,367,289,401,356,412,378,445,398,421],
-  ri:[87,79,92,101,74,115,98,122,109,131,118,127],
-  igd:[43,38,47,52,35,61,54,67,59,73,65,70]
+  el.append(h("div", { class: "ms-bar" }, h("span", {}, "Name Box:"), addr), info, h("div", { class: "ms-wrap" }, tbl), fb,
+    h("p", {}, h("button", { class: "btn sec", type: "button", onclick: () => { ronde = 0; benar = 0; selesai = false; fb.textContent = ""; addr.textContent = "–"; baru(); } }, "Ulangi")));
+  baru();
 };
-function initPraktik(){
-  const sel={A1:"Bulan",B1:"Rawat Jalan",C1:"Rawat Inap",D1:"IGD",E1:"Total"};
-  BULAN.forEach((b,i)=>{
-    sel["A"+(i+2)]=b;
-    sel["B"+(i+2)]=String(BDATA.rj[i]);
-    sel["C"+(i+2)]=String(BDATA.ri[i]);
-    sel["D"+(i+2)]=String(BDATA.igd[i]);
-  });
-  sel["A14"]="Tertinggi";sel["A15"]="Rata-rata";
-  const totBenar=BULAN.map((_,i)=>BDATA.rj[i]+BDATA.ri[i]+BDATA.igd[i]);
-  const maxTot=Math.max(...totBenar),avgTot=totBenar.reduce((a,b)=>a+b,0)/12;
-  const tantangan=[
-    {teks:"E2 = total kunjungan bulan Januari",sel:"E2",nilai:totBenar[0],wajibRumus:true},
-    {teks:"E14 = total kunjungan tertinggi",sel:"E14",nilai:maxTot,wajibRumus:true},
-    {teks:"E15 = rata-rata total kunjungan per bulan",sel:"E15",nilai:avgTot,wajibRumus:true}
-  ];
-  const ms=buatMinisheet(document.getElementById("ms-praktik"),16,5,sel,tantangan,"ms-praktik");
-  // Grafik praktik
-  const chartArea=document.getElementById("chart-praktik-area");
-  const tipeEl=document.getElementById("chart-praktik-tipe");
-  function drawPraktik(){
-    chartArea.textContent="";
-    const vals=BULAN.map((_,i)=>{const id="E"+(i+2);const v=ms.hitung(id);return typeof v==="number"?v:totBenar[i];});
-    chartArea.append(gambarGrafik(tipeEl.value,BULAN,vals,"Total Kunjungan RS Sehat Citra 2026"));
+
+/* === PARSER-AWAL === */
+function kolHuruf(n) { return String.fromCharCode(65 + n); }
+function parseRef(s) { const m = /^([A-Z])(\d+)$/.exec(s.toUpperCase()); return m ? { c: m[1].charCodeAt(0) - 65, r: parseInt(m[2], 10) - 1 } : null; }
+function tokenisasi(s) {
+  const t = []; let i = 0;
+  while (i < s.length) {
+    const c = s[i];
+    if (/\s/.test(c)) { i++; continue; }
+    let m = /^(\d+(\.\d+)?|\.\d+)/.exec(s.slice(i));
+    if (m) { t.push({ t: "n", v: parseFloat(m[0]) }); i += m[0].length; continue; }
+    m = /^[A-Za-z]+\d*/.exec(s.slice(i));
+    if (m) {
+      const nm = m[0], nx = s[i + nm.length];
+      if (nx === "(") t.push({ t: "f", v: nm.toUpperCase() });
+      else if (/^[A-Za-z]+\d+$/.test(nm)) t.push({ t: "r", v: nm.toUpperCase() });
+      else throw new Error("#NAME?");
+      i += nm.length; continue;
+    }
+    if ("+-*/(),:;".includes(c)) { t.push({ t: c === ";" ? "," : c }); i++; continue; }
+    throw new Error("#ERROR");
   }
-  document.getElementById("btn-update-grafik").addEventListener("click",drawPraktik);
-  tipeEl.addEventListener("change",drawPraktik);
-  drawPraktik();
-  // Interpretasi
-  const ta=document.getElementById("interpretasi-praktik");
-  ta.value=store.get("interpretasi-praktik","");
-  ta.addEventListener("input",()=>store.set("interpretasi-praktik",ta.value));
+  return t;
+}
+function evalRumus(src, getCell) {
+  const tk = tokenisasi(src.replace(/\$/g, "")); let p = 0;
+  const peek = () => tk[p] && tk[p].t, ambil = () => tk[p++];
+  const jml = x => { if (Array.isArray(x)) throw new Error("#VALUE!"); if (x === null) return 0; if (typeof x === "string") throw new Error("#VALUE!"); return x; };
+  function expr() { let v = term(); while (peek() === "+" || peek() === "-") { const o = ambil().t; const r = term(); v = o === "+" ? jml(v) + jml(r) : jml(v) - jml(r); } return v; }
+  function term() { let v = unary(); while (peek() === "*" || peek() === "/") { const o = ambil().t; const r = unary(); if (o === "*") v = jml(v) * jml(r); else { const d = jml(r); if (d === 0) throw new Error("#DIV/0!"); v = jml(v) / d; } } return v; }
+  function unary() { if (peek() === "-") { ambil(); return -jml(unary()); } if (peek() === "+") { ambil(); return jml(unary()); } return primary(); }
+  function ref(tok) { const a = parseRef(tok.v); if (!a) throw new Error("#REF!"); return a; }
+  function primary() {
+    const k = ambil(); if (!k) throw new Error("#ERROR");
+    if (k.t === "n") return k.v;
+    if (k.t === "(") { const v = expr(); if (ambil() == null || tk[p - 1].t !== ")") throw new Error("#ERROR"); return v; }
+    if (k.t === "r") {
+      const a = ref(k);
+      if (peek() === ":") {
+        ambil(); const k2 = ambil(); if (!k2 || k2.t !== "r") throw new Error("#ERROR");
+        const b = ref(k2), out = [];
+        for (let r = Math.min(a.r, b.r); r <= Math.max(a.r, b.r); r++) for (let c = Math.min(a.c, b.c); c <= Math.max(a.c, b.c); c++) out.push(getCell(c, r));
+        return out;
+      }
+      return getCell(a.c, a.r);
+    }
+    if (k.t === "f") {
+      if (ambil() == null || tk[p - 1].t !== "(") throw new Error("#ERROR");
+      const args = [];
+      if (peek() !== ")") { args.push(expr()); while (peek() === ",") { ambil(); args.push(expr()); } }
+      if (ambil() == null || tk[p - 1].t !== ")") throw new Error("#ERROR");
+      const angka = [];
+      args.forEach(a => { if (Array.isArray(a)) a.forEach(x => { if (typeof x === "number") angka.push(x); }); else if (typeof a === "number") angka.push(a); else if (a !== null) throw new Error("#VALUE!"); });
+      switch (k.v) {
+        case "SUM": return angka.reduce((s, x) => s + x, 0);
+        case "AVERAGE": if (!angka.length) throw new Error("#DIV/0!"); return angka.reduce((s, x) => s + x, 0) / angka.length;
+        case "COUNT": return angka.length;
+        case "MAX": return angka.length ? Math.max(...angka) : 0;
+        case "MIN": return angka.length ? Math.min(...angka) : 0;
+        default: throw new Error("#NAME?");
+      }
+    }
+    throw new Error("#ERROR");
+  }
+  const hasil = expr();
+  if (p < tk.length) throw new Error("#ERROR");
+  if (Array.isArray(hasil)) throw new Error("#VALUE!");
+  return hasil;
+}
+/* === PARSER-AKHIR === */
+
+W.minisheet = el => {
+  const d = getData(el.dataset.src);
+  const R = d.baris || 10, C = Math.min(d.kolom || 6, 26);
+  const key = "ms-" + el.dataset.src;
+  const raw = Object.assign({}, d.sel || {}, store.get(key, {}));
+  let cache = new Map(), aktif = new Set();
+  const nilaiAsli = (c, r) => {
+    if (c < 0 || c >= C || r < 0 || r >= R) throw new Error("#REF!");
+    const id = kolHuruf(c) + (r + 1);
+    if (cache.has(id)) { const v = cache.get(id); if (v instanceof Error) throw v; return v; }
+    if (aktif.has(id)) throw new Error("#CIRC!");
+    aktif.add(id);
+    let v; const s = String(raw[id] === undefined ? "" : raw[id]).trim();
+    try {
+      if (s === "") v = null;
+      else if (s[0] === "=") v = evalRumus(s.slice(1), nilaiAsli);
+      else if (/^-?\d+(\.\d+)?$/.test(s)) v = parseFloat(s);
+      else v = s;
+    } catch (e) { v = e; }
+    aktif.delete(id); cache.set(id, v);
+    if (v instanceof Error) throw v; return v;
+  };
+  const hitung = id => { cache = new Map(); aktif = new Set(); const a = parseRef(id); try { return nilaiAsli(a.c, a.r); } catch (e) { return e; } };
+  const fmt = v => v instanceof Error ? v.message : v === null ? "" : typeof v === "number" ? String(Math.round(v * 1e6) / 1e6) : v;
+  const addr = h("span", { class: "addr" }, "–"), fx = h("span", { class: "fx" }, "");
+  const tbl = h("table", { class: "ms" }), inputs = {};
+  const head = h("tr", {}, h("th", { class: "rh" }, ""));
+  for (let c = 0; c < C; c++) head.append(h("th", { scope: "col" }, kolHuruf(c)));
+  tbl.append(h("thead", {}, head));
+  const tb = h("tbody");
+  for (let r = 0; r < R; r++) {
+    const tr = h("tr", {}, h("th", { class: "rh", scope: "row" }, r + 1));
+    for (let c = 0; c < C; c++) {
+      const id = kolHuruf(c) + (r + 1);
+      const inp = h("input", { type: "text", "aria-label": "Sel " + id, autocomplete: "off", spellcheck: "false" });
+      inp.value = fmt(hitung(id)); inputs[id] = inp;
+      inp.addEventListener("focus", () => { addr.textContent = id; fx.textContent = raw[id] || ""; inp.value = raw[id] === undefined ? "" : raw[id]; });
+      inp.addEventListener("input", () => { fx.textContent = inp.value; });
+      inp.addEventListener("blur", () => { raw[id] = inp.value; simpan(); segarkan(); });
+      inp.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === "ArrowDown") { e.preventDefault(); const n = inputs[kolHuruf(c) + (r + 2)]; if (n) n.focus(); else inp.blur(); }
+        else if (e.key === "ArrowUp") { e.preventDefault(); const n = inputs[kolHuruf(c) + r]; if (n) n.focus(); }
+      });
+      tr.append(h("td", {}, inp));
+    }
+    tb.append(tr);
+  }
+  tbl.append(tb);
+  function simpan() { const u = {}; for (const k in raw) if (raw[k] !== (d.sel || {})[k] && raw[k] !== "") u[k] = raw[k]; store.set(key, u); }
+  function segarkan() {
+    for (const id in inputs) {
+      if (document.activeElement === inputs[id]) continue;
+      const v = hitung(id);
+      inputs[id].value = fmt(v);
+      inputs[id].className = (v instanceof Error ? "err" : typeof v === "number" ? "num" : "");
+    }
+    cekTantangan(false);
+  }
+  const daftar = h("ul", { class: "tantangan" }), hasil = h("p", { class: "skor", "aria-live": "polite" });
+  const li = (d.tantangan || []).map(t => { const e = h("li", {}, "☐ " + t.teks); daftar.append(e); return e; });
+  function cekTantangan(tampilPesan) {
+    let ok = 0;
+    (d.tantangan || []).forEach((t, i) => {
+      const v = hitung(t.sel), rumus = String(raw[t.sel] || "").trim().startsWith("=");
+      const benar = typeof v === "number" && Math.abs(v - t.nilai) < 1e-9 && (!t.wajibRumus || rumus) && (!t.harusMemuat || String(raw[t.sel] || "").includes(t.harusMemuat));
+      li[i].classList.toggle("ok", benar); li[i].textContent = (benar ? "✔ " : "☐ ") + t.teks; if (benar) ok++;
+    });
+    if (tampilPesan && d.tantangan) hasil.textContent = "Tantangan selesai: " + ok + " / " + d.tantangan.length;
+  }
+  el.append(h("div", { class: "ms-bar" }, addr, fx), h("div", { class: "ms-wrap" }, tbl));
+  if (d.tantangan && d.tantangan.length) el.append(h("h4", {}, "Tantangan"), daftar, h("button", { class: "btn", type: "button", onclick: () => cekTantangan(true) }, "Periksa jawaban"), hasil);
+  el.append(h("p", {}, h("button", { class: "btn sec", type: "button", onclick: () => { for (const k in raw) delete raw[k]; Object.assign(raw, d.sel || {}); store.set(key, {}); segarkan(); } }, "Reset lembar")));
+  cekTantangan(false);
+};
+
+function initTabs() {
+  $$(".tabs").forEach(box => {
+    const tabs = $$(".tablist button", box), panels = $$(":scope > .tabpanel", box);
+    function pilih(i) { tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; }); panels.forEach((p, k) => { p.hidden = k !== i; }); }
+    tabs.forEach((t, i) => t.addEventListener("click", () => pilih(i)));
+    pilih(0);
+  });
 }
 
-/* REFLEKSI */
-function initRefleksi(){
-  const ta=document.getElementById("refleksi-ta");if(!ta)return;
-  ta.value=store.get("refleksi","");
-  ta.addEventListener("input",()=>store.set("refleksi",ta.value));
+function initSegmen() {
+  const segs = $$("section.seg"), agenda = $("#agenda");
+  const total = segs.reduce((s, x) => s + Number(x.dataset.min || 0), 0);
+  if (total !== KONFIG.totalMenit) console.warn("Total menit segmen = " + total + ", seharusnya " + KONFIG.totalMenit);
+  let mulai = 0;
+  const links = [];
+  segs.forEach((s, i) => {
+    const min = Number(s.dataset.min || 0), judul = s.dataset.judul || ("Segmen " + (i + 1));
+    const head = h("div", { class: "seg-head" }, h("h3", {}, judul));
+     s.prepend(head);
+    const a = h("a", { href: "#" + s.id }, h("span", { class: "mnt" }, mulai + "–" + (mulai + min) + "'"), h("span", {}, judul), h("span", { class: "tick", "aria-label": "selesai" }, "✓"));
+    agenda.append(a); links.push({ a, s }); mulai += min;
+  });
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.a.setAttribute("aria-current", String(l.s === e.target))); }), { rootMargin: "-20% 0px -70% 0px" });
+    segs.forEach(s => io.observe(s));
+  }
 }
 
-/* TIMER & AGENDA */
-function initSegmen(){
-  const segs=$$("section.seg"),agenda=document.getElementById("agenda");
-  let mulai=0;const links=[];
-  segs.forEach((s,i)=>{
-    const min=Number(s.dataset.min||0),judul=s.dataset.judul||("Segmen "+(i+1));
-    const head=h("div",{class:"seg-head"},h("h3",{},judul));
-    s.prepend(head);
-    const a=h("a",{href:"#"+s.id},h("span",{class:"mnt"},mulai+"–"+(mulai+min)+"'"),h("span",{},judul),h("span",{class:"tick","aria-label":"selesai"},"✓"));
-    agenda.append(a);links.push({a,s});mulai+=min;});
-  if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.a.setAttribute("aria-current",String(l.s===e.target)));}),{rootMargin:"-20% 0px -70% 0px"});segs.forEach(s=>io.observe(s));}
+function isiHero() {
+  document.title = "Pertemuan " + KONFIG.nomor + ": " + KONFIG.judul + " | Komputer Rumah Sakit";
+  $("#hdr-judul").textContent = KONFIG.judul;
+  $("#hdr-sub").textContent = "Komputer Rumah Sakit · Pertemuan " + KONFIG.nomor;
+  $("#hero-kode").textContent = "Pertemuan " + KONFIG.nomor + " · " + KONFIG.cpmk.split(":")[0];
+  $("#hero-judul").textContent = KONFIG.judul;
+  $("#hero-cpmk").textContent = KONFIG.cpmk;
+  KONFIG.tujuan.forEach(t => $("#hero-tujuan").append(h("li", {}, t)));
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
-  document.title="Pertemuan "+KONFIG.nomor+": "+KONFIG.judul+" | Komputer Rumah Sakit";
-  document.getElementById("hero-cpmk").textContent=KONFIG.cpmk;
-  KONFIG.tujuan.forEach(t=>document.getElementById("hero-tujuan").append(h("li",{},t)));
-  $$("[data-widget]").forEach(el=>{const fn=W[el.dataset.widget];if(!fn)return;try{fn(el);}catch(e){el.append(h("p",{class:"err"},"Widget gagal: "+e.message));}});
-  initInti1();initQuizGrafik();initInti3();initInti4();initPraktik();initRefleksi();
-  initSegmen();
-  window.addEventListener("beforeprint",()=>$$("details").forEach(x=>x.setAttribute("open","")));
+document.addEventListener("DOMContentLoaded", () => {
+  isiHero();
+  $$("[data-widget]").forEach(el => {
+    const fn = W[el.dataset.widget];
+    if (!fn) return;
+    try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal dimuat (" + el.dataset.widget + "): " + e.message)); }
+  });
+  initTabs(); initSegmen();
+  window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));
 });
 </script>
 

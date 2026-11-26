@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 10: PowerPoint Lanjutan: Data Storytelling | Komputer Rumah Sakit</title>
+<title>Pertemuan 10: Microsoft PowerPoint: Desain Slide, Data Storytelling | Komputer Rumah Sakit</title>
 <style>
 :root{
   --bg:#f6faf9; --surface:#ffffff; --ink:#12303a; --muted:#5b7480; --line:#d5e3e6;
@@ -162,13 +162,59 @@ textarea.reflect{width:100%;min-height:100px;border:1px solid var(--line);border
 .dash-panel .panel-label{font-size:.85rem;color:var(--muted);margin-top:4px}
 .gauge-wrap{position:relative;width:100px;height:54px;overflow:hidden;margin:0 auto 6px}
 .gauge-wrap svg{width:100%;height:100%}
+/* Dari PowerPoint Dasar */
+/* Slide preview */
+.slide-16-9{aspect-ratio:16/9;border:2px solid #bbb;border-radius:8px;overflow:hidden;position:relative;box-shadow:var(--shadow);max-width:560px}
+.slide-buruk{background:#dd0000;color:#000;padding:16px;font-size:8.5px;line-height:1.3}
+.slide-buruk .judul{font-size:12px;font-family:Impact,sans-serif}
+.slide-buruk .isi{font-family:Arial,sans-serif}
+.slide-baik{background:#fff;color:#12303a;padding:20px 24px;display:flex;flex-direction:column;justify-content:center}
+.slide-baik .judul{font-size:22px;font-weight:700;color:#0b7285;margin-bottom:10px;border-bottom:3px solid #0b7285;padding-bottom:6px}
+.slide-baik .poin{font-size:14px;line-height:1.7;list-style:disc;padding-left:18px}
+.slide-panel-label{font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:4px;text-transform:uppercase}
+/* Contrast checker */
+.contrast-wrap{max-width:480px}
+.color-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.color-row label{display:flex;flex-direction:column;gap:4px;font-size:.9rem;font-weight:600}
+.color-row input[type=color]{width:100%;height:44px;border:1px solid var(--line);border-radius:6px;cursor:pointer;padding:2px}
+.contrast-result{font-size:1.2rem;font-weight:700;margin:8px 0}
+.contrast-badge{display:inline-block;padding:3px 12px;border-radius:99px;font-size:.85rem;font-weight:700}
+.contrast-badge.pass{background:var(--ok-soft);color:var(--ok)}.contrast-badge.fail{background:var(--bad-soft);color:var(--bad)}
+.contrast-preview{padding:14px 18px;border-radius:8px;font-size:1rem;margin:10px 0;border:1px solid var(--line)}
+.preset-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+/* Aturan teks */
+.slide-teks-demo{aspect-ratio:16/9;border:2px solid #bbb;border-radius:8px;overflow:hidden;max-width:480px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:20px;background:var(--slidekulit,#ffffff);color:var(--slideteks,#111);position:relative}
+.slide-teks-demo .judul-demo{font-weight:700;line-height:1.2;color:var(--slideteks,#111)}
+.aturan-warn{background:var(--bad-soft);border-left:4px solid var(--bad);padding:8px 12px;border-radius:0 8px 8px 0;font-size:.9rem;margin:6px 0;display:none}
+.aturan-warn.vis{display:block}
+/* Quiz animasi */
+.anim-soal{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;background:var(--bg)}
+.anim-soal p{margin:0 0 8px;font-weight:700}
+.anim-btns{display:flex;gap:8px}
+.anim-btn{border:2px solid var(--line);border-radius:8px;padding:8px 16px;background:var(--surface);cursor:pointer;font-size:.9rem;transition:border-color .15s}
+.anim-btn:hover{border-color:var(--primary)}
+.anim-btn.membantu{border-color:var(--ok);background:var(--ok-soft)}
+.anim-btn.mengganggu{border-color:var(--bad);background:var(--bad-soft)}
+.anim-fb{font-size:.9rem;color:var(--muted);margin-top:4px}
+/* Slide editor */
+.layout-kartu{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:12px}
+.lk{border:2px solid var(--line);border-radius:8px;padding:8px 10px;text-align:center;cursor:pointer;font-size:.85rem;background:var(--bg)}
+.lk:hover{border-color:var(--primary)}.lk.aktif{border-color:var(--primary);background:var(--primary-soft);font-weight:700}
+.editor-form{display:grid;gap:8px}
+.editor-form label{display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:start;font-size:.9rem}
+.editor-form input,.editor-form textarea{border:1px solid var(--line);border-radius:6px;padding:6px 10px;background:var(--surface);width:100%}
+.penilai{display:grid;gap:6px;margin-top:10px;font-size:.9rem}
+.penilai-baris{display:grid;grid-template-columns:1fr 80px;align-items:center;gap:8px}
+.penilai-badge{font-weight:700;text-align:right}
+.penilai-badge.ok{color:var(--ok)}.penilai-badge.no{color:var(--bad)}
+.slide-editor-preview{aspect-ratio:16/9;border:2px solid #bbb;border-radius:8px;overflow:hidden;max-width:540px;padding:18px 24px;display:flex;flex-direction:column;justify-content:center;margin:12px 0;box-shadow:var(--shadow)}
 @media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}nav.agenda{position:static;max-height:none}nav.agenda .list{display:flex;flex-wrap:wrap}.story-panels{grid-template-columns:1fr}.dash-builder{grid-template-columns:1fr}}
 @media(max-width:600px){.ind-grid{grid-template-columns:1fr 1fr}}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media print{
   :root{--bg:#fff;--surface:#fff;--ink:#000;--line:#999;--muted:#333}
   body{font-size:12pt}
-  .top,nav.agenda,
+  .top,nav.agenda,.seg-foot,.btn,.skip{display:none!important}
   .wrap{display:block;padding:0}
   .seg,.hero{box-shadow:none;break-inside:avoid-page;border:1px solid #999}
   .hero{background:#fff;color:#000}
@@ -201,26 +247,141 @@ nav.agenda{display:none!important}
       <ul id="hero-tujuan"></ul>
     </div>
 
-    <section class="seg" id="seg-pembuka" data-judul="Pembuka" data-min="5">
-      <p class="cerita">Dr. Hendra, Kepala Bidang Mutu RS Harapan Medika (fiktif), diminta direktur presentasi kinerja Oktober. BOR turun dari 82% ke 71%, LOS naik, ada masalah nyata, tapi semua ada di tabel angka biasa. Direktur melihat tabel dan berkata, <strong>"Data ini tidak bilang apa-apa."</strong> Dr. Hendra tersadar: data ada, tapi tidak <em>bercerita</em>. Padahal sebuah cerita yang didukung data adalah alat perubahan paling ampuh di manajemen RS.</p>
-      <p>Hari ini kita belajar mengubah angka menjadi narasi yang meyakinkan, menghitung indikator mutu RS secara akurat, dan merancang dasbor presentasi interaktif di PowerPoint.</p>
-    </section>
-
     <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
       <p>Jawab 5 soal ini jujur, tidak ada penalti. Ini hanya melihat titik awal kalian.</p>
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test Pertemuan 10","soal":[
+        {"q":"Font minimum yang aman dibaca dari jarak 3 meter pada proyektor adalah:","opsi":["8 pt","12 pt","18 pt","24 pt"],"benar":3,"jelas":"Aturan umum presentasi: minimal 24 pt untuk isi, 36 pt atau lebih untuk judul. Di bawah 18 pt tidak terbaca dari kursi belakang."},
+        {"q":"Rasio kontras WCAG AA minimum untuk teks normal adalah:","opsi":["2:1","3:1","4,5:1","7:1"],"benar":2,"jelas":"WCAG AA mensyaratkan rasio kontras minimal 4,5:1 untuk teks normal (di bawah 18 pt) agar dapat dibaca penderita gangguan penglihatan."},
         {"q":"Rumus BOR (Bed Occupancy Rate) yang benar adalah …","opsi":["(Pasien Keluar ÷ Tempat Tidur) × 100%","(Hari Perawatan ÷ (TT × Hari Periode)) × 100%","Hari Perawatan ÷ Pasien Keluar","(TT × Hari Periode) ÷ Pasien Keluar"],"benar":1,"jelas":"BOR mengukur persentase TT terpakai = HP ÷ (TT × Periode) × 100%."},
-        {"q":"Rentang normal BOR untuk RS umum adalah …","opsi":["20–40%","60–85%","86–100%","Di atas 100%"],"benar":1,"jelas":"WHO/Kemenkes: BOR ideal 60–85%."},
-        {"q":"LOS (Length of Stay) adalah …","opsi":["Jumlah total pasien yang dirawat","Rata-rata lama hari perawatan per pasien keluar","Interval waktu antar pasien di TT yang sama","Kunjungan rawat jalan per bulan"],"benar":1,"jelas":"LOS = HP ÷ Pasien Keluar."},
         {"q":"'Data storytelling' dalam presentasi RS bertujuan …","opsi":["Menyembunyikan data negatif","Menambah slide sebanyak-banyaknya","Mengubah angka menjadi narasi yang mendorong keputusan","Menghapus grafik agar lebih ringkas"],"benar":2,"jelas":"Data storytelling menyajikan angka dengan konteks, narasi, dan visual yang memudahkan keputusan."},
         {"q":"Fitur PowerPoint untuk navigasi non-linear (lompat ke slide mana saja) adalah …","opsi":["Slide Sorter","Presenter View","Action Button / Hyperlink","Rehearse Timings"],"benar":2,"jelas":"Action Button dan Hyperlink memungkinkan lompat ke slide mana pun tanpa urutan linear."}
       ]}
       </script>
     </section>
 
-    <section class="seg" id="seg-inti1" data-judul="Data Storytelling" data-min="10">
+    <section class="seg" id="seg-dasar1" data-judul="Prinsip Desain Slide: Buruk vs Baik" data-min="7">
+      <p>Bandingkan dua versi slide presentasi laporan kunjungan RS. Klik "Bandingkan" untuk toggle.</p>
+      <div class="grid2">
+        <div id="panel-buruk">
+          <div class="slide-panel-label">Versi: Buruk</div>
+          <div class="slide-16-9 slide-buruk">
+            <div class="judul">LAPORAN KUNJUNGAN PASIEN BULANAN RS SEHAT CITRA - NOVEMBER 2026</div>
+            <div class="isi">
+              • Total kunjungan: 1.254 pasien<br>
+              • Poli Umum: 312 pasien (tertinggi)<br>
+              • Poli Gigi: 189 pasien<br>
+              • Poli Anak: 145 pasien<br>
+              • Poli THT: 98 pasien<br>
+              • Poli Jantung: 87 pasien<br>
+              • Poli Kandungan: 112 pasien<br>
+              • Poli Mata: 76 pasien<br>
+              • Poli Bedah: 65 pasien<br>
+              • IGD: 170 pasien<br>
+              • BPJS: 65% dari total<br>
+              • Umum: 35% dari total<br>
+              • BOR bulan ini: 78%<br>
+              • Target BOR: 80%<br>
+              • Catatan: perlu penambahan tenaga medis poli umum karena antrian rata-rata 45 menit
+            </div>
+          </div>
+        </div>
+        <div id="panel-baik">
+          <div class="slide-panel-label">Versi: Baik</div>
+          <div class="slide-16-9 slide-baik">
+            <div class="judul">Kunjungan Pasien: November 2026</div>
+            <ul class="poin">
+              <li>Total: <strong>1.254 pasien</strong></li>
+              <li>Poli Umum tertinggi: <strong>312 kunjungan</strong></li>
+              <li>BOR: <strong>78%</strong> (target 80%)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:12px"><button class="btn sec" id="btn-bandingkan" type="button">Bandingkan (Toggle Buruk/Baik)</button></p>
+      <div id="checklist-beda" style="margin-top:12px;display:none">
+        <h4>6 Perbedaan Utama</h4>
+        <ol style="font-size:.95rem">
+          <li>Font minimum: Buruk 8–10 pt &rarr; Baik 14–22 pt (terbaca dari 3 m)</li>
+          <li>Jumlah poin: Buruk 15 poin &rarr; Baik 3 poin (1 slide 1 fokus)</li>
+          <li>Warna latar: Buruk merah menyilaukan &rarr; Baik putih bersih</li>
+          <li>Konsistensi font: Buruk campuran Impact+Arial &rarr; Baik satu font sistem</li>
+          <li>Whitespace: Buruk penuh sesak &rarr; Baik ada ruang napas</li>
+          <li>Judul: Buruk panjang + kapital semua &rarr; Baik singkat dan informatif</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="seg" id="seg-dasar2" data-judul="Kontras Warna Slide" data-min="6">
+      <p>Pilih warna teks dan warna latar. Rasio kontras dihitung otomatis menggunakan formula luminansi WCAG.</p>
+      <div class="contrast-wrap">
+        <div class="preset-btns">
+          <button class="btn sec" type="button" onclick="setPreset('#000000','#ffffff')">Hitam-Putih</button>
+          <button class="btn sec" type="button" onclick="setPreset('#ffffff','#0b7285')">Putih-Biru RS</button>
+          <button class="btn sec" type="button" onclick="setPreset('#ffff00','#ffffff')">Kuning-Putih (gagal)</button>
+          <button class="btn sec" type="button" onclick="setPreset('#ffffff','#444444')">Putih-Abu</button>
+        </div>
+        <div class="color-row">
+          <label>Warna Teks<input type="color" id="warna-teks" value="#000000" oninput="hitungKontras()"></label>
+          <label>Warna Latar<input type="color" id="warna-latar" value="#ffffff" oninput="hitungKontras()"></label>
+        </div>
+        <div class="contrast-result">Rasio kontras: <span id="rasio-val">21:1</span></div>
+        <span class="contrast-badge pass" id="badge-wcag">✓ AA Lulus (≥4,5:1)</span>
+        <div class="contrast-preview" id="contrast-preview" style="background:#ffffff;color:#000000">
+          Contoh Teks RS Sehat Citra, apakah ini terbaca dengan jelas?
+        </div>
+      </div>
+    </section>
+
+    <section class="seg" id="seg-dasar3" data-judul="Aturan Teks Slide" data-min="6">
+      <p>Atur jumlah kata dan ukuran font. Peringatan merah muncul jika melampaui batas standar.</p>
+      <div class="grid2">
+        <div>
+          <div style="margin-bottom:12px">
+            <label style="display:grid;grid-template-columns:160px 1fr 80px;gap:8px;align-items:center;font-size:.9rem">
+              Jumlah kata/slide
+              <input type="range" id="sl-kata" min="5" max="200" value="80" oninput="updateSlideTeks()">
+              <output id="out-kata">80</output>
+            </label>
+            <label style="display:grid;grid-template-columns:160px 1fr 80px;gap:8px;align-items:center;font-size:.9rem;margin-top:8px">
+              Ukuran font (pt)
+              <input type="range" id="sl-font" min="8" max="36" value="18" oninput="updateSlideTeks()">
+              <output id="out-font">18 pt</output>
+            </label>
+          </div>
+          <div class="aturan-warn" id="warn-kata">Terlalu banyak kata! Batas aman: maks 150 kata per slide. Perpecah menjadi beberapa slide.</div>
+          <div class="aturan-warn" id="warn-font">Font terlalu kecil! Minimum 18 pt agar terbaca dari 3 meter.</div>
+        </div>
+        <div>
+          <div class="slide-teks-demo" id="slide-teks-demo">
+            <div class="judul-demo" id="demo-judul" style="font-size:22px">Kunjungan Pasien November 2026</div>
+            <div id="demo-isi" style="font-size:18px;margin-top:8px;line-height:1.5">
+              Total 1.254 pasien • Poli Umum tertinggi • BOR 78%
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4>Tiga Aturan Emas Teks Slide</h4>
+      <details><summary>1. Satu Slide, Satu Pesan</summary>
+        <div><p>Setiap slide harus menyampaikan <strong>satu ide utama</strong>. Penonton tidak bisa membaca teks panjang dan mendengarkan pembicara sekaligus. Jika ada 3 topik berbeda, buat 3 slide terpisah.</p><p><em>Contoh baik:</em> "Kunjungan Poli Umum Naik 12% November". bukan "Ringkasan Kunjungan Semua Poli November-Desember 2026".</p></div>
+      </details>
+      <details><summary>2. Maksimal 6 Poin per Slide</summary>
+        <div><p>Jika slide membutuhkan lebih dari 6 bullet point, pisahkan menjadi beberapa slide atau gunakan tabel ringkas. Terlalu banyak poin = tidak ada yang penting.</p><p>Aturan tambahan: setiap poin maksimal <strong>6–8 kata</strong>. Gunakan kata kunci, bukan kalimat lengkap.</p></div>
+      </details>
+      <details><summary>3. Font Minimum 24 pt (Judul 36 pt)</summary>
+        <div><p>Untuk presentasi di ruang rapat atau aula: judul minimal <strong>36 pt</strong>, isi minimal <strong>24 pt</strong>. Jika tidak yakin, coba berdiri 3 meter dari layar dan baca sendiri sebelum presentasi.</p><p>Font sans-serif (Arial, Calibri) lebih mudah dibaca pada proyektor daripada serif (Times New Roman).</p></div>
+      </details>
+    </section>
+
+    <section class="seg" id="seg-dasar4" data-judul="Animasi yang Membantu" data-min="5">
+      <p>Untuk setiap jenis animasi berikut, klik "Membantu" atau "Mengganggu". Lihat skor di akhir.</p>
+      <div id="quiz-anim-container"></div>
+      <div id="quiz-anim-skor" aria-live="polite" style="font-weight:700;margin:10px 0;display:none"></div>
+      <button class="btn" id="btn-cek-anim" type="button" style="display:none">Lihat Skor &amp; Penjelasan</button>
+    </section>
+
+    <section class="seg" id="seg-inti1" data-judul="Data Storytelling" data-min="7">
       <h4>Angka vs Cerita: klik tombol untuk beralih tampilan</h4>
       <div class="story-toggle-bar">
         <button class="btn sec" id="btn-toggle-story" type="button">Tampilkan Cerita</button>
@@ -256,7 +417,7 @@ nav.agenda{display:none!important}
       </ol>
     </section>
 
-    <section class="seg" id="seg-inti2" data-judul="Kalkulator Indikator Mutu RS" data-min="10">
+    <section class="seg" id="seg-inti2" data-judul="Kalkulator Indikator Mutu RS" data-min="7">
       <p>Ubah angka input di bawah, hasil, rumus, dan status normal tampil otomatis.</p>
       <div class="calc-inputs">
         <div class="calc-field"><label for="inp-tt">Tempat Tidur (TT)</label><input type="number" id="inp-tt" min="1" max="1000" value="100"></div>
@@ -268,7 +429,7 @@ nav.agenda{display:none!important}
       <p class="note"><strong>Catatan:</strong> Data default fiktif RS Harapan Medika. Nilai normal: BOR 60–85%, LOS 6–9 hari, TOI 1–3 hari, BTO 40–50 kali/tahun.</p>
     </section>
 
-    <section class="seg" id="seg-inti3" data-judul="Hyperlink & Navigasi Non-Linear" data-min="10">
+    <section class="seg" id="seg-inti3" data-judul="Hyperlink & Navigasi Non-Linear" data-min="6">
       <p>Presentasi PPT tidak harus linear. Klik tombol nomor slide untuk lompat langsung, ini meniru fitur <strong>Hyperlink</strong> dan <strong>Action Button</strong> di PPT nyata.</p>
       <div class="minideck" id="minideck-p10"></div>
       <h4>Kapan pakai navigasi non-linear?</h4>
@@ -280,25 +441,54 @@ nav.agenda{display:none!important}
       </div>
     </section>
 
-    <section class="seg" id="seg-inti4" data-judul="Rehearse Timings & Timer Latihan" data-min="10">
+    <section class="seg" id="seg-inti4" data-judul="Rehearse Timings & Timer Latihan" data-min="6">
       <p>Latih presentasi dengan timer per slide. Set target waktu, klik Mulai, dan lihat selisih aktual vs target.</p>
       <div id="rehearsal-widget"></div>
     </section>
 
-    <section class="seg" id="seg-praktik" data-judul="Praktik: Builder Dasbor" data-min="25">
-      <p>Bangun dasbor presentasi 4-panel sendiri. Pilih 4 indikator dari 8 yang tersedia, pilih jenis visual, lalu lihat pratinjau dasbor.</p>
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Editor Slide dan Builder Dasbor" data-min="20">
+      <h4>Bagian A: editor slide mini</h4>
+      <p>Pilih layout, isi konten, pilih warna, dan lihat penilaian otomatis. Tujuan: capai 3/3 kriteria terpenuhi.</p>
+      <h4>1. Pilih Layout Slide</h4>
+      <div class="layout-kartu" id="layout-kartu"></div>
+      <div class="grid2" style="align-items:start">
+        <div>
+          <h4>2. Isi Konten</h4>
+          <div class="editor-form" id="editor-form"></div>
+          <h4>3. Pilih Warna Latar</h4>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+            <button class="btn sec" type="button" onclick="setSlideWarna('#ffffff','#12303a')">Putih Profesional</button>
+            <button class="btn sec" type="button" onclick="setSlideWarna('#0b7285','#ffffff')">Biru Teal RS</button>
+            <button class="btn sec" type="button" onclick="setSlideWarna('#f5f5f0','#12303a')">Abu Netral</button>
+          </div>
+          <h4>Penilaian Otomatis</h4>
+          <div class="penilai" id="penilai"></div>
+          <div style="margin-top:8px;font-weight:700;font-size:1.05rem" id="skor-editor" aria-live="polite"></div>
+        </div>
+        <div>
+          <h4>4. Pratinjau Slide</h4>
+          <div class="slide-editor-preview" id="slide-editor-preview"></div>
+        </div>
+      </div>
+
+      <h4>Bagian B: builder dasbor indikator</h4>
+      <p>Pilih 4 indikator dari 8 yang tersedia, pilih jenis visual, lalu lihat pratinjau dasbor.</p>
       <div id="dashbuilder-widget"></div>
+
       <div class="tugas-lab">
-        <h4>Tugas Lab</h4>
+        <h4>Tugas Lab: Presentasi Kinerja RS di PowerPoint Nyata</h4>
+        <p><strong>Kasus:</strong> bidang mutu RS Harapan Medika (fiktif) meminta presentasi kinerja untuk rapat direksi, maksimal 5 menit. Data indikator ada di berkas di bawah.</p>
+        <p><a class="btn sec" href="unduhan/data-indikator-rs.xlsx" download style="display:inline-block;text-decoration:none">Unduh data-indikator-rs.xlsx</a></p>
         <ol>
-          <li>Buka PowerPoint. Buat presentasi baru dengan tema RS Harapan Medika (fiktif).</li>
-          <li>Slide 1: Judul laporan kinerja. Slide 2-5: satu indikator per slide dengan grafik dan narasi singkat.</li>
-          <li>Tambahkan hyperlink di slide 1 yang langsung lompat ke slide indikator yang diklik (buat navigation map).</li>
-          <li>Aktifkan Rehearse Timings, rekam presentasi &le;5 menit, simpan timings.</li>
-          <li>Ekspor sebagai PDF dan unggah ke LMS.</li>
+          <li>Buat presentasi baru berukuran 16:9 dengan satu jenis font dan satu skema warna. Pastikan kontras teks dan latar minimal 4,5:1.</li>
+          <li>Slide 1: judul laporan dan nama penyusun (layout Judul + Subjudul).</li>
+          <li>Slide 2: <strong>menu navigasi</strong> berisi 4 tombol atau teks bertautan (hyperlink) ke slide indikator.</li>
+          <li>Slide 3 sampai 6: satu indikator per slide (pilih 4 dari data), dengan grafik yang tepat, satu kalimat judul yang bercerita, dan maksimal 3 poin. Setiap slide punya <em>action button</em> "Kembali ke Menu".</li>
+          <li>Slide 7: simpulan dan rekomendasi, maksimal 3 poin.</li>
+          <li>Ketentuan desain: judul minimal 36 pt, isi minimal 24 pt, maksimal 6 poin per slide, animasi hanya muncul per poin (Appear atau Fade).</li>
+          <li>Latih dengan <em>Rehearse Timings</em> sampai total di bawah 5 menit, lalu simpan sebagai <em>Nama_NIM_P10.pptx</em> dan ekspor ke PDF.</li>
         </ol>
-        <p><button class="btn sec" type="button" id="btn-export-csv-p10">Unduh Data Indikator (.csv)</button></p>
-        <p class="kriteria"><strong>Kriteria (RPS CPMK-4):</strong> 1) Kelengkapan 4 indikator dengan grafik yang tepat (40%) 2) Navigasi hyperlink berfungsi (30%) 3) Kualitas narasi data storytelling (30%).</p>
+        <p class="kriteria"><strong>Kriteria (RPS CPMK-4):</strong> 1) Kelengkapan 4 indikator dengan grafik yang tepat (40%). 2) Navigasi hyperlink berfungsi (30%). 3) Kualitas narasi data storytelling (30%). Ketentuan desain (konsistensi warna dan font, keterbacaan, kepadatan isi) wajib dipenuhi.</p>
       </div>
     </section>
 
@@ -306,9 +496,9 @@ nav.agenda{display:none!important}
       <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
       <script type="application/json" id="quiz-post">
       {"judul":"Post-test Pertemuan 10","soal":[
-        {"q":"RS dengan BOR 90% selama 3 bulan berturut-turut mengindikasikan …","opsi":["Kinerja sempurna, tidak perlu tindakan","Kelebihan beban, risiko mutu dan infeksi meningkat","Kekurangan pasien, perlu promosi","TT terlalu banyak"],"benar":1,"jelas":"BOR >85% terus-menerus mengindikasikan overkapasitas, risiko infeksi nosokomial meningkat."},
+        {"q":"Untuk presentasi di ruang besar, ukuran font judul sebaiknya minimal:","opsi":["18 pt","24 pt","36 pt","48 pt"],"benar":2,"jelas":"Judul slide minimal 36 pt agar terbaca dari jarak 3–5 meter. Isi minimal 24 pt."},
+        {"q":"Animasi 'muncul per poin saat diklik' termasuk animasi yang:","opsi":["Mengganggu konsentrasi audience","Dekoratif semata","Fungsional, membantu fokus pada poin yang dibahas","Tidak perlu karena memperlambat"],"benar":2,"jelas":"Animasi Appear/Fade per poin membantu pembicara mengontrol alur dan audience fokus pada poin yang sedang dibahas."},
         {"q":"Manakah contoh penerapan prinsip 'fokus' dalam data storytelling?","opsi":["Memasukkan semua tabel data di satu slide","Membuat satu kalimat headline yang meringkas pesan utama slide","Menggunakan 10 warna berbeda untuk tiap grafik","Menghapus semua grafik dan hanya menampilkan tabel"],"benar":1,"jelas":"Prinsip fokus = satu pesan utama per slide, diperkuat headline yang kuat."},
-        {"q":"TOI = 0,5 hari artinya …","opsi":["TT kosong setengah hari antara dua pasien, sangat efisien","TT hampir tidak sempat dibersihkan/disiapkan ulang, berisiko INOS","LOS terlalu pendek","BOR terlalu rendah"],"benar":1,"jelas":"TOI ideal 1–3 hari. TOI 0,5 hari berarti TT hampir langsung terisi, risiko kebersihan dan infeksi."},
         {"q":"Rumus BTO yang benar adalah …","opsi":["Pasien Keluar × Tempat Tidur","Hari Perawatan ÷ Pasien Keluar","Pasien Keluar ÷ Tempat Tidur","(TT × Periode − HP) ÷ PK"],"benar":2,"jelas":"BTO = Pasien Keluar ÷ Tempat Tidur, menunjukkan berapa kali rata-rata TT dipakai dalam setahun."},
         {"q":"Fitur 'Rehearse Timings' di PowerPoint berguna untuk …","opsi":["Menambah animasi otomatis","Merekam berapa lama tiap slide ditampilkan saat latihan","Membuat hyperlink antar slide","Mengubah ukuran font secara otomatis"],"benar":1,"jelas":"Rehearse Timings merekam durasi tiap slide agar slide berpindah otomatis sesuai ritme latihan."}
       ]}
@@ -320,11 +510,11 @@ nav.agenda{display:none!important}
     <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
       <h4>5 Poin Ringkasan</h4>
       <ol>
-        <li><strong>Data Storytelling</strong> mengubah angka menjadi narasi berstruktur: situasi → masalah → rekomendasi.</li>
-        <li><strong>BOR, LOS, TOI, BTO</strong> adalah empat indikator efisiensi utama RS, masing-masing punya rentang normal berbeda.</li>
-        <li><strong>BOR ideal 60–85%</strong>, di bawah itu underutilized, di atas itu overloaded.</li>
-        <li><strong>Hyperlink & Action Button</strong> memungkinkan navigasi non-linear di PPT, ideal untuk laporan berbasis pertanyaan audiens.</li>
-        <li><strong>Rehearse Timings</strong> membantu presenter melatih ritme tanpa melebihi batas waktu rapat.</li>
+        <li><strong>Desain slide:</strong> 1 slide 1 pesan, maksimal 6 poin, judul minimal 36 pt dan isi minimal 24 pt.</li>
+        <li><strong>Kontras warna</strong> teks dan latar minimal 4,5:1 (WCAG AA). Animasi hanya yang fungsional, misalnya muncul per poin.</li>
+        <li><strong>Data storytelling</strong> mengubah angka menjadi narasi berstruktur: situasi, masalah, rekomendasi.</li>
+        <li><strong>BOR, LOS, TOI, BTO</strong> adalah indikator efisiensi utama RS dengan rentang normal masing-masing. BOR ideal 60–85%.</li>
+        <li><strong>Hyperlink, Action Button, dan Rehearse Timings</strong> membuat presentasi bisa dinavigasi bebas dan tepat waktu.</li>
       </ol>
       <h4>Refleksi</h4>
       <div data-widget="reflect" data-key="refleksi-p10" data-prompt="Satu hal yang paling berguna hari ini, dan satu hal tentang data storytelling yang masih ingin kamu perjelas:"></div>
@@ -337,12 +527,13 @@ nav.agenda{display:none!important}
 const KONFIG = {
   kode: "krs-p10",
   nomor: "10",
-  judul: "PowerPoint Lanjutan: Data Storytelling & Dasbor Interaktif",
-  cpmk: "CPMK-4: Mampu menyajikan data kesehatan kompleks dan visualisasi indikator RS secara dinamis dan interaktif.",
+  judul: "Microsoft PowerPoint: Desain Slide, Data Storytelling, dan Dasbor",
+  cpmk: "CPMK-4: Mampu mendesain slide presentasi laporan kinerja RS yang profesional serta menyajikan data indikator RS secara dinamis dan interaktif.",
   tujuan: [
+    "Menerapkan prinsip desain slide formal: teks, kontras warna, dan animasi fungsional",
     "Memahami konsep data storytelling dalam konteks RS",
     "Menghitung indikator mutu RS: BOR, LOS, TOI, BTO",
-    "Merancang dasbor presentasi yang efektif di PowerPoint"
+    "Merancang presentasi dan dasbor interaktif di PowerPoint dengan hyperlink"
   ],
   totalMenit: 90
 };
@@ -743,24 +934,186 @@ function initDashBuilder() {
     });
   }
   renderPreview();
+}
 
-  const btnCSV = $("#btn-export-csv-p10");
-  if (btnCSV) {
-    btnCSV.addEventListener("click", () => {
-      const baris = [["Indikator","Deskripsi","Nilai (Fiktif)","Normal","Satuan"]];
-      inds.forEach(i => {
-        const normals = {bor:"60–85",los:"6–9",toi:"1–3",bto:"40–50",ndr:"<25",gdr:"<45",alos:"6–9",poli:"n/a"};
-        const sats = {bor:"%",los:"hari",toi:"hari",bto:"kali/tahun",ndr:"‰",gdr:"‰",alos:"hari",poli:"kunjungan"};
-        baris.push([i.nama, i.desc, i.val, normals[i.id]||"", sats[i.id]||""]);
-      });
-      const sep = ";";
-      const esc = v => { v = String(v); return /[";,\n\r]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v; };
-      const isi = "﻿" + baris.map(r => r.map(esc).join(sep)).join("\r\n");
-      const url = URL.createObjectURL(new Blob([isi], { type: "text/csv;charset=utf-8" }));
-      const a = h("a", { href: url, download: "data-indikator-rs-fiktif.csv" });
-      document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+/* === PowerPoint Dasar: slide buruk vs baik === */
+let bandingTampil=false;
+document.addEventListener("DOMContentLoaded",()=>{
+  const btn=document.getElementById("btn-bandingkan");
+  if(btn)btn.addEventListener("click",()=>{
+    bandingTampil=!bandingTampil;
+    const ck=document.getElementById("checklist-beda");
+    if(ck)ck.style.display=bandingTampil?"block":"none";
+    btn.textContent=bandingTampil?"Sembunyikan Perbandingan":"Bandingkan (Toggle Buruk/Baik)";
+  });
+});
+
+/* INTI 2: KONTRAS WCAG */
+function hexToRgb(hex){hex=hex.replace(/^#/,"");if(hex.length===3)hex=hex.split("").map(c=>c+c).join("");const n=parseInt(hex,16);return{r:(n>>16)&255,g:(n>>8)&255,b:n&255};}
+function linearize(c){c/=255;return c<=0.03928?c/12.92:Math.pow((c+0.055)/1.055,2.4);}
+function luminance(hex){const {r,g,b}=hexToRgb(hex);return 0.2126*linearize(r)+0.7152*linearize(g)+0.0722*linearize(b);}
+function kontrasRasio(h1,h2){const L1=Math.max(luminance(h1),luminance(h2)),L2=Math.min(luminance(h1),luminance(h2));return(L1+0.05)/(L2+0.05);}
+
+function hitungKontras(){
+  const teks=document.getElementById("warna-teks").value;
+  const latar=document.getElementById("warna-latar").value;
+  const r=kontrasRasio(teks,latar);
+  document.getElementById("rasio-val").textContent=r.toFixed(1)+":1";
+  const pass=r>=4.5;
+  const badge=document.getElementById("badge-wcag");
+  badge.textContent=pass?"✓ AA Lulus (≥4,5:1)":"✗ Gagal AA (<4,5:1)";
+  badge.className="contrast-badge "+(pass?"pass":"fail");
+  const prev=document.getElementById("contrast-preview");
+  prev.style.background=latar;prev.style.color=teks;
+}
+function setPreset(teks,latar){
+  document.getElementById("warna-teks").value=teks;
+  document.getElementById("warna-latar").value=latar;
+  hitungKontras();
+}
+
+/* INTI 3: ATURAN TEKS */
+function updateSlideTeks(){
+  const kata=parseInt(document.getElementById("sl-kata").value)||80;
+  const font=parseInt(document.getElementById("sl-font").value)||18;
+  document.getElementById("out-kata").textContent=kata;
+  document.getElementById("out-font").textContent=font+" pt";
+  const demoJudul=document.getElementById("demo-judul");
+  const demoIsi=document.getElementById("demo-isi");
+  if(demoJudul)demoJudul.style.fontSize=Math.max(font+4,12)+"px";
+  if(demoIsi)demoIsi.style.fontSize=font+"px";
+  document.getElementById("warn-kata").className="aturan-warn"+(kata>150?" vis":"");
+  document.getElementById("warn-font").className="aturan-warn"+(font<18?" vis":"");
+}
+
+/* INTI 4: QUIZ ANIMASI */
+function initQuizAnim(){
+  const soal=[
+    {q:"Fly-in setiap huruf satu per satu untuk teks judul slide",benar:"Mengganggu",jelas:"Animasi per huruf sangat lambat dan mengganggu, audience menunggu terlalu lama sebelum bisa membaca isi."},
+    {q:"Fade-in halus saat berpindah ke section baru presentasi",benar:"Membantu",jelas:"Transisi ringan seperti Fade membantu audience menyadari perpindahan topik tanpa mengalihkan perhatian."},
+    {q:"Objek 'bounce' terus-menerus saat slide sedang diam",benar:"Mengganggu",jelas:"Gerakan konstan saat slide diam mengalihkan perhatian dari penjelasan pembicara."},
+    {q:"Bullet point muncul satu per satu saat pembicara mengklik",benar:"Membantu",jelas:"Animasi Appear/Fade per poin fungsional: audience fokus pada poin yang sedang dibahas, bukan membaca semuanya sekaligus."},
+    {q:"Transisi berbeda-beda (Random) di setiap pergantian slide",benar:"Mengganggu",jelas:"Konsistensi transisi penting. Variasi transisi random terlihat tidak profesional dan memecah konsentrasi."}
+  ];
+  const container=document.getElementById("quiz-anim-container");
+  let jawab=new Array(soal.length).fill(null);
+  soal.forEach((s,i)=>{
+    const div=h("div",{class:"anim-soal"});
+    div.append(h("p",{},(i+1)+". "+s.q));
+    const fb=h("div",{class:"anim-fb","aria-live":"polite"});
+    const btnM=h("button",{type:"button",class:"anim-btn",onclick:()=>pilih(i,"Membantu",btnM,btnG,fb,s)},"Membantu");
+    const btnG=h("button",{type:"button",class:"anim-btn",onclick:()=>pilih(i,"Mengganggu",btnM,btnG,fb,s)},"Mengganggu");
+    div.append(h("div",{class:"anim-btns"},btnM,btnG),fb);
+    container.append(div);
+  });
+  function pilih(i,jawaban,bM,bG,fb,s){
+    if(jawab[i]!==null)return;
+    jawab[i]=jawaban;
+    bM.className="anim-btn"+(jawab[i]==="Membantu"?"Membantu"===s.benar?" membantu":" mengganggu":"");
+    bG.className="anim-btn"+(jawab[i]==="Mengganggu"?"Mengganggu"===s.benar?" mengganggu":" membantu":"");
+    bM.disabled=true;bG.disabled=true;
+    fb.textContent=(jawaban===s.benar?"Benar! ":"Kurang tepat. ")+s.jelas;
+    if(jawab.filter(j=>j!==null).length===soal.length){
+      document.getElementById("btn-cek-anim").style.display="";
+    }
+  }
+  document.getElementById("btn-cek-anim").addEventListener("click",()=>{
+    const b=jawab.filter((j,i)=>j===soal[i].benar).length;
+    const sk=document.getElementById("quiz-anim-skor");
+    sk.style.display="";sk.textContent="Skor: "+b+" / "+soal.length+": "+(b===soal.length?"Sempurna!":b>=3?"Bagus!":"Pelajari lagi.");
+  });
+}
+
+/* PRAKTIK: EDITOR SLIDE */
+const LAYOUTS=[
+  {nama:"Judul + Subjudul",kode:"a",desc:"Slide pembuka",fields:[{id:"judul",label:"Judul (max 8 kata)",type:"input"},{id:"sub",label:"Subjudul (max 10 kata)",type:"input"}]},
+  {nama:"Judul + 4 Poin",kode:"b",desc:"Konten utama",fields:[{id:"judul",label:"Judul",type:"input"},{id:"p1",label:"Poin 1 (≤8 kata)",type:"input"},{id:"p2",label:"Poin 2 (≤8 kata)",type:"input"},{id:"p3",label:"Poin 3 (≤8 kata)",type:"input"},{id:"p4",label:"Poin 4 (≤8 kata)",type:"input"}]},
+  {nama:"Judul + 2 Kolom",kode:"c",desc:"Perbandingan",fields:[{id:"judul",label:"Judul",type:"input"},{id:"k1judul",label:"Kolom Kiri (judul)",type:"input"},{id:"k1isi",label:"Kolom Kiri (isi)",type:"input"},{id:"k2judul",label:"Kolom Kanan (judul)",type:"input"},{id:"k2isi",label:"Kolom Kanan (isi)",type:"input"}]},
+  {nama:"Judul + Angka Besar",kode:"d",desc:"Statistik kunci",fields:[{id:"judul",label:"Judul",type:"input"},{id:"angka",label:"Angka Besar",type:"input"},{id:"keterangan",label:"Keterangan singkat",type:"input"}]}
+];
+let layoutAktif=0;
+let slideWarna={bg:"#ffffff",teks:"#12303a"};
+let nilaiField={};
+
+function setSlideWarna(bg,teks){
+  slideWarna={bg,teks};
+  renderSlideEditor();
+  nilaiPenilaian();
+}
+
+function renderSlideEditor(){
+  const preview=document.getElementById("slide-editor-preview");
+  const L=LAYOUTS[layoutAktif];
+  const v=nilaiField;
+  preview.style.background=slideWarna.bg;
+  preview.style.color=slideWarna.teks;
+  preview.textContent="";
+  if(L.kode==="a"){
+    const judulEl=h("div",{style:"font-size:22px;font-weight:700;margin-bottom:8px"},v.judul||"Judul Slide");
+    const subEl=h("div",{style:"font-size:16px;opacity:.8"},v.sub||"Subjudul / nama penyusun");
+    preview.append(judulEl,subEl);
+  }else if(L.kode==="b"){
+    preview.append(h("div",{style:"font-size:20px;font-weight:700;margin-bottom:8px;border-bottom:2px solid;padding-bottom:4px"},v.judul||"Judul Slide"));
+    const ul=h("ul",{style:"margin:0;padding-left:20px;font-size:15px;line-height:1.8"});
+    ["p1","p2","p3","p4"].forEach(k=>{if(v[k])ul.append(h("li",{},v[k]));});
+    if(!ul.children.length)ul.append(h("li",{},"Poin pertama..."));
+    preview.append(ul);
+  }else if(L.kode==="c"){
+    preview.append(h("div",{style:"font-size:20px;font-weight:700;margin-bottom:8px"},v.judul||"Judul"));
+    const grid=h("div",{style:"display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1"});
+    const k1=h("div",{style:"border:1px solid;border-radius:6px;padding:8px;font-size:13px"});k1.append(h("div",{style:"font-weight:700;margin-bottom:4px"},v.k1judul||"Kiri"),h("div",{},v.k1isi||"Isi kolom kiri"));
+    const k2=h("div",{style:"border:1px solid;border-radius:6px;padding:8px;font-size:13px"});k2.append(h("div",{style:"font-weight:700;margin-bottom:4px"},v.k2judul||"Kanan"),h("div",{},v.k2isi||"Isi kolom kanan"));
+    grid.append(k1,k2);preview.append(grid);
+  }else if(L.kode==="d"){
+    preview.append(h("div",{style:"font-size:18px;font-weight:700;margin-bottom:4px"},v.judul||"Statistik Kunci"));
+    preview.append(h("div",{style:"font-size:48px;font-weight:900;color:var(--c1);line-height:1"},v.angka||"1.254"));
+    preview.append(h("div",{style:"font-size:14px;opacity:.8"},v.keterangan||"Total kunjungan bulan ini"));
+  }
+}
+
+function hitungPoin(str){return str?str.trim().split(/\s+/).filter(Boolean).length:0;}
+
+function nilaiPenilaian(){
+  const penilai=document.getElementById("penilai");const skor=document.getElementById("skor-editor");
+  penilai.textContent="";
+  const L=LAYOUTS[layoutAktif];let ok=0,total=3;
+  // Kriteria 1: jumlah poin
+  let poinOk=true;
+  if(L.kode==="b"){const poin=["p1","p2","p3","p4"].filter(k=>nilaiField[k]).length;poinOk=poin<=6;}
+  penilai.append(h("div",{class:"penilai-baris"},h("span",{},"Jumlah poin ≤6"),h("span",{class:"penilai-badge "+(poinOk?"ok":"no")},poinOk?"✓ Terpenuhi":"✗ Terlalu banyak")));
+  if(poinOk)ok++;
+  // Kriteria 2: panjang poin
+  let panjangOk=true;
+  if(L.kode==="b"){["p1","p2","p3","p4"].forEach(k=>{if(nilaiField[k]&&hitungPoin(nilaiField[k])>8)panjangOk=false;});}
+  penilai.append(h("div",{class:"penilai-baris"},h("span",{},"Panjang per poin ≤8 kata"),h("span",{class:"penilai-badge "+(panjangOk?"ok":"no")},panjangOk?"✓ Terpenuhi":"✗ Ada poin terlalu panjang")));
+  if(panjangOk)ok++;
+  // Kriteria 3: kontras
+  const r=kontrasRasio(slideWarna.teks,slideWarna.bg);const kontrasOk=r>=4.5;
+  penilai.append(h("div",{class:"penilai-baris"},h("span",{},"Kontras warna ≥4,5:1"),h("span",{class:"penilai-badge "+(kontrasOk?"ok":"no")},kontrasOk?"✓ "+r.toFixed(1)+":1":"✗ "+r.toFixed(1)+":1, terlalu rendah")));
+  if(kontrasOk)ok++;
+  skor.textContent="Total skor: "+ok+" / "+total+" kriteria terpenuhi";
+}
+
+function initEditorSlide(){
+  // Layout kartu
+  const kartuWrap=document.getElementById("layout-kartu");
+  LAYOUTS.forEach((L,i)=>{
+    const btn=h("button",{type:"button",class:"lk"+(i===0?" aktif":""),onclick:()=>{
+      layoutAktif=i;nilaiField={};
+      $$(".lk",kartuWrap).forEach((b,j)=>b.classList.toggle("aktif",j===i));
+      renderForm();renderSlideEditor();nilaiPenilaian();
+    }},h("div",{style:"font-weight:700"},L.nama),h("div",{style:"font-size:.8rem;opacity:.7"},L.desc));
+    kartuWrap.append(btn);
+  });
+  function renderForm(){
+    const form=document.getElementById("editor-form");form.textContent="";
+    LAYOUTS[layoutAktif].fields.forEach(f=>{
+      const inp=h("input",{type:"text","aria-label":f.label,placeholder:f.label,oninput:()=>{nilaiField[f.id]=inp.value;renderSlideEditor();nilaiPenilaian();}});
+      inp.value=nilaiField[f.id]||"";
+      form.append(h("label",{},h("span",{},f.label),inp));
     });
   }
+  renderForm();renderSlideEditor();nilaiPenilaian();
 }
 
 /* === Timer & agenda === */
@@ -797,6 +1150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try { fn(el); } catch (e) { el.append(h("p", { class: "err" }, "Widget gagal (" + el.dataset.widget + "): " + e.message)); }
   });
   initTabs(); initSegmen();
+  hitungKontras(); updateSlideTeks(); initQuizAnim(); initEditorSlide();
   initStoryToggle(); initKalkulator(); initMiniDeck(); initRehearsal(); initDashBuilder();
   window.addEventListener("beforeprint", () => $$("details").forEach(x => x.setAttribute("open", "")));
 });

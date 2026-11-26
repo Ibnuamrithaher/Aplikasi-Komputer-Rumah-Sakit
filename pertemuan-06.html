@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pertemuan 06: Microsoft Excel Dasar | Komputer Rumah Sakit</title>
+<title>Pertemuan 06: Word Lanjutan: Halaman, Caption, Daftar Isi, dan Nomor Halaman | Komputer Rumah Sakit</title>
 <style>
 :root{
   --bg:#f6faf9;--surface:#ffffff;--ink:#12303a;--muted:#5b7480;--line:#d5e3e6;
@@ -165,7 +165,7 @@ nav.agenda{display:none!important}
 <a class="skip" href="#konten">Lewati ke konten</a>
 
 <header class="top">
-  <h1><span id="hdr-judul">Microsoft Excel Dasar</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 06</small></h1>
+  <h1><span id="hdr-judul">Word Lanjutan: Halaman, Caption, Daftar Isi, dan Nomor Halaman</span><small id="hdr-sub">Komputer Rumah Sakit · Pertemuan 06</small></h1>
   <button class="btn sec" type="button" id="btn-layar-penuh" aria-pressed="false">Layar penuh</button> <button class="btn" type="button" onclick="window.print()">Cetak / Simpan PDF</button>
 </header>
 
@@ -177,42 +177,11 @@ nav.agenda{display:none!important}
 
   <main id="konten">
     <div class="hero">
-      <span class="kode" id="hero-kode">Pertemuan 06 · CPMK-2</span>
-      <h2 id="hero-judul">Microsoft Excel Dasar</h2>
+      <span class="kode" id="hero-kode">Pertemuan 06 · CPMK-1</span>
+      <h2 id="hero-judul">Word Lanjutan: Halaman, Caption, Daftar Isi, dan Nomor Halaman</h2>
       <p id="hero-cpmk"></p>
       <ul id="hero-tujuan"></ul>
     </div>
-
-    <!-- ===== PENGENALAN EXCEL ===== -->
-    <section class="seg" id="seg-pengenalan" data-judul="Mengenal Microsoft Excel" data-min="5">
-      <div class="excel-intro">
-        <img class="excel-logo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Microsoft_Office_Excel_(2019%E2%80%93present).svg" alt="Logo Microsoft Excel" width="96" height="96" loading="lazy">
-        <div>
-          <p><strong>Microsoft Excel</strong> adalah aplikasi <em>spreadsheet</em> (lembar kerja) dari Microsoft untuk mengolah data dalam bentuk tabel berisi baris dan kolom. Excel tidak hanya menyimpan data, tetapi juga <strong>menghitung otomatis</strong> memakai rumus.</p>
-          <p class="kriteria">Sumber logo: <a href="https://commons.wikimedia.org/wiki/File:Microsoft_Office_Excel_(2019%E2%80%93present).svg" target="_blank" rel="noopener">Wikimedia Commons, Microsoft Office Excel (2019–present).svg</a>. Logo adalah merek dagang Microsoft Corporation.</p>
-        </div>
-      </div>
-
-      <h4>Apa gunanya Excel di rumah sakit?</h4>
-      <div class="grid2">
-        <div class="card"><strong>Rekap kunjungan</strong><p style="font-size:.92rem">Total pasien per poli, per hari, atau per bulan.</p></div>
-        <div class="card"><strong>Stok obat dan logistik</strong><p style="font-size:.92rem">Nilai stok, barang masuk dan keluar.</p></div>
-        <div class="card"><strong>Biaya dan billing</strong><p style="font-size:.92rem">Harga × jumlah, total tagihan, anggaran.</p></div>
-        <div class="card"><strong>Laporan dan grafik</strong><p style="font-size:.92rem">Bahan laporan rapat, misalnya tren kunjungan (dipelajari di Pertemuan 07).</p></div>
-      </div>
-
-      <h4>Istilah penting</h4>
-      <table class="data">
-        <thead><tr><th>Istilah</th><th>Artinya</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Workbook</strong></td><td>Satu berkas Excel (.xlsx), ibarat buku.</td></tr>
-          <tr><td><strong>Worksheet</strong></td><td>Satu lembar di dalam workbook, ibarat halaman buku.</td></tr>
-          <tr><td><strong>Cell</strong></td><td>Satu kotak tempat data, hasil pertemuan baris dan kolom.</td></tr>
-          <tr><td><strong>Formula</strong></td><td>Rumus yang diawali tanda =, agar Excel menghitung sendiri.</td></tr>
-        </tbody>
-      </table>
-      <div class="note"><strong>Aplikasi sejenis:</strong> Google Sheets (daring) dan LibreOffice Calc (gratis) memakai konsep yang sama, jadi yang dipelajari hari ini tetap berguna di sana.</div>
-    </section>
 
     <!-- ===== PRE-TEST ===== -->
     <section class="seg" id="seg-pre" data-judul="Pre-test" data-min="10">
@@ -220,415 +189,273 @@ nav.agenda{display:none!important}
       <div data-widget="quiz" data-src="quiz-pre" data-role="pre" class="quiz"></div>
       <script type="application/json" id="quiz-pre">
       {"judul":"Pre-test","soal":[
-        {"q":"Kotak kecil di pojok kiri atas lembar kerja Excel yang menampilkan alamat sel aktif disebut…","opsi":["Formula Bar","Name Box","Cell Pointer","Status Bar"],"benar":1,"jelas":"Name Box menampilkan alamat sel aktif (mis. B3). Formula Bar ada di sebelah kanannya untuk menampilkan isi/rumus sel."},
-        {"q":"Sel C5 berarti sel yang berada di…","opsi":["Baris C, Kolom 5","Kolom C, Baris 5","Kolom 5, Baris C","Baris 3, Kolom 5"],"benar":1,"jelas":"Konvensi Excel: huruf = kolom, angka = baris. Jadi C5 = Kolom C, Baris 5."},
-        {"q":"Data '2026-03-15' yang diketik di sel Excel paling tepat bertipe…","opsi":["Teks","Angka","Tanggal","Boolean"],"benar":2,"jelas":"Format YYYY-MM-DD dikenali Excel sebagai tipe Tanggal (Date). Tanggal disimpan sebagai angka serial, sehingga bisa dihitung selisihnya."},
-        {"q":"Rumus manakah yang benar untuk menjumlahkan sel B2 sampai B10?","opsi":["=JUMLAH(B2:B10)","=SUM(B2,B10)","=SUM(B2:B10)","SUM(B2:B10)"],"benar":2,"jelas":"=SUM(B2:B10) menggunakan titik dua (:) untuk rentang dan harus diawali tanda = agar Excel mengenalinya sebagai rumus."},
-        {"q":"Hasil dari rumus =5+3*2 di Excel adalah…","opsi":["16","11","13","10"],"benar":1,"jelas":"Excel mengikuti urutan operasi matematika: perkalian (*) dikerjakan sebelum penjumlahan (+). Jadi 3×2=6, lalu 5+6=11."}
+        {"q":"Fitur Word untuk membuat daftar isi otomatis ada di tab…","opsi":["Home","Insert","References","Layout"],"benar":2,"jelas":"Table of Contents ada di tab References, grup Table of Contents."},
+        {"q":"Agar judul bab muncul di daftar isi otomatis, judul tersebut harus diberi…","opsi":["Huruf tebal","Style Heading (Heading 1, Heading 2)","Ukuran huruf 14","Garis bawah"],"benar":1,"jelas":"Daftar isi otomatis disusun dari teks yang memakai Style Heading, bukan dari huruf tebal atau ukuran huruf."},
+        {"q":"Cara yang benar untuk memulai halaman baru adalah…","opsi":["Menekan Enter berkali-kali","Memakai Page Break (Ctrl+Enter)","Menekan Tab","Menekan Shift+Enter"],"benar":1,"jelas":"Page Break memindahkan teks ke halaman baru dan tidak bergeser walaupun isi di atasnya berubah. Enter berkali-kali akan berantakan saat teks diedit."},
+        {"q":"Halaman depan laporan bernomor i, ii, iii dan isi laporan bernomor 1, 2, 3. Dokumen seperti ini membutuhkan…","opsi":["Page Break","Section Break","Column Break","Text Wrapping Break"],"benar":1,"jelas":"Section Break membagi dokumen menjadi beberapa bagian (section) sehingga format nomor halaman tiap bagian bisa berbeda."},
+        {"q":"Keterangan bernomor seperti \"Tabel 1. Kunjungan pasien\" di atas tabel dibuat dengan fitur…","opsi":["Insert Caption","Footnote","Comment","WordArt"],"benar":0,"jelas":"Insert Caption membuat judul bernomor otomatis yang bisa dikumpulkan menjadi Daftar Tabel atau Daftar Gambar."}
       ]}
       </script>
     </section>
 
-    <!-- ===== INTI 1: Anatomi Lembar Kerja ===== -->
-    <section class="seg" id="seg-inti1" data-judul="Anatomi Lembar Kerja" data-min="10">
-      <p>Sebelum mengetik rumus, kita harus tahu <em>di mana</em> setiap bagian Excel berada. Klik titik bernomor pada gambar untuk melihat penjelasannya.</p>
-
-      <div data-widget="hotspot">
-        <div class="hs-stage">
-          <img src="gambar/p06-anatomi-excel.png" width="1084" height="582" alt="Tangkapan layar Microsoft Excel dengan tabel stok obat; sel D2 terpilih dan berisi rumus =B2*C2">
-          <button type="button" class="hs-dot" style="--x:5.9%;--y:25.8%" data-judul="Name Box" data-teks="Name Box menampilkan alamat sel yang sedang aktif (mis. A1, B3, C12). Klik Name Box dan ketik alamat sel untuk melompat langsung ke sel tersebut.">1</button>
-          <button type="button" class="hs-dot" style="--x:63.8%;--y:25.8%" data-judul="Formula Bar" data-teks="Formula Bar menampilkan isi asli sel, nilai, teks, atau rumus (mis. =SUM(B2:B10)). Di sinilah Anda mengedit rumus yang sudah ada di sel.">2</button>
-          <button type="button" class="hs-dot" style="--x:58.4%;--y:30.8%" data-judul="Header Kolom" data-teks="Header kolom bertanda huruf (A, B, C, ...). Klik header kolom untuk memilih seluruh kolom. Kolom maksimum Excel: XFD (16.384 kolom).">3</button>
-          <button type="button" class="hs-dot" style="--x:2.6%;--y:75.6%" data-judul="Header Baris" data-teks="Header baris bertanda angka (1, 2, 3, ...). Klik header baris untuk memilih seluruh baris. Baris maksimum Excel: 1.048.576 baris.">4</button>
-          <button type="button" class="hs-dot" style="--x:8.5%;--y:93.1%" data-judul="Tab Lembar (Sheet Tab)" data-teks="Tab di bagian bawah menunjukkan lembar kerja dalam satu buku kerja (workbook). Klik tab untuk berpindah lembar, klik kanan untuk mengubah nama atau menambah lembar baru.">5</button>
-        </div>
-        <p class="kriteria" style="text-align:center">Tangkapan layar Microsoft Excel (versi Microsoft 365), diambil oleh dosen pengampu. Data contoh fiktif.</p>
-        <div class="hs-info" aria-live="polite">Klik salah satu titik bernomor untuk melihat penjelasan bagian tersebut.</div>
-      </div>
-
-      <h4>Cara membaca alamat sel</h4>
-      <div class="grid2">
-        <div class="card">
-          <p><strong>Sel tunggal</strong><br>
-          <span class="kode-box">B3</span> = Kolom <strong>B</strong>, Baris <strong>3</strong><br>
-          <span class="kode-box">D12</span> = Kolom <strong>D</strong>, Baris <strong>12</strong></p>
-        </div>
-        <div class="card">
-          <p><strong>Rentang sel</strong><br>
-          <span class="kode-box">B2:B10</span> = Kolom B, baris 2 sampai 10<br>
-          <span class="kode-box">A1:D5</span> = Blok 4 kolom × 5 baris</p>
-        </div>
-      </div>
-      <details><summary>Cara cepat navigasi sel</summary>
-        <div>
-          <ul>
-            <li><strong>Enter</strong>: turun satu baris</li>
-            <li><strong>Tab</strong>: geser ke kanan satu kolom</li>
-            <li><strong>Ctrl + End</strong>: lompat ke sel terakhir berisi data</li>
-            <li><strong>Ctrl + Home</strong>: kembali ke A1</li>
-            <li>Ketik alamat di <strong>Name Box</strong> lalu Enter, langsung ke sel tersebut</li>
-          </ul>
-        </div>
-      </details>
-
-      <h4>Latihan: klik sel yang diminta</h4>
-      <p>Alamat sel yang kalian klik muncul di kotak Name Box, persis seperti di Excel. Selesaikan 6 soal.</p>
-      <div data-widget="carisel"></div>
-    </section>
-
-    <!-- ===== INTI 2: Tipe Data ===== -->
-    <section class="seg" id="seg-inti2" data-judul="Tipe Data & Referensi Sel" data-min="10">
-      <h4>Apa itu tipe data?</h4>
-      <p><strong>Tipe data</strong> adalah jenis isi sebuah sel. Tipe inilah yang menentukan bagaimana Excel <em>menyimpan</em>, <em>menampilkan</em>, dan <em>menghitung</em> isi sel tersebut. Angka 50000 bisa dijumlahkan, sedangkan "Rp 50.000" yang diketik dengan simbol Rp dianggap tulisan biasa dan diabaikan oleh rumus <span class="kode-box">=SUM</span>.</p>
-      <div class="note"><strong>Isi sel dan tampilannya itu berbeda.</strong> Excel menyimpan nilai aslinya, lalu <em>format</em> menentukan bagaimana nilai itu terlihat. Contoh: nilai 0,85 bisa tampil sebagai 85% (format Percentage), dan tanggal 15 Maret 2026 sebenarnya disimpan sebagai angka serial 46096 yang tampil sebagai tanggal (format Date).</div>
-
-      <h4>Empat tipe data yang paling sering dipakai</h4>
+    <!-- ===== MENGATUR HALAMAN ===== -->
+    <section class="seg" id="seg-halaman" data-judul="Mengatur Halaman" data-min="12">
+      <h4>Apa yang diatur?</h4>
+      <p>Sebelum menulis dokumen panjang seperti laporan tahunan atau KTI, atur dulu <strong>halaman</strong>-nya: ukuran kertas, margin (batas tepi), dan orientasi. Pengaturan ini memengaruhi letak semua teks, jadi paling aman dilakukan di awal.</p>
       <table class="data">
-        <thead><tr><th>Tipe</th><th>Pengertian</th><th>Contoh di RS</th><th>Rata default</th><th>Bisa dihitung?</th></tr></thead>
+        <thead><tr><th>Pengaturan</th><th>Arti</th><th>Standar prodi (Panduan KTI)</th></tr></thead>
         <tbody>
-          <tr><td><strong>Teks</strong> (Text)</td><td>Huruf, kata, atau gabungan huruf dan simbol. Bisa juga angka yang diperlakukan sebagai tulisan.</td><td>Siti Aminah, Poli Umum, No. RM 00012345</td><td>Kiri</td><td>Tidak (diabaikan oleh SUM, AVERAGE, COUNT)</td></tr>
-          <tr><td><strong>Angka</strong> (Number)</td><td>Bilangan murni tanpa simbol, bisa dijumlah, dikali, dan dirata-rata.</td><td>125000, 45 pasien, 7,5</td><td>Kanan</td><td>Ya</td></tr>
-          <tr><td><strong>Tanggal dan waktu</strong> (Date, Time)</td><td>Hari, bulan, tahun, atau jam. Disimpan sebagai angka serial sehingga bisa dikurangkan.</td><td>15/03/2026, jam kontrol 09.30</td><td>Kanan</td><td>Ya (selisih dua tanggal = jumlah hari)</td></tr>
-          <tr><td><strong>Persen</strong> (Percentage)</td><td>Angka desimal yang ditampilkan dengan tanda %. Nilai aslinya tetap desimal.</td><td>BOR 85% (disimpan 0,85)</td><td>Kanan</td><td>Ya</td></tr>
-        </tbody>
-      </table>
-      <p class="kriteria">Kebiasaan yang membantu: <strong>teks rata kiri, angka dan tanggal rata kanan</strong>. Kalau angka muncul rata kiri, curigai tersimpan sebagai teks.</p>
-
-      <h4>Pilihan format di Excel (Format Cells, tab Number)</h4>
-      <p>Di Excel tersedia 12 kategori format. Tidak semuanya perlu dihafal, tetapi kenali yang sering dipakai di administrasi RS.</p>
-      <table class="data">
-        <thead><tr><th>Kategori</th><th>Fungsi</th></tr></thead>
-        <tbody>
-          <tr><td><strong>General</strong></td><td>Format bawaan. Angka tampil sesuai yang diketik. Angka sangat panjang (12 digit atau lebih) bisa berubah ke notasi ilmiah.</td></tr>
-          <tr><td><strong>Number</strong></td><td>Tampilan angka umum, dengan pilihan jumlah desimal dan pemisah ribuan.</td></tr>
-          <tr><td><strong>Currency</strong></td><td>Nilai uang dengan simbol mata uang, misalnya untuk biaya dan tarif.</td></tr>
-          <tr><td><strong>Accounting</strong></td><td>Juga untuk uang, tetapi simbol mata uang dan titik desimal dirapikan sejajar dalam satu kolom.</td></tr>
-          <tr><td><strong>Date</strong> dan <strong>Time</strong></td><td>Menampilkan angka serial sebagai tanggal atau jam, sesuai bentuk dan wilayah yang dipilih.</td></tr>
-          <tr><td><strong>Percentage</strong></td><td>Mengalikan nilai sel dengan 100 dan menambah tanda %.</td></tr>
-          <tr><td><strong>Fraction</strong></td><td>Menampilkan angka sebagai pecahan.</td></tr>
-          <tr><td><strong>Scientific</strong></td><td>Notasi eksponen, misalnya 12345678901 tampil sebagai 1,23E+10.</td></tr>
-          <tr><td><strong>Text</strong></td><td>Isi sel diperlakukan sebagai teks dan tampil persis seperti diketik, termasuk bila berisi angka.</td></tr>
-          <tr><td><strong>Special</strong></td><td>Format khusus seperti kode pos, nomor telepon, atau nomor identitas (sesuai wilayah).</td></tr>
-          <tr><td><strong>Custom</strong></td><td>Membuat format sendiri dari salinan format yang ada.</td></tr>
+          <tr><td><strong>Size</strong> (ukuran kertas)</td><td>Ukuran lembar halaman</td><td>A4 (21 &times; 29,7 cm)</td></tr>
+          <tr><td><strong>Margins</strong> (margin)</td><td>Jarak teks dari tepi kertas</td><td>Atas 4, kiri 4, bawah 3, kanan 3 cm</td></tr>
+          <tr><td><strong>Orientation</strong> (orientasi)</td><td>Tegak (Portrait) atau mendatar (Landscape)</td><td>Portrait</td></tr>
         </tbody>
       </table>
 
-      <div class="warn-box"><strong>Penting untuk data RS:</strong> Excel hanya menyimpan <strong>15 digit angka</strong> dengan tepat. NIK yang 16 digit dan nomor rekam medis berawalan nol (misalnya 00012345) harus diformat sebagai <strong>Text</strong> <em>sebelum</em> diketik, kalau tidak digit terakhirnya berubah jadi 0 atau nol di depannya hilang.</div>
-
-      <p class="kriteria"><strong>Referensi:</strong><br>
-      1. Microsoft Support, <em>Available number formats in Excel</em>.<br>
-      <a style="word-break:break-all" href="https://support.microsoft.com/en-us/office/available-number-formats-in-excel-0afe8f52-97db-41f1-b972-4b46e9f1e8d2" target="_blank" rel="noopener">https://support.microsoft.com/en-us/office/available-number-formats-in-excel-0afe8f52-97db-41f1-b972-4b46e9f1e8d2</a><br>
-      2. Microsoft Support, <em>Excel specifications and limits</em> (batas presisi 15 digit).<br>
-      <a style="word-break:break-all" href="https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3" target="_blank" rel="noopener">https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3</a><br>
-      Diakses 19 November 2026. Contoh data adalah fiktif.</p>
-
-
-      <h4>Di mana tipe data diatur?</h4>
-
-      <h4>Langkah 1: lihat tipe data sebuah sel</h4>
-      <figure class="shot"><img src="gambar/p06-tipe-1.png" alt="Excel dengan sel B3 terpilih; kotak Number Format di tab Home menampilkan General" loading="lazy"></figure>
+      <h4>Langkah 1: atur margin</h4>
+      <figure class="shot"><img src="gambar/p06-halaman-1.png" alt="Tab Layout terbuka dan menu Margins menampilkan pilihan Normal, Narrow, Moderate, Wide, Mirrored, dan Custom Margins" loading="lazy"></figure>
       <ol>
-        <li>Klik sel yang ingin dicek, misalnya <strong>B3</strong>.</li>
-        <li>Lihat kotak <strong>Number Format</strong> di tab <strong>Home</strong>, grup <strong>Number</strong>. Di sini tertulis tipe/format sel: <em>General</em>, <em>Number</em>, <em>Date</em>, <em>Percentage</em>, <em>Text</em>, dan seterusnya.</li>
+        <li>Buka tab <strong>Layout</strong>, lalu klik <strong>Margins</strong>.</li>
+        <li>Pilihan siap pakai seperti <em>Normal</em> atau <em>Narrow</em> belum tentu sesuai standar prodi.</li>
+        <li>Klik <strong>Custom Margins...</strong> untuk mengisi ukuran sendiri.</li>
       </ol>
-      <p>Contoh lain: pada sel berisi 85%, kotaknya menampilkan <em>Percentage</em>.</p>
-      <figure class="shot"><img src="gambar/p06-tipe-6.png" alt="Sel B5 terpilih; kotak Number Format menampilkan Percentage" loading="lazy"></figure>
+      <figure class="shot"><img src="gambar/p06-halaman-2.png" alt="Kotak dialog Page Setup tab Margins berisi kolom Top, Left, Bottom, Right, pilihan Orientation, dan Apply to" loading="lazy"></figure>
       <ol>
-        <li>Kotak <strong>Number Format</strong> menampilkan tipe sel yang dipilih.</li>
-        <li>Sel <strong>B5</strong> terpilih dan berisi 85%.</li>
+        <li>Isi <strong>Top</strong>, <strong>Left</strong>, <strong>Bottom</strong>, dan <strong>Right</strong> sesuai standar (4, 4, 3, 3 cm).</li>
+        <li>Pilih <strong>Orientation</strong>: Portrait untuk laporan biasa.</li>
+        <li>Buka tab <strong>Paper</strong> untuk memilih ukuran kertas <strong>A4</strong>.</li>
+        <li><strong>Apply to</strong>: pilih <em>Whole document</em> agar berlaku untuk seluruh dokumen. Klik OK.</li>
       </ol>
 
-      <h4>Langkah 2: ubah tipe data lewat daftar Number Format</h4>
-      <figure class="shot"><img src="gambar/p06-tipe-2.png" alt="Daftar pilihan Number Format terbuka: General, Number, Currency, Accounting, Short Date, Long Date, Time, Percentage, Fraction, Scientific, Text, More Number Formats" loading="lazy"></figure>
+      <h4>Langkah 2: membuat halaman baru dengan benar</h4>
+      <figure class="shot"><img src="gambar/p06-halaman-3.png" alt="Tab Insert dengan grup Pages berisi Cover Page, Blank Page, dan Page Break, serta tombol Page Number" loading="lazy"></figure>
       <ol>
-        <li>Pilih sel atau rentang yang akan diubah, lalu klik <strong>panah kecil</strong> di kotak Number Format. Daftar pilihan terbuka: General, Number, Currency, Accounting, Short Date, Long Date, Time, Percentage, Fraction, Scientific, dan Text.</li>
-        <li>Klik <strong>More Number Formats...</strong> kalau ingin pengaturan lebih rinci, misalnya jumlah desimal.</li>
+        <li>Tab <strong>Insert</strong>, grup <strong>Pages</strong>: <em>Cover Page</em> (halaman sampul siap pakai), <em>Blank Page</em> (sisip satu halaman kosong), dan <em>Page Break</em> (pindah ke halaman baru). Jalan pintas Page Break: <kbd>Ctrl</kbd> + <kbd>Enter</kbd>.</li>
+        <li>Tombol <strong>Page Number</strong> untuk nomor halaman, dibahas di bagian akhir pertemuan ini.</li>
       </ol>
+      <div class="warn-box"><strong>Jangan menekan Enter berkali-kali</strong> untuk pindah halaman. Begitu ada teks yang ditambah atau dihapus di atasnya, semua isi di bawahnya ikut bergeser dan halaman jadi berantakan.</div>
 
-      <h4>Langkah 3: ubah tipe data lewat Format Cells</h4>
-      <p>Cara lain: pilih sel, tekan <span class="kode-box">Ctrl + 1</span> (atau klik kanan lalu <em>Format Cells</em>), dan buka tab <strong>Number</strong>.</p>
-      <figure class="shot"><img src="gambar/p06-tipe-3.png" alt="Kotak dialog Format Cells tab Number dengan kategori Percentage dipilih dan pengaturan Decimal places" loading="lazy" style="max-width:530px"></figure>
-      <ol>
-        <li><strong>Category</strong>: pilih jenis tipe data, misalnya <em>Percentage</em>.</li>
-        <li>Bagian kanan menampilkan <strong>Sample</strong> (contoh tampilan) dan pengaturan tambahan seperti <em>Decimal places</em>. Klik <strong>OK</strong> untuk menerapkan.</li>
-      </ol>
-      <div class="warn-box"><strong>Hati-hati dengan Percentage:</strong> Excel mengalikan nilai sel dengan 100. Angka 125000 yang diberi format Percentage menjadi 12500000,00%. Format persen dipakai untuk angka desimal (0,85 menjadi 85%).</div>
-      <figure class="shot"><img src="gambar/p06-tipe-4.png" alt="Kotak dialog Format Cells dengan kategori Text dipilih dan keterangan tentang format Text" loading="lazy" style="max-width:530px"></figure>
-      <ol>
-        <li>Kategori <strong>Text</strong> membuat isi sel diperlakukan sebagai teks, walaupun berisi angka.</li>
-        <li>Keterangan di dialog: sel ditampilkan persis seperti yang diketik. Angka berformat Text <em>tidak ikut dijumlahkan</em> oleh rumus.</li>
-      </ol>
-
-      <h4>Cara mengenali tipe data dari tampilannya</h4>
-      <figure class="shot"><img src="gambar/p06-tipe-5.png" alt="Sel B6 berisi Rp 50.000 rata kiri, sedangkan sel B3 berisi 125000 rata kanan" loading="lazy"></figure>
-      <ol>
-        <li><strong>B6</strong> berisi <em>Rp 50.000</em> dan <strong>rata kiri</strong>, tanda bahwa Excel menganggapnya teks.</li>
-        <li>Formula Bar menampilkan isi asli sel persis seperti yang diketik, tanpa format angka apa pun.</li>
-        <li>Bandingkan dengan <strong>B3</strong> (125000) yang <strong>rata kanan</strong>, tanda angka sungguhan.</li>
-      </ol>
-
-      <h4>Referensi sel: apa dan untuk apa?</h4>
-      <p><strong>Referensi sel</strong> adalah alamat sel yang ditulis di dalam rumus, misalnya <span class="kode-box">B2</span>. Dengan referensi, rumus mengambil nilai dari sel itu, bukan dari angka yang diketik. Ada dua keuntungan:</p>
-      <ul>
-        <li>Kalau data di sel berubah, hasil rumus ikut berubah sendiri.</li>
-        <li>Satu rumus bisa <strong>disalin ke banyak baris</strong> (seret kotak kecil di pojok kanan bawah sel, disebut <em>fill handle</em>) tanpa mengetik ulang.</li>
-      </ul>
-      <p>Saat rumus disalin, Excel menggeser alamatnya mengikuti arah salinan. Kadang itu yang kita mau, kadang tidak. Karena itu ada dua jenis referensi: <strong>relatif</strong> (ikut bergeser) dan <strong>absolut</strong> (dikunci, tidak bergeser).</p>
-
-      <h4>Contoh kasus: tarif admin yang sama untuk semua pasien</h4>
-      <p>Tarif admin Rp 2.500 ada di sel <span class="kode-box">B8</span>. Setiap pasien harus membayar biaya + tarif admin itu. Rumus di C11 ditulis lalu disalin ke C12:</p>
-      <table class="data">
-        <thead><tr><th>Cara menulis</th><th>Rumus di C11</th><th>Setelah disalin ke C12</th><th>Hasil C12</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Relatif</strong></td><td><span class="kode-box">=B11+B8</span></td><td><span class="kode-box">=B12+B9</span> (B8 ikut bergeser jadi B9, sel kosong)</td><td class="err">150.000 (salah, admin tidak terhitung)</td></tr>
-          <tr><td><strong>Absolut</strong></td><td><span class="kode-box">=B11+$B$8</span></td><td><span class="kode-box">=B12+$B$8</span> (B8 terkunci)</td><td><strong>152.500 (benar)</strong></td></tr>
-        </tbody>
-      </table>
-
-      <h4>Tiga bentuk referensi</h4>
-      <table class="data">
-        <thead><tr><th>Bentuk</th><th>Nama</th><th>Saat disalin</th><th>Dipakai untuk</th></tr></thead>
-        <tbody>
-          <tr><td><span class="kode-box">B8</span></td><td>Relatif</td><td>Kolom dan baris ikut bergeser</td><td>Data yang berbeda tiap baris (harga, jumlah)</td></tr>
-          <tr><td><span class="kode-box">$B$8</span></td><td>Absolut</td><td>Kolom dan baris terkunci</td><td>Nilai tetap: tarif, persentase, kurs</td></tr>
-          <tr><td><span class="kode-box">$B8</span> atau <span class="kode-box">B$8</span></td><td>Campuran</td><td>Hanya kolom atau hanya baris yang terkunci</td><td>Tabel dua arah (dipelajari lebih lanjut nanti)</td></tr>
-        </tbody>
-      </table>
-      <div class="note"><strong>Jalan pintas:</strong> saat mengetik atau mengedit rumus, letakkan kursor di alamat sel lalu tekan <kbd>F4</kbd>. Bentuknya berganti: B8, $B$8, B$8, $B8, lalu kembali ke B8.</div>
-
-      <h4>Melihat referensi absolut di Excel asli</h4>
-      <figure class="shot"><img src="gambar/p06-tipe-7.png" alt="Sel C12 berisi rumus =B12+$B$8; Formula Bar menampilkan rumus, sel B8 berisi tarif admin 2500" loading="lazy"></figure>
-      <ol>
-        <li>Klik <strong>C12</strong>. Formula Bar menampilkan <span class="kode-box">=B12+$B$8</span>.</li>
-        <li>Hasilnya (152.500) tampil di sel C12. <span class="kode-box">B12</span> relatif, ikut bergeser kalau rumus disalin.</li>
-        <li><span class="kode-box">$B$8</span> (tarif admin 2.500) absolut: tanda <strong>$</strong> mengunci kolom dan baris, sehingga tidak bergeser saat disalin. Tekan <kbd>F4</kbd> saat mengedit rumus untuk memberi tanda $ otomatis.</li>
-      </ol>
-    </section>
-
-    <!-- ===== INTI 3: Formula Dasar ===== -->
-    <section class="seg" id="seg-inti3" data-judul="Formula Dasar (×, ÷, +, −)" data-min="10">
-      <p>Semua rumus Excel dimulai dengan tanda <strong>=</strong>. Excel lalu menghitung sendiri dan menampilkan hasilnya di sel. Data stok obat di bawah adalah fiktif untuk keperluan latihan.</p>
-
-      <table class="data">
-        <thead><tr><th>Operator</th><th>Fungsi</th><th>Contoh</th><th>Hasil</th></tr></thead>
-        <tbody>
-          <tr><td><span class="kode-box">+</span></td><td>Tambah</td><td>=120+30</td><td>150</td></tr>
-          <tr><td><span class="kode-box">-</span></td><td>Kurang</td><td>=120-45</td><td>75</td></tr>
-          <tr><td><span class="kode-box">*</span></td><td>Kali</td><td>=5000*10</td><td>50000</td></tr>
-          <tr><td><span class="kode-box">/</span></td><td>Bagi</td><td>=45/5</td><td>9</td></tr>
-        </tbody>
-      </table>
-      <div class="note"><strong>Urutan operasi:</strong> kurung ( ) dikerjakan lebih dulu, lalu * dan /, baru + dan -. Jadi <span class="kode-box">=5+3*2</span> hasilnya 11, karena 3*2 dikerjakan dulu. Kalau ingin 5+3 dulu, pakai kurung: <span class="kode-box">=(5+3)*2</span> hasilnya 16.</div>
-
-      <h4>Langkah 1: mengetik rumus pertama</h4>
-      <p>Tujuan: menghitung Subtotal = Harga × Jumlah untuk Paracetamol.</p>
-      <figure class="shot"><img src="gambar/p06-formula-1.png" alt="Tabel stok obat dengan sel D2 terpilih; Name Box menampilkan D2" loading="lazy"></figure>
-      <ol>
-        <li>Lihat Name Box yang menampilkan alamat sel aktif.</li>
-        <li>Klik sel <strong>D2</strong>, tempat hasil Subtotal akan ditulis.</li>
-      </ol>
-      <figure class="shot"><img src="gambar/p06-formula-2.png" alt="Mengetik rumus =B2*C2 di sel D2; sel B2 dan C2 diberi kotak berwarna" loading="lazy"></figure>
-      <ol>
-        <li>Sel D2 sedang diedit dan berisi rumus yang diketik.</li>
-        <li>Formula Bar menampilkan rumus yang sama: <span class="kode-box">=B2*C2</span>. Rumus <strong>harus diawali tanda =</strong>.</li>
-        <li>Sel yang dipakai (Harga di B2 dan Jumlah di C2) diberi kotak berwarna yang cocok dengan warna alamat di rumus. Ini membantu mengecek rumus sebelum menekan Enter.</li>
-      </ol>
-      <figure class="shot"><img src="gambar/p06-formula-3.png" alt="Setelah Enter, sel D2 menampilkan hasil 50000 dan Formula Bar menampilkan =B2*C2" loading="lazy"></figure>
-      <ol>
-        <li>Tekan <kbd>Enter</kbd>. Sel D2 menampilkan hasilnya, yaitu 50000.</li>
-        <li>Klik D2 lagi: sel menampilkan hasil, sedangkan Formula Bar tetap menyimpan rumus aslinya.</li>
-      </ol>
-
-      <h4>Langkah 2: menyalin rumus ke baris lain</h4>
-      <p>Tidak perlu mengetik rumus satu per satu. Salin rumus D2 ke bawah.</p>
-      <figure class="shot"><img src="gambar/p06-formula-4.png" alt="Rumus D2 disalin ke D6 dengan fill handle; hasil terisi dan status bar menampilkan Average, Count, dan Sum" loading="lazy"></figure>
-      <ol>
-        <li>Pilih D2, lalu <strong>seret kotak kecil di pojok kanan bawah</strong> (fill handle) ke bawah sampai D6. Seluruh sel D2 sampai D6 terisi hasil.</li>
-        <li>Tombol <em>Auto Fill Options</em> muncul di sudut bawah hasil salinan. Klik untuk memilih cara menyalin.</li>
-        <li>Saat beberapa sel angka dipilih, <strong>status bar</strong> di bawah menampilkan Average, Count, dan Sum secara otomatis, berguna untuk mengecek hasil dengan cepat.</li>
-      </ol>
-      <figure class="shot"><img src="gambar/p06-formula-5.png" alt="Sel D4 terpilih dan Formula Bar menampilkan =B4*C4" loading="lazy"></figure>
-      <ol>
-        <li>Formula Bar menampilkan <span class="kode-box">=B4*C4</span>. Excel menyesuaikan alamat rumus otomatis mengikuti barisnya.</li>
-        <li>Sel D4 menampilkan hasil Vitamin C: 8000 × 3 = 24000.</li>
-      </ol>
-
-      <h4>Langkah 3: urutan operasi di Excel</h4>
-      <p>Ketik rumus berikut di sel kosong dan bandingkan hasilnya.</p>
-      <figure class="shot"><img src="gambar/p06-formula-6.png" alt="Sel B10 berisi rumus =5+3*2 dengan hasil 11" loading="lazy"></figure>
-      <ol>
-        <li>Formula Bar menampilkan <span class="kode-box">=5+3*2</span>.</li>
-        <li>Hasilnya <strong>11</strong>, karena perkalian dikerjakan lebih dulu.</li>
-      </ol>
-      <figure class="shot"><img src="gambar/p06-formula-7.png" alt="Sel B11 berisi rumus =(5+3)*2 dengan hasil 16" loading="lazy"></figure>
-      <ol>
-        <li>Formula Bar menampilkan <span class="kode-box">=(5+3)*2</span>.</li>
-        <li>Hasilnya <strong>16</strong>, karena tanda kurung membuat 5+3 dikerjakan lebih dulu.</li>
-      </ol>
-
-    </section>
-
-    <!-- ===== INTI 4: SUM, AVERAGE, COUNT ===== -->
-    <section class="seg" id="seg-inti4" data-judul="Fungsi di Dalam Excel" data-min="10">
-      <h4>Apa itu fungsi?</h4>
-      <p><strong>Fungsi</strong> adalah rumus siap pakai bawaan Excel yang mengerjakan satu jenis perhitungan tertentu. Kita cukup menyebut nama fungsinya dan sel yang akan dihitung, lalu Excel yang mengerjakannya.</p>
-      <table class="data">
-        <thead><tr><th></th><th>Tanpa fungsi</th><th>Dengan fungsi</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Menjumlah 5 subtotal</strong></td><td><span class="kode-box">=D2+D3+D4+D5+D6</span></td><td><span class="kode-box">=SUM(D2:D6)</span></td></tr>
-          <tr><td><strong>Menjumlah 100 baris</strong></td><td>Rumus sangat panjang, mudah salah ketik</td><td><span class="kode-box">=SUM(D2:D101)</span></td></tr>
-        </tbody>
-      </table>
-
-      <h4>Bagian-bagian sebuah fungsi</h4>
-      <p style="text-align:center"><span class="kode-box" style="font-size:1.2rem">=SUM(D2:D6)</span></p>
-      <table class="data">
-        <thead><tr><th>Bagian</th><th>Pada contoh</th><th>Artinya</th></tr></thead>
-        <tbody>
-          <tr><td>Tanda sama dengan</td><td><span class="kode-box">=</span></td><td>Penanda bahwa isi sel adalah rumus.</td></tr>
-          <tr><td>Nama fungsi</td><td><span class="kode-box">SUM</span></td><td>Perhitungan yang dikerjakan (SUM = jumlahkan).</td></tr>
-          <tr><td>Tanda kurung</td><td><span class="kode-box">( )</span></td><td>Membungkus argumen fungsi.</td></tr>
-          <tr><td>Argumen</td><td><span class="kode-box">D2:D6</span></td><td>Data yang dihitung. Berupa <em>rentang</em> sel (dari D2 sampai D6), satu sel, atau angka.</td></tr>
-        </tbody>
-      </table>
-      <div class="note">Satu fungsi boleh punya beberapa argumen, dipisah koma, misalnya <span class="kode-box">=SUM(B2:B6,D2:D6)</span>. Pemisahnya bisa berupa koma (,) atau titik koma (;) tergantung pengaturan wilayah komputer.</div>
-
-      <h4>Fungsi yang paling sering dipakai</h4>
-      <p>Data contoh: tabel stok obat fiktif (Harga di B2:B6, Subtotal di D2:D6).</p>
-      <table class="data">
-        <thead><tr><th>Fungsi</th><th>Kegunaan</th><th>Contoh di RS</th><th>Contoh rumus</th><th>Hasil</th></tr></thead>
-        <tbody>
-          <tr><td><strong>SUM</strong></td><td>Menjumlahkan angka</td><td>Total nilai stok obat, total kunjungan</td><td><span class="kode-box">=SUM(D2:D6)</span></td><td>207000</td></tr>
-          <tr><td><strong>AVERAGE</strong></td><td>Menghitung rata-rata</td><td>Rata-rata harga obat, rata-rata pasien per hari</td><td><span class="kode-box">=AVERAGE(B2:B6)</span></td><td>7200</td></tr>
-          <tr><td><strong>COUNT</strong></td><td>Menghitung banyaknya sel berisi angka</td><td>Jumlah jenis obat, jumlah hari pelayanan</td><td><span class="kode-box">=COUNT(B2:B6)</span></td><td>5</td></tr>
-          <tr><td><strong>MAX</strong></td><td>Mencari nilai terbesar</td><td>Kunjungan tertinggi, obat termahal</td><td><span class="kode-box">=MAX(B2:B6)</span></td><td>12000</td></tr>
-          <tr><td><strong>MIN</strong></td><td>Mencari nilai terkecil</td><td>Kunjungan terendah, obat termurah</td><td><span class="kode-box">=MIN(B2:B6)</span></td><td>3500</td></tr>
-        </tbody>
-      </table>
-      <p class="kriteria">Hari ini kita fokus pada SUM, AVERAGE, dan COUNT. MAX dan MIN dibahas lengkap di Pertemuan 07. Fungsi COUNT hanya menghitung sel berisi <em>angka</em>; sel berisi teks atau kosong tidak dihitung.</p>
-
-      <h4>Cara Penggunaan Fungsi</h4>
-      <p>Tujuan: menghitung total nilai stok dari kolom Subtotal.</p>
-      <figure class="shot"><img src="gambar/p06-fungsi-1.png" alt="Mengetik =SUM(D2:D6 di sel D8; rentang D2 sampai D6 diberi kotak berwarna dan muncul petunjuk SUM(number1, [number2], ...)" loading="lazy"></figure>
-      <ol>
-        <li>Klik sel tujuan, yaitu <strong>D8</strong>, lalu ketik <span class="kode-box">=SUM(</span>.</li>
-        <li>Pilih atau ketik rentangnya, <span class="kode-box">D2:D6</span>. Sel yang dipakai diberi kotak berwarna.</li>
-        <li>Petunjuk di bawah sel menampilkan bentuk fungsi: <em>SUM(number1, [number2], ...)</em>. Tutup kurung lalu tekan <kbd>Enter</kbd>.</li>
-      </ol>
-      <figure class="shot"><img src="gambar/p06-fungsi-2.png" alt="Sel D8 menampilkan hasil 207000 dan Formula Bar menampilkan =SUM(D2:D6)" loading="lazy"></figure>
-      <ol>
-        <li>Sel D8 menampilkan hasilnya: <strong>207000</strong>.</li>
-        <li>Formula Bar menyimpan rumus aslinya, <span class="kode-box">=SUM(D2:D6)</span>.</li>
-      </ol>
-
-      <h4>Cara lain memasukkan fungsi</h4>
-      <p>Selain mengetik, Excel menyediakan dua jalan pintas supaya tidak perlu menghafal nama fungsi.</p>
-      <figure class="shot"><img src="gambar/p06-fungsi-5.png" alt="Menu AutoSum di tab Home terbuka dengan pilihan Sum, Average, Count Numbers, Max, Min, dan More Functions" loading="lazy"></figure>
-      <ol>
-        <li>Tombol <strong>AutoSum (&Sigma;)</strong> di tab <strong>Home</strong>, grup Editing.</li>
-        <li>Klik panah di sebelahnya untuk memilih <em>Sum</em>, <em>Average</em>, <em>Count Numbers</em>, <em>Max</em>, atau <em>Min</em>. Excel menebak rentang di dekat sel dan kita tinggal menekan Enter.</li>
-        <li><strong>More Functions...</strong> membuka daftar lengkap seluruh fungsi.</li>
-      </ol>
-      <figure class="shot"><img src="gambar/p06-fungsi-6.png" alt="Kotak dialog Insert Function dengan pilihan kategori, daftar fungsi, dan keterangan singkat fungsi SUM" loading="lazy"></figure>
-      <ol>
-        <li>Klik tombol <strong>fx</strong> di samping Formula Bar untuk membuka <em>Insert Function</em>. Pilih <strong>kategori</strong> fungsi, misalnya Most Recently Used.</li>
-        <li>Pilih fungsi dari <strong>daftar</strong>. Kalau lupa namanya, ketik deskripsi pekerjaan di kotak pencarian lalu klik Go.</li>
-        <li>Bagian bawah menampilkan <strong>bentuk dan keterangan singkat</strong> fungsi yang dipilih. Klik OK untuk melanjutkan.</li>
-      </ol>
-
-      <h4>Tantangan: lengkapi baris ringkasan di bawah</h4>
-      <div data-widget="minisheet" data-src="ms-inti4"></div>
-      <script type="application/json" id="ms-inti4">
-      {"baris":10,"kolom":4,
-       "sel":{
-         "A1":"Nama Obat","B1":"Harga (Rp)","C1":"Jumlah","D1":"Subtotal",
-         "A2":"Paracetamol","B2":"5000","C2":"10","D2":"50000",
-         "A3":"Amoxicillin","B3":"12000","C3":"5","D3":"60000",
-         "A4":"Vitamin C","B4":"8000","C4":"3","D4":"24000",
-         "A5":"Antasida","B5":"3500","C5":"8","D5":"28000",
-         "A6":"Ibuprofen","B6":"7500","C6":"6","D6":"45000",
-         "A8":"Total Nilai Stok","A9":"Rata-rata Harga","A10":"Jumlah Jenis Obat"
-       },
-       "tantangan":[
-         {"teks":"D8 = Total semua subtotal","sel":"D8","nilai":207000,"wajibRumus":true},
-         {"teks":"D9 = Rata-rata harga per obat","sel":"D9","nilai":7200,"wajibRumus":true},
-         {"teks":"D10 = Jumlah jenis obat","sel":"D10","nilai":5,"wajibRumus":true}
-       ]}
+      <h4>Cek pemahaman</h4>
+      <div data-widget="quiz" data-src="quiz-halaman" class="quiz"></div>
+      <script type="application/json" id="quiz-halaman">
+      {"soal":[
+        {"q":"Margin kiri 4 cm diatur lewat…","opsi":["Home > Font","Layout > Margins > Custom Margins","Insert > Page Break","View > Ruler"],"benar":1,"jelas":"Margin ada di tab Layout. Custom Margins membuka Page Setup untuk mengisi ukuran sendiri."},
+        {"q":"Kamu ingin BAB II selalu dimulai di halaman baru. Cara yang tepat adalah…","opsi":["Tekan Enter sampai pindah halaman","Sisipkan Page Break sebelum BAB II","Perbesar ukuran huruf","Tambahkan spasi"],"benar":1,"jelas":"Page Break (Ctrl+Enter) menjamin BAB II mulai di halaman baru walaupun isi BAB I berubah."}
+      ]}
       </script>
+    </section>
 
+    <!-- ===== HEADING DAN DAFTAR ISI ===== -->
+    <section class="seg" id="seg-daftarisi" data-judul="Heading dan Daftar Isi Otomatis" data-min="13">
+      <h4>Bagaimana daftar isi otomatis bekerja?</h4>
+      <p>Word menyusun daftar isi dari teks yang memakai <strong>Style Heading</strong>. Judul bab diberi <strong>Heading 1</strong>, sub-bab diberi <strong>Heading 2</strong>. Word lalu mencatat judul dan nomor halamannya, sehingga daftar isi tidak perlu diketik manual dan tidak ada nomor halaman yang salah.</p>
+      <table class="data">
+        <thead><tr><th>Bagian dokumen</th><th>Style</th><th>Contoh</th></tr></thead>
+        <tbody>
+          <tr><td>Judul bab</td><td>Heading 1</td><td>BAB I PENDAHULUAN</td></tr>
+          <tr><td>Sub-bab</td><td>Heading 2</td><td>1.1 Latar Belakang</td></tr>
+          <tr><td>Isi paragraf</td><td>Normal</td><td>Teks biasa</td></tr>
+        </tbody>
+      </table>
 
-      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 19 November 2026):<br>
-      1. <a href="https://support.microsoft.com/en-us/office/overview-of-formulas-in-excel-ecfdc708-9162-49e8-b993-c311f47ca173" target="_blank" rel="noopener">Overview of formulas in Excel</a><br>
-      2. <a href="https://support.microsoft.com/en-us/office/sum-function-043e1c7d-7726-4e80-8f32-07b23e057f89" target="_blank" rel="noopener">SUM function</a><br>
-      3. <a href="https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6" target="_blank" rel="noopener">AVERAGE function</a><br>
-      4. <a href="https://support.microsoft.com/en-us/office/count-function-a59cd7fc-b623-4d93-87a4-d23bf411294c" target="_blank" rel="noopener">COUNT function</a><br>
-      5. <a href="https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb" target="_blank" rel="noopener">Excel functions (by category)</a></p>
+      <h4>Langkah 1: beri Style Heading pada judul</h4>
+      <figure class="shot"><img src="gambar/p06-heading.png" alt="Tab Home dengan Style Heading 1 aktif saat kursor berada di judul BAB I PENDAHULUAN" loading="lazy"></figure>
+      <ol>
+        <li>Klik di judul bab, lalu di tab <strong>Home</strong> grup <strong>Styles</strong> klik <strong>Heading 1</strong>. Untuk sub-bab, pilih <strong>Heading 2</strong>.</li>
+        <li>Judul berubah tampilan sesuai style. Tampilan bisa diubah (klik kanan style, lalu <em>Modify</em>) tanpa menghilangkan fungsinya.</li>
+      </ol>
+
+      <h4>Langkah 2: sisipkan daftar isi</h4>
+      <figure class="shot"><img src="gambar/p06-daftarisi-1.png" alt="Tab References dengan menu Table of Contents terbuka berisi Automatic Table 1, Automatic Table 2, Manual Table, dan Custom Table of Contents" loading="lazy"></figure>
+      <ol>
+        <li>Letakkan kursor di halaman DAFTAR ISI. Buka tab <strong>References</strong>, klik <strong>Table of Contents</strong>.</li>
+        <li>Pilih <strong>Custom Table of Contents...</strong> agar judul "DAFTAR ISI" milikmu tidak tertumpuk judul bawaan. Pilihan <em>Automatic Table</em> juga bisa dipakai, tetapi ikut menambah judul "Contents".</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-daftarisi-2.png" alt="Kotak dialog Table of Contents dengan Print Preview, Show page numbers, Tab leader, dan Show levels" loading="lazy"></figure>
+      <ol>
+        <li><strong>Print Preview</strong> menampilkan contoh hasilnya, lengkap dengan titik-titik (<em>tab leader</em>) dan nomor halaman rata kanan.</li>
+        <li><strong>Show levels</strong>: jumlah tingkat heading yang ditampilkan. Isi 2 untuk bab dan sub-bab.</li>
+        <li>Klik <strong>OK</strong>.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-daftarisi-3.png" alt="Daftar isi otomatis berisi BAB I sampai BAB III beserta sub-bab dan nomor halaman" loading="lazy"></figure>
+      <ol>
+        <li>Daftar isi terbentuk lengkap dengan nomor halaman. Tahan <kbd>Ctrl</kbd> lalu klik salah satu baris untuk melompat ke bab tersebut.</li>
+      </ol>
+
+      <h4>Langkah 3: perbarui daftar isi</h4>
+      <p>Daftar isi <strong>tidak berubah sendiri</strong> ketika judul atau nomor halaman berubah. Perbarui setiap kali selesai mengedit.</p>
+      <figure class="shot"><img src="gambar/p06-daftarisi-4.png" alt="Kotak dialog Update Table of Contents dengan pilihan Update page numbers only dan Update entire table" loading="lazy"></figure>
+      <ol>
+        <li>Di tab <strong>References</strong>, klik <strong>Update Table</strong> (atau klik kanan daftar isi, lalu <em>Update Field</em>).</li>
+        <li>Pilih <em>Update page numbers only</em> kalau hanya nomor halaman yang berubah, atau <em>Update entire table</em> kalau ada judul yang ditambah, dihapus, atau diganti.</li>
+      </ol>
+
+      <h4>Cek pemahaman</h4>
+      <div data-widget="quiz" data-src="quiz-daftarisi" class="quiz"></div>
+      <script type="application/json" id="quiz-daftarisi">
+      {"soal":[
+        {"q":"Judul \"1.2 Tujuan\" tidak muncul di daftar isi. Penyebab paling mungkin…","opsi":["Hurufnya kurang besar","Judul itu belum diberi Style Heading 2","Daftar isi rusak","Dokumen belum disimpan"],"benar":1,"jelas":"Daftar isi hanya membaca teks yang memakai Style Heading. Beri Heading 2, lalu Update Table."},
+        {"q":"Kamu menambah sub-bab baru. Pilihan Update Table yang tepat adalah…","opsi":["Update page numbers only","Update entire table"],"benar":1,"jelas":"Ada judul baru, jadi seluruh tabel harus diperbarui (Update entire table)."}
+      ]}
+      </script>
+      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 26 November 2026):<br>
+      1. <a href="https://support.microsoft.com/en-us/office/insert-a-table-of-contents-882e8564-0edb-435e-84b5-1d8552ccf0c0" target="_blank" rel="noopener">Insert a table of contents</a></p>
+    </section>
+
+    <!-- ===== CAPTION ===== -->
+    <section class="seg" id="seg-caption" data-judul="Caption Tabel dan Gambar" data-min="10">
+      <h4>Apa itu caption?</h4>
+      <p><strong>Caption</strong> adalah judul bernomor untuk tabel dan gambar, misalnya <em>Tabel 1. Kunjungan pasien per bulan</em>. Nomornya dibuat Word secara otomatis, jadi kalau ada tabel baru disisipkan di tengah, nomor tabel sesudahnya ikut menyesuaikan.</p>
+      <div class="note"><strong>Aturan umum laporan dan KTI:</strong> judul <strong>tabel</strong> diletakkan <strong>di atas</strong> tabel, sedangkan judul <strong>gambar</strong> (termasuk grafik) diletakkan <strong>di bawah</strong> gambar.</div>
+
+      <h4>Langkah 1: buka Insert Caption dan buat label "Tabel"</h4>
+      <figure class="shot"><img src="gambar/p06-caption-1.png" alt="Kotak dialog Caption terbuka dari tab References dengan kotak Caption berisi Table 1, Label Table, dan tombol New Label" loading="lazy"></figure>
+      <ol>
+        <li>Klik di dalam tabel, lalu di tab <strong>References</strong> klik <strong>Insert Caption</strong>. Kotak <strong>Caption</strong> sudah berisi label dan nomor.</li>
+        <li><strong>Label</strong> bawaan Word berbahasa Inggris (<em>Table</em>, <em>Figure</em>, <em>Equation</em>).</li>
+        <li>Klik <strong>New Label...</strong>, ketik <strong>Tabel</strong>, lalu OK. Lakukan juga untuk label <strong>Gambar</strong>. Label ini cukup dibuat sekali.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-caption-2.png" alt="Kotak dialog Caption berisi Tabel 1. Kunjungan pasien per bulan tahun 2026 dengan Label Tabel dan Position Above selected item" loading="lazy"></figure>
+      <ol>
+        <li>Lengkapi kotak Caption di belakang nomornya, misalnya <em>Tabel 1. Kunjungan pasien per bulan tahun 2026</em>.</li>
+        <li>Pastikan <strong>Label</strong> = Tabel dan <strong>Position</strong> = <em>Above selected item</em> (di atas tabel).</li>
+        <li>Klik <strong>OK</strong>.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-caption-3.png" alt="Caption Tabel 1. Kunjungan pasien per bulan tahun 2026 muncul di atas tabel" loading="lazy"></figure>
+      <ol>
+        <li>Caption muncul di atas tabel. Angka 1 adalah nomor otomatis dari Word.</li>
+      </ol>
+      <p>Untuk gambar atau grafik: klik gambarnya, buka <strong>Insert Caption</strong>, pilih label <strong>Gambar</strong> dan Position <em>Below selected item</em>. Setelah semua caption dibuat, <strong>References &gt; Insert Table of Figures</strong> menyusun <em>Daftar Tabel</em> dan <em>Daftar Gambar</em> secara otomatis, sama seperti daftar isi.</p>
+
+      <h4>Cek pemahaman</h4>
+      <div data-widget="quiz" data-src="quiz-caption" class="quiz"></div>
+      <script type="application/json" id="quiz-caption">
+      {"soal":[
+        {"q":"Caption untuk grafik kunjungan sebaiknya diletakkan…","opsi":["Di atas grafik","Di bawah grafik","Di header halaman","Di daftar isi"],"benar":1,"jelas":"Judul gambar (termasuk grafik) diletakkan di bawah gambar, sedangkan judul tabel di atas tabel."},
+        {"q":"Label caption bawaan Word adalah \"Table\". Agar tertulis \"Tabel\", kamu harus…","opsi":["Mengetik ulang setiap caption","Membuat label baru lewat New Label","Mengganti bahasa Windows","Menghapus nomor"],"benar":1,"jelas":"New Label membuat label Tabel atau Gambar yang tetap bernomor otomatis."}
+      ]}
+      </script>
+      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 26 November 2026):<br>
+      1. <a href="https://support.microsoft.com/en-us/office/add-format-or-delete-captions-in-word-82fa82a4-f0f3-438f-a422-34bb5cef9c81" target="_blank" rel="noopener">Add, format, or delete captions in Word</a></p>
+    </section>
+
+    <!-- ===== SECTION BREAK DAN NOMOR HALAMAN ===== -->
+    <section class="seg" id="seg-nomor" data-judul="Section Break dan Penomoran Halaman" data-min="15">
+      <h4>Page Break atau Section Break?</h4>
+      <p>Laporan dan KTI biasanya memakai dua jenis nomor halaman: halaman depan (kata pengantar, daftar isi) bernomor romawi <strong>i, ii, iii</strong>, sedangkan isi mulai BAB I bernomor <strong>1, 2, 3</strong>. Agar bisa berbeda, dokumen harus dibagi menjadi beberapa <strong>section</strong> (bagian).</p>
+      <table class="data">
+        <thead><tr><th></th><th>Page Break</th><th>Section Break (Next Page)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Fungsi</strong></td><td>Pindah ke halaman baru</td><td>Pindah ke halaman baru <em>dan</em> memulai section baru</td></tr>
+          <tr><td><strong>Pengaturan halaman</strong></td><td>Sama dengan halaman sebelumnya</td><td>Boleh berbeda: format nomor, header/footer, orientasi, margin</td></tr>
+          <tr><td><strong>Contoh pemakaian</strong></td><td>Memulai bab baru</td><td>Batas antara halaman depan (i, ii, iii) dan isi (1, 2, 3)</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Langkah 1: sisipkan Section Break</h4>
+      <figure class="shot"><img src="gambar/p06-section-1.png" alt="Menu Breaks di tab Layout dengan kelompok Page Breaks dan Section Breaks" loading="lazy"></figure>
+      <ol>
+        <li>Letakkan kursor di <strong>awal judul BAB I</strong>. Buka tab <strong>Layout</strong>, klik <strong>Breaks</strong>.</li>
+        <li>Pada kelompok <em>Section Breaks</em>, pilih <strong>Next Page</strong>. BAB I pindah ke halaman baru sekaligus menjadi section 2.</li>
+        <li>Bedakan dengan <strong>Page</strong> di kelompok <em>Page Breaks</em> yang hanya memindahkan halaman.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-section-2.png" alt="Tanda Section Break (Next Page) terlihat di akhir halaman daftar isi setelah Show/Hide diaktifkan" loading="lazy"></figure>
+      <ol>
+        <li>Klik tombol <strong>&para; (Show/Hide)</strong> di tab Home untuk melihat tanda <em>Section Break (Next Page)</em>. Kalau ada Page Break sisa di tempat yang sama, hapus agar tidak muncul halaman kosong.</li>
+      </ol>
+
+      <h4>Langkah 2: sisipkan nomor halaman</h4>
+      <figure class="shot"><img src="gambar/p06-nomor-1.png" alt="Menu Page Number di tab Insert berisi Top of Page, Bottom of Page, Page Margins, Current Position, Format Page Numbers, dan Remove Page Numbers" loading="lazy"></figure>
+      <ol>
+        <li>Buka tab <strong>Insert</strong>, klik <strong>Page Number</strong>.</li>
+        <li>Pilih letak nomor, misalnya <strong>Bottom of Page</strong> (bawah halaman).</li>
+        <li><strong>Format Page Numbers...</strong> dipakai untuk mengubah bentuk nomor dan nomor awal (langkah 3).</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-nomor-2.png" alt="Galeri Bottom of Page dengan pilihan Plain Number 1, Plain Number 2, dan Plain Number 3" loading="lazy"></figure>
+      <ol>
+        <li>Pilih <strong>Plain Number 2</strong> untuk nomor di tengah bawah.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-nomor-3.png" alt="Footer section 2 terbuka dengan label Same as Previous, tombol Link to Previous aktif, dan nomor halaman 4" loading="lazy"></figure>
+      <ol>
+        <li>Footer terbuka dan diberi label <strong>Footer -Section 2-</strong>, tanda kita berada di section isi.</li>
+        <li><strong>Same as Previous</strong> berarti isi footer ini masih tertaut ke section sebelumnya.</li>
+        <li>Tombol <strong>Link to Previous</strong> memutus atau menyambung tautan itu. Putuskan kalau isi footer (misalnya teks atau letak nomor) harus berbeda antar section.</li>
+        <li>Nomornya masih <strong>4</strong> karena melanjutkan hitungan dari halaman depan. Ini diperbaiki di langkah berikutnya.</li>
+      </ol>
+
+      <h4>Langkah 3: atur format nomor per section</h4>
+      <figure class="shot"><img src="gambar/p06-nomor-4.png" alt="Kotak dialog Page Number Format pada section 2 dengan Number format 1, 2, 3 dan Start at dipilih" loading="lazy"></figure>
+      <ol>
+        <li>Masih di footer section 2: tab <strong>Header &amp; Footer</strong>, <strong>Page Number &gt; Format Page Numbers</strong>. Pilih <strong>Start at</strong> dan isi <strong>1</strong>, agar BAB I dimulai dari halaman 1.</li>
+        <li><strong>Number format</strong> tetap <em>1, 2, 3, ...</em>. Klik OK.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-nomor-5.png" alt="Kotak dialog Page Number Format pada section 1 dengan Number format i, ii, iii" loading="lazy"></figure>
+      <ol>
+        <li>Pindah ke footer section 1 (tombol <strong>Previous</strong>), buka lagi Format Page Numbers, lalu pilih <strong>Number format</strong> <em>i, ii, iii, ...</em> untuk halaman depan. Klik OK.</li>
+        <li>Pastikan labelnya <strong>Footer -Section 1-</strong>.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-daftarisi-5.png" alt="Tampilan beberapa halaman: halaman depan bernomor i, ii, iii dan daftar isi menunjuk BAB I di halaman 1" loading="lazy"></figure>
+      <ol>
+        <li>Setelah <strong>Update Table</strong>, daftar isi menunjuk BAB I di halaman 1, BAB II di halaman 2, dan BAB III di halaman 3.</li>
+        <li>Halaman depan bernomor <strong>i, ii, iii</strong>.</li>
+      </ol>
+      <div class="note"><strong>Sampul tanpa nomor:</strong> di footer section 1, centang <strong>Different First Page</strong> (tab Header &amp; Footer) sehingga halaman pertama (sampul) tidak menampilkan nomor.</div>
+
+      <h4>Langkah 4: nomor di awal bab (tengah bawah) dan halaman berikutnya (kanan bawah)</h4>
+      <p>Pada laporan dan KTI, nomor halaman biasanya diletakkan <strong>di tengah bawah pada halaman pertama setiap bab</strong>, sedangkan <strong>halaman berikutnya di kanan bawah</strong>. Karena letaknya berbeda di halaman pertama, dipakai fitur <strong>Different First Page</strong>. Fitur ini berlaku per section, jadi <strong>setiap bab harus menjadi section sendiri</strong>: sisipkan Section Break (Next Page) sebelum BAB I, BAB II, BAB III, dan seterusnya.</p>
+      <figure class="shot"><img src="gambar/p06-nomor-6.png" alt="Footer halaman pertama BAB I dengan Different First Page dicentang sehingga label berubah menjadi First Page Footer -Section 2-" loading="lazy"></figure>
+      <ol>
+        <li>Buka footer halaman pertama bab (klik dua kali area bawah halaman, atau <strong>Insert &gt; Footer &gt; Edit Footer</strong>), lalu centang <strong>Different First Page</strong> di tab Header &amp; Footer.</li>
+        <li>Label footer berubah menjadi <strong>First Page Footer</strong>: footer halaman pertama kini terpisah dari footer halaman lainnya.</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-nomor-7.png" alt="Galeri Page Number Bottom of Page dengan Plain Number 2 di tengah dan Plain Number 3 di kanan" loading="lazy"></figure>
+      <ol>
+        <li>Di <strong>First Page Footer</strong>, pilih <strong>Page Number &gt; Bottom of Page &gt; Plain Number 2</strong> (tengah).</li>
+        <li>Klik <strong>Next</strong> untuk pindah ke footer halaman berikutnya, lalu pilih <strong>Plain Number 3</strong> (kanan).</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-nomor-8.png" alt="Halaman pertama BAB I dengan nomor 1 di tengah bawah pada First Page Footer" loading="lazy"></figure>
+      <ol>
+        <li><strong>First Page Footer -Section 2-</strong>: halaman pertama BAB I.</li>
+        <li>Nomor <strong>1</strong> berada di tengah bawah (sudah diatur <em>Start at 1</em> seperti langkah 3).</li>
+      </ol>
+      <figure class="shot"><img src="gambar/p06-nomor-9.png" alt="Halaman kedua BAB I dengan nomor 2 di kanan bawah pada Footer -Section 2-" loading="lazy"></figure>
+      <ol>
+        <li><strong>Footer -Section 2-</strong>: halaman kedua dan seterusnya dalam BAB I.</li>
+        <li>Nomor <strong>2</strong> berada di kanan bawah.</li>
+      </ol>
+      <div class="warn-box"><strong>Ulangi di setiap bab.</strong> Centang Different First Page pada section BAB II, BAB III, dan seterusnya, lalu periksa apakah nomornya sudah tengah bawah di halaman awal bab dan kanan bawah di halaman lain. Untuk bab berikutnya pilih <em>Continue from previous section</em> agar nomor tidak mulai lagi dari 1.</div>
+
+      <h4>Cek pemahaman</h4>
+      <div data-widget="quiz" data-src="quiz-nomor" class="quiz"></div>
+      <script type="application/json" id="quiz-nomor">
+      {"soal":[
+        {"q":"BAB I masih bernomor 4, padahal harus 1. Yang perlu diubah adalah…","opsi":["Hapus nomor di halaman 1 sampai 3","Format Page Numbers di section 2: Start at 1","Ganti ukuran huruf nomor","Sisipkan Page Break"],"benar":1,"jelas":"Start at 1 pada section isi membuat hitungan mulai lagi dari 1."},
+        {"q":"Mengapa halaman depan dan isi bisa punya format nomor berbeda?","opsi":["Karena dipisahkan Section Break","Karena dipisahkan Page Break","Karena memakai font berbeda","Karena berbeda orientasi"],"benar":0,"jelas":"Format nomor halaman diatur per section. Tanpa Section Break, seluruh dokumen hanya satu section."},
+        {"q":"Nomor halaman pertama setiap bab harus di tengah bawah, halaman lainnya di kanan bawah. Fitur yang dipakai adalah…","opsi":["Different Odd & Even Pages","Different First Page","Link to Previous","Page Margins"],"benar":1,"jelas":"Different First Page memisahkan footer halaman pertama section (awal bab) dari footer halaman lainnya."}
+      ]}
+      </script>
+      <p class="kriteria"><strong>Referensi</strong> (Microsoft Support, diakses 26 November 2026):<br>
+      1. <a href="https://support.microsoft.com/en-us/office/insert-a-section-break-eef20fd8-e38c-4ba6-a027-e503bdf8375c" target="_blank" rel="noopener">Insert a section break</a><br>
+      2. <a href="https://support.microsoft.com/en-us/office/insert-page-numbers-9f366518-0500-4b45-903d-987d3827c007" target="_blank" rel="noopener">Insert page numbers</a><br>
+      3. <a href="https://support.microsoft.com/en-us/office/start-page-numbering-later-in-your-document-c73e3d55-d722-4bd0-886e-0b0bd0eb3f02" target="_blank" rel="noopener">Start page numbering later in your document</a></p>
     </section>
 
     <!-- ===== PRAKTIK ===== -->
-    <section class="seg" id="seg-praktik" data-judul="Praktik / Simulasi" data-min="25">
-      <p>Latihan lengkap: data kunjungan poli fiktif RS Harapan Bersama selama sepekan. Selesaikan 5 tantangan bertingkat.</p>
-      <p class="note"><strong>Data di bawah sepenuhnya fiktif</strong> dan hanya digunakan untuk keperluan pembelajaran.</p>
-
-      <div data-widget="minisheet" data-src="ms-praktik"></div>
-      <script type="application/json" id="ms-praktik">
-      {"baris":16,"kolom":6,
-       "sel":{
-         "A1":"Poli","B1":"Senin","C1":"Selasa","D1":"Rabu","E1":"Kamis","F1":"Jumat",
-         "A2":"Umum","B2":"45","C2":"38","D2":"52","E2":"41","F2":"49",
-         "A3":"Gigi","B3":"12","C3":"15","D3":"10","E3":"18","F3":"14",
-         "A4":"Anak","B4":"28","C4":"32","D4":"25","E4":"30","F4":"27",
-         "A5":"Kandungan","B5":"8","C5":"11","D5":"9","E5":"7","F5":"12",
-         "A6":"THT","B6":"15","C6":"13","D6":"17","E6":"14","F6":"16",
-         "A7":"Saraf","B7":"10","C7":"12","D7":"8","E7":"11","F7":"9",
-         "A8":"Kulit","B8":"20","C8":"18","D8":"22","E8":"19","F8":"21",
-         "A10":"=== Isi jawaban di kolom B baris 11–15 ===",
-         "A11":"1) Total kunjungan Poli Umum (sepekan)",
-         "A12":"2) Rata-rata per hari Poli Umum",
-         "A13":"3) Jumlah jenis poli (COUNT kolom B)",
-         "A14":"4) Kunjungan tertinggi Poli Umum (MAX)",
-         "A15":"5) Total SEMUA kunjungan semua poli"
-       },
-       "tantangan":[
-         {"teks":"B11 = Total kunjungan Poli Umum sepekan","sel":"B11","nilai":225,"wajibRumus":true},
-         {"teks":"B12 = Rata-rata per hari Poli Umum","sel":"B12","nilai":45,"wajibRumus":true},
-         {"teks":"B13 = Jumlah jenis poli","sel":"B13","nilai":7,"wajibRumus":true},
-         {"teks":"B14 = Kunjungan tertinggi Poli Umum","sel":"B14","nilai":52,"wajibRumus":true},
-         {"teks":"B15 = Total semua kunjungan semua poli","sel":"B15","nilai":708,"wajibRumus":true}
-       ]}
-      </script>
-
+    <section class="seg" id="seg-praktik" data-judul="Praktik: Merapikan Laporan Tahunan" data-min="20">
       <div class="tugas-lab">
-        <h4>Tugas Lab: Rekap Penjualan Farmasi di Excel Nyata</h4>
-        <p><strong>Kasus:</strong> bagian farmasi RS Harapan Bersama (fiktif) meminta rekap penjualan 24 jenis obat untuk satu bulan. Data mentah sudah ada, tetapi belum dihitung dan <strong>sebagian datanya salah tipe</strong>. Selesaikan seluruh tahap di bawah ini.</p>
-        <p><a class="btn sec" href="unduhan/data-rekap-farmasi.xlsx" download style="display:inline-block;text-decoration:none">Unduh data-rekap-farmasi.xlsx</a></p>
-        <h4>Tahap A: periksa tipe data</h4>
+        <h4>Tugas Lab: Merapikan Laporan Tahunan Rekam Medis di Word Nyata</h4>
+        <p><strong>Kasus:</strong> Bagian Rekam Medis RS Harapan Bersama (fiktif) sudah menulis isi laporan tahunan, tetapi belum dirapikan: belum ada daftar isi, tabel dan gambar belum berjudul, dan belum ada nomor halaman. Rapikan dokumen berikut.</p>
+        <p><a class="btn sec" href="unduhan/bahan-laporan-p06.docx" download style="display:inline-block;text-decoration:none">Unduh bahan-laporan-p06.docx</a></p>
         <ol>
-          <li>Buka berkas, lihat kolom <strong>Harga Satuan</strong> dan <strong>Jumlah Terjual</strong>. Ada beberapa sel yang berisi teks (rata kiri atau berlabel segitiga hijau). Temukan semuanya.</li>
-          <li>Ubah setiap sel tersebut menjadi angka murni. Buktikan berhasil dengan fungsi COUNT: jumlah angka di tiap kolom harus <strong>24</strong>.</li>
+          <li>Atur halaman: A4, Portrait, margin atas 4, kiri 4, bawah 3, kanan 3 cm.</li>
+          <li>Susun halaman: sampul, KATA PENGANTAR, DAFTAR ISI, DAFTAR TABEL, dan DAFTAR GAMBAR masing-masing di halaman sendiri (Page Break). BAB I, BAB II, dan BAB III juga selalu mulai di halaman baru.</li>
+          <li>Beri <strong>Heading 1</strong> pada judul bab dan <strong>Heading 2</strong> pada sub-bab.</li>
+          <li>Beri caption pada 2 tabel (label <em>Tabel</em>, di atas tabel) dan 2 grafik (label <em>Gambar</em>, di bawah gambar), lengkap dengan judul yang jelas.</li>
+          <li>Sisipkan daftar isi otomatis, Daftar Tabel, dan Daftar Gambar (<em>Insert Table of Figures</em>).</li>
+          <li>Sisipkan <strong>Section Break (Next Page)</strong> sebelum BAB I, BAB II, dan BAB III, sehingga setiap bab menjadi section sendiri.</li>
+          <li>Nomor halaman: halaman depan i, ii, iii di tengah bawah (sampul tanpa nomor). Isi mulai 1: halaman pertama setiap bab di <strong>tengah bawah</strong> dan halaman berikutnya di <strong>kanan bawah</strong> (Different First Page di setiap bab).</li>
+          <li><strong>Update</strong> daftar isi, Daftar Tabel, dan Daftar Gambar, lalu simpan sebagai <em>Nama_NIM_P06.docx</em> dan kumpulkan.</li>
         </ol>
-        <h4>Tahap B: hitung per baris (baris 2 sampai 25)</h4>
-        <ol start="3">
-          <li>Kolom <strong>Subtotal</strong>: Harga × Jumlah Terjual.</li>
-          <li>Kolom <strong>Diskon</strong>: Subtotal × persentase diskon yang tertulis di sel <strong>N1</strong>. Persentase itu harus <strong>dikunci</strong> dengan referensi absolut agar tetap benar saat rumus disalin ke 24 baris.</li>
-          <li>Kolom <strong>Total Bayar</strong>: Subtotal dikurangi Diskon.</li>
-          <li>Kolom <strong>Stok Akhir</strong>: Stok Awal dikurangi Jumlah Terjual.</li>
-          <li>Kolom <strong>Kontribusi</strong>: Total Bayar tiap obat dibagi total seluruh Total Bayar, ditampilkan sebagai <strong>persen</strong> (atur lewat Number Format). Total pembaginya harus dikunci.</li>
-        </ol>
-        <h4>Tahap C: ringkasan (baris 29 sampai 33, hasil di kolom E)</h4>
-        <ol start="8">
-          <li>Total pendapatan (jumlah seluruh Total Bayar).</li>
-          <li>Total unit terjual.</li>
-          <li>Rata-rata harga satuan.</li>
-          <li>Jumlah jenis obat.</li>
-          <li>Rata-rata Total Bayar per jenis obat.</li>
-        </ol>
-        <h4>Tahap D: uji dan simpan</h4>
-        <ol start="13">
-          <li>Ubah persentase diskon di N1 menjadi 10%. Seluruh kolom Diskon, Total Bayar, Kontribusi, dan ringkasan harus ikut berubah. Kembalikan ke 5%.</li>
-          <li>Simpan sebagai <em>Nama_NIM_P06.xlsx</em> dan kumpulkan.</li>
-        </ol>
-        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Seluruh sel teks pada Harga dan Jumlah sudah menjadi angka (COUNT = 24). 2) Semua rumus diawali = dan memakai alamat sel, tanpa angka yang diketik manual. 3) Referensi absolut dipakai dengan benar untuk diskon dan total pembagi. 4) Hasil perhitungan dan ringkasan tepat. 5) Kolom Kontribusi berformat persen. 6) File disimpan sebagai .xlsx dengan nama yang sesuai.</p>
+        <p class="kriteria"><strong>Kriteria penilaian:</strong> 1) Pengaturan halaman sesuai standar. 2) Style Heading dan daftar isi otomatis benar dan sudah diperbarui. 3) Caption tabel dan gambar lengkap, bernomor, dan letaknya benar, beserta Daftar Tabel dan Daftar Gambar. 4) Section break dan penomoran halaman benar (romawi untuk halaman depan, angka mulai 1 untuk isi, sampul tanpa nomor, halaman awal bab di tengah bawah dan halaman lain di kanan bawah). 5) File .docx dengan nama yang sesuai.</p>
       </div>
     </section>
 
@@ -638,11 +465,11 @@ nav.agenda{display:none!important}
       <div data-widget="quiz" data-src="quiz-post" data-role="post" class="quiz"></div>
       <script type="application/json" id="quiz-post">
       {"judul":"Post-test","soal":[
-        {"q":"Rumus =SUM(D2:D6) menghitung…","opsi":["Hanya sel D2 dan D6","Semua sel dari D2 sampai D6","Rata-rata D2 hingga D6","Jumlah sel yang berisi angka di kolom D"],"benar":1,"jelas":"Titik dua (:) dalam rentang berarti 'dari ... sampai ...', sehingga =SUM(D2:D6) menjumlahkan D2, D3, D4, D5, dan D6."},
-        {"q":"Jika sel B2 berisi 'Rp 50.000' (dengan teks Rp), maka =SUM(B2:B5) akan…","opsi":["Menjumlahkan nilai mata uangnya","Menghasilkan 0 atau mengabaikan sel B2","Menghasilkan error #VALUE!","Mengkonversi otomatis ke angka"],"benar":1,"jelas":"SUM mengabaikan teks. Sel berisi teks dianggap 0, sehingga tidak ikut dijumlahkan. Solusi: hilangkan simbol Rp dan gunakan format Currency."},
-        {"q":"Fungsi =COUNT(B2:B10) menghitung…","opsi":["Jumlah semua sel (kosong maupun isi)","Jumlah sel yang berisi teks","Jumlah sel yang berisi angka","Jumlah karakter dalam sel"],"benar":2,"jelas":"COUNT hanya menghitung sel berisi angka. Untuk menghitung semua sel tidak kosong (termasuk teks), gunakan COUNTA."},
-        {"q":"Dari data: {20, 30, 40, 50, 60}, nilai =AVERAGE(A1:A5) adalah…","opsi":["150","30","40","50"],"benar":2,"jelas":"Rata-rata = (20+30+40+50+60)÷5 = 200÷5 = 40."},
-        {"q":"Mengapa angka harus rata kanan dan teks rata kiri di Excel?","opsi":["Sekadar selera tampilan","Karena aturan internasional","Excel menggunakan perataan default untuk menunjukkan tipe data: angka selalu rata kanan, teks selalu rata kiri","Karena keyboard lebih mudah mengetik ke kiri"],"benar":2,"jelas":"Perataan default Excel adalah tanda tipe data: angka (termasuk tanggal) rata kanan, teks rata kiri. Ini membantu mendeteksi angka yang tersimpan sebagai teks."}
+        {"q":"Setelah menambah bab baru, daftar isi belum berubah. Yang harus dilakukan adalah…","opsi":["Menghapus daftar isi lalu mengetik ulang","Klik Update Table, pilih Update entire table","Menyimpan ulang dokumen","Mengganti font daftar isi"],"benar":1,"jelas":"Daftar isi tidak berubah sendiri. Update entire table membaca ulang semua heading."},
+        {"q":"Di footer bagian isi tertulis \"Same as Previous\". Artinya…","opsi":["Footer masih tertaut ke section sebelumnya","Footer kosong","Nomor halaman salah","Dokumen belum disimpan"],"benar":0,"jelas":"Same as Previous menandakan footer tersambung dengan section sebelumnya. Tombol Link to Previous memutus tautan itu."},
+        {"q":"Agar BAB I dimulai dari halaman 1, pada Format Page Numbers pilih…","opsi":["Continue from previous section","Start at: 1","Include chapter number","Number format a, b, c"],"benar":1,"jelas":"Start at 1 membuat penomoran section isi dimulai lagi dari 1."},
+        {"q":"Letak caption yang benar menurut aturan umum laporan adalah…","opsi":["Tabel di bawah, gambar di atas","Tabel di atas, gambar di bawah","Keduanya di atas","Keduanya di bawah"],"benar":1,"jelas":"Judul tabel di atas tabel, judul gambar di bawah gambar."},
+        {"q":"Perbedaan Section Break (Next Page) dengan Page Break adalah…","opsi":["Section Break tidak memindahkan halaman","Section Break memulai section baru sehingga format nomor halaman dan header/footer bisa berbeda","Section Break hanya untuk dokumen landscape","Tidak ada bedanya"],"benar":1,"jelas":"Keduanya pindah halaman, tetapi Section Break juga memulai section baru dengan pengaturan sendiri."}
       ]}
       </script>
       <h4>Perbandingan Pre-test vs Post-test</h4>
@@ -653,15 +480,15 @@ nav.agenda{display:none!important}
     <section class="seg" id="seg-penutup" data-judul="Penutup" data-min="3">
       <h4>Ringkasan 5 Poin Kunci</h4>
       <ol>
-        <li><strong>Anatomi Excel</strong>: Name Box (alamat sel), Formula Bar (isi/rumus), header kolom (huruf), header baris (angka), sheet tab (lembar).</li>
-        <li><strong>Alamat sel</strong>: huruf = kolom, angka = baris. B3 = Kolom B Baris 3. Rentang B2:B10 berarti B2 sampai B10.</li>
-        <li><strong>Tipe data</strong>: Angka murni (rata kanan) bisa dihitung. Teks dan angka dengan simbol (Rp, %) tidak bisa dihitung langsung.</li>
-        <li><strong>Formula dasar</strong>: semua rumus diawali =. Operator: * (kali), / (bagi), + (tambah), - (kurang). Urutan: kurung dahulu, lalu */, baru +-.</li>
-        <li><strong>SUM/AVERAGE/COUNT</strong>: =SUM(rentang) menjumlahkan, =AVERAGE(rentang) merata-ratakan, =COUNT(rentang) menghitung banyaknya angka.</li>
+        <li><strong>Atur halaman di awal</strong>: A4, margin standar, orientasi. Pindah halaman pakai Page Break (Ctrl+Enter), bukan Enter berulang.</li>
+        <li><strong>Style Heading</strong> (Heading 1 untuk bab, Heading 2 untuk sub-bab) adalah syarat daftar isi otomatis.</li>
+        <li><strong>Daftar isi</strong> disisipkan dari References &gt; Table of Contents dan harus di-<em>Update</em> setiap kali dokumen berubah.</li>
+        <li><strong>Caption</strong> memberi nomor otomatis: tabel di atas, gambar di bawah. Daftar Tabel dan Daftar Gambar dibuat dengan Insert Table of Figures.</li>
+        <li><strong>Section Break</strong> memungkinkan nomor halaman berbeda: halaman depan i, ii, iii dan isi mulai 1. <strong>Different First Page</strong> membuat halaman awal bab bernomor di tengah bawah, halaman lain di kanan bawah.</li>
       </ol>
       <h4>Refleksi</h4>
       <div data-widget="reflect" data-key="refleksi-p06" data-prompt="Satu hal paling berguna hari ini dan satu hal yang masih membingungkan:"></div>
-      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 07 akan membahas fungsi MAX, MIN, dan cara membuat grafik dari data kunjungan RS. Pastikan file .xlsx dari Tugas Lab sudah disiapkan.</p>
+      <p class="note"><strong>Tindak lanjut:</strong> Pertemuan 07: Microsoft Excel Dasar. Mulai sekarang, pakai fitur hari ini untuk setiap laporan dan tugas panjang, termasuk KTI.</p>
     </section>
 
   </main>
@@ -672,9 +499,9 @@ nav.agenda{display:none!important}
 const KONFIG = {
   kode: "krs-p06",
   nomor: "06",
-  judul: "Microsoft Excel Dasar",
-  cpmk: "CPMK-2: Mampu menerapkan operasi matematika dasar pada MS Excel untuk data administrasi RS.",
-  tujuan: ["Menjelaskan apa itu Excel dan kegunaannya di rumah sakit", "Mengenal cell, row, column, dan antarmuka lembar kerja Excel", "Memahami tipe data (teks, angka, tanggal, persen) dan referensi sel", "Menggunakan operator dan formula SUM, AVERAGE, COUNT"],
+  judul: "Word Lanjutan: Halaman, Caption, Daftar Isi, dan Nomor Halaman",
+  cpmk: "CPMK-1: Mampu mengoptimalkan fitur lanjutan MS Word untuk menyusun dokumen panjang RS yang rapi dan terstruktur.",
+  tujuan: ["Mengatur ukuran kertas, margin, orientasi, dan halaman baru dengan benar", "Memakai Style Heading dan membuat serta memperbarui daftar isi otomatis", "Membuat caption tabel dan gambar serta daftar tabel dan gambar", "Memakai section break untuk penomoran halaman yang berbeda (i, ii, iii dan 1, 2, 3)"],
   totalMenit: 90
 };
 

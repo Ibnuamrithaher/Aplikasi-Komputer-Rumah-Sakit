@@ -19,10 +19,10 @@ Nama file mengikuti nomor minggu pada RPS. Minggu 8 (UTS) dan 16 (UAS) tidak dib
 | pertemuan-03.html | 3 | Perangkat lunak (software) & pemetaan aplikasi |
 | pertemuan-04.html | 4 | MS Word untuk administrasi RS |
 | pertemuan-05.html | 5 | Word lanjutan & Mail Merge |
-| pertemuan-06.html | 6 | Excel dasar |
-| pertemuan-07.html | 7 | Excel lanjutan (grafik & statistik) |
-| pertemuan-09.html | 9 | PowerPoint dasar |
-| pertemuan-10.html | 10 | PowerPoint lanjutan (data storytelling, dasbor) |
+| pertemuan-06.html | 6 | Word lanjutan: halaman, caption, daftar isi, section break, nomor halaman |
+| pertemuan-07.html | 7 | Excel dasar |
+| pertemuan-09.html | 9 | Excel lanjutan (grafik & statistik) |
+| pertemuan-10.html | 10 | PowerPoint (desain slide, data storytelling, dasbor; gabungan dasar dan lanjutan) |
 | pertemuan-11.html | 11 | Integrasi Office bagian 1 (OLE, Word-Excel) |
 | pertemuan-12.html | 12 | Integrasi Office bagian 2 (Excel-PowerPoint) |
 | pertemuan-13.html | 13 | Email resmi RS |
@@ -148,27 +148,32 @@ Setiap spesifikasi memuat: segmen inti (widget) dan segmen praktik. Pre/post-tes
 - Inti 3: `sortlist` 6 langkah Mail Merge (Mailings > Start Mail Merge > Select Recipients > Insert Merge Field > Preview > Finish & Merge).
 - Praktik: Simulator Mail Merge: tabel data pasien kontrol fiktif (10 baris, bisa diedit), master surat dengan kolom bertanda «Nama», «Poli», «Tanggal», tombol pratinjau panah kiri/kanan antar penerima, tombol "Gabungkan semua" memperlihatkan semua surat. Lalu Tugas Lab: Mail Merge undangan kontrol di Word dengan CSV yang bisa diunduh dari halaman.
 
-### P06 — Excel Dasar
+### P06 — Word Lanjutan: Dokumen Panjang
+- Materi: pengaturan halaman (ukuran kertas, margin, orientasi), Insert Caption untuk tabel dan gambar, daftar isi otomatis dari Heading, section break, dan penomoran halaman berbeda per section.
+- Semua langkah memakai tangkapan layar Word asli bernomor, disertai referensi.
+
+### P07 — Excel Dasar
 - Inti 1: Anatomi lembar kerja (hotspot: cell, row, column, nama sel, formula bar; latihan klik sel lalu sebut alamatnya).
 - Inti 2: Tipe data (teks, angka, tanggal, persen) dengan `dragmatch` dan contoh dampak salah tipe.
 - Inti 3: Operator + - * / dan urutan operasi dalam `minisheet`.
 - Inti 4: SUM, AVERAGE, COUNT dalam `minisheet` dengan data stok obat fiktif.
 - Praktik: 5 tantangan bertingkat di `minisheet` (hitung total, rata-rata, jumlah data, total biaya = harga x jumlah, kombinasi), pengecekan jawaban otomatis. Lalu Tugas Lab di Excel: dataset kunjungan poli yang diunduh dari halaman.
 
-### P07 — Excel Lanjutan
+### P09 — Excel Lanjutan
 - Inti 1: MAX dan MIN dalam `minisheet` (kunjungan tertinggi/terendah per bulan).
 - Inti 2: Memilih jenis grafik (Bar untuk perbandingan, Line untuk tren, Pie untuk proporsi) dengan `quiz` kasus.
 - Inti 3: Pembuat grafik: tabel data editable memperbarui bar/line/pie langsung.
 - Praktik: Studi kasus kunjungan 12 bulan: hitung MAX/MIN/AVERAGE, pilih grafik yang tepat, tulis satu kalimat interpretasi. Tugas Lab: laporan ringkasan biaya operasional dengan grafik di Excel.
 
-### P09 — PowerPoint Dasar
+### P10 — PowerPoint (gabungan dasar dan lanjutan)
+Bagian dasar:
 - Inti 1: Prinsip desain slide formal (geser "sebelum/sesudah" slide jelek vs baik).
 - Inti 2: Pemeriksa kontras warna (pilih warna teks/latar, hitung rasio kontras, beri label Lulus/Gagal AA).
 - Inti 3: Aturan teks (maksimal poin, ukuran font minimum, 1 pesan per slide; slider ukuran font dengan pratinjau slide).
 - Inti 4: Penyisipan tabel/gambar dan transisi/animasi fungsional (quiz "animasi mana yang membantu").
 - Praktik: Editor slide mini: pilih layout, isi judul dan poin, pratinjau 16:9, penilai otomatis (jumlah kata, kontras). Tugas Lab: slide profil/laporan kinerja RS di PowerPoint.
 
-### P10 — PowerPoint Lanjutan
+Bagian lanjutan:
 - Inti 1: Data storytelling (tombol "angka mentah" ↔ "cerita": data BOR, LOS, TOI, BTO, NDR, GDR yang sama ditampilkan dua cara).
 - Inti 2: Kalkulator indikator RS (BOR, LOS, TOI, BTO dengan rumus dan data fiktif; tampil rumus + hasil).
 - Inti 3: Interaktivitas (hyperlink, action button, slide zoom) lewat demo presentasi mini di halaman dengan menu navigasi non-linear.
@@ -219,7 +224,7 @@ Setiap spesifikasi memuat: segmen inti (widget) dan segmen praktik. Pre/post-tes
 - [ ] Semua data pasien/pegawai fiktif.
 - [ ] Teks isi minimal 18px, kontras terbaca.
 - [ ] Kriteria/indikator penilaian RPS pertemuan tersebut muncul pada kartu Tugas Lab.
-- [ ] `minisheet` (P06, P07): semua formula di bagian 5 menghasilkan angka benar; input tidak valid menampilkan `#ERROR`, tidak membuat halaman crash.
+- [ ] `minisheet` (P07, P09): semua formula di bagian 5 menghasilkan angka benar; input tidak valid menampilkan `#ERROR`, tidak membuat halaman crash.
 
 ## 9. Hal yang JANGAN dilakukan
 
